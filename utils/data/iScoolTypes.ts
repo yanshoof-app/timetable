@@ -18,7 +18,7 @@ export interface ILessonIscool extends IStudyGroupIscool {
 export interface ILessonArrMemberIscool {
   Day: DayOfWeek;
   Hour: HourOfDay;
-  Lessons: ILessonArrMemberIscool[];
+  Lessons: ILessonIscool[];
 }
 
 type IscoolChangeType =
@@ -39,8 +39,8 @@ export interface IChangeIscool {
   NewHour: HourOfDay;
 }
 
-export namespace ISCOOL {
-  function toClass(Te: string, Room: string): string {
+export class ISCOOL {
+  static toClass(Te: string, Room: string): string {
     return Te == ''
       ? Room
       : Te == ONLINE
@@ -49,7 +49,7 @@ export namespace ISCOOL {
       ? ONLINE_ASYNCRONOUS
       : CLASS_UNAVAILABLE;
   }
-  function toChange(
+  static toChange(
     Subject: string,
     Teacher: String,
     change?: IChangeIscool
@@ -88,15 +88,23 @@ export namespace ISCOOL {
         };
     }
   }
-  function toLesson(
-    { Subject, Teacher, Te, Room }: ILessonIscool,
-    change?: IChangeIscool
-  ): ILesson {
+  static toLesson({ Subject, Teacher, Te, Room }: ILessonIscool): ILesson {
     return {
       subject: Subject,
       teacher: Teacher,
-      class: toClass(Te, Room),
-      ...toChange(Subject, Teacher, change),
+      class: ISCOOL.toClass(Te, Room),
     };
   }
+}
+
+export interface IChangesResponse {
+  ClassId: number;
+  Changes: IChangeIscool[];
+  Status: string;
+}
+
+export interface IScheduleResponse {
+  ClassId: number;
+  Schedule: ILessonArrMemberIscool[];
+  Status: string;
 }
