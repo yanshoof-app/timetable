@@ -41,8 +41,11 @@ export class Timetable implements ITimetable<ILesson> {
 
       const group = studyGroups[groupIndex];
       this.lessons[day][hourIndex] = hourlyLessons.find(
-        ({ subject, teacher }: ILesson) =>
-          group[0] == subject && group[1] == teacher
+        ({ subject, teacher }: ILesson) => {
+          const match = group[0] == subject && group[1] == teacher;
+          // if (match) console.log(day, hourIndex, ...group);
+          return match;
+        }
       );
     } // end of for
     return this;
