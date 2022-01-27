@@ -1,6 +1,6 @@
 import { IChangesResponse, IScheduleResponse } from '../utils/timetable/types';
 import axios from 'axios';
-import { buildFetchUrl } from '../utils/buildFetchUrl';
+import { buildFetchUrl } from '../utils/datasource';
 import { IScheduleSettings } from '../interfaces';
 import { FullTimeable } from '../utils/timetable/FullTimetable';
 import { Timetable } from '../utils/timetable/timetable';
