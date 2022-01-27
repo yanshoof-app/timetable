@@ -1,6 +1,8 @@
 import { IModification, LessonModification, ILesson } from '../interfaces';
+import { IClass } from '../interfaces/class';
 import { IChangeIscool, ILessonIscool } from './schedule/types';
 import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
+import { IClassIscool } from './class/types';
 
 export class ISCOOL {
   static toClass(Te: string, Room: string): string {
@@ -56,6 +58,13 @@ export class ISCOOL {
       subject: Subject,
       teacher: Teacher,
       class: ISCOOL.toClass(Te, Room),
+    };
+  }
+  static toClassLookupResult({ Id, Grade, Number }: IClassIscool) : IClass {
+    return {
+      id: Id,
+      grade: Grade,
+      class: Number,
     };
   }
 }
