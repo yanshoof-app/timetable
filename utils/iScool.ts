@@ -1,4 +1,4 @@
-import { Modification, LessonModification, ILesson } from '../interfaces';
+import { IModification, LessonModification, ILesson } from '../interfaces';
 import { IChangeIscool, ILessonIscool } from './schedule/types';
 import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
 
@@ -16,7 +16,7 @@ export class ISCOOL {
     Subject: string,
     Teacher: String,
     change?: IChangeIscool
-  ): Modification {
+  ): IModification {
     if (
       !change ||
       change.StudyGroup.Subject != Subject ||

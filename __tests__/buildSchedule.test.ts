@@ -1,6 +1,6 @@
 import { IScheduleResponse } from '../utils/schedule/types';
 import axios from 'axios';
-import buildFullSchedule from '../utils/schedule/buildSchedule';
+import { buildFullSchedule } from '../utils/schedule/buildSchedule';
 import { buildFetchUrl } from '../utils/buildFetchUrl';
 
 const AMI_ASSAF_SYMBOL = '460030';

@@ -6,12 +6,17 @@ import {
   ILessonArrMemberIscool,
 } from './types';
 
-export default function buildFullSchedule(
+function initScheduleArr<T = LessonOrMultiple>(): T[][] {
+  const result: T[][] = new Array<T[]>(DAYS_IN_WEEK);
+  for (let i = 0; i < DAYS_IN_WEEK; i++)
+    result[i] = new Array<T>(HOURS_OF_SCHEDULE);
+  return result;
+}
+
+export function buildFullSchedule(
   schedule: ILessonArrMemberIscool[]
 ): LessonOrMultiple[][] {
-  let result: LessonOrMultiple[][] = new Array(DAYS_IN_WEEK);
-  for (let i = 0; i < DAYS_IN_WEEK; i++)
-    result[i] = new Array(HOURS_OF_SCHEDULE);
+  let result = initScheduleArr<LessonOrMultiple>();
   schedule.forEach(lesson => {
     const day = lesson.Day;
     const hourIndex = lesson.Hour - 1;
