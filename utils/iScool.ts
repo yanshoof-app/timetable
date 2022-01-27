@@ -1,10 +1,14 @@
 import { IModification, LessonModification, ILesson } from '../interfaces';
 import { IClass } from '../interfaces/class';
-import { IChangeIscool, ILessonIscool } from './schedule/types';
+import { IChangeIscool, ILessonIscool } from './timetable/types';
 import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
 import { IClassIscool } from './class/types';
 
 export class ISCOOL {
+  static toDate(date: string) {
+    const milleseconds = date.match(/(\d+)/)[1];
+    return new Date(Number(milleseconds));
+  }
   static toClass(Te: string, Room: string): string {
     return Te == ''
       ? Room

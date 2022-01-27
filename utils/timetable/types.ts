@@ -1,6 +1,3 @@
-export const DAYS_IN_WEEK = 7;
-export const HOURS_OF_SCHEDULE = 12; // change if needed
-
 export type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export type HourOfDay = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
@@ -29,7 +26,7 @@ type IscoolChangeType =
   | 'NewHour';
 
 export interface IChangeIscool {
-  Date: Date;
+  Date: string; // why tho??
   Hour: HourOfDay;
   ChangeType: IscoolChangeType;
   FixType: string;
@@ -49,4 +46,9 @@ export interface IScheduleResponse {
   ClassId: number;
   Schedule: ILessonArrMemberIscool[];
   Status: string;
+}
+
+export interface ITimetable<TLesson> {
+  readonly lessons: TLesson[][];
+  fromIscool(schedule: ILessonArrMemberIscool[]): ITimetable<TLesson>;
 }

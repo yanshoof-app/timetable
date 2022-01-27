@@ -1,11 +1,11 @@
-import { IScheduleResponse } from '../utils/schedule/types';
+import { IChangesResponse, IScheduleResponse } from '../utils/timetable/types';
 import axios from 'axios';
-import {
-  buildFullSchedule,
-  buildSchedule,
-} from '../utils/schedule/buildSchedule';
 import { buildFetchUrl } from '../utils/buildFetchUrl';
 import { IScheduleSettings } from '../interfaces';
+import { FullTimeable } from '../utils/timetable/FullTimetable';
+import { Timetable } from '../utils/timetable/timetable';
+import { initMatrix } from '../utils/timetable/arrays';
+import { ISCOOL } from '../utils/iScool';
 
 const AMI_ASSAF_SYMBOL = '460030';
 const YUD_7_CLASS_ID = 28;
@@ -106,31 +106,65 @@ const OSHRI_SETTINGS: IScheduleSettings = {
 };
 
 describe('Test build schedule routine', () => {
-  let responseBody: IScheduleResponse;
-  let url = buildFetchUrl('schedule', AMI_ASSAF_SYMBOL, YUD_7_CLASS_ID);
+  let scheduleResponse: IScheduleResponse;
+  let scheduleUrl = buildFetchUrl('schedule', AMI_ASSAF_SYMBOL, YUD_7_CLASS_ID);
+  let changesResponse: IChangesResponse;
+  let changesUrl = buildFetchUrl('changes', AMI_ASSAF_SYMBOL, YUD_7_CLASS_ID);
+
+  it('Initializes a matrix', () => {
+    const result = initMatrix(5, 8);
+    expect(result.length).toEqual(5);
+    expect(result[0].length).toEqual(8);
+  });
 
   it('Fetches schedule from server', async () => {
-    console.log('Fetching data from', url);
-    const response = await axios.get<IScheduleResponse>(url);
+    const response = await axios.get<IScheduleResponse>(scheduleUrl);
     expect(response.status).toEqual(200);
-    responseBody = response.data;
-    expect(responseBody.ClassId).toEqual(YUD_7_CLASS_ID);
+    scheduleResponse = response.data;
+    expect(scheduleResponse.ClassId).toEqual(YUD_7_CLASS_ID);
   });
 
   it('Creates a weekly schedule from it', () => {
-    const schedule = buildFullSchedule(responseBody.Schedule);
-    expect(schedule.length).toEqual(7);
-    expect(schedule[0][0][0].teacher).toBeDefined();
-    expect(schedule[0][0][0].subject).toBeDefined();
+    const schedule = new FullTimeable().fromIscool(scheduleResponse.Schedule);
+    expect(schedule.lessons.length).toEqual(7);
+    expect(schedule.lessons[0][0][0].teacher).toBeDefined();
+    expect(schedule.lessons[0][0][0].subject).toBeDefined();
+  });
+
+  it('Fetches changes from the server', async () => {
+    const response = await axios.get<IChangesResponse>(changesUrl);
+    expect(response.status).toEqual(200);
+    changesResponse = response.data;
+    expect(scheduleResponse.ClassId).toEqual(YUD_7_CLASS_ID);
   });
 
   it('Creates an individual weekly schedule from it', () => {
-    const schedule = buildSchedule(responseBody.Schedule, [], SETTINGS);
-    expect(schedule[5][3]).toBeNull();
-    expect(schedule[0][1].subject).toEqual('פיזיקה מואצת');
-    expect(schedule[1][4].subject).toEqual('אנגלית 5');
+    const schedule = new Timetable(SETTINGS).fromIscool(
+      scheduleResponse.Schedule
+    );
+    expect(schedule.lessons[5][3]).toStrictEqual({});
+    expect(schedule.lessons[0][1].subject).toEqual(SETTINGS.studyGroups[0][0]);
+    expect(schedule.lessons[1][4].subject).toEqual(SETTINGS.studyGroups[3][0]);
+    schedule.applyChanges(changesResponse.Changes);
+    const { Date, Hour } = changesResponse.Changes[0];
+    const day = ISCOOL.toDate(Date).getDay();
+    expect(
+      schedule.lessons[day][Hour].modification ||
+        schedule.lessons[day][Hour].otherChanges
+    ).toBeDefined();
     console.log(JSON.stringify(schedule, null, 2));
   });
 
-  it;
+  it('Creates a different individual weekly schedule from it', () => {
+    const schedule = new Timetable(OSHRI_SETTINGS).fromIscool(
+      scheduleResponse.Schedule
+    );
+    expect(schedule.lessons[5][3]).toStrictEqual({});
+    expect(schedule.lessons[0][1].subject).toEqual(
+      OSHRI_SETTINGS.studyGroups[0][0]
+    );
+    expect(schedule.lessons[1][4].subject).toEqual(
+      OSHRI_SETTINGS.studyGroups[3][0]
+    );
+  });
 });
