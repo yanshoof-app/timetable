@@ -14,18 +14,7 @@ export class ISCOOL {
       ? ONLINE_ASYNCRONOUS
       : CLASS_UNAVAILABLE;
   }
-  static toChange(
-    Subject: string,
-    Teacher: String,
-    change?: IChangeIscool
-  ): IModification {
-    if (
-      !change ||
-      change.StudyGroup.Subject != Subject ||
-      change.StudyGroup.Teacher != Teacher
-    )
-      return {};
-
+  static toModification(change?: IChangeIscool): IModification {
     switch (change.ChangeType) {
       case 'FreeLesson':
         return { modification: LessonModification.Canceled };
@@ -60,7 +49,7 @@ export class ISCOOL {
       class: ISCOOL.toClass(Te, Room),
     };
   }
-  static toClassLookupResult({ Id, Grade, Number }: IClassIscool) : IClass {
+  static toClassLookupResult({ Id, Grade, Number }: IClassIscool): IClass {
     return {
       id: Id,
       grade: Grade,

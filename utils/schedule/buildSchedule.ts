@@ -1,10 +1,6 @@
-import {
-  ILesson,
-  IScheduleSettings,
-  IStudyGroup,
-  LessonOrMultiple,
-} from '../../interfaces';
+import { ILesson, IScheduleSettings, LessonOrMultiple } from '../../interfaces';
 import { ISCOOL } from '../iScool';
+import { applyChanges } from './applyChanges';
 import {
   DAYS_IN_WEEK,
   HOURS_OF_SCHEDULE,
@@ -64,5 +60,5 @@ export function buildSchedule(
     }
   });
 
-  return result;
+  return applyChanges(result, changes, settings.showOthersChanges);
 }
