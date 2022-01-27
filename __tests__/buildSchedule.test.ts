@@ -57,6 +57,54 @@ const SETTINGS: IScheduleSettings = {
   ]),
 };
 
+const OSHRI_SETTINGS: IScheduleSettings = {
+  showOthersChanges: true,
+  studyGroups: [
+    ['פיזיקה מואצת', 'רוזנבלום כרמית'],
+    ['מתמטיקה 5', 'טיראן חוה'],
+    ['חנ"ג בנים', 'פריזה אמיר'],
+    ['אנגלית 5', 'ורגוליס ארתור'],
+    ['הנדסת תוכנה יח"ל 1-2', 'כהן ורד'],
+  ],
+  studyGroupMap: new Map([
+    ['0,1', 0],
+    ['0,2', 0],
+    ['0,5', 1],
+    ['0,6', 1],
+    ['0,7', 2],
+    ['0,8', -1],
+    ['0,9', -1],
+    ['1,4', 3],
+    ['1,5', 3],
+    ['1,6', 0],
+    ['1,7', -1],
+    ['1,8', -1],
+    ['1,9', -1],
+    ['2,1', 1],
+    ['2,2', 1],
+    ['2,5', 4],
+    ['2,6', 4],
+    ['2,8', -1],
+    ['2,9', -1],
+    ['2,10', 1],
+    ['3,3', -1],
+    ['3,4', 4],
+    ['3,6', 3],
+    ['3,7', -1],
+    ['3,8', 0],
+    ['3,9', -1],
+    ['4,3', 3],
+    ['4,4', 3],
+    ['4,6', 2],
+    ['4,7', -1],
+    ['4,8', -1],
+    ['4,9', -1],
+    ['5,1', -1],
+    ['5,2', -1],
+    ['5,3', -1],
+  ]),
+};
+
 describe('Test build schedule routine', () => {
   let responseBody: IScheduleResponse;
   let url = buildFetchUrl('schedule', AMI_ASSAF_SYMBOL, YUD_7_CLASS_ID);
@@ -79,7 +127,7 @@ describe('Test build schedule routine', () => {
   it('Creates an individual weekly schedule from it', () => {
     const schedule = buildSchedule(responseBody.Schedule, [], SETTINGS);
     expect(schedule[5][3]).toBeNull();
-    expect(schedule[0][1].subject).toEqual('כימיה');
+    expect(schedule[0][1].subject).toEqual('פיזיקה מואצת');
     expect(schedule[1][4].subject).toEqual('אנגלית 5');
     console.log(JSON.stringify(schedule, null, 2));
   });
