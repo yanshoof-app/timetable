@@ -1,7 +1,7 @@
-import { IScheduleResponse } from '../utils/data/iScoolTypes';
+import { IScheduleResponse } from '../utils/schedule/types';
 import axios from 'axios';
-import { buildFetchUrl } from '../utils/data/buildFetchUrl';
-import buildFullSchedule from '../utils/data/buildSchedule';
+import buildFullSchedule from '../utils/schedule/buildSchedule';
+import { buildFetchUrl } from '../utils/buildFetchUrl';
 
 const AMI_ASSAF_SYMBOL = '460030';
 const YUD_7_CLASS_ID = 28;

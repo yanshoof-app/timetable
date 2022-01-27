@@ -1,5 +1,6 @@
 import { LessonOrMultiple } from '../../interfaces';
-import { ILessonArrMemberIscool, ISCOOL } from './iScoolTypes';
+import { ISCOOL } from '../iScool';
+import { ILessonArrMemberIscool } from './types';
 
 export default function buildFullSchedule(
   schedule: ILessonArrMemberIscool[]

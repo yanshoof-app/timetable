@@ -1,5 +1,3 @@
-import { HourOfDay } from '../utils/data/iScoolTypes';
-
 export enum LessonModification {
   None = 0,
   Canceled,
