@@ -1,6 +1,8 @@
+import { DayOfWeek, HourOfDay } from '../utils/schedule/types';
 import { IStudyGroup } from './lesson';
 
-export interface ScheduleSettings {
+export interface IScheduleSettings {
   showOthersChanges: boolean;
-  studyGroups: IStudyGroup[];
+  studyGroups: [string, string][];
+  studyGroupMap: Map<string, number>;
 }
