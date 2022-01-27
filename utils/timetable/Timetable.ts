@@ -66,7 +66,11 @@ export class Timetable implements ITimetable<ILesson> {
         this.lessons[day][hour] = { ...lesson, ...modification };
       else if (showOthersChanges) {
         this.lessons[day][hour].otherChanges ||= [];
-        this.lessons[day][hour].otherChanges.push(modification);
+        this.lessons[day][hour].otherChanges.push({
+          ...modification,
+          teacher: changeTeacher,
+          subject: changeSubject,
+        });
       }
     }
   }
