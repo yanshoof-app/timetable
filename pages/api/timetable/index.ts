@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IScheduleSettings } from '../../../interfaces';
-import { buildFetchUrl, fetchDataSource } from '../../../utils/datasource';
+import { fetchDataSource } from '../../../utils/datasource';
 import { Timetable } from '../../../utils/timetable/timetable';
 import {
   IChangesResponse,
