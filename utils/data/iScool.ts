@@ -1,5 +1,5 @@
-import { IModification, LessonModification, ILesson } from '../interfaces';
-import { IChangeIscool, ILessonIscool } from './timetable/types';
+import { IModification, LessonModification, ILesson } from '../../interfaces';
+import { IChangeIscool, ILessonIscool } from '../timetable/types';
 import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
 
 export class ISCOOL {

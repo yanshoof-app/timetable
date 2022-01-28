@@ -1,6 +1,6 @@
 import { ILesson, IScheduleSettings } from '../../interfaces';
-import { ISCOOL } from '../iScool';
-import { initMatrix } from '../arrays';
+import { ISCOOL } from '..';
+import { initMatrix } from '..';
 import { IChangeIscool, ILessonArrMemberIscool, ITimetable } from './types';
 
 export class Timetable implements ITimetable<ILesson> {

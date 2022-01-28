@@ -1,5 +1,5 @@
-import { initMatrix } from '../arrays';
-import { HEBREW_GRADES } from '../strings';
+import { initMatrix } from '..';
+import { HEBREW_GRADES } from '..';
 import { IClassIscool, IClassLookup, isIscoolClass } from './types';
 
 export class ClassLookup implements IClassLookup {

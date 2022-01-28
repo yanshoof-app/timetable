@@ -1,7 +1,7 @@
-export { initMatrix } from './arrays';
-export { fetchDataSource } from './datasource';
-export * from './strings';
-export * from './iScool';
+export { initMatrix } from './data/arrays';
+export { fetchDataSource } from './data/datasource';
+export * from './data/strings';
+export * from './data/iScool';
 
 // class exports
 export type { IClassLookup, IClassesResponse } from './class/types';
