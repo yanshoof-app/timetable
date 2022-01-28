@@ -1,7 +1,7 @@
 import { LessonOrMultiple } from '../../interfaces';
 import { ISCOOL } from '../iScool';
 import { initMatrix } from '../arrays';
-import { Timetable } from './timetable';
+import { Timetable } from './TimetableClass';
 import { ILessonArrMemberIscool, ITimetable } from './types';
 
 // timetable API for table without changes or settings

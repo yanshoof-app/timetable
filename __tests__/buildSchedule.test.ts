@@ -1,11 +1,13 @@
-import { IChangesResponse, IScheduleResponse } from '../utils/timetable/types';
-import axios from 'axios';
-import { buildFetchUrl } from '../utils/datasource';
 import { IScheduleSettings } from '../interfaces';
-import { FullTimeable } from '../utils/timetable/FullTimetable';
-import { Timetable } from '../utils/timetable/timetable';
-import { initMatrix } from '../utils/arrays';
-import { ISCOOL } from '../utils/iScool';
+import {
+  IScheduleResponse,
+  IChangesResponse,
+  initMatrix,
+  fetchDataSource,
+  FullTimeable,
+  Timetable,
+  ISCOOL,
+} from '../utils';
 
 const AMI_ASSAF_SYMBOL = '460030';
 const YUD_7_CLASS_ID = 28;
@@ -108,9 +110,7 @@ const OSHRI_SETTINGS: IScheduleSettings = {
 
 describe('Test build schedule routine', () => {
   let scheduleResponse: IScheduleResponse;
-  let scheduleUrl = buildFetchUrl('schedule', AMI_ASSAF_SYMBOL, YUD_7_CLASS_ID);
   let changesResponse: IChangesResponse;
-  let changesUrl = buildFetchUrl('changes', AMI_ASSAF_SYMBOL, YUD_7_CLASS_ID);
 
   it('Initializes a matrix', () => {
     const result = initMatrix(5, 8);
@@ -119,9 +119,11 @@ describe('Test build schedule routine', () => {
   });
 
   it('Fetches schedule from server', async () => {
-    const response = await axios.get<IScheduleResponse>(scheduleUrl);
-    expect(response.status).toEqual(200);
-    scheduleResponse = response.data;
+    scheduleResponse = await fetchDataSource<IScheduleResponse>(
+      'schedule',
+      AMI_ASSAF_SYMBOL,
+      YUD_7_CLASS_ID
+    );
     expect(scheduleResponse.ClassId).toEqual(YUD_7_CLASS_ID);
   });
 
@@ -133,10 +135,12 @@ describe('Test build schedule routine', () => {
   });
 
   it('Fetches changes from the server', async () => {
-    const response = await axios.get<IChangesResponse>(changesUrl);
-    expect(response.status).toEqual(200);
-    changesResponse = response.data;
-    expect(scheduleResponse.ClassId).toEqual(YUD_7_CLASS_ID);
+    changesResponse = await fetchDataSource<IChangesResponse>(
+      'changes',
+      AMI_ASSAF_SYMBOL,
+      YUD_7_CLASS_ID
+    );
+    expect(changesResponse.ClassId).toEqual(YUD_7_CLASS_ID);
   });
 
   it('Creates an individual weekly schedule from it', () => {

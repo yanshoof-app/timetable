@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ClassLookup } from '../../../utils/class';
-import { IClassesResponse } from '../../../utils/class/types';
-import { fetchDataSource } from '../../../utils/datasource';
+import {
+  ClassLookup,
+  fetchDataSource,
+  IClassesResponse,
+} from '../../../utils/';
 
 const DEFAULT_SCHOOL = '460030';
 const DEFAULT_CLASS = 0;

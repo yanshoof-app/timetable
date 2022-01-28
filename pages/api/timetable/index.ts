@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IScheduleSettings } from '../../../interfaces';
-import { fetchDataSource } from '../../../utils/datasource';
-import { Timetable } from '../../../utils/timetable/timetable';
 import {
+  fetchDataSource,
   IChangesResponse,
   IScheduleResponse,
-} from '../../../utils/timetable/types';
+  Timetable,
+} from '../../../utils';
 
 const DEFAULT_SETTINGS: IScheduleSettings = {
   showOthersChanges: true,
