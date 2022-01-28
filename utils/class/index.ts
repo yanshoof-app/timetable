@@ -3,6 +3,7 @@ import { HEBREW_GRADES } from '../strings';
 import { IClassIscool, IClassLookup, isIscoolClass } from './types';
 
 export class ClassLookup implements IClassLookup {
+  static readonly CLASS_NOT_FOUND = -1;
   private _classIds: number[][];
   private _minGrade: number;
   private _maxGrade: number;
@@ -37,7 +38,11 @@ export class ClassLookup implements IClassLookup {
     this._maxGrade = Math.max(...grades);
     this._maxClassNumber = Math.max(...classNums);
     const numberOfGrades = this._maxGrade - this._minGrade + 1; // i.e 12 - 7 + 1 = 6 grades
-    this._classIds = initMatrix(numberOfGrades, this._maxClassNumber);
+    this._classIds = initMatrix(
+      numberOfGrades,
+      this._maxClassNumber,
+      ClassLookup.CLASS_NOT_FOUND
+    );
 
     classes.forEach(({ Grade, Number: classNum, Id }) =>
       this.setId(Grade, classNum, Id)
