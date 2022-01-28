@@ -4,16 +4,14 @@ import {
   fetchDataSource,
   IClassesResponse,
 } from '../../../utils/';
-
-const DEFAULT_SCHOOL = '460030';
-const DEFAULT_CLASS = 0;
+import { AMI_ASSAF_SYMBOL } from '../../../utils/sample-constants';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { Classes } = await fetchDataSource<IClassesResponse>(
       'classes',
-      DEFAULT_SCHOOL,
-      DEFAULT_CLASS
+      AMI_ASSAF_SYMBOL,
+      0
     );
     const classLookup = new ClassLookup(Classes);
 

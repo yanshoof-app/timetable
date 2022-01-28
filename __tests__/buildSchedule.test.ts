@@ -8,105 +8,12 @@ import {
   Timetable,
   ISCOOL,
 } from '../utils';
-
-const AMI_ASSAF_SYMBOL = '460030';
-const YUD_7_CLASS_ID = 28;
-const SETTINGS: IScheduleSettings = {
-  showOthersChanges: true,
-  studyGroups: [
-    ['כימיה', 'זרסקי יפעת'],
-    ['מתמטיקה 5', 'טיראן חוה'],
-    ['חנג בנים', 'פריזה אמיר'],
-    ['אנגלית 5', 'ורגוליס ארתור'],
-    ['מדעי המחשב יחל 1', 'זבלינסקי קונסטנטין'],
-  ],
-  studyGroupMap: new Map([
-    ['0,1', 0],
-    ['0,2', 0],
-    ['0,5', 1],
-    ['0,6', 1],
-    ['0,7', 2],
-    ['0,8', -1],
-    ['0,9', -1],
-    ['1,4', 3],
-    ['1,5', 3],
-    ['1,6', 0],
-    ['1,7', -1],
-    ['1,8', -1],
-    ['1,9', -1],
-    ['2,1', 1],
-    ['2,2', 1],
-    ['2,5', 4],
-    ['2,6', 4],
-    ['2,8', -1],
-    ['2,9', -1],
-    ['2,10', 1],
-    ['3,0', 1],
-    ['3,3', -1],
-    ['3,4', 4],
-    ['3,6', 3],
-    ['3,7', -1],
-    ['3,8', 0],
-    ['3,9', -1],
-    ['4,3', 3],
-    ['4,4', 3],
-    ['4,6', 2],
-    ['4,7', -1],
-    ['4,8', -1],
-    ['4,9', -1],
-    ['5,1', -1],
-    ['5,2', -1],
-    ['5,3', -1],
-  ]),
-};
-
-const OSHRI_SETTINGS: IScheduleSettings = {
-  showOthersChanges: true,
-  studyGroups: [
-    ['פיזיקה מואצת', 'רוזנבלום כרמית'],
-    ['מתמטיקה 5', 'טיראן חוה'],
-    ['חנג בנים', 'פריזה אמיר'],
-    ['אנגלית 5', 'ורגוליס ארתור'],
-    ['הנדסת תוכנה יח"ל 1-2', 'כהן ורד'],
-  ],
-  studyGroupMap: new Map([
-    ['0,1', 0],
-    ['0,2', 0],
-    ['0,5', 1],
-    ['0,6', 1],
-    ['0,7', 2],
-    ['0,8', -1],
-    ['0,9', -1],
-    ['1,4', 3],
-    ['1,5', 3],
-    ['1,6', 0],
-    ['1,7', -1],
-    ['1,8', -1],
-    ['1,9', -1],
-    ['2,1', 1],
-    ['2,2', 1],
-    ['2,5', 4],
-    ['2,6', 4],
-    ['2,8', -1],
-    ['2,9', -1],
-    ['2,10', 1],
-    ['3,3', -1],
-    ['3,4', 4],
-    ['3,6', 3],
-    ['3,7', -1],
-    ['3,8', 0],
-    ['3,9', -1],
-    ['4,3', 3],
-    ['4,4', 3],
-    ['4,6', 2],
-    ['4,7', -1],
-    ['4,8', -1],
-    ['4,9', -1],
-    ['5,1', -1],
-    ['5,2', -1],
-    ['5,3', -1],
-  ]),
-};
+import {
+  AMI_ASSAF_SYMBOL,
+  YUD_7_ID,
+  SETTINGS,
+  OSHRI_SETTINGS,
+} from '../utils/sample-constants';
 
 describe('Test build schedule routine', () => {
   let scheduleResponse: IScheduleResponse;
@@ -122,9 +29,9 @@ describe('Test build schedule routine', () => {
     scheduleResponse = await fetchDataSource<IScheduleResponse>(
       'schedule',
       AMI_ASSAF_SYMBOL,
-      YUD_7_CLASS_ID
+      YUD_7_ID
     );
-    expect(scheduleResponse.ClassId).toEqual(YUD_7_CLASS_ID);
+    expect(scheduleResponse.ClassId).toEqual(YUD_7_ID);
   });
 
   it('Creates a weekly schedule from it', () => {
@@ -138,9 +45,9 @@ describe('Test build schedule routine', () => {
     changesResponse = await fetchDataSource<IChangesResponse>(
       'changes',
       AMI_ASSAF_SYMBOL,
-      YUD_7_CLASS_ID
+      YUD_7_ID
     );
-    expect(changesResponse.ClassId).toEqual(YUD_7_CLASS_ID);
+    expect(changesResponse.ClassId).toEqual(YUD_7_ID);
   });
 
   it('Creates an individual weekly schedule from it', () => {

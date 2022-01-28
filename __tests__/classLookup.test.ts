@@ -1,9 +1,7 @@
 import { ClassLookup } from '../utils/class';
 import { IClassesResponse } from '../utils/class/types';
 import { fetchDataSource } from '../utils/datasource';
-
-const AMI_ASSAF_SYMBOL = '460030';
-const YUD_7_ID = 28;
+import { AMI_ASSAF_SYMBOL, YUD_7_ID } from '../utils/sample-constants';
 
 describe('Tests the class lookup result class', () => {
   let classResponse: IClassesResponse;
