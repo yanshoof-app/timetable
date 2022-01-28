@@ -3,12 +3,21 @@ import { ISCOOL } from '..';
 import { initMatrix } from '..';
 import { IChangeIscool, ILessonArrMemberIscool, ITimetable } from './types';
 
+/**
+ * A Timetable class capable of reading settings and changes
+ * @author Itay Schechner
+ * @version 2022.0.0
+ */
 export class Timetable implements ITimetable<ILesson> {
   static readonly DAYS_IN_WEEK = 7;
   static readonly HOURS_OF_SCHEDULE = 13; // change if needed
   readonly lessons: ILesson[][];
   private settings: IScheduleSettings;
 
+  /**
+   * Creates a timetable object with given settings
+   * @param settings the schedule settings object, determining which lesson of multiple will be used
+   */
   constructor(settings: IScheduleSettings) {
     // initialize array
     this.lessons = initMatrix<ILesson>(
@@ -51,6 +60,13 @@ export class Timetable implements ITimetable<ILesson> {
     return this;
   }
 
+  /**
+   * Apply changes to the array of lessons
+   * @param changes the list of changes as retrieved from the Iscool API
+   * @example
+   * const timetable = new Timetable(settings).fromIscool(schedule);
+   * timetable.applyChanges(changes);
+   */
   public applyChanges(changes: IChangeIscool[]) {
     const { showOthersChanges } = this.settings;
     for (let changeObj of changes) {
