@@ -4,7 +4,7 @@ import { buildFetchUrl } from '../utils/datasource';
 import { IScheduleSettings } from '../interfaces';
 import { FullTimeable } from '../utils/timetable/FullTimetable';
 import { Timetable } from '../utils/timetable/timetable';
-import { initMatrix } from '../utils/timetable/arrays';
+import { initMatrix } from '../utils/arrays';
 import { ISCOOL } from '../utils/iScool';
 
 const AMI_ASSAF_SYMBOL = '460030';

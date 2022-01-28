@@ -1,6 +1,6 @@
 import { LessonOrMultiple } from '../../interfaces';
 import { ISCOOL } from '../iScool';
-import { initMatrix } from './arrays';
+import { initMatrix } from '../arrays';
 import { Timetable } from './timetable';
 import { ILessonArrMemberIscool, ITimetable } from './types';
 
