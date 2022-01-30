@@ -56,12 +56,14 @@ describe('Test build schedule routine', () => {
     expect(schedule.lessons[0][1].subject).toEqual(SETTINGS.studyGroups[0][0]);
     expect(schedule.lessons[1][4].subject).toEqual(SETTINGS.studyGroups[3][0]);
     schedule.applyChanges(changesResponse.Changes);
-    const { Date, Hour } = changesResponse.Changes[0];
-    const day = ISCOOL.toDate(Date).getDay();
-    expect(
-      schedule.lessons[day][Hour].modification ||
-        schedule.lessons[day][Hour].otherChanges
-    ).toBeDefined();
+    if (changesResponse.Changes.length) {
+      const { Date, Hour } = changesResponse.Changes[0];
+      const day = ISCOOL.toDate(Date).getDay();
+      expect(
+        schedule.lessons[day][Hour].modification ||
+          schedule.lessons[day][Hour].otherChanges
+      ).toBeDefined();
+    }
     console.log(JSON.stringify(schedule, null, 2));
   });
 
