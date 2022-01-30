@@ -13,3 +13,4 @@ export { FullTimeable } from './timetable/FullTimetable';
 
 // settings export
 export { QueryParamsSettings } from './settings/QueryParamsSettings';
+export type { QueryParams } from './settings/QueryParamsSettings';

@@ -5,8 +5,11 @@
  * @extends Error
  */
 export class InputError extends Error {
+  static get errorName() {
+    return 'Input Error';
+  }
   constructor(message?: string) {
     super(message);
-    this.name = 'Input Error';
+    this.name = InputError.errorName;
   }
 }

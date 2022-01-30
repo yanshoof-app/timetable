@@ -22,3 +22,15 @@ export function initMatrix<T>(
   }
   return result;
 }
+
+/**
+ * Checks if an array has exactly two elements, and converts it to a tuple
+ * @param array the array to convert
+ * @param failError the error to throw if array length insufficient
+ * @returns a tuple made of the array
+ */
+export function toTuple<T>(array: T[], failError: Error): [T, T] {
+  if (array.length == 1) throw failError;
+  if (array.length > 2) throw failError;
+  return array as [T, T];
+}
