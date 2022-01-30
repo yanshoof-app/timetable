@@ -1,7 +1,5 @@
-import { IScheduleSettings } from '../interfaces';
+import { IScheduleResponse, IChangesResponse } from '../interfaces';
 import {
-  IScheduleResponse,
-  IChangesResponse,
   initMatrix,
   fetchDataSource,
   FullTimeable,

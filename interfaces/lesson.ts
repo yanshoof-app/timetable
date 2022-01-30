@@ -38,5 +38,3 @@ export interface ILesson extends IStudyGroup, IModification {
   class: string; // Room string / Zoom / Async
   otherChanges?: (IModification & IStudyGroup)[];
 }
-
-export type LessonOrMultiple = ILesson[];

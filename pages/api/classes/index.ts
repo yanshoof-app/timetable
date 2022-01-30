@@ -1,9 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import {
-  ClassLookup,
-  fetchDataSource,
-  IClassesResponse,
-} from '../../../utils/';
+import { IClassesResponse } from '../../../interfaces';
+import { ClassLookup, fetchDataSource } from '../../../utils/';
 import { AMI_ASSAF_SYMBOL } from '../../../utils/sample-constants';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {

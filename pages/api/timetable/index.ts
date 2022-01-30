@@ -1,10 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import {
-  fetchDataSource,
-  IChangesResponse,
-  IScheduleResponse,
-  Timetable,
-} from '../../../utils';
+import { IChangesResponse, IScheduleResponse } from '../../../interfaces';
+import { fetchDataSource, Timetable } from '../../../utils';
 import {
   AMI_ASSAF_SYMBOL,
   SETTINGS,

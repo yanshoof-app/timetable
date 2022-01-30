@@ -1,4 +1,5 @@
-import { ClassLookup, fetchDataSource, IClassesResponse } from '../utils';
+import { IClassesResponse } from '../interfaces';
+import { ClassLookup, fetchDataSource } from '../utils';
 import { AMI_ASSAF_SYMBOL, YUD_7_ID } from '../utils/sample-constants';
 
 describe('Tests the class lookup result class', () => {

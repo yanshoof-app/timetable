@@ -1,7 +1,12 @@
-import { ILesson, IScheduleSettings } from '../../interfaces';
+import {
+  IChangeIscool,
+  ILesson,
+  ILessonArrMemberIscool,
+  IScheduleSettings,
+  ITimetable,
+} from '../../interfaces';
 import { ISCOOL } from '..';
 import { initMatrix } from '..';
-import { IChangeIscool, ILessonArrMemberIscool, ITimetable } from './types';
 
 /**
  * A Timetable class capable of reading settings and changes

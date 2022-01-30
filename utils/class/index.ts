@@ -1,6 +1,6 @@
 import { initMatrix } from '..';
 import { HEBREW_GRADES } from '..';
-import { IClassIscool, IClassLookup, isIscoolClass } from './types';
+import { IClassIscool, IClassLookup, isIscoolClass } from '../../interfaces';
 
 /**
  * Class Lookup: a lookup object used in both frontend and backend.
