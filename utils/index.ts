@@ -10,3 +10,6 @@ export { ClassLookup } from './class';
 
 export { Timetable } from './timetable/TimetableClass';
 export { FullTimeable } from './timetable/FullTimetable';
+
+// settings export
+export { QueryParamsSettings } from './settings/QueryParamsSettings';
