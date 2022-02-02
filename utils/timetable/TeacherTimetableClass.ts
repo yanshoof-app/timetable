@@ -27,24 +27,22 @@ export class TeacherTimetable<commonTeacher> implements ITimetable<ITeacherLesso
    */
   constructor(commonTeacher: string) {
     // initialize array
-    this.lessons = initMatrix<ILesson>(
+    this.lessons = initMatrix<ITeacherLesson>(
       TeacherTimetable.DAYS_IN_WEEK,
       TeacherTimetable.HOURS_OF_SCHEDULE
     );
-    console.log(this.lessons);
     this.commonTeacher = commonTeacher;
   }
 
   public fromIscool(schedule: ILessonArrMemberIscool[]) {
     for (let lesson of schedule) {
-      //lesson.Lessons.indexOf(lesson.Lessons.find(element => element.Teacher === this.commonTeacher))
       const day = lesson.Day;
       const hourIndex = lesson.Hour; // 0 hours are possible as well.
-      const hourlyLessons = lesson.Lessons.map(ISCOOL.toLesson);
-      if(!(lesson.Lessons.find(element => element.Teacher === this.commonTeacher))){
-        //this.lessons[day][hourIndex] = {} as ILesson;
+      if(!lesson.Lessons.find(element => element.Teacher === this.commonTeacher)){
+        this.lessons[day][hourIndex] = {} as ILesson;
         continue;
       }
+
 
       // multiple lessons at same hour (i.e - math).
       // find lesson whose study group is present in the settings
@@ -52,10 +50,14 @@ export class TeacherTimetable<commonTeacher> implements ITimetable<ITeacherLesso
       /*studyGroupMap.get([day, hourIndex].join(','));*/
       if (groupIndex == -1) {
         // window at the current hour
+        this.lessons[day][hourIndex] = {} as ILesson;
         continue;
       }
 
-      const group = lesson.Lessons[groupIndex];
+      const group = ISCOOL.toTeacherLesson(lesson.Lessons[groupIndex]);
+
+      this.lessons[day][hourIndex] = group;
+      /*
       this.lessons[day][hourIndex] = hourlyLessons.find(
         ({ subject, teacher }: ILesson) => {
           const match = group[0] == subject && group[1] == teacher;
@@ -63,7 +65,10 @@ export class TeacherTimetable<commonTeacher> implements ITimetable<ITeacherLesso
           return match;
         }
       );
+      */
     } // end of for
+    console.log(this)
+
     return this;
   }
 

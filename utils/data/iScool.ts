@@ -4,6 +4,7 @@ import {
   ILesson,
   IChangeIscool,
   ILessonIscool,
+  ITeacherLesson,
 } from '../../interfaces';
 import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
 
@@ -82,6 +83,13 @@ export class ISCOOL {
     return {
       subject: Subject,
       teacher: Teacher,
+      class: ISCOOL.toClass(Te, Room),
+    };
+  }
+
+  static toTeacherLesson({ Subject, Te, Room }: ILessonIscool): ITeacherLesson {
+    return {
+      subject: Subject,
       class: ISCOOL.toClass(Te, Room),
     };
   }

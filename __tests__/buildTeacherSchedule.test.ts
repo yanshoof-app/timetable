@@ -29,20 +29,23 @@ describe('Test build schedule routine', () => {
   });
 
   it('Builds a class lookup array from it', () => {
-    const classes = new ClassLookup(classResponse.Classes);
-
   });
   it('Fetches schedule from server', async () => {
-    scheduleResponse = await fetchDataSource<IScheduleResponse>(
-      'schedule',
-      AMI_ASSAF_SYMBOL,
-      YUD_7_ID
-    );
-    expect(scheduleResponse.ClassId).toEqual(YUD_7_ID);
+    const classes = new ClassLookup(classResponse.Classes);
+    let schedule;
+    classes.classIds.forEach(async classss => {
+      scheduleResponse = await fetchDataSource<IScheduleResponse>(
+        'schedule',
+        AMI_ASSAF_SYMBOL,
+        classss.toString()
+      );
+      schedule = new TeacherTimetable("רוזנבלום כרמית").fromIscool(scheduleResponse.Schedule);
+    });
+    console.log(JSON.stringify(schedule));
+
   });
 
   it('Creates a weekly schedule from it', () => {
-    const schedule = new TeacherTimetable("רוזנבלום כרמית").fromIscool(scheduleResponse.Schedule);
   });
 
   

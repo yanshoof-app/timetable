@@ -42,4 +42,4 @@ export interface ILesson extends IStudyGroup, IModification {
 }
 
 
-export type ITeacherLesson = Omit<ILesson, "teacher">  
+export type ITeacherLesson = Omit<ILesson, "teacher"> 
