@@ -13,9 +13,11 @@ describe('Tests the QueryParamsSettings class', () => {
       .join(','),
   };
 
+
   it('Enters a valid input', () => {
-    const result: IScheduleSettings = new QueryParamsSettings(input);
+    const result: IScheduleSettings = new QueryParamsSettings(input)
     expect(result).toMatchObject<IScheduleSettings>(SETTINGS);
+    console.log(input);
   });
 
   it('Gets a failing showOthersChanges', () => {

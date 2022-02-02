@@ -1,3 +1,5 @@
+import { type } from "os";
+
 /**
  * An enum of possible modifications done to a lesson
  */
@@ -38,3 +40,6 @@ export interface ILesson extends IStudyGroup, IModification {
   class: string; // Room string / Zoom / Async
   otherChanges?: (IModification & IStudyGroup)[];
 }
+
+
+export type ITeacherLesson = Omit<ILesson, "teacher">  
