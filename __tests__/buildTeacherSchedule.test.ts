@@ -4,6 +4,7 @@ import {
   fetchDataSource,
   Timetable,
   ISCOOL,
+  FullTimeable,
   TeacherTimetable,
 } from '../utils';
 import {
@@ -15,9 +16,9 @@ import { ClassLookup } from '../utils';
 
 describe('Test build schedule routine', () => {
 
-  let scheduleResponse: IScheduleResponse;
-  let changesResponse: IChangesResponse;
   let classResponse: IClassesResponse;
+  let scheduleResponse;
+  let schedule;
 
   it('Fetches data from the server', async () => {
     classResponse = await fetchDataSource<IClassesResponse>(
@@ -28,26 +29,25 @@ describe('Test build schedule routine', () => {
     expect(classResponse.Status.toLowerCase()).toEqual('success');
   });
 
-  it('Builds a class lookup array from it', () => {
-  });
+
   it('Fetches schedule from server', async () => {
-    const classes = new ClassLookup(classResponse.Classes);
-    let schedule;
-    classes.classIds.forEach(async classss => {
-      scheduleResponse = await fetchDataSource<IScheduleResponse>(
-        'schedule',
-        AMI_ASSAF_SYMBOL,
-        classss.toString()
-      );
-      schedule = new TeacherTimetable("רוזנבלום כרמית").fromIscool(scheduleResponse.Schedule);
+    const classes = new ClassLookup(classResponse.Classes)
+    classes.classIds.forEach(grade => {
+      grade.forEach(async thisClass => {
+        console.log(thisClass);
+        scheduleResponse = await fetchDataSource<IScheduleResponse>(
+          'schedule',
+          AMI_ASSAF_SYMBOL,
+          thisClass.toString()
+        )
+        console.log(scheduleResponse);
+      });
     });
-    console.log(JSON.stringify(schedule));
-
   });
-
-  it('Creates a weekly schedule from it', () => {
-  });
-
   
+  /*it('Fetches schedule from server', async () => {
+    schedule = new TeacherTimetable("רוזנבלום כרמית").fromIscool(scheduleResponse.Schedule);;
+    //console.log(JSON.stringify(schedule));
+  });*/  
 
 });

@@ -67,7 +67,6 @@ export class TeacherTimetable<commonTeacher> implements ITimetable<ITeacherLesso
       );
       */
     } // end of for
-    console.log(this)
 
     return this;
   }
