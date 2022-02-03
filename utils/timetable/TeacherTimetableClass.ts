@@ -13,11 +13,11 @@ import { initMatrix } from '..';
  * A Timetable class capable of reading settings and changes
  * @author Itay Oshri
  * @version 2022.0.0
- */ 
-export class TeacherTimetable<commonTeacher> implements ITimetable<ITeacherLesson> {
+ */
+export class TeacherTimetable implements ITimetable<ITeacherLesson> {
   static readonly DAYS_IN_WEEK = 7;
   static readonly HOURS_OF_SCHEDULE = 13; // change if needed
-  static readonly COMMON_TEACHER = "";
+  static readonly COMMON_TEACHER = '';
   readonly lessons: ITeacherLesson[][];
   private commonTeacher: string;
 
@@ -38,15 +38,15 @@ export class TeacherTimetable<commonTeacher> implements ITimetable<ITeacherLesso
     for (let lesson of schedule) {
       const day = lesson.Day;
       const hourIndex = lesson.Hour; // 0 hours are possible as well.
-      if(!lesson.Lessons.find(element => element.Teacher === this.commonTeacher)){
-        this.lessons[day][hourIndex] = {} as ILesson;
+
+      if (this.lessons[day][hourIndex].subject)
+        // lesson already defined
         continue;
-      }
-
-
       // multiple lessons at same hour (i.e - math).
       // find lesson whose study group is present in the settings
-      const groupIndex = lesson.Lessons.indexOf(lesson.Lessons.find(element => element.Teacher === this.commonTeacher))
+      const groupIndex = lesson.Lessons.findIndex(
+        element => element.Teacher === this.commonTeacher
+      );
       /*studyGroupMap.get([day, hourIndex].join(','));*/
       if (groupIndex == -1) {
         // window at the current hour
@@ -88,7 +88,10 @@ export class TeacherTimetable<commonTeacher> implements ITimetable<ITeacherLesso
       const { Teacher: changeTeacher, Subject: changeSubject } =
         changeObj.StudyGroup;
       const lesson = this.lessons[day][hour];
-      if (this.commonTeacher == changeTeacher && lesson.subject == changeSubject)
+      if (
+        this.commonTeacher == changeTeacher &&
+        lesson.subject == changeSubject
+      )
         this.lessons[day][hour] = { ...lesson, ...modification };
     }
   }

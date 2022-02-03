@@ -1,24 +1,11 @@
-import { IScheduleResponse, IChangesResponse, IClassesResponse } from '../interfaces';
-import {
-  initMatrix,
-  fetchDataSource,
-  Timetable,
-  ISCOOL,
-  FullTimeable,
-  TeacherTimetable,
-} from '../utils';
-import {
-  AMI_ASSAF_SYMBOL,
-  YUD_7_ID,
-  SETTINGS,
-} from '../utils/sample-constants';
+import { IScheduleResponse, IClassesResponse } from '../interfaces';
+import { CLASS_UNAVAILABLE, fetchDataSource, TeacherTimetable } from '../utils';
+import { AMI_ASSAF_SYMBOL, SAMPLE_TEACHER } from '../utils/sample-constants';
 import { ClassLookup } from '../utils';
 
 describe('Test build schedule routine', () => {
-
   let classResponse: IClassesResponse;
-  let scheduleResponse;
-  let schedule;
+  let teacherTimetable: TeacherTimetable;
 
   it('Fetches data from the server', async () => {
     classResponse = await fetchDataSource<IClassesResponse>(
@@ -29,25 +16,26 @@ describe('Test build schedule routine', () => {
     expect(classResponse.Status.toLowerCase()).toEqual('success');
   });
 
-
-  it('Fetches schedule from server', async () => {
-    const classes = new ClassLookup(classResponse.Classes)
-    classes.classIds.forEach(grade => {
-      grade.forEach(async thisClass => {
-        console.log(thisClass);
+  it('Builds a teacher timetable from class lookup', async () => {
+    const classLookup = new ClassLookup(classResponse.Classes);
+    teacherTimetable = new TeacherTimetable(SAMPLE_TEACHER);
+    let scheduleResponse: IScheduleResponse;
+    for (let grade of classLookup.classIds) {
+      for (let classId of grade) {
+        if (classId == ClassLookup.CLASS_NOT_FOUND) continue;
         scheduleResponse = await fetchDataSource<IScheduleResponse>(
           'schedule',
           AMI_ASSAF_SYMBOL,
-          thisClass.toString()
-        )
-        console.log(scheduleResponse);
-      });
-    });
+          classId
+        );
+        teacherTimetable.fromIscool(scheduleResponse.Schedule);
+      }
+    }
+    console.log(JSON.stringify(teacherTimetable, null, 2));
   });
-  
+
   /*it('Fetches schedule from server', async () => {
     schedule = new TeacherTimetable("רוזנבלום כרמית").fromIscool(scheduleResponse.Schedule);;
-    //console.log(JSON.stringify(schedule));
-  });*/  
-
+    //
+  });*/
 });
