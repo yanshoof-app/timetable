@@ -7,6 +7,12 @@ import {
   ISchoolSearchResultIscool,
 } from '../../interfaces';
 
+/**
+ * Lookup object for schools
+ * @author Itay Schechner
+ * @version 2022.0.0
+ * @implements ISchoolLookup
+ */
 export class SchoolLookup implements ISchoolLookup {
   results: ISchoolLookupResult[];
 
