@@ -21,6 +21,25 @@ export class QueryParamsSettings implements IScheduleSettings {
   readonly studyGroupMap: Map<string, number>;
 
   /**
+   * Converts a settings object to query parameters
+   * @param settings the settings to convert
+   * @returns a representation of the settings as query parameters
+   */
+  public static toQueryParams({
+    showOthersChanges,
+    studyGroups,
+    studyGroupMap,
+  }: IScheduleSettings): QueryParams {
+    return {
+      showOthersChanges: showOthersChanges ? 'true' : 'false',
+      studyGroups: studyGroups.map(sg => sg.join(':')).join(','),
+      studyGroupMap: Array.from(studyGroupMap.keys())
+        .map(key => `${key.replace(',', '/')}:${studyGroupMap.get(key)!}`)
+        .join(','),
+    };
+  }
+
+  /**
    * Convert a string to a boolean in the form of 0/1 or true/false
    * @param str the string to convert
    * @returns a boolean

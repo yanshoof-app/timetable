@@ -4,18 +4,10 @@ import { QueryParams, QueryParamsSettings } from '../utils';
 import { SETTINGS } from '../utils/sample-constants';
 
 describe('Tests the QueryParamsSettings class', () => {
-  const { showOthersChanges, studyGroups, studyGroupMap } = SETTINGS;
-  const input: QueryParams = {
-    showOthersChanges: showOthersChanges ? 'true' : 'false',
-    studyGroups: studyGroups.map(sg => sg.join(':')).join(','),
-    studyGroupMap: Array.from(studyGroupMap.keys())
-      .map(key => `${key.replace(',', '/')}:${studyGroupMap.get(key)!}`)
-      .join(','),
-  };
-
+  let input = QueryParamsSettings.toQueryParams(SETTINGS);
 
   it('Enters a valid input', () => {
-    const result: IScheduleSettings = new QueryParamsSettings(input)
+    const result: IScheduleSettings = new QueryParamsSettings(input);
     expect(result).toMatchObject<IScheduleSettings>(SETTINGS);
     console.log(input);
   });

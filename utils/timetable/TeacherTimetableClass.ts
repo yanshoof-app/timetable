@@ -1,8 +1,6 @@
 import {
   IChangeIscool,
-  ILesson,
   ILessonArrMemberIscool,
-  IScheduleSettings,
   ITeacherLesson,
   ITimetable,
 } from '../../interfaces';
