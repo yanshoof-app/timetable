@@ -1,23 +1,27 @@
-import { IScheduleResponse, IClassesResponse } from '../interfaces';
+import {
+  IScheduleResponse,
+  IClassesResponse,
+  IChangesResponse,
+} from '../interfaces';
 import { CLASS_UNAVAILABLE, fetchDataSource, TeacherTimetable } from '../utils';
 import { AMI_ASSAF_SYMBOL, SAMPLE_TEACHER } from '../utils/sample-constants';
 import { ClassLookup } from '../utils';
 
 describe('Test build schedule routine', () => {
-  let classResponse: IClassesResponse;
+  let classLookup: ClassLookup;
   let teacherTimetable: TeacherTimetable;
 
   it('Fetches data from the server', async () => {
-    classResponse = await fetchDataSource<IClassesResponse>(
+    const classResponse = await fetchDataSource<IClassesResponse>(
       'classes',
       AMI_ASSAF_SYMBOL,
       0
     );
     expect(classResponse.Status.toLowerCase()).toEqual('success');
+    classLookup = new ClassLookup(classResponse.Classes);
   });
 
   it('Builds a teacher timetable from class lookup', async () => {
-    const classLookup = new ClassLookup(classResponse.Classes);
     teacherTimetable = new TeacherTimetable(SAMPLE_TEACHER);
     let scheduleResponse: IScheduleResponse;
     for (let grade of classLookup.classIds) {
@@ -34,8 +38,19 @@ describe('Test build schedule routine', () => {
     console.log(JSON.stringify(teacherTimetable, null, 2));
   });
 
-  /*it('Fetches schedule from server', async () => {
-    schedule = new TeacherTimetable("רוזנבלום כרמית").fromIscool(scheduleResponse.Schedule);;
-    //
-  });*/
+  it('Applies changed made this week', async () => {
+    let changesResponse: IChangesResponse;
+    for (let grade of classLookup.classIds) {
+      for (let classId of grade) {
+        if (classId == ClassLookup.CLASS_NOT_FOUND) continue;
+        changesResponse = await fetchDataSource<IChangesResponse>(
+          'changes',
+          AMI_ASSAF_SYMBOL,
+          classId
+        );
+        teacherTimetable.applyChanges(changesResponse.Changes);
+      }
+    }
+    console.log(JSON.stringify(teacherTimetable, null, 2));
+  });
 });

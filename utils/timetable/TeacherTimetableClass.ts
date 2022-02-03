@@ -71,6 +71,10 @@ export class TeacherTimetable implements ITimetable<ITeacherLesson> {
       const hour = changeObj.Hour;
 
       // compare study groups - is it a relevent change?
+      if (!changeObj.StudyGroup)
+        // yeah, blame the iScool API
+        continue;
+
       const { Teacher: changeTeacher, Subject: changeSubject } =
         changeObj.StudyGroup;
       const lesson = this.lessons[day][hour];
