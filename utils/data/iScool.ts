@@ -5,6 +5,8 @@ import {
   IChangeIscool,
   ILessonIscool,
   ITeacherLesson,
+  ISchoolSearchResultIscool,
+  ISchoolLookupResult,
 } from '../../interfaces';
 import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
 
@@ -96,6 +98,21 @@ export class ISCOOL {
     return {
       subject: Subject,
       class: ISCOOL.toClass(Te, Room),
+    };
+  }
+
+  /**
+   * Converts an Iscool search result to a ISchoolLookupResult format
+   * @param param0 the search result to convert
+   * @returns its representation in the specified format
+   */
+  static toSchoolLookupResult({
+    name,
+    semel,
+  }: ISchoolSearchResultIscool): ISchoolLookupResult {
+    return {
+      name,
+      symbol: semel,
     };
   }
 }

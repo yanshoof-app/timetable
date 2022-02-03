@@ -56,6 +56,15 @@ export function isIscoolClass(obj: any): obj is IClassIscool {
 }
 
 /**
+ * Represents a school lookup array member
+ */
+export interface ISchoolSearchResultIscool {
+  name: string;
+  semel: number; // school id in hebrew for some reason
+  // code: number
+}
+
+/**
  * The response received from Iscool when fetching for classes
  */
 export interface IClassesResponse {
@@ -74,4 +83,9 @@ export interface IScheduleResponse {
   ClassId: number;
   Schedule: ILessonArrMemberIscool[];
   Status: string;
+}
+
+export interface ISchoolSearchRepsonse {
+  Status: string;
+  Schools: ISchoolSearchResultIscool[];
 }

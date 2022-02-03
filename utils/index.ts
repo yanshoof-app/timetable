@@ -15,3 +15,6 @@ export { TeacherTimetable } from './timetable/TeacherTimetableClass';
 // settings export
 export { QueryParamsSettings } from './settings/QueryParamsSettings';
 export type { QueryParams } from './settings/QueryParamsSettings';
+
+// school lookup export
+export { SchoolLookup } from './school/SchoolLookup';
