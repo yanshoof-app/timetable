@@ -87,6 +87,11 @@ export class ISCOOL {
     };
   }
 
+  /**
+   * Returns a representation of an Iscool lesson in an ITeacherLesson format
+   * @param param0 the iscool lesson
+   * @returns its representation in an ITeacherLesson format
+   */
   static toTeacherLesson({ Subject, Te, Room }: ILessonIscool): ITeacherLesson {
     return {
       subject: Subject,

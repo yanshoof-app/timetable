@@ -6,7 +6,7 @@ import {
   ITeacherLesson,
   ITimetable,
 } from '../../interfaces';
-import { ISCOOL } from '..';
+import { ISCOOL, Timetable } from '..';
 import { initMatrix } from '..';
 
 /**
@@ -15,9 +15,6 @@ import { initMatrix } from '..';
  * @version 2022.0.0
  */
 export class TeacherTimetable implements ITimetable<ITeacherLesson> {
-  static readonly DAYS_IN_WEEK = 7;
-  static readonly HOURS_OF_SCHEDULE = 13; // change if needed
-  static readonly COMMON_TEACHER = '';
   readonly lessons: ITeacherLesson[][];
   private commonTeacher: string;
 
@@ -28,8 +25,8 @@ export class TeacherTimetable implements ITimetable<ITeacherLesson> {
   constructor(commonTeacher: string) {
     // initialize array
     this.lessons = initMatrix<ITeacherLesson>(
-      TeacherTimetable.DAYS_IN_WEEK,
-      TeacherTimetable.HOURS_OF_SCHEDULE
+      Timetable.DAYS_IN_WEEK,
+      Timetable.HOURS_OF_SCHEDULE
     );
     this.commonTeacher = commonTeacher;
   }
@@ -42,30 +39,19 @@ export class TeacherTimetable implements ITimetable<ITeacherLesson> {
       if (this.lessons[day][hourIndex].subject)
         // lesson already defined
         continue;
-      // multiple lessons at same hour (i.e - math).
-      // find lesson whose study group is present in the settings
-      const groupIndex = lesson.Lessons.findIndex(
+
+      // find lesson whose teacher is the specified teacher
+      const lessonIndex = lesson.Lessons.findIndex(
         element => element.Teacher === this.commonTeacher
       );
-      /*studyGroupMap.get([day, hourIndex].join(','));*/
-      if (groupIndex == -1) {
-        // window at the current hour
-        this.lessons[day][hourIndex] = {} as ILesson;
+
+      if (lessonIndex == -1)
+        // no lesson found for this class
         continue;
-      }
 
-      const group = ISCOOL.toTeacherLesson(lesson.Lessons[groupIndex]);
-
-      this.lessons[day][hourIndex] = group;
-      /*
-      this.lessons[day][hourIndex] = hourlyLessons.find(
-        ({ subject, teacher }: ILesson) => {
-          const match = group[0] == subject && group[1] == teacher;
-          // if (match) console.log(day, hourIndex, ...group);
-          return match;
-        }
+      this.lessons[day][hourIndex] = ISCOOL.toTeacherLesson(
+        lesson.Lessons[lessonIndex]
       );
-      */
     } // end of for
 
     return this;
