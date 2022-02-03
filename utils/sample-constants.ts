@@ -99,3 +99,5 @@ export const OSHRI_SETTINGS: IScheduleSettings = {
     ['5,3', -1],
   ]),
 };
+
+export const SAMPLE_TEACHER = 'רוזנבלום כרמית';
