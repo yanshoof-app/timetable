@@ -30,7 +30,7 @@ export class StringCompareEntity {
       [currentPoints, mostMatchingIndex] = indexesAvailableInOther.reduce(
         ([prevPts, prevIdx], index) => {
           //console.log(other.words[-1])
-          if (index != INDEX_UNAVILABLE) {
+          if (indexesAvailableInOther[index] != INDEX_UNAVILABLE) {
             const similarity = StringCompareEntity.compareSets(
               charSet,
               other.words[index]
