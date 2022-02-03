@@ -16,6 +16,9 @@ export type QueryParams = {
  * @implements IScheduleSettings
  */
 export class QueryParamsSettings implements IScheduleSettings {
+  private static DAY_HOUR_QPARAMS_DELIMITER = '/';
+  private static STUDY_GROUP_QPARAMS_DELIMITER = ':';
+  private static DELIMITER = ',';
   readonly showOthersChanges: boolean;
   readonly studyGroups: [string, string][];
   readonly studyGroupMap: Map<string, number>;
@@ -32,10 +35,18 @@ export class QueryParamsSettings implements IScheduleSettings {
   }: IScheduleSettings): QueryParams {
     return {
       showOthersChanges: showOthersChanges ? 'true' : 'false',
-      studyGroups: studyGroups.map(sg => sg.join(':')).join(','),
+      studyGroups: studyGroups
+        .map(sg => sg.join(this.STUDY_GROUP_QPARAMS_DELIMITER))
+        .join(this.DELIMITER),
       studyGroupMap: Array.from(studyGroupMap.keys())
-        .map(key => `${key.replace(',', '/')}:${studyGroupMap.get(key)!}`)
-        .join(','),
+        .map(
+          key =>
+            `${key.replace(
+              this.DELIMITER,
+              this.DAY_HOUR_QPARAMS_DELIMITER
+            )}:${studyGroupMap.get(key)!}`
+        )
+        .join(this.DELIMITER),
     };
   }
 
@@ -83,9 +94,9 @@ export class QueryParamsSettings implements IScheduleSettings {
 
     // build study group array
     this.studyGroups = [];
-    for (let studyGroup of studyGroups.split(',')) {
+    for (let studyGroup of studyGroups.split(QueryParamsSettings.DELIMITER)) {
       const columnSeparatedFields = toTuple(
-        studyGroup.split(':'),
+        studyGroup.split(QueryParamsSettings.STUDY_GROUP_QPARAMS_DELIMITER),
         new InputError(
           `Invalid study group "${studyGroup}", expected <subject>:<teacher>`
         )
@@ -95,12 +106,18 @@ export class QueryParamsSettings implements IScheduleSettings {
 
     // build study group map
     this.studyGroupMap = new Map();
-    for (let entry of studyGroupMap.split(',')) {
+    for (let entry of studyGroupMap.split(QueryParamsSettings.DELIMITER)) {
       const inputError = new InputError(
         `Invalid input "${entry}" for study group array entry. Expected [day]/[hour]:[index]`
       );
-      const [dayHour, indexStr] = toTuple(entry.split(':'), inputError);
-      const [dayStr, hourStr] = toTuple(dayHour.split('/'), inputError);
+      const [dayHour, indexStr] = toTuple(
+        entry.split(QueryParamsSettings.STUDY_GROUP_QPARAMS_DELIMITER),
+        inputError
+      );
+      const [dayStr, hourStr] = toTuple(
+        dayHour.split(QueryParamsSettings.DAY_HOUR_QPARAMS_DELIMITER),
+        inputError
+      );
 
       // validate values
       const [day, hour, index] = [dayStr, hourStr, indexStr].map(Number);
