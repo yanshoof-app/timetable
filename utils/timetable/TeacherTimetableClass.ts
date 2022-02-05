@@ -8,7 +8,7 @@ import { ISCOOL, Timetable } from '..';
 import { initMatrix } from '..';
 
 /**
- * A Timetable class capable of reading settings and changes
+ * A Teacher Timetable class capable of reading changes
  * @author Itay Oshri
  * @version 2022.0.0
  */
@@ -16,10 +16,6 @@ export class TeacherTimetable implements ITimetable<ITeacherLesson> {
   readonly lessons: ITeacherLesson[][];
   private commonTeacher: string;
 
-  /**
-   * Creates a timetable object with given settings
-   * @param settings the schedule settings object, determining which lesson of multiple will be used
-   */
   constructor(commonTeacher: string) {
     // initialize array
     this.lessons = initMatrix<ITeacherLesson>(

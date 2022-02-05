@@ -8,6 +8,7 @@ import { AMI_ASSAF_SYMBOL, SAMPLE_TEACHER } from '../utils/sample-constants';
 import { ClassLookup } from '../utils';
 
 describe('Test build schedule routine', () => {
+  //jest.setTimeout(40000);
   let classLookup: ClassLookup;
   let teacherTimetable: TeacherTimetable;
 
