@@ -1,3 +1,3 @@
 export interface ITeacherList {
-    teachers: string[];
+  get teachers(): string[];
 }
