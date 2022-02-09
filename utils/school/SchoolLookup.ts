@@ -28,13 +28,15 @@ export class SchoolLookup implements ISchoolLookup {
    * const schoolLookup = SchoolLookup.buildFromQuery(460030); // results: [{ name: "עמי אסף בית ברל", symbol = 460030 }]
    */
   static async buildFromQuery(query: string | number) {
-    const url = `https://${process.env.BASE_URL}/api/school/search/?token=${process.env.TOKEN}&name=${query}`;
+    const url = `https://${process.env.BASE_URL}/api/school/search/?token=${process.env.TOKEN}&name=${encodeURIComponent(query)}`;
     const res = await axios.get<ISchoolSearchRepsonse>(url);
+    
     if (res.status != 200)
       throw new Error('Error fetching iscool server for school search');
     if (!res.data.Schools)
       // if the field is null (search failed)
       return new SchoolLookup([]);
     return new SchoolLookup(res.data.Schools);
+    
   }
 }
