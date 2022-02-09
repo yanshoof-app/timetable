@@ -12,24 +12,12 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const query = _req.query;
     let studyGroups = query.studyGroups;
-    /*let SETTINGS = {
+    let SETTINGS = QueryParamsSettings.toQueryParams({
       showOthersChanges: Boolean(query.showOthersChanges),
       studyGroups: JSON.parse(query.studyGroups.toString()),
-      studyGroupsMap: JSON.parse(query.studyGroupsMap.toString())
-    };*/
-    let sSETTINGS = QueryParamsSettings.toQueryParams({
-      showOthersChanges: Boolean(query.showOthersChanges),
-      studyGroups: JSON.parse(query.studyGroups.toString()),
-      studyGroupMap: JSON.parse(query.studyGroupsMap.toString())
+      studyGroupMap: new Map(JSON.parse(query.studyGroupsMap.toString()))
     });
-    console.log({
-      showOthersChanges: Boolean(query.showOthersChanges),
-      studyGroups: JSON.parse(query.studyGroups.toString()),
-      studyGroupMap: JSON.parse(query.studyGroupsMap.toString())
-    });
-
-    const Settings = new QueryParamsSettings(sSETTINGS);
-    const timetable = new Timetable(Settings);
+    const timetable = new Timetable(new QueryParamsSettings(SETTINGS));
 
     const { Schedule } = await fetchDataSource<IScheduleResponse>(
       'schedule',
@@ -45,7 +33,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     );
     timetable.applyChanges(Changes);
 
-    res.status(200).json({ timetable: timetable.lessons });
+    res.status(200).json( JSON.stringify(timetable.lessons, null ,2) );
   } catch (err: any) {
     res.status(500).json({ statusCode: 500, message: err.message });
   }
