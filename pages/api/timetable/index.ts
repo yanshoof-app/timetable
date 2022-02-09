@@ -1,23 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { IChangesResponse, IScheduleResponse, IScheduleSettings } from '../../../interfaces';
+import { IChangesResponse, IScheduleResponse } from '../../../interfaces';
 import { fetchDataSource, Timetable } from '../../../utils';
-import {
-  AMI_ASSAF_SYMBOL,
-  YUD_7_ID,
-} from '../../../utils/sample-constants';
-import { QueryParamsSettings  } from '../../../utils';
-import { settings } from 'cluster';
+import { AMI_ASSAF_SYMBOL, YUD_7_ID } from '../../../utils/sample-constants';
+import { QueryParamsSettings } from '../../../utils';
+import { InputError } from '../../../interfaces/errors';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const query = _req.query;
-    let studyGroups = query.studyGroups;
-    let SETTINGS = QueryParamsSettings.toQueryParams({
-      showOthersChanges: Boolean(query.showOthersChanges),
-      studyGroups: JSON.parse(query.studyGroups.toString()),
-      studyGroupMap: new Map(JSON.parse(query.studyGroupsMap.toString()))
-    });
-    const timetable = new Timetable(new QueryParamsSettings(SETTINGS));
+    const settings = new QueryParamsSettings(query);
+    const timetable = new Timetable(settings);
 
     const { Schedule } = await fetchDataSource<IScheduleResponse>(
       'schedule',
@@ -32,10 +24,12 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       YUD_7_ID
     );
     timetable.applyChanges(Changes);
-
-    res.status(200).json( JSON.stringify(timetable.lessons, null ,2) );
+    res.status(200).json(JSON.stringify(timetable.lessons, null, 2));
   } catch (err: any) {
-    res.status(500).json({ statusCode: 500, message: err.message });
+    res.status(500).json({
+      statusCode: err.name == InputError.errorName ? 422 : 500,
+      message: err.message,
+    });
   }
 };
 
