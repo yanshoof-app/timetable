@@ -1,12 +1,16 @@
 import {
+  IChange,
   IChangeIscool,
   ILesson,
   ILessonArrMemberIscool,
   IScheduleSettings,
+  isILessonObj,
+  isSettingsObj,
   ITimetable,
 } from '../../interfaces';
 import { ISCOOL } from '..';
 import { initMatrix } from '..';
+import { isMatrix } from '../data/arrays';
 
 /**
  * A Timetable class capable of reading settings and changes
@@ -17,22 +21,43 @@ export class Timetable implements ITimetable<ILesson> {
   static readonly DAYS_IN_WEEK = 7;
   static readonly HOURS_OF_SCHEDULE = 13; // change if needed
   readonly lessons: ILesson[][];
-  private settings: IScheduleSettings;
+  private settings: IScheduleSettings | { showOthersChanges: boolean };
 
   /**
    * Creates a timetable object with given settings
    * @param settings the schedule settings object, determining which lesson of multiple will be used
    */
-  constructor(settings: IScheduleSettings) {
-    // initialize array
-    this.lessons = initMatrix<ILesson>(
-      Timetable.DAYS_IN_WEEK,
-      Timetable.HOURS_OF_SCHEDULE
-    );
-    this.settings = settings;
+  constructor(settings: IScheduleSettings);
+
+  /**
+   * Creates a timetable object with existing lessons
+   * @param existing the lessons to put in the timetable
+   */
+  constructor(existing: ILesson[][], showOthersChanges: boolean);
+
+  constructor(...args: unknown[]) {
+    const [arg, showOthersChanges] = args;
+    if (!arg || (showOthersChanges && typeof showOthersChanges != 'boolean'))
+      throw new Error('Invalid values in constructor');
+    else if (isSettingsObj(arg)) {
+      // initialize array
+      this.lessons = initMatrix<ILesson>(
+        Timetable.DAYS_IN_WEEK,
+        Timetable.HOURS_OF_SCHEDULE
+      );
+      this.settings = arg;
+    } else if (isMatrix(arg) && isILessonObj(arg[0][0])) {
+      this.lessons = arg as ILesson[][];
+      this.settings = { showOthersChanges: showOthersChanges as boolean };
+    } else throw new Error('Invalid values in constructor');
   }
 
   public fromIscool(schedule: ILessonArrMemberIscool[]) {
+    if (!isSettingsObj(this.settings))
+      throw new Error(
+        'Cannot call method "fromIscool()" method without proper settings'
+      );
+
     const { studyGroups, studyGroupMap } = this.settings;
     for (let lesson of schedule) {
       const day = lesson.Day;
@@ -82,6 +107,29 @@ export class Timetable implements ITimetable<ILesson> {
       // compare study groups - is it a relevent change?
       const { Teacher: changeTeacher, Subject: changeSubject } =
         changeObj.StudyGroup;
+      const lesson = this.lessons[day][hour];
+      if (lesson.teacher == changeTeacher && lesson.subject == changeSubject)
+        this.lessons[day][hour] = { ...lesson, ...modification };
+      else if (showOthersChanges) {
+        this.lessons[day][hour].otherChanges ||= [];
+        this.lessons[day][hour].otherChanges.push({
+          ...modification,
+          teacher: changeTeacher,
+          subject: changeSubject,
+        });
+      }
+    }
+  }
+
+  public applyExistingChanges(changes: IChange[]) {
+    const { showOthersChanges } = this.settings;
+    for (let {
+      day,
+      hour,
+      subject: changeSubject,
+      teacher: changeTeacher,
+      ...modification
+    } of changes) {
       const lesson = this.lessons[day][hour];
       if (lesson.teacher == changeTeacher && lesson.subject == changeSubject)
         this.lessons[day][hour] = { ...lesson, ...modification };

@@ -34,3 +34,12 @@ export function toTuple<T>(array: T[], failError: Error): [T, T] {
   if (array.length > 2) throw failError;
   return array as [T, T];
 }
+
+/**
+ * Checks if a given object is a matrix
+ * @param obj the object to check
+ * @return true if matrix, false otherwise
+ */
+export function isMatrix(obj: unknown) {
+  return typeof obj == 'object' && 0 in obj && 0 in obj[0];
+}

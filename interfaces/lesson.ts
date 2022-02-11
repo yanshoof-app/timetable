@@ -1,4 +1,5 @@
-import { type } from "os";
+import { type } from 'os';
+import { DayOfWeek, HourOfDay } from '.';
 
 /**
  * An enum of possible modifications done to a lesson
@@ -30,16 +31,42 @@ export interface IStudyGroup {
 }
 
 /**
- * Represents a lesson.
- * @extends IModification for listing any changes made for the lesson
+ * Represents a modification. Determines a study group and the exact modification to it@extends IModification for listing any changes made for the lesson
  * @extends IStudyGroup to specify the teacher and the subject
+ */
+export interface IStudyGroupWithModification
+  extends IStudyGroup,
+    IModification {}
+
+/**
+ * Represents a lesson.
+ * @extends IStudyGroupWithModification for listing the study group and possible modifications to it
  * @field class a string specifying where the lesson will be taking place
  * @field otherChanges an array of other combinations of study groups and modifications done by the time this lesson is taking place.
  */
-export interface ILesson extends IStudyGroup, IModification {
+export interface ILesson extends IStudyGroupWithModification {
   class: string; // Room string / Zoom / Async
-  otherChanges?: (IModification & IStudyGroup)[];
+  otherChanges?: IStudyGroupWithModification[];
 }
 
+export function isILessonObj(obj: unknown): obj is ILesson {
+  return (
+    typeof obj == 'object' &&
+    'subject' in obj &&
+    'teacher' in obj &&
+    'class' in obj
+  );
+}
 
-export type ITeacherLesson = Omit<ILesson, "teacher"> 
+export type ITeacherLesson = Omit<ILesson, 'teacher'>;
+
+/**
+ * Represents a change in the schedule.
+ * @extends IStudyGroupWithModification for listing the study group and possible modifications to it
+ * @field day for the day the change will take into effect
+ * @field hour for the hour of day the change will take into effect
+ */
+export interface IChange extends IStudyGroupWithModification {
+  day: DayOfWeek;
+  hour: HourOfDay;
+}

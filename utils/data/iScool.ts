@@ -7,6 +7,9 @@ import {
   ITeacherLesson,
   ISchoolSearchResultIscool,
   ISchoolLookupResult,
+  IChange,
+  DayOfWeek,
+  HourOfDay,
 } from '../../interfaces';
 import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
 
@@ -113,6 +116,22 @@ export class ISCOOL {
     return {
       name,
       symbol: semel,
+    };
+  }
+
+  /**
+   * Converts an Iscool change object to ours
+   * @param change the change given by Iscool
+   * @returns its matching IChange representation
+   */
+  static toChange(change: IChangeIscool): IChange {
+    const { Subject, Teacher } = change.StudyGroup;
+    return {
+      subject: Subject,
+      teacher: Teacher,
+      day: this.toDate(change.Date).getDay() as DayOfWeek,
+      hour: change.Hour as HourOfDay,
+      ...this.toModification(change),
     };
   }
 }

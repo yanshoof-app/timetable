@@ -9,3 +9,12 @@ export interface IScheduleSettings {
   studyGroups: [string, string][];
   studyGroupMap: Map<string, number>;
 }
+
+export function isSettingsObj(obj: unknown): obj is IScheduleSettings {
+  return (
+    typeof obj == 'object' &&
+    'showOthersChanges' in obj &&
+    'studyGroups' in obj &&
+    'studyGroupMap' in obj
+  );
+}
