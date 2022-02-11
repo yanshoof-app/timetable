@@ -1,6 +1,7 @@
 import { initMatrix } from '..';
 import { HEBREW_GRADES } from '..';
 import { IClassIscool, IClassLookup, isIscoolClass } from '../../interfaces';
+import { isArray, isMatrix } from '../data/arrays';
 
 /**
  * Class Lookup: a lookup object used in both frontend and backend.
@@ -16,33 +17,45 @@ export class ClassLookup implements IClassLookup {
   private _maxClassNumber: number;
 
   /**
-   * Initialize a class lookup object in one of the following ways:
-   * @example // for backend
-   * const classLookup = new ClassLookup(Schedule)
-   * @example // for frontend
+   * Initialize a class lookup from Iscool classes
+   * @param classes the array of Iscool classes to create a class lookup from
+   * @example
+   * const classLookup = new ClassLookup(Classes)
+   */
+  constructor(classes: IClassIscool[]);
+
+  /**
+   * Initialize a class lookup from existing values
+   * @param classes the existing matrix of ids
+   * @param minGrade the existing minGrade value
+   * @param maxGrade the existing maxGrade value
+   * @param maxClassNumber the existing maxClassNumberValue
+   * @example
    * const classLookup = new ClassLookup(_classIds, _minGrade, _maxGrade, _maxClassNumber)
-   * @param classes an array of Iscool classes, or a matrix of class ids
-   * @param minGrade the minimum grade, a number between 1 and 12.
-   * @param maxGrade the maximum grade, a number between 1 and 12.
-   * @param maxClassNumber the highest of numbers of classes in each grade.
    */
   constructor(
-    classes: IClassIscool[] | number[][],
-    minGrade?: number,
-    maxGrade?: number,
-    maxClassNumber?: number
-  ) {
-    if (isIscoolClass(classes[0])) this.fromIscool(classes as IClassIscool[]);
-    else {
+    classes: number[][],
+    minGrade: number,
+    maxGrade: number,
+    maxClassNumber: number
+  );
+
+  constructor(...args: unknown[]) {
+    const [classes, minGrade, maxGrade, maxClassNumber] = args;
+    if (isArray(classes) && isIscoolClass(classes[0]))
+      this.fromIscool(classes as IClassIscool[]);
+    else if (
+      isMatrix(classes) &&
+      typeof classes[0][0] == 'number' &&
+      typeof minGrade == 'number' &&
+      typeof maxGrade == 'number' &&
+      typeof maxClassNumber == 'number'
+    ) {
       this._classIds = classes as number[][];
-      if (!minGrade || !maxGrade || !maxClassNumber)
-        throw new Error(
-          'Expected minGrade, maxGrade and maxClassNumber in constructor'
-        );
       this._minGrade = minGrade;
       this._maxGrade = maxGrade;
       this._maxClassNumber = maxClassNumber;
-    }
+    } else throw new Error('Invalid values in constructor');
   }
 
   /**

@@ -36,10 +36,18 @@ export function toTuple<T>(array: T[], failError: Error): [T, T] {
 }
 
 /**
+ * check if a given object is an array
+ * @param obj the object to check
+ * @returns true if an array, false otherwise
+ */
+export function isArray(obj: unknown) {
+  return typeof obj == 'object' && 0 in obj;
+}
+/**
  * Checks if a given object is a matrix
  * @param obj the object to check
  * @return true if matrix, false otherwise
  */
 export function isMatrix(obj: unknown) {
-  return typeof obj == 'object' && 0 in obj && 0 in obj[0];
+  return isArray(obj) && isArray(obj[0]);
 }
