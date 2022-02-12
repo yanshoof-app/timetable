@@ -1,12 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IChangesResponse, IClassesResponse, IScheduleResponse } from '../../../../interfaces';
-import { ClassLookup, fetchDataSource, TeacherTimetable, Timetable } from '../../../../utils';
-import {
-  AMI_ASSAF_SYMBOL,
-  SETTINGS,
-  YUD_7_ID,
-} from '../../../../utils/sample-constants';
-import { TeacherList } from '../../../../utils/teacherList/TeacherList';
+import { ClassLookup, fetchDataSource, TeacherTimetable } from '../../../../utils';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     let school = _req.query.school.toString();

@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { IChangesResponse, IClassesResponse, IScheduleResponse } from '../../../interfaces';
-import { ClassLookup, fetchDataSource, SchoolLookup, TeacherTimetable, Timetable } from '../../../utils';
+import { SchoolLookup, } from '../../../utils';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   let search = _req.query.search;

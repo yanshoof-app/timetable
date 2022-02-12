@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { IChangesResponse, IClassesResponse, IScheduleResponse } from '../../../../interfaces';
-import { ClassLookup, fetchDataSource, Timetable } from '../../../../utils';
+import { IClassesResponse, IScheduleResponse } from '../../../../interfaces';
+import { ClassLookup, fetchDataSource } from '../../../../utils';
 import {
 } from '../../../../utils/sample-constants';
 import { TeacherList } from '../../../../utils/teacherList/TeacherList';
