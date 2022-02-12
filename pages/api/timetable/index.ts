@@ -13,8 +13,8 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     const { Schedule } = await fetchDataSource<IScheduleResponse>(
       'schedule',
-      AMI_ASSAF_SYMBOL,
-      YUD_7_ID
+      query.school.toString(),
+      query.classId.toString()
     );
     timetable.fromIscool(Schedule);
 
