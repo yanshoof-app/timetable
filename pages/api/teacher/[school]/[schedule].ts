@@ -3,12 +3,13 @@ import { IChangesResponse, IClassesResponse, IScheduleResponse } from '../../../
 import { ClassLookup, fetchDataSource, TeacherTimetable } from '../../../../utils';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
-    let school = _req.query.school.toString();
-    let commonTeacher = _req.query.schedule;
+    const query = _req.query;
+    const schoolSymbol = query.school.toString();
+    const commonTeacher = query.schedule;
   try {
     const classResponse = await fetchDataSource<IClassesResponse>(
         'classes',
-        school,
+        schoolSymbol,
         0
       );
     const classLookup = new ClassLookup(classResponse.Classes);  
@@ -19,7 +20,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         if (classId == ClassLookup.CLASS_NOT_FOUND) continue;
         scheduleResponse = await fetchDataSource<IScheduleResponse>(
           'schedule',
-          school,
+          schoolSymbol,
           classId
         );
         teacherTimetable.fromIscool(scheduleResponse.Schedule);
@@ -31,7 +32,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         if (classId == ClassLookup.CLASS_NOT_FOUND) continue;
         changesResponse = await fetchDataSource<IChangesResponse>(
           'changes',
-          school,
+          schoolSymbol,
           classId
         );
         teacherTimetable.applyChanges(changesResponse.Changes);

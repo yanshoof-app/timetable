@@ -7,10 +7,11 @@ import { TeacherList } from '../../../../utils/teacherList/TeacherList';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
-    let school = _req.query.school.toString();
+    const query = _req.query;
+    const schoolSymbol = query.school.toString();
     const classResponse = await fetchDataSource<IClassesResponse>(
         'classes',
-        school,
+        schoolSymbol,
         0
       );
     const classLookup = new ClassLookup(classResponse.Classes);
@@ -21,7 +22,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         if (classId == ClassLookup.CLASS_NOT_FOUND) continue;
         scheduleResponse = await fetchDataSource<IScheduleResponse>(
           'schedule',
-          school,
+          schoolSymbol,
           classId
         );
         teachers.fromIscool(scheduleResponse.Schedule);

@@ -4,10 +4,11 @@ import { ClassLookup, fetchDataSource } from '../../../utils';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
-    let school = _req.query.school.toString();
+    const query = _req.query;
+    const schoolSymbol = query.school.toString();
     const { Classes } = await fetchDataSource<IClassesResponse>(
       'classes',
-      school,
+      schoolSymbol,
       0
     );
     const classLookup = new ClassLookup(Classes);
