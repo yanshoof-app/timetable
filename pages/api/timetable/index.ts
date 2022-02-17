@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { IChangesResponse, IScheduleResponse } from '../../../interfaces';
-import { fetchDataSource, Timetable } from '../../../utils';
-import { AMI_ASSAF_SYMBOL, YUD_7_ID } from '../../../utils/sample-constants';
-import { QueryParamsSettings } from '../../../utils';
-import { InputError } from '../../../interfaces/errors';
+import { NextApiRequest, NextApiResponse } from "next";
+import { IChangesResponse, IScheduleResponse } from "../../../interfaces";
+import { fetchDataSource, Timetable } from "../../../utils";
+import { AMI_ASSAF_SYMBOL, YUD_7_ID } from "../../../utils/sample-constants";
+import { QueryParamsSettings } from "../../../utils";
+import { InputError } from "../../../interfaces/errors";
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -14,14 +14,14 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const timetable = new Timetable(settings);
 
     const { Schedule } = await fetchDataSource<IScheduleResponse>(
-      'schedule',
+      "schedule",
       schoolSymbol,
       classId
     );
     timetable.fromIscool(Schedule);
 
     const { Changes } = await fetchDataSource<IChangesResponse>(
-      'changes',
+      "changes",
       schoolSymbol,
       classId
     );
