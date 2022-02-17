@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IClassesResponse } from '../../../interfaces';
-import { ClassLookup, fetchDataSource } from '../../../utils/';
-import { AMI_ASSAF_SYMBOL } from '../../../utils/sample-constants';
+import { ClassLookup, fetchDataSource } from '../../../utils';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
+    const query = _req.query;
+    const schoolSymbol = query.school.toString();
     const { Classes } = await fetchDataSource<IClassesResponse>(
       'classes',
-      AMI_ASSAF_SYMBOL,
+      schoolSymbol,
       0
     );
     const classLookup = new ClassLookup(Classes);

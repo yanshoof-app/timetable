@@ -1,16 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { IChangesResponse, IClassesResponse, IScheduleResponse } from '../../../../interfaces';
-import { ClassLookup, fetchDataSource, Timetable } from '../../../../utils';
+import { IClassesResponse, IScheduleResponse } from '../../../../interfaces';
+import { ClassLookup, fetchDataSource } from '../../../../utils';
 import {
 } from '../../../../utils/sample-constants';
 import { TeacherList } from '../../../../utils/teacherList/TeacherList';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
-    let school = _req.query.school.toString();
+    const query = _req.query;
+    const schoolSymbol = query.school.toString();
     const classResponse = await fetchDataSource<IClassesResponse>(
         'classes',
-        school,
+        schoolSymbol,
         0
       );
     const classLookup = new ClassLookup(classResponse.Classes);
@@ -21,14 +22,14 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         if (classId == ClassLookup.CLASS_NOT_FOUND) continue;
         scheduleResponse = await fetchDataSource<IScheduleResponse>(
           'schedule',
-          school,
+          schoolSymbol,
           classId
         );
         teachers.fromIscool(scheduleResponse.Schedule);
       }
     }
 
-    res.status(200).json({ ...teachers.teachers });
+    res.status(200).json(teachers.teachers);
   }
   catch (err: any) {
     res.status(500).json({ statusCode: 500, message: err.message });

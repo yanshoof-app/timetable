@@ -3,7 +3,7 @@ import {
   IClassesResponse,
   IChangesResponse,
 } from '../interfaces';
-import { CLASS_UNAVAILABLE, fetchDataSource, TeacherTimetable } from '../utils';
+import { fetchDataSource, TeacherTimetable } from '../utils';
 import { AMI_ASSAF_SYMBOL, SAMPLE_TEACHER } from '../utils/sample-constants';
 import { ClassLookup } from '../utils';
 
