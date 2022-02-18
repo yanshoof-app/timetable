@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 const colorOptions = {
   red: 'shadow-rose-600/70',
@@ -6,14 +6,14 @@ const colorOptions = {
   green: 'shadow-lime-500/70',
   primary: 'shadow-sky-500',
   default: 'shadow-gray-500/30',
-};
+}
 
-export type ShadowColor = keyof typeof colorOptions;
+export type ShadowColor = keyof typeof colorOptions
 
 export interface ShadowedWrapperProps {
-  color?: ShadowColor;
-  className?: string;
-  children: ReactNode | ReactNode[];
+  color?: ShadowColor
+  className?: string
+  children: ReactNode | ReactNode[]
 }
 
 export default function ShadowedWrapper({
@@ -27,5 +27,5 @@ export default function ShadowedWrapper({
     >
       {children}
     </div>
-  );
+  )
 }
