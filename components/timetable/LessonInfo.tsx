@@ -19,9 +19,9 @@ export default function LessonInfo({
 }: LessonInfoProps) {
   return (
     <div className={`flex flex-col`}>
-      <InfoLine info={lesson} newInfo={newLesson} bold={true}></InfoLine>
-      <InfoLine info={teacher} newInfo={newTeacher}></InfoLine>
-      <InfoLine info={room} newInfo={newRoom} bold={true}></InfoLine>
+      <InfoLine info={lesson} newInfo={newLesson} bold={true} />
+      <InfoLine info={teacher} newInfo={newTeacher} />
+      <InfoLine info={room} newInfo={newRoom} bold={true} />
     </div>
   )
 }
