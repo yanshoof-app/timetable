@@ -11,7 +11,7 @@ export default function InfoLine({
 }: InfoLineProps) {
   return (
     <div
-      className={`flex flex-row gap-1 font-body justify-end flex-wrap ${
+      className={`flex flex-row gap-1 justify-end flex-wrap ${
         bold ? 'font-bold' : 'font-semibold'
       }`}
     >
