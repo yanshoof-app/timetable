@@ -23,7 +23,7 @@ export default function ShadowedWrapper({
 }: ShadowedWrapperProps) {
   return (
     <div
-      className={`shadow-theme bg-white ${colorOptions[color]} ${className}`}
+      className={`shadow-theme bg-white -translate-x-2 ${colorOptions[color]} ${className}`}
     >
       {children}
     </div>
