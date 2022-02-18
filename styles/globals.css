@@ -14,16 +14,3 @@
     direction: inherit;
   }
 }
-
-@layer utilities {
-  /* Will support responsive prefixes!!!!! */
-  /* Hebrew classes to support */
-  .flex-row-he {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-  }
-  .flex-row-reverse-he {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-}
