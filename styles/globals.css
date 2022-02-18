@@ -2,10 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@900&family=Roboto:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@900&family=Roboto:wght@700&display=swap');
 
 @layer base {
   body {
     @apply bg-gray-100;
+    direction: rtl;
+  }
+
+  * {
+    direction: inherit;
+  }
+}
+
+@layer utilities {
+  /* Will support responsive prefixes!!!!! */
+  /* Hebrew classes to support */
+  .flex-row-he {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .flex-row-reverse-he {
+    flex-direction: row;
+    justify-content: flex-start;
   }
 }
