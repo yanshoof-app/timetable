@@ -1,3 +1,4 @@
+import useModification from '../../hooks/useModification'
 import { HourOfDay, ILesson, LessonModification } from '../../interfaces'
 import ShadowedWrapper from '../ui/ShadowedWrapper'
 import LessonInfo from './LessonInfo'
@@ -27,43 +28,26 @@ const colorOptions = {
   default: 'gray-500',
 }
 
-export interface LessonInfoProps {
-  info: ILesson
+export interface LessonInfoProps extends ILesson {
   hour: HourOfDay
 }
 
-export default function Lesson({
-  info = {
-    class: '',
-    subject: '',
-    teacher: '',
-    modification: 0,
-    modData: '',
-  },
-  hour = 0,
-}: LessonInfoProps) {
+export default function Lesson(lesson: LessonInfoProps) {
+  const [color, modificationMessage] = useModification(lesson)
   return (
     <ShadowedWrapper
-      color={ModToColor(info.modification)}
+      color={color}
       className="flex flex-row rounded-[12px] gap-[0.8rem] p-[0.8rem] items-center justify-start"
     >
-      <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
+      <p className="font-hour font-bold text-[24px] text-gray-500">
+        {lesson.hour}
+      </p>
       <div className="flex flex-col gap-[0.7rem]">
-        <LessonInfo info={info} />
+        <LessonInfo {...lesson} />
         <p
-          className={` mb-[-0.46rem] mt-[-0.46rem] font-bold text-${
-            colorOptions[ModToColor(info.modification)]
-          }`}
+          className={` mb-[-0.46rem] mt-[-0.46rem] font-bold text-${color}-500`}
         >
-          {
-            {
-              1: 'שיעור חופשי',
-              2: info.modData,
-              3: 'החלפת מורה',
-              4: 'מעבר חדר',
-              5: 'החלפת שיעור',
-            }[info.modification]
-          }
+          {modificationMessage}
         </p>
       </div>
     </ShadowedWrapper>

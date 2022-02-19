@@ -1,19 +1,7 @@
 import { ILesson } from '../../interfaces'
 import InfoLine from './InfoLine'
 
-export interface LessonInfoProps {
-  info: ILesson
-}
-
-export default function LessonInfo({
-  info = {
-    class: '',
-    subject: '',
-    teacher: '',
-    modification: 0,
-    modData: '',
-  },
-}: LessonInfoProps) {
+export default function LessonInfo(info: ILesson) {
   return (
     <div className={`flex flex-col gap-[0.7rem]`}>
       <InfoLine

@@ -1,29 +1,31 @@
 import { ReactNode } from 'react'
+import { ColorMapper, ThemeColor } from '../theme'
 
-const colorOptions = {
-  red: 'shadow-rose-600/70',
-  orange: 'shadow-amber-500/70',
-  green: 'shadow-lime-500/70',
-  primary: 'shadow-sky-500',
-  default: 'shadow-gray-500/30',
-}
-
-export type ShadowColor = keyof typeof colorOptions
+const colorOptions: ColorMapper = (color: ThemeColor) =>
+  ({
+    event: 'shadow-event-600/70',
+    change: 'shadow-change-500/70',
+    celebration: 'shadow-celebration-500/70',
+    primary: 'shadow-primary-500',
+    gray: 'shadow-gray-500/30',
+  }[color])
 
 export interface ShadowedWrapperProps {
-  color?: ShadowColor
+  color?: ThemeColor
   className?: string
   children: ReactNode | ReactNode[]
 }
 
 export default function ShadowedWrapper({
-  color = 'default',
+  color = 'gray',
   className = '',
   children,
 }: ShadowedWrapperProps) {
   return (
     <div
-      className={`shadow-theme bg-white -translate-x-2 ${colorOptions[color]} ${className}`}
+      className={`shadow-theme bg-white -translate-x-2 ${colorOptions(
+        color
+      )} ${className}`}
     >
       {children}
     </div>
