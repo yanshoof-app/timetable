@@ -51,7 +51,7 @@ const OF = 'ב'
  */
 export default function useHebrewDate(date: Date) {
   return useMemo(() => {
-    return `${DAY} ${HEBREW_DAYS[date.getDay()]}, ${date.getDay()} ${OF}${
+    return `${DAY} ${HEBREW_DAYS[date.getDay()]}, ${date.getDate()} ${OF}${
       HEBREW_MONTHS[date.getMonth()]
     }`
   }, [date])
