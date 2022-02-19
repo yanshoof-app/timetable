@@ -1,39 +1,38 @@
+import { ILesson } from '../../interfaces'
 import InfoLine from './InfoLine'
 
 export interface LessonInfoProps {
-  subject: string
-  newSubject?: string
-  teacher: string
-  newTeacher?: string
-  room?: string
-  newRoom?: string
-  canceled?: boolean
+  info: ILesson
 }
 
 export default function LessonInfo({
-  subject = '',
-  newSubject = '',
-  teacher = '',
-  newTeacher = '',
-  room = '',
-  newRoom = '',
-  canceled = false,
+  info = {
+    class: '',
+    subject: '',
+    teacher: '',
+    modification: 0,
+    modData: '',
+  },
 }: LessonInfoProps) {
   return (
     <div className={`flex flex-col gap-[0.7rem]`}>
       <InfoLine
-        info={subject}
-        newInfo={newSubject}
+        info={info.subject}
+        newInfo={info.modification === 5 ? info.modData.toString() : ''}
         bold={true}
-        canceled={canceled}
+        changed={info.modification === 1 || info.modification === 2}
       />
-      <InfoLine info={teacher} newInfo={newTeacher} />
-      {room && (
+      <InfoLine
+        info={info.teacher}
+        newInfo={info.modification === 3 ? info.modData.toString() : ''}
+        changed={info.modification === 1 || info.modification === 3}
+      />
+      {info.class && (
         <InfoLine
-          info={room}
-          newInfo={newRoom}
+          info={info.class}
+          newInfo={info.modification === 4 ? info.modData.toString() : ''}
           bold={true}
-          canceled={canceled}
+          changed={info.modification === 1 || info.modification === 4}
         />
       )}
     </div>

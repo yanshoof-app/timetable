@@ -38,24 +38,18 @@ export default function Lesson({
     subject: '',
     teacher: '',
     modification: 0,
+    modData: '',
   },
   hour = 0,
 }: LessonInfoProps) {
   return (
     <ShadowedWrapper
       color={ModToColor(info.modification)}
-      className="flex flex-row rounded-[12px] gap-[0.8rem] p-[0.8rem] items-center"
+      className="flex flex-row rounded-[12px] gap-[0.8rem] p-[0.8rem] items-center justify-start"
     >
       <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
       <div className="flex flex-col gap-[0.7rem]">
-        <LessonInfo
-          subject={info.subject}
-          teacher={info.teacher}
-          room={info.class}
-          newSubject={''}
-          newTeacher={''}
-          newRoom={'ח מחשבים'}
-        />
+        <LessonInfo info={info} />
         <p
           className={` mb-[-0.46rem] mt-[-0.46rem] font-bold text-${
             colorOptions[ModToColor(info.modification)]
@@ -64,9 +58,10 @@ export default function Lesson({
           {
             {
               1: 'שיעור חופשי',
-              2: 'מבחן',
+              2: info.modData,
               3: 'החלפת מורה',
               4: 'מעבר חדר',
+              5: 'החלפת שיעור',
             }[info.modification]
           }
         </p>

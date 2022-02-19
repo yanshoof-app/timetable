@@ -17,7 +17,8 @@ const IndexPage = () => (
           class: 'מחשבים יב',
           subject: 'פרטי צמצום פערים ח תלמידים בחלון',
           teacher: 'קונסטנטין זבלינסקי',
-          modification: 1,
+          modification: 5,
+          modData: 'קונסטנטין זבלינסקי',
         }}
         hour={1}
       />
