@@ -1,32 +1,7 @@
 import useModification from '../../hooks/useModification'
-import { HourOfDay, ILesson, LessonModification } from '../../interfaces'
+import { HourOfDay, ILesson } from '../../interfaces'
 import ShadowedWrapper from '../ui/ShadowedWrapper'
 import LessonInfo from './LessonInfo'
-
-const ModToColor = (modification: LessonModification) => {
-  switch (modification) {
-    case 1:
-      return 'green'
-    case 2:
-      return 'red'
-    case 3:
-      return 'orange'
-    case 4:
-      return 'orange'
-    case 5:
-      return 'orange'
-    default:
-      break
-  }
-}
-
-const colorOptions = {
-  red: 'rose-600',
-  orange: 'amber-500',
-  green: 'lime-500',
-  primary: 'sky-500',
-  default: 'gray-500',
-}
 
 export interface LessonInfoProps extends ILesson {
   hour: HourOfDay
