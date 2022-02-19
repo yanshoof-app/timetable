@@ -1,16 +1,16 @@
-import { type } from 'os';
-import { DayOfWeek, HourOfDay } from '.';
+import { type } from 'os'
+import { DayOfWeek, HourOfDay } from '.'
 
 /**
  * An enum of possible modifications done to a lesson
  */
 export enum LessonModification {
   None = 0,
-  Canceled,
-  Exam,
-  NewTeacher,
-  NewRoom,
-  NewHour,
+  Canceled, //1
+  Exam, //2
+  NewTeacher, //3
+  NewRoom, //4
+  NewHour, //5
   Other,
 }
 
@@ -18,16 +18,16 @@ export enum LessonModification {
  * A combination of an optionsl modification and optional data
  */
 export interface IModification {
-  modification?: LessonModification;
-  modData?: string | number; // modification data if needed
+  modification?: LessonModification
+  modData?: string | number // modification data if needed
 }
 
 /**
  * A combination of a teacher and a subject
  */
 export interface IStudyGroup {
-  subject: string;
-  teacher: string;
+  subject: string
+  teacher: string
 }
 
 /**
@@ -45,8 +45,8 @@ export interface IStudyGroupWithModification
  * @field otherChanges an array of other combinations of study groups and modifications done by the time this lesson is taking place.
  */
 export interface ILesson extends IStudyGroupWithModification {
-  class: string; // Room string / Zoom / Async
-  otherChanges?: IStudyGroupWithModification[];
+  class: string // Room string / Zoom / Async
+  otherChanges?: IStudyGroupWithModification[]
 }
 
 export function isILessonObj(obj: unknown): obj is ILesson {
@@ -55,10 +55,10 @@ export function isILessonObj(obj: unknown): obj is ILesson {
     'subject' in obj &&
     'teacher' in obj &&
     'class' in obj
-  );
+  )
 }
 
-export type ITeacherLesson = Omit<ILesson, 'teacher'>;
+export type ITeacherLesson = Omit<ILesson, 'teacher'>
 
 /**
  * Represents a change in the schedule.
@@ -67,6 +67,6 @@ export type ITeacherLesson = Omit<ILesson, 'teacher'>;
  * @field hour for the hour of day the change will take into effect
  */
 export interface IChange extends IStudyGroupWithModification {
-  day: DayOfWeek;
-  hour: HourOfDay;
+  day: DayOfWeek
+  hour: HourOfDay
 }
