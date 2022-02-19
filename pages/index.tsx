@@ -1,7 +1,8 @@
-import Button from "../components/forms/Button";
-import Layout from "../components/Layout";
-import LessonInfo from "../components/timetable/LessonInfo";
-import ShadowedWrapper from "../components/ui/ShadowedWrapper";
+import Button from '../components/forms/Button'
+import Layout from '../components/Layout'
+import Lesson from '../components/timetable/Lesson'
+import LessonInfo from '../components/timetable/LessonInfo'
+import ShadowedWrapper from '../components/ui/ShadowedWrapper'
 
 const IndexPage = () => (
   <Layout title="Home | Next.js + TypeScript Example">
@@ -10,15 +11,18 @@ const IndexPage = () => (
     <Button>Click Me</Button>
     <Button variant="secondary">Click Me Too</Button>
     <br></br>
-    <LessonInfo
-      lesson={"פרטני צמצום פערים ח תלמידים בחלון"}
-      teacher={"גדסי פריד אורנית"}
-      room={"ספרייה"}
-      newLesson={"תנך תנך"}
-      newTeacher={"קונסטנטין זבלינסקי"}
-      newRoom={"ח מחשבים"}
-    ></LessonInfo>
+    <div className="w-[90%]">
+      <Lesson
+        info={{
+          class: 'מחשבים יב',
+          subject: 'פרטי צמצום פערים ח תלמידים בחלון',
+          teacher: 'קונסטנטין זבלינסקי',
+          modification: 1,
+        }}
+        hour={1}
+      />
+    </div>
   </Layout>
-);
+)
 
-export default IndexPage;
+export default IndexPage
