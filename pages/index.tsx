@@ -2,6 +2,7 @@ import Button from '../components/forms/Button'
 import Layout from '../components/Layout'
 import Lesson from '../components/timetable/Lesson'
 import LessonInfo from '../components/timetable/LessonInfo'
+import DayDateView from '../components/ui/DayDateView'
 import ShadowedWrapper from '../components/ui/ShadowedWrapper'
 
 const IndexPage = () => (
@@ -23,6 +24,7 @@ const IndexPage = () => (
         hour={1}
       />
     </div>
+    <DayDateView className="font-semibold m-4 text-xl" />
   </Layout>
 )
 
