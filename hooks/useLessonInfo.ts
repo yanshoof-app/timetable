@@ -16,12 +16,16 @@ export default function useLessonInfo(
       switch (modification) {
         case LessonModification.Canceled:
           info = { newRoom: '', newTeacher: '', newHour: '' }
+          break
         case LessonModification.NewTeacher:
           info['newTeacher'] = modData.toString()
+          break
         case LessonModification.NewRoom:
           info['newRoom'] = modData.toString()
+          break
         case LessonModification.NewHour:
           info['newHour'] = modData.toString()
+          break
       }
     }
     return info

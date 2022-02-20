@@ -1,11 +1,21 @@
 import useModification from '../../hooks/useModification'
 import { HourOfDay, ILesson } from '../../interfaces'
+import { ColorMapper, ThemeColor } from '../theme'
 import ShadowedWrapper from '../ui/ShadowedWrapper'
 import LessonInfo from './LessonInfo'
 
 export interface LessonInfoProps extends ILesson {
   hour: HourOfDay
 }
+
+const changeTextColor: ColorMapper = (color: ThemeColor) =>
+  ({
+    event: 'text-event-500',
+    change: 'text-change-500',
+    celebration: 'text-celebration-500',
+    primary: 'text-primary-500',
+    gray: 'text-gray-900',
+  }[color])
 
 export default function Lesson(lesson: LessonInfoProps) {
   const [color, modificationMessage] = useModification(lesson)
@@ -20,7 +30,9 @@ export default function Lesson(lesson: LessonInfoProps) {
       <div className="flex flex-col gap-[0.7rem]">
         <LessonInfo {...lesson} />
         <p
-          className={` mb-[-0.46rem] mt-[-0.46rem] font-bold text-${color}-500`}
+          className={` mb-[-0.46rem] mt-[-0.46rem] font-bold ${changeTextColor(
+            color
+          )}`}
         >
           {modificationMessage}
         </p>
