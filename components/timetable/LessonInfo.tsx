@@ -2,7 +2,7 @@ import { ILesson } from '../../interfaces'
 import InfoLine from './InfoLine'
 import useLessonInfo from '../../hooks/useLessonInfo'
 
-export default function LessonInfo(info: ILesson) {
+export default function LessonInfo(info) {
   const { newTeacher, newRoom, newHour } = useLessonInfo([info])
   return (
     <div className={`flex flex-col gap-[0.7rem]`}>

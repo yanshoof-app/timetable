@@ -58,6 +58,10 @@ export function isILessonObj(obj: unknown): obj is ILesson {
   )
 }
 
+export function isAnyLessonObj(obj: unknown): obj is ILesson {
+  return typeof obj == 'object' && 'subject' in obj && 'class' in obj
+}
+
 export type ITeacherLesson = Omit<ILesson, 'teacher'>
 
 /**

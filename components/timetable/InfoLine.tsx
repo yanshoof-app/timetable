@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 export interface InfoLineProps {
   info: string
   newInfo?: string | boolean
