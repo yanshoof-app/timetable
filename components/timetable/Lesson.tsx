@@ -10,7 +10,7 @@ export interface LessonInfoProps extends ILesson {
 
 const changeTextColor: ColorMapper = (color: ThemeColor) =>
   ({
-    event: 'text-event-500',
+    event: 'text-event-600',
     change: 'text-change-500',
     celebration: 'text-celebration-500',
     primary: 'text-primary-500',

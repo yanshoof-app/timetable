@@ -10,7 +10,7 @@ const defaultLesson = {
   class: 'מחשבים יב',
   subject: 'פרטי צמצום פערים ח תלמידים בחלון',
   teacher: 'קונסטנטין זבלינסקי',
-  modification: LessonModification.NewHour,
+  modification: LessonModification.Canceled,
   modData: 'קונסטנטין זבלינסקי',
   hour: 1 as HourOfDay,
 }

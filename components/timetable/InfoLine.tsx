@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 export interface InfoLineProps {
   info: string
-  newInfo?: string
+  newInfo?: string | boolean
   bold?: boolean
 }
 
@@ -18,7 +18,7 @@ export default function InfoLine({
       }`}
     >
       <p className={`${newInfo && 'line-through'}`}>{info}</p>
-      {newInfo && <p className="truncate">{newInfo}</p>}
+      {typeof newInfo === 'string' && <p>{newInfo}</p>}
     </div>
   )
 }

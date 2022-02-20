@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { IModification, LessonModification } from '../interfaces'
 
 export type LessonInfoHook = {
-  newHour?: string
-  newTeacher?: string
-  newRoom?: string
+  newHour?: string | boolean
+  newTeacher?: string | boolean
+  newRoom?: string | boolean
 }
 
 export default function useLessonInfo(
@@ -15,7 +15,7 @@ export default function useLessonInfo(
     for (let { modification, modData } of modifications) {
       switch (modification) {
         case LessonModification.Canceled:
-          info = { newRoom: '', newTeacher: '', newHour: '' }
+          info = { newRoom: true, newTeacher: true, newHour: true }
           break
         case LessonModification.NewTeacher:
           info['newTeacher'] = modData.toString()
@@ -26,6 +26,8 @@ export default function useLessonInfo(
         case LessonModification.NewHour:
           info['newHour'] = modData.toString()
           break
+        case LessonModification.Exam:
+          info['newHour'] = true
       }
     }
     return info
