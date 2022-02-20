@@ -5,11 +5,15 @@ export const timetable_example = [
       subject: 'כימיה',
       teacher: 'זרסקי יפעת',
       class: 'כימיה מעבדה 2',
+      modification: 1,
+      modData: 'קוסטיה',
     },
     {
       subject: 'כימיה',
       teacher: 'זרסקי יפעת',
       class: 'כימיה מעבדה 2',
+      modification: 5,
+      modData: 'חח כימיה זה מקצוע הומני חח',
     },
     {
       subject: 'היסטוריה',
@@ -20,11 +24,15 @@ export const timetable_example = [
       subject: 'הבעה ולשון',
       teacher: 'אהרון שוחט גלית',
       class: 'חדר י 7',
+      modification: 3,
+      modData: 'שכנר איתי',
     },
     {
       subject: 'מתמטיקה 5',
       teacher: 'טיראן חוה',
       class: 'חדר י 6',
+      modification: 2,
+      modData: 'מבחן? אה שכחתי אתה לא לומד מתמטיקה',
     },
     {
       subject: 'מתמטיקה 5',

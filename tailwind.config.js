@@ -21,6 +21,7 @@ module.exports = {
         event: colors.rose,
         change: colors.amber,
         celebration: colors.lime,
+        uiPrimary: colors.zinc,
       },
     },
   },

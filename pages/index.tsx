@@ -5,6 +5,7 @@ import ShadowedWrapper from '../components/ui/ShadowedWrapper'
 import { HourOfDay, LessonModification } from '../interfaces'
 import Timetable from '../components/timetable/Timetable'
 import { timetable_example } from '../timetable_sample'
+import DropdownPick from '../components/forms/DropdownPick'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -22,6 +23,7 @@ const IndexPage = () => (
     <Button>Click Me</Button>
     <Button variant="secondary">Click Me Too</Button>
     <br></br>
+    <DropdownPick options={['אושרי', ' שכנר']}></DropdownPick>
     <Timetable day={0} timetable={timetable_example} />
     <DayDateView className="font-semibold m-4 text-xl" />
   </Layout>

@@ -28,6 +28,10 @@ export default function useLessonInfo(
           break
         case LessonModification.Exam:
           info['newHour'] = true
+          break
+        case LessonModification.Other:
+          info['newHour'] = true
+          break
       }
     }
     return info

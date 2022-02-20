@@ -10,13 +10,23 @@ import Lesson from './Lesson'
 type SupportedLesson = ILesson | ILesson[] | ITeacherLesson | {}
 
 const MIN_HOUR = 1
-const MAX_HOUR = 7
 
-const ShowLesson = (lesson: SupportedLesson, index: HourOfDay) => {
-  return (
-    isAnyLessonObj(lesson) || (index > MIN_HOUR - 1 && index < MAX_HOUR + 1)
-  )
+const FindLastLesson = (timetable) => {
+  let lastLesson: number
+  for (let lesson in timetable) {
+    isAnyLessonObj(timetable[lesson]) && (lastLesson = Number(lesson))
+  }
+  return lastLesson as HourOfDay
 }
+
+const ShowLesson = (
+  lesson: SupportedLesson,
+  index: HourOfDay,
+  lastLesson: HourOfDay
+) => {
+  return isAnyLessonObj(lesson) || (index > MIN_HOUR - 1 && index <= lastLesson)
+}
+
 export interface TimetableProps {
   day: DayOfWeek
   allEditable?: boolean
@@ -29,12 +39,13 @@ export default function Timetable({
   allEditable = false,
   timetable,
 }: TimetableProps) {
+  const lastLesson = FindLastLesson(timetable[day])
   return (
     <div className="flex flex-col gap-[1rem] p-[1rem]">
       {timetable[day].map(
-        (lesson, index) =>
-          ShowLesson(lesson, index as HourOfDay) && (
-            <Lesson lesson={lesson} hour={index as HourOfDay} />
+        (lesson, hour) =>
+          ShowLesson(lesson, hour as HourOfDay, lastLesson) && (
+            <Lesson lesson={lesson} hour={hour as HourOfDay} key={hour} />
           )
       )}
     </div>
