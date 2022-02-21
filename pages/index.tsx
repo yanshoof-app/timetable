@@ -18,12 +18,15 @@ const defaultLesson = {
 
 const IndexPage = () => (
   <Layout title="Home | Next.js + TypeScript Example">
-    <h1 className="text-2xl text-center">Hello Next.js 👋</h1>
+    *<h1 className="text-2xl text-center">Hello Next.js 👋</h1>
     <ShadowedWrapper className="p-2 w-24 rounded-xl m-4">Hello</ShadowedWrapper>
     <Button>Click Me</Button>
     <Button variant="secondary">Click Me Too</Button>
     <br></br>
-    <DropdownPick options={['אושרי', ' שכנר']}></DropdownPick>
+    <DropdownPick
+      options={['1', '2', '3', '4', '5', '6']}
+      className="w-[4rem]"
+    ></DropdownPick>
     <Timetable day={0} timetable={timetable_example} />
     <DayDateView className="font-semibold m-4 text-xl" />
   </Layout>
