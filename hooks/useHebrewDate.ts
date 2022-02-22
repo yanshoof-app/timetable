@@ -15,6 +15,8 @@ export const HEBREW_DAYS = [
   'שבת',
 ]
 
+export const HEBREW_SHORT_DAYS = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש']
+
 /**
  * An array representing hebrew months from 0 to 11.
  * @example

@@ -7,6 +7,8 @@ import Timetable from '../components/timetable/Timetable'
 import { timetable_example } from '../timetable_sample'
 import DropdownPick from '../components/forms/DropdownPick'
 import { useState } from 'react'
+import Toast from '../components/ui/Toast'
+import DayPick from '../components/forms/DayPick'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -18,10 +20,15 @@ const defaultLesson = {
 }
 
 const IndexPage = () => {
-  const [date, changeDate] = useState(1)
+  const [date, updateDay] = useState(2 as DayOfWeek)
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      *<h1 className="text-2xl text-center">Hello Next.js 👋</h1>
+      <Toast
+        Icon={() => Button({ children: 'אבגד' })}
+        content="הכל מעודכן"
+      ></Toast>
+
+      {/*<h1 className="text-2xl text-center">Hello Next.js 👋</h1>
       <ShadowedWrapper className="p-2 w-24 rounded-xl m-4">
         Hello
       </ShadowedWrapper>
@@ -36,8 +43,17 @@ const IndexPage = () => {
           changeDate(selectedIndex)
         }}
       ></DropdownPick>
-      <Timetable day={date as DayOfWeek} timetable={timetable_example} />
       <DayDateView className="font-semibold m-4 text-xl" />
+      */}
+      <div className="w-full flex justify-center">
+        <DayDateView className="font-semibold"></DayDateView>
+      </div>
+      <DayPick
+        day={date}
+        value={date}
+        onChange={(index) => updateDay(index)}
+      ></DayPick>
+      <Timetable day={date} timetable={timetable_example} />
     </Layout>
   )
 }
