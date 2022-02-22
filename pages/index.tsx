@@ -30,7 +30,6 @@ const IndexPage = () => {
           content="הכל מעודכן"
         ></Toast>
       </div>
-
       {/*<h1 className="text-2xl text-center">Hello Next.js 👋</h1>
       <ShadowedWrapper className="p-2 w-24 rounded-xl m-4">
         Hello
@@ -48,6 +47,15 @@ const IndexPage = () => {
       ></DropdownPick>
       <DayDateView className="font-semibold m-4 text-xl" />
       */}
+      <DropdownPick
+        options={['1', '2', '3', '4', '5', '6']}
+        defaultIndex={1}
+        className="w-[4rem]"
+        onChange={(selectedIndex) => {
+          updateDay(selectedIndex)
+        }}
+      ></DropdownPick>
+
       <div className="w-full flex justify-center">
         <DayDateView className="font-semibold"></DayDateView>
       </div>
