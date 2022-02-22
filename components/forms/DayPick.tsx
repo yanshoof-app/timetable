@@ -10,7 +10,11 @@ export interface DayPickProps {
   className?: string
 }
 
-export default function DayPick({ day, onChange = () => {} }: DayPickProps) {
+export default function DayPick({
+  className,
+  day,
+  onChange = () => {},
+}: DayPickProps) {
   const [value, setValue] = useState(day)
 
   useEffect(() => {
@@ -18,7 +22,7 @@ export default function DayPick({ day, onChange = () => {} }: DayPickProps) {
     console.log(value)
   }, [value])
   return (
-    <div className="flex w-[full] justify-between items-center pr-[1rem] pl-[1rem]">
+    <div className={`flex w-[full] justify-between items-center ${className}`}>
       {HEBREW_SHORT_DAYS.map((day, index) => (
         <Button
           className={`${

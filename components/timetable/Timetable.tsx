@@ -32,16 +32,18 @@ export interface TimetableProps {
   allEditable?: boolean
   hourToScroll?: number
   timetable: SupportedLesson[][]
+  className?: string
 }
 
 export default function Timetable({
   day = 0,
   allEditable = false,
   timetable,
+  className = '',
 }: TimetableProps) {
   const lastLesson = FindLastLesson(timetable[day])
   return (
-    <div className="flex flex-col gap-[1rem] p-[1rem]">
+    <div className={`flex flex-col gap-[1rem] ${className}`}>
       {timetable[day].map(
         (lesson, hour) =>
           ShowLesson(lesson, hour as HourOfDay, lastLesson) && (

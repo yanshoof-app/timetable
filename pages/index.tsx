@@ -23,10 +23,13 @@ const IndexPage = () => {
   const [date, updateDay] = useState(2 as DayOfWeek)
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <Toast
-        Icon={() => Button({ children: 'אבגד' })}
-        content="הכל מעודכן"
-      ></Toast>
+      <div className="flex justify-center">
+        {' '}
+        <Toast
+          Icon={() => Button({ children: 'אבגד' })}
+          content="הכל מעודכן"
+        ></Toast>
+      </div>
 
       {/*<h1 className="text-2xl text-center">Hello Next.js 👋</h1>
       <ShadowedWrapper className="p-2 w-24 rounded-xl m-4">
@@ -52,8 +55,13 @@ const IndexPage = () => {
         day={date}
         value={date}
         onChange={(index) => updateDay(index)}
+        className={'pr-[1rem] pl-[1rem]'}
       ></DayPick>
-      <Timetable day={date} timetable={timetable_example} />
+      <Timetable
+        className="p-[1rem]"
+        day={date}
+        timetable={timetable_example}
+      />
     </Layout>
   )
 }
