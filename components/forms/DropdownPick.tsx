@@ -1,11 +1,11 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 type Variant = 'default' | 'lesson'
 
 export interface DropdownPickProps {
   options: string[]
   defaultIndex?: number
-  onChange?: unknown
+  onChange?(number): unknown
   className?: string
 }
 
@@ -13,16 +13,23 @@ export default function DropdownPick({
   className = '',
   options,
   defaultIndex = 0,
+  onChange = () => {},
 }: DropdownPickProps) {
   const [selectedIndex, changeSelectedIndex] = useState(defaultIndex)
   const [opened, setOpen] = useState(true)
 
+  useEffect(() => {
+    onChange(selectedIndex)
+  }, [selectedIndex])
+
   return (
     <div
-      className={`${className} flex bg-uiPrimary-200 rounded-[5px] pr-[1rem] pl-[1rem] flex-col justify-around items-center font-semibold text-uiPrimary-400 fill-uiPrimary-400 cursor-pointer`}
+      className={`${className} flex relative bg-uiPrimary-200 ${
+        !opened && 'rounded-[5px]'
+      } rounded-t-[5px] flex-col justify-start items-center font-semibold text-uiPrimary-400 fill-uiPrimary-400`}
     >
       <div
-        className="flex h-[3rem] w-[100%] items-center justify-between"
+        className="flex h-[3rem] w-[100%] items-center justify-between cursor-pointer pr-[1rem] pl-[1rem]"
         onClick={() => {
           setOpen(!opened)
         }}
@@ -40,7 +47,7 @@ export default function DropdownPick({
       <div
         className={`${
           !opened && 'max-h-0'
-        } overflow-hidden w-[100%] flex flex-col`}
+        } overflow-hidden flex flex-col absolute w-full top-[3rem]  bg-uiPrimary-200 text-uiPrimary-400 rounded-b-[5px] z-10`}
       >
         {options.map((option, index) => (
           <div
@@ -49,7 +56,7 @@ export default function DropdownPick({
               changeSelectedIndex(index)
               setOpen(false)
             }}
-            className="h-8 flex items-center justify-start "
+            className="h-8 flex items-center justify-start w-full cursor-pointer pr-[1rem] pl-[1rem]"
           >
             <p>{option}</p>
           </div>
