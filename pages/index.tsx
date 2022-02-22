@@ -9,6 +9,7 @@ import DropdownPick from '../components/forms/DropdownPick'
 import { useState } from 'react'
 import Toast from '../components/ui/Toast'
 import DayPick from '../components/forms/DayPick'
+import Input from '../components/forms/Input'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -47,14 +48,7 @@ const IndexPage = () => {
       ></DropdownPick>
       <DayDateView className="font-semibold m-4 text-xl" />
       */}
-      <DropdownPick
-        options={['1', '2', '3', '4', '5', '6']}
-        defaultIndex={1}
-        className="w-[4rem]"
-        onChange={(selectedIndex) => {
-          updateDay(selectedIndex)
-        }}
-      ></DropdownPick>
+      <Input value="0" hint="שם בית הספר או סמל מוסד"></Input>
 
       <div className="w-full flex justify-center">
         <DayDateView className="font-semibold"></DayDateView>

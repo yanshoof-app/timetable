@@ -43,8 +43,7 @@ export default function DropdownPick({
       </Selected>
       {opened && (
         <Dropdown
-          options={options.filter((option) => option != options[selectedIndex])}
-          onChange={onChange}
+          options={options}
           selectedIndex={selectedIndex}
           changeSelectedIndex={changeSelectedIndex}
           setOpen={setOpen}

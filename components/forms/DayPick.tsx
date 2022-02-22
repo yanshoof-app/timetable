@@ -19,7 +19,6 @@ export default function DayPick({
 
   useEffect(() => {
     onChange(value)
-    console.log(value)
   }, [value])
   return (
     <div className={`flex w-[full] justify-between items-center ${className}`}>
@@ -32,6 +31,7 @@ export default function DayPick({
           onClick={() => {
             setValue(index as DayOfWeek)
           }}
+          key={index}
         >
           {day}
         </Button>
