@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 const variants = {
-  primary: 'bg-sky-500 text-white hover:bg-sky-700',
+  primary: 'bg-sky-500 text-white sm:hover:bg-sky-700',
   secondary:
     'bg-transparent text-sky-500 ring-1 ring-sky-500 hover:text-sky-700 hover:ring-sky-700',
 }
