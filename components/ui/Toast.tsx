@@ -9,6 +9,7 @@ export interface ToastProps {
   actionContent?: string
   onClick?(): unknown
   hide?: boolean
+  showToast(boolean): unknown
 }
 
 export default function Toast({
@@ -17,25 +18,19 @@ export default function Toast({
   onClick = () => {},
   content,
   actionContent = '',
-  hide = false,
+  showToast,
 }: ToastProps) {
   const controls = useAnimation()
 
-  const ToastOut = () => {
-    controls.start({
-      y: '4.5rem',
-      transition: { ease: 'easeOut', duration: '0.3' },
-    })
-  }
-
-  const ToastIn = async () => {
-    controls.set({
-      y: '4.5rem',
-    })
-    controls.set({
-      y: '0rem',
-      transition: { ease: 'easeOut', duration: '0.3' },
-    })
+  const ToastOut = async () => {
+    controls
+      .start({
+        y: '4.5rem',
+        transition: { ease: 'easeOut', duration: '0.3' },
+      })
+      .then(() => {
+        showToast(false)
+      })
   }
 
   useEffect(() => {}, [])

@@ -23,14 +23,19 @@ const defaultLesson = {
 
 const IndexPage = () => {
   const [date, updateDay] = useState(2 as DayOfWeek)
+  const [toast, showToast] = useState(true)
+
   return (
     <Layout title="Home | Next.js + TypeScript Example">
       <div className="flex justify-center">
-        <Toast
-          icon={Done}
-          iconClassName="text-lime-400"
-          content="הכל מעודכן"
-        ></Toast>
+        {toast && (
+          <Toast
+            icon={Done}
+            iconClassName="text-lime-400"
+            content="הכל מעודכן"
+            showToast={showToast}
+          ></Toast>
+        )}
       </div>
       {/*<h1 className="text-2xl text-center">Hello Next.js 👋</h1>
       <ShadowedWrapper className="p-2 w-24 rounded-xl m-4">
