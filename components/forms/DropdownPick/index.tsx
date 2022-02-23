@@ -37,7 +37,7 @@ export default function DropdownPick({
         opened={opened}
         setOpen={setOpen}
       >
-        <Expand className={opened ? 'rotate-180' : 'rotate-0'} />
+        <Expand width={24} className={opened ? 'rotate-180' : 'rotate-0'} />
       </Selected>
       {opened && (
         <Dropdown

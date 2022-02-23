@@ -38,7 +38,7 @@ export default function Toast({
     <motion.div
       className="flex justify-between pr-5 animate-[toastin_0.4s_ease-out] pl-5 items-center fixed bg-slate-900 w-[calc(100%-2rem)] h-[3.5rem] bottom-[1rem] rounded-[10px] z-10"
       drag="y"
-      dragConstraints={{ top: 0, bottom: 500 }}
+      dragConstraints={{ top: 0, bottom: 20 }}
       onDragEnd={() => {
         ToastOut()
       }}
@@ -46,7 +46,7 @@ export default function Toast({
       animate={controls}
     >
       <div className="flex items-center text-white font-medium gap-3">
-        <Icon className={iconClassName} />
+        <Icon width={24} className={iconClassName} />
         <p>{content}</p>
       </div>
       {actionContent && (

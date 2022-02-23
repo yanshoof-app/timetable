@@ -10,8 +10,8 @@ export interface SVGProps {
 export default function SVG({
   className = '',
   viewbox = '0 0 24 24',
-  width = 24,
-  height = 24,
+  width,
+  height,
   children,
 }: SVGProps & {
   children: ReactNode | ReactNode[]
