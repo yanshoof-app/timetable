@@ -1,7 +1,7 @@
-import useModification from '../../hooks/useModification'
-import { HourOfDay, ILesson, ITeacherLesson } from '../../interfaces'
-import { ColorMapper, ThemeColor } from '../theme'
-import ShadowedWrapper from '../ui/ShadowedWrapper'
+import useModification from '../../../hooks/useModification'
+import { HourOfDay, ILesson, ITeacherLesson } from '../../../interfaces'
+import { ColorMapper, ThemeColor } from '../../theme'
+import ShadowedWrapper from '../../ui/ShadowedWrapper'
 import LessonInfo from './LessonInfo'
 
 export interface LessonInfoProps {
