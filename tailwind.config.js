@@ -23,6 +23,13 @@ module.exports = {
         celebration: colors.lime,
         uiPrimary: colors.zinc,
       },
+      keyframes: {
+        toastin: {
+          '0%': { bottom: '-3.5rem' },
+          '50%': { bottom: '0rem' },
+          '100%': { bottom: '1rem' },
+        },
+      },
     },
   },
   plugins: [],
