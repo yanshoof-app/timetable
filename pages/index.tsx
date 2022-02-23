@@ -10,6 +10,7 @@ import { useState } from 'react'
 import Toast from '../components/ui/Toast'
 import DayPick from '../components/forms/DayPick'
 import Input from '../components/forms/Input'
+import { Done } from '../components/icons'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -25,9 +26,9 @@ const IndexPage = () => {
   return (
     <Layout title="Home | Next.js + TypeScript Example">
       <div className="flex justify-center">
-        {' '}
         <Toast
-          Icon={() => Button({ children: 'אבגד' })}
+          icon={Done}
+          iconClassName="text-lime-400"
           content="הכל מעודכן"
         ></Toast>
       </div>
@@ -49,7 +50,7 @@ const IndexPage = () => {
       <DayDateView className="font-semibold m-4 text-xl" />
       */}
       <Input value="0" hint="שם בית הספר או סמל מוסד"></Input>
-
+      <DropdownPick options={['1', '2', '3', '4', '5']} />
       <div className="w-full flex justify-center">
         <DayDateView className="font-semibold"></DayDateView>
       </div>

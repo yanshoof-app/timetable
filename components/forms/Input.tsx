@@ -1,6 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
-import Dropdown from './Dropdown'
-import Selected from './Selected'
+import { useEffect, useState } from 'react'
 
 type Variant = 'default' | 'lesson'
 

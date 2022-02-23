@@ -3,9 +3,8 @@ import { ReactNode } from 'react'
 export interface SVGProps {
   className?: string
   viewbox?: string
-  width: number
-  height: number
-  children: ReactNode | ReactNode[]
+  width?: number
+  height?: number
 }
 
 export default function SVG({
@@ -14,7 +13,9 @@ export default function SVG({
   width = 24,
   height = 24,
   children,
-}: SVGProps) {
+}: SVGProps & {
+  children: ReactNode | ReactNode[]
+}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Expand } from '../../icons'
 import Dropdown from './Dropdown'
 import Selected from './Selected'
 
@@ -36,10 +37,7 @@ export default function DropdownPick({
         opened={opened}
         setOpen={setOpen}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M24 24H0V0h24v24z" fill="none" opacity=".87" />
-          <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z" />
-        </svg>{' '}
+        <Expand className={opened ? 'rotate-180' : 'rotate-0'} />
       </Selected>
       {opened && (
         <Dropdown

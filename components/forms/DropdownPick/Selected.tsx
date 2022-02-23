@@ -1,5 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
-import Dropdown from './Dropdown'
+import { ReactNode } from 'react'
 
 type Variant = 'default' | 'lesson'
 
@@ -27,7 +26,7 @@ export default function Selected({
     >
       {' '}
       <p>{options[selectedIndex]}</p>
-      <div className={`${opened && 'rotate-180'} w-4 h-4 `}>{children}</div>
+      <div>{children}</div>
     </div>
   )
 }
