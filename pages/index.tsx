@@ -13,6 +13,7 @@ import DayPick from '../components/forms/DayPick'
 import Input from '../components/forms/Input'
 import { Done } from '../components/icons'
 import RadioButton from '../components/forms/RadioButton'
+import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -44,6 +45,7 @@ const IndexPage = () => {
           ></Toast>
         )}
       </div>
+      <AdvancedEditingLink />
       {/*<h1 className="text-2xl text-center">Hello Next.js 👋</h1>
       <ShadowedWrapper className="p-2 w-24 rounded-xl m-4">
         Hello
