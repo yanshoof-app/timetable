@@ -4,7 +4,7 @@ import { ColorMapper, ThemeColor } from '../../theme'
 import ShadowedWrapper from '../../ui/ShadowedWrapper'
 import LessonInfo from './LessonInfo'
 
-export interface LessonInfoProps {
+export interface LessonProps {
   hour: HourOfDay
   lesson: ILesson | ITeacherLesson | {}
 }
@@ -18,7 +18,7 @@ export const changeTextColor: ColorMapper = (color: ThemeColor) =>
     gray: 'text-gray-900',
   }[color])
 
-export default function Lesson({ hour, lesson }: LessonInfoProps) {
+export default function Lesson({ hour, lesson }: LessonProps) {
   const [color, modificationMessage] = useModification(lesson)
   return (
     <ShadowedWrapper

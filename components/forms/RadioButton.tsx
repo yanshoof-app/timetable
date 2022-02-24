@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { Done } from '../icons'
 import Button from './Button'
 

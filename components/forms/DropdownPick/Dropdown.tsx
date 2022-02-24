@@ -1,5 +1,3 @@
-import { ReactNode, useEffect, useState } from 'react'
-
 type Variant = 'default' | 'lesson'
 
 export interface DropdownProps {

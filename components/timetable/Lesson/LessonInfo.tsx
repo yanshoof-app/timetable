@@ -1,4 +1,3 @@
-import { ILesson } from '../../../interfaces'
 import InfoLine from './InfoLine'
 import useLessonInfo from '../../../hooks/useLessonInfo'
 

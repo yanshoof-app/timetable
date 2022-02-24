@@ -1,4 +1,4 @@
-import { motion, useAnimation, useDragControls } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 import { useEffect } from 'react'
 import { Icon } from '../icons/svgFactory'
 
