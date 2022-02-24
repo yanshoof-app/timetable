@@ -1,12 +1,12 @@
-import Icon from "../icons";
+import { Icon } from '../icons/svgFactory'
 
 export interface PageTitleProps {
-  title: string;
-  startIcon?: Icon;
-  onStartIconClick?(): unknown;
-  endIcon?: Icon;
-  onEndIconClick?(): unknown;
-  orientation?: "justify-start" | "justify-between";
+  title: string
+  startIcon?: Icon
+  onStartIconClick?(): unknown
+  endIcon?: Icon
+  onEndIconClick?(): unknown
+  orientation?: 'justify-start' | 'justify-between'
 }
 
 export default function PageTitle({
@@ -15,10 +15,10 @@ export default function PageTitle({
   onStartIconClick,
   endIcon: EndIcon,
   onEndIconClick,
-  orientation = "justify-between",
+  orientation = 'justify-between',
 }: PageTitleProps) {
   return (
-    <div className={`flex flex-row ${orientation}`}>
+    <div className={`flex flex-row h-14 ${orientation} items-center px-4`}>
       {StartIcon && onStartIconClick && (
         <button onClick={onStartIconClick}>
           <StartIcon width={24} height={24} />
@@ -33,5 +33,5 @@ export default function PageTitle({
         </button>
       )}
     </div>
-  );
+  )
 }

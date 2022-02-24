@@ -8,6 +8,7 @@ import { timetable_example } from '../timetable_sample'
 import DropdownPick from '../components/forms/DropdownPick'
 import { useState } from 'react'
 import Toast from '../components/ui/Toast'
+import PageTitle from '../components/ui/PageTitle'
 import DayPick from '../components/forms/DayPick'
 import Input from '../components/forms/Input'
 import { Done } from '../components/icons'
@@ -28,6 +29,11 @@ const IndexPage = () => {
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
+      <PageTitle
+        title="Hello World"
+        startIcon={Done}
+        onStartIconClick={() => console.log('click!')}
+      />
       <div className="flex justify-center">
         {toast && (
           <Toast
