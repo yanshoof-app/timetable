@@ -9,7 +9,7 @@ export interface LessonInfoProps {
   lesson: ILesson | ITeacherLesson | {}
 }
 
-const changeTextColor: ColorMapper = (color: ThemeColor) =>
+export const changeTextColor: ColorMapper = (color: ThemeColor) =>
   ({
     event: 'text-event-600',
     change: 'text-change-500',
