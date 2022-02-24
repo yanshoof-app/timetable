@@ -213,3 +213,36 @@ export const timetable_example = [
   [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
   [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 ]
+
+export const options_example = [
+  {
+    subject: 'אנגלית',
+    teacher: 'סבג טסי',
+    class: 'חדר ז 2',
+  },
+  {
+    subject: 'אנגלית',
+    teacher: 'סער אסנת',
+    class: 'חדר י 7',
+  },
+  {
+    subject: 'אנגלית האצה',
+    teacher: 'רייס יעל',
+    class: 'חדר ז 1',
+  },
+  {
+    subject: 'אנגלית',
+    teacher: 'קישנר לאה',
+    class: 'חדר ז 4',
+  },
+  {
+    subject: 'אנגלית',
+    teacher: 'שוורץ יעל',
+    class: 'חדר ז 6 אקוסטי',
+  },
+  {
+    subject: 'אנגלית',
+    teacher: 'גורן ענבל',
+    class: 'חדר ז 5 אקוסטי',
+  },
+]
