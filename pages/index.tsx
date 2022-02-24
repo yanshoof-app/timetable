@@ -11,9 +11,10 @@ import Toast from '../components/ui/Toast'
 import PageTitle from '../components/ui/PageTitle'
 import DayPick from '../components/forms/DayPick'
 import Input from '../components/forms/Input'
-import { Done } from '../components/icons'
+import { Calendar, Done } from '../components/icons'
 import RadioButton from '../components/forms/RadioButton'
 import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
+import NavLink from '../components/ui/Navbar/NavLink'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -35,6 +36,7 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
+      <NavLink to="/" label="Link" icon={Calendar} />
       <div className="flex justify-center">
         {toast && (
           <Toast
