@@ -35,8 +35,8 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
-      <NavLink to="/" label="Link" icon={Calendar} />
       <LessonPick
+        onChange={(index) => console.log(index)}
         defaultLesson={defaultLesson}
         options={options_example}
         hour={'1-2'}

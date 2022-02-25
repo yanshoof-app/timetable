@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useModification from '../../../hooks/useModification'
 import {
   HourOfDay,
@@ -10,12 +10,13 @@ import { Expand } from '../../icons'
 import { ColorMapper, ThemeColor } from '../../theme'
 import ShadowedWrapper from '../../ui/ShadowedWrapper'
 import LessonInfo from './LessonInfo'
+import LessonOption from './LessonOption'
 
 export interface LessonPickProps {
   options: IStudyGroup[]
   defaultLesson?: ILesson | IStudyGroup
   hour: HourOfDay | string
-  onChange?(): unknown
+  onChange?(picked): unknown
 }
 
 export default function LessonPick({
@@ -25,7 +26,11 @@ export default function LessonPick({
   onChange,
 }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
-  const [picked, setPicked] = useState(defaultLesson)
+  const [picked, setPicked] = useState({ index: 0, studyGroup: defaultLesson })
+
+  useEffect(() => {
+    onChange(picked.index)
+  }, [picked])
   return (
     <ShadowedWrapper
       color={picked ? 'gray' : 'primary'}
@@ -37,9 +42,12 @@ export default function LessonPick({
           className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
           onClick={() => setOpen(!isOpen)}
         >
-          {picked ? (
+          {picked.studyGroup ? (
             <LessonInfo
-              {...{ subject: picked.subject, teacher: picked.teacher }}
+              {...{
+                subject: picked.studyGroup.subject,
+                teacher: picked.studyGroup.teacher,
+              }}
             />
           ) : (
             <p
@@ -65,29 +73,23 @@ export default function LessonPick({
           } `}
         >
           {picked && (
-            <span
-              className={`border-t-2 border-solid first:border-0 w-full cursor-pointer ${
-                typeof hour === 'string' ? 'pr-[52px]' : 'pr-[29px]'
-              } border-uiPrimary-300 py-[4px] pt-2`}
-              onClick={() => setPicked(null)}
-            >
-              <a className="font-bold ">ללא שיעור</a>
-            </span>
+            <LessonOption
+              multipleHour={typeof hour === 'string'}
+              option={{ subject: 'ללא שיעור', teacher: null }}
+              index={-1}
+              setPicked={setPicked}
+            ></LessonOption>
           )}
           {options.map(
             (option, index) =>
-              picked !== option && (
-                <span
-                  className={`border-t-2 border-solid first:border-0 cursor-pointer ${
-                    typeof hour === 'string' ? 'pr-[52px]' : 'pr-[29px]'
-                  } border-uiPrimary-300 py-[4px] pt-2`}
-                  onClick={() => setPicked(option)}
-                >
-                  <a className="font-bold ">{option.subject}</a>
-                  <a className="font-semibold text-gray-500 text-sm mr-2">
-                    {option.teacher}
-                  </a>
-                </span>
+              picked.studyGroup !== option && (
+                <LessonOption
+                  key={index}
+                  multipleHour={typeof hour === 'string'}
+                  option={option}
+                  index={index}
+                  setPicked={setPicked}
+                ></LessonOption>
               )
           )}
         </div>
