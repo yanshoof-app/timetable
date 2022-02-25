@@ -20,6 +20,7 @@ import RadioButton from '../components/forms/RadioButton'
 import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
 import NavLink from '../components/ui/Navbar/NavLink'
 import LessonPick from '../components/timetable/Lesson/LessonPick'
+import Navbar from '../components/ui/Navbar'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -45,6 +46,7 @@ const IndexPage = () => {
         allEditable
         className="p-[1rem]"
       ></Timetable>
+      <Navbar />
     </Layout>
   )
 }

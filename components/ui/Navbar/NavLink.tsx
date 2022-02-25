@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { Icon } from '../../icons/svgFactory'
 
-const ICON_SIZE = 30
+const ICON_SIZE = 28
 
 export interface NavLinkProps {
   icon: Icon
