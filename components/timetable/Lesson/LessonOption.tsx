@@ -20,7 +20,11 @@ export default function LessonOption({
       } border-uiPrimary-300 py-[4px] pt-2`}
       onClick={() => setPicked({ index: index, studyGroup: option })}
     >
-      <a className="font-bold ">{option.subject}</a>
+      {option.subject ? (
+        <a className="font-bold ">{option.subject}</a>
+      ) : (
+        <a className="font-bold ">ללא שיעור</a>
+      )}
       {option.teacher && (
         <a className="font-semibold text-gray-500 text-sm mr-2">
           {option.teacher}

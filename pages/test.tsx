@@ -4,7 +4,11 @@ import DayDateView from '../components/ui/DayDateView'
 import ShadowedWrapper from '../components/ui/ShadowedWrapper'
 import { DayOfWeek, HourOfDay, LessonModification } from '../interfaces'
 import Timetable from '../components/timetable/Timetable'
-import { options_example, timetable_example } from '../timetable_sample'
+import {
+  fulltimetable_example,
+  options_example,
+  timetable_example,
+} from '../timetable_sample'
 import DropdownPick from '../components/forms/DropdownPick'
 import { useState } from 'react'
 import Toast from '../components/ui/Toast'
@@ -35,12 +39,7 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
-      <LessonPick
-        onChange={(index) => console.log(index)}
-        defaultLesson={defaultLesson}
-        options={options_example}
-        hour={'1-2'}
-      ></LessonPick>
+      <Timetable day={0} timetable={fulltimetable_example}></Timetable>
     </Layout>
   )
 }
