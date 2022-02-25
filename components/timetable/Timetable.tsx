@@ -42,7 +42,7 @@ const IsPickableLesson = (
   if (Array.isArray(lesson)) {
     if (lesson.length > 1) {
       return true
-    } else if (hour > 7 || hour == MIN_HOUR) {
+    } else if (hour > 7 || hour < MIN_HOUR) {
       return true
     } else if (allEditable) {
       return true

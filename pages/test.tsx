@@ -39,7 +39,12 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
-      <Timetable day={0} timetable={fulltimetable_example}></Timetable>
+      <Timetable
+        day={0}
+        timetable={fulltimetable_example}
+        allEditable
+        className="p-[1rem]"
+      ></Timetable>
     </Layout>
   )
 }
