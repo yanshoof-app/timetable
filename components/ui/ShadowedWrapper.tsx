@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
 import { ColorMapper, ThemeColor } from '../theme'
+import { Wrapper } from '../types'
 
 const colorOptions: ColorMapper = (color: ThemeColor) =>
   ({
@@ -13,14 +13,13 @@ const colorOptions: ColorMapper = (color: ThemeColor) =>
 export interface ShadowedWrapperProps {
   color?: ThemeColor
   className?: string
-  children: ReactNode | ReactNode[]
 }
 
 export default function ShadowedWrapper({
   color = 'gray',
   className = '',
   children,
-}: ShadowedWrapperProps) {
+}: ShadowedWrapperProps & Wrapper) {
   return (
     <div
       className={`shadow-theme bg-white -translate-x-[2px] ${colorOptions(

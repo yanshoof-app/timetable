@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Wrapper } from '../types'
 
 const variants = {
   primary: 'bg-sky-500 text-white sm:hover:bg-sky-700',
@@ -11,7 +11,6 @@ export type ButtonVariant = keyof typeof variants
 export interface ButtonProps {
   variant?: ButtonVariant
   onClick?(): unknown
-  children: ReactNode | ReactNode[]
   className?: string
 }
 
@@ -20,7 +19,7 @@ export default function Button({
   onClick = () => {},
   children,
   className = '',
-}: ButtonProps) {
+}: ButtonProps & Wrapper) {
   return (
     <button
       className={`${variants[variant]} rounded-lg px-4 py-2 font-semibold m-2 ${className}`}
