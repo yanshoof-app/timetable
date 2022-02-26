@@ -58,3 +58,50 @@ export const Expand = createSVGResource(
   <path d="M0 0h24v24H0z" fill="none" />,
   <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
 )
+
+export const Shahaf = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 110 54"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_155_451)">
+        <path
+          d="M108.716 54C109.239 51.274 109.5 48.4442 109.5 45.5625C109.5 20.4058 88.9546 0 63.6258 0C38.297 0 17.7517 20.4058 17.7517 45.5625C17.7517 48.4442 18.0131 51.274 18.5359 54"
+          fill="url(#paint0_radial_155_451)"
+        />
+        <path
+          d="M32.7817 18.5885C32.7817 18.5885 51.994 13.7596 59.3129 19.2115C59.3129 19.2115 65.8477 13.2404 82.5767 12.9808C82.5767 12.9808 65.3249 10.6442 59.3129 15.0577C59.3129 15.0577 37.3561 11.501 32.7817 18.5885Z"
+          fill="#16455C"
+        />
+        <path
+          d="M0.5 41.2789C0.5 41.2789 22.1954 32.4519 34.4808 40.7596C34.4808 40.7596 50.9484 25.4423 65.0635 26.7404C65.0635 26.7404 44.0648 20.5097 32.5 33.5001C32.5 33.5001 12.524 29.3365 0.5 41.2789Z"
+          fill="#16455C"
+        />
+      </g>
+      <defs>
+        <radialGradient
+          id="paint0_radial_155_451"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(63.4951 35.0481) rotate(90) scale(39.3317 39.6007)"
+        >
+          <stop stop-color="#FFD200" />
+          <stop offset="1" stop-color="#FF892D" />
+        </radialGradient>
+        <clipPath id="clip0_155_451">
+          <rect
+            width="109"
+            height="54"
+            fill="white"
+            transform="translate(0.5)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  )
+}

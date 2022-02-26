@@ -10,6 +10,7 @@ module.exports = {
     fontFamily: {
       sans: ['"Assistant"', ...fontFamily.sans], // make assistant the default font
       hour: ['"roboto"'],
+      _404: ['"Rounded Mplus 1c"'],
     },
     extend: {
       boxShadow: {
