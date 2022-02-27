@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Wrapper } from '../types'
 
 export interface SVGProps {
   className?: string
@@ -13,9 +13,7 @@ export default function SVG({
   width,
   height,
   children,
-}: SVGProps & {
-  children: ReactNode | ReactNode[]
-}) {
+}: SVGProps & Wrapper) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

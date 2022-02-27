@@ -1,4 +1,5 @@
-import { Context, Fragment, ReactNode, useContext, useMemo } from 'react'
+import { Context, ReactNode, useContext, useMemo } from 'react'
+import { Wrapper } from '../components/types'
 
 /**
  * Create a use hook for a given context
@@ -25,9 +26,8 @@ export function createLogicalWrapper<T>(
     children,
     fallback = null,
   }: {
-    children: ReactNode | ReactNode[]
     fallback?: ReactNode
-  }) {
+  } & Wrapper) {
     const context = useContext(ctx)
     const render = useMemo(() => shouldRender(context), [context])
     return <>{render ? children : fallback}</>
