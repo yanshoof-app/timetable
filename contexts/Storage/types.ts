@@ -7,12 +7,18 @@ export const UPDATE_TIME_OPTIONS = [
 ]
 export type UpdateTimePreference = typeof UPDATE_TIME_OPTIONS[number]
 
-export interface IStorageValues {
+export interface IStorageValues extends IScheduleSettings {
   school: string
   classId: string
-  scheduleSettings: IScheduleSettings
   theme: ThemePreference
   updateTime: UpdateTimePreference
+}
+
+export interface IAppendSetting {
+  day: DayOfWeek
+  hour: HourOfDay
+  subject: string
+  teacher: string
 }
 
 export interface IStorage {
@@ -21,7 +27,7 @@ export interface IStorage {
   setTheme(newValue?: ThemePreference): void
   setUpdateTime(newValue?: UpdateTimePreference): void
   setOthersChangesPreference(newValue?: boolean): void
-  appendScheduleSetting(setting: [DayOfWeek, HourOfDay, string, string]): void
+  appendScheduleSetting(setting: IAppendSetting): void
 }
 
 export interface IStorageContext extends IStorageValues, IStorage {}
