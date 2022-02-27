@@ -11,14 +11,14 @@ export type RadioButtonOrientation = keyof typeof orientations
 export interface RadioButtonProps {
   onClick?(): unknown
   selected: boolean
-  orientation: RadioButtonOrientation
+  orientation?: RadioButtonOrientation
   label: string
 }
 
 export default function RadioButton({
   onClick,
   selected,
-  orientation,
+  orientation = 'horizontal',
   label,
 }: RadioButtonProps) {
   return (

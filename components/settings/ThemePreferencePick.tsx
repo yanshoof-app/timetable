@@ -16,20 +16,17 @@ export default function ThemePreferencePick(themePreference: ThemePreference) {
         <RadioButton
           selected={picked === 'light'}
           label={'בהיר'}
-          orientation={'horizontal'}
           onClick={() => setPicked('light')}
         />
         <RadioButton
           selected={picked === 'system'}
           label={'העדפות מערכת'}
-          orientation={'horizontal'}
           onClick={() => setPicked('system')}
         />
 
         <RadioButton
           selected={picked === 'dark'}
           label={'כהה'}
-          orientation={'horizontal'}
           onClick={() => setPicked('dark')}
         />
       </div>
