@@ -21,6 +21,7 @@ import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
 import NavLink from '../components/ui/Navbar/NavLink'
 import LessonPick from '../components/timetable/Lesson/LessonPick'
 import Navbar from '../components/ui/Navbar'
+import ThemePreferencePick from '../components/settings/ThemePreferencePick'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -40,12 +41,7 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
-      <Timetable
-        day={0}
-        timetable={fulltimetable_example}
-        allEditable
-        className="p-[1rem]"
-      ></Timetable>
+      <ThemePreferencePick {...'dark'}></ThemePreferencePick>
       <Navbar />
     </Layout>
   )

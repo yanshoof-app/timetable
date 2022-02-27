@@ -10,11 +10,12 @@ module.exports = {
     fontFamily: {
       sans: ['"Assistant"', ...fontFamily.sans], // make assistant the default font
       hour: ['"roboto"'],
-      _404: ['"Rounded Mplus 1c"'],
+      _404: ['"M PLUS Rounded 1c"'],
     },
     extend: {
       boxShadow: {
         theme: '4px 4px 0 0',
+        example: '2px 2px 0 0',
       },
       colors: {
         primary: colors.sky,

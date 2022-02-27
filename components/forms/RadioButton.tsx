@@ -2,7 +2,7 @@ import { Done } from '../icons'
 import Button from './Button'
 
 const orientations = {
-  horizontal: 'flex-col gap-1',
+  horizontal: 'flex-col gap-2',
   vertical: 'flex-row gap-2',
 }
 
@@ -25,7 +25,7 @@ export default function RadioButton({
     <div
       className={`flex justify-center items-center gap-1 ${orientations[orientation]}`}
     >
-      <p className="font-semibold">{label}</p>
+      <p className="font-bold">{label}</p>
       <Button
         className={`rounded-full m-0 px-[3px] py-[3px] w-6 h-6 justify-center items-center ring-black ${
           !selected && 'ring-2'
