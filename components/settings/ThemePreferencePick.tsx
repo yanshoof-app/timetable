@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ThemePreference } from '../../contexts/StorageContext'
+import { ThemePreference } from '../../contexts/Storage/types'
 import RadioButton from '../forms/RadioButton'
 import ThemeModeExample from './examples/ThemeModeExample'
 
