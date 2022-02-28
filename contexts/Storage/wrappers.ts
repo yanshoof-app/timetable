@@ -19,5 +19,5 @@ export const UpdateTimeExists = createLogicalWrapper(
 )
 export const OthersChangesPreferenceExists = createLogicalWrapper(
   StorageContext,
-  ({ scheduleSettings }) => !!scheduleSettings.showOthersChanges
+  ({ showOthersChanges }) => showOthersChanges != undefined
 )
