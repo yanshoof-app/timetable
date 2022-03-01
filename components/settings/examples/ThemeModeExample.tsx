@@ -1,5 +1,3 @@
-import { HourOfDay } from '../../../interfaces'
-import Lesson from '../../timetable/Lesson'
 import ExampleLesson, { LessonVariant } from './ExampleLesson'
 
 export type Variant = 'light' | 'dark'

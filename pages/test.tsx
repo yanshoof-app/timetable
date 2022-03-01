@@ -41,11 +41,7 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
-      <Timetable
-        timetable={fulltimetable_example}
-        day={0}
-        className="p-4"
-      ></Timetable>
+      <ThemePreferencePick></ThemePreferencePick>
       <Navbar />
     </Layout>
   )

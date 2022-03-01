@@ -1,8 +1,13 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import StorageProvider from '../contexts/Storage'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <StorageProvider>
+      <Component {...pageProps} />
+    </StorageProvider>
+  )
 }
 
-export default MyApp;
+export default MyApp
