@@ -1,5 +1,8 @@
 import { createLogicalWrapper } from '../utils'
-import { StorageContext } from '.'
+import { createContext } from 'react' //temp
+import { IStorageContext } from './types' //temp
+
+const StorageContext = createContext<IStorageContext>({} as IStorageContext) //temp
 
 export const SchoolExists = createLogicalWrapper(
   StorageContext,

@@ -41,7 +41,7 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
-      <ThemePreferencePick></ThemePreferencePick>
+      <ThemePreferencePick {...'dark'}></ThemePreferencePick>
       <Navbar />
     </Layout>
   )

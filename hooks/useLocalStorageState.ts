@@ -6,6 +6,8 @@ import {
   useState,
 } from 'react'
 
+const tempSolve = typeof window !== 'undefined'
+
 export interface ILocalStorageHandler<T> {
   getValue(str?: string): T
   toStorable(value: T): string
@@ -16,10 +18,12 @@ export function createLocalStorageState<T>(
   { getValue, toStorable }: ILocalStorageHandler<T>
 ) {
   return function useLocalStorageState(): [T, Dispatch<SetStateAction<T>>] {
-    const [value, setValue] = useState(getValue(localStorage.getItem(field)))
+    const [value, setValue] = useState(
+      getValue(tempSolve && localStorage.getItem(field))
+    )
 
     const save = useCallback(() => {
-      localStorage.setItem(field, toStorable(value))
+      tempSolve && localStorage.setItem(field, toStorable(value))
     }, [value])
 
     useEffect(() => {
