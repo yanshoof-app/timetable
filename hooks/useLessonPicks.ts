@@ -50,10 +50,3 @@ export function useLessonPicks(
   }
   return pickableLessons
 }
-
-export function NextLesson(
-  pickableLessons: LessonPickHook,
-  index: number
-): PickableLesson {
-  return pickableLessons[index + 1]
-}

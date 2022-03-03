@@ -1,38 +1,43 @@
-import { useMemo, useState } from 'react'
-import FullTimetableProvider, {
-  useFullTimetable,
-} from '../../contexts/FullTimetable'
+import { useCallback, useMemo, useState } from 'react'
+import { useFullTimetable } from '../../contexts/FullTimetable'
 import { useStorage } from '../../contexts/Storage'
+import { useIteration } from '../../hooks/useIteration'
 import { useLessonPicks } from '../../hooks/useLessonPicks'
-import { isAnyLessonObj } from '../../interfaces'
-import Timetable from './Timetable'
+import { DayOfWeek, HourOfDay, isAnyLessonObj } from '../../interfaces'
+import Button from '../forms/Button'
+import Timetable, { SupportedLesson } from './Timetable'
 
 export default function TimetableInit() {
   const { timetable } = useFullTimetable()
   const { appendScheduleSetting } = useStorage()
-
   const pickableLessons = useLessonPicks(timetable)
-  const [hourToShow, dayToShow] = useMemo(() => {
-    return [1, 2]
-  }, timetable)
+  const { day, hour, ...gestures } = useIteration(pickableLessons)
+
+  const handleLessonChange = useCallback(
+    (lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay) => {
+      isAnyLessonObj(lesson) &&
+        appendScheduleSetting({
+          day: day,
+          hour: hour,
+          subject: lesson.subject,
+          teacher: lesson.teacher,
+        })
+    },
+    [appendScheduleSetting]
+  )
 
   return (
-    <FullTimetableProvider>
-      <div>
-        <Timetable
-          day={dayToShow}
-          timetable={timetable}
-          onChange={(lesson, day, hour) => {
-            isAnyLessonObj(lesson) &&
-              appendScheduleSetting({
-                day: day,
-                hour: hour,
-                subject: lesson.subject,
-                teacher: lesson.teacher,
-              })
-          }}
-        ></Timetable>
+    <div>
+      <Timetable
+        day={day}
+        timetable={timetable}
+        hourToScroll={hour}
+        onChange={handleLessonChange}
+      ></Timetable>
+      <div className="flex">
+        <Button onClick={gestures.next}>הבא</Button>
+        <Button onClick={gestures.prev}>הקודם</Button>
       </div>
-    </FullTimetableProvider>
+    </div>
   )
 }
