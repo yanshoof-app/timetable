@@ -5,26 +5,30 @@ import {
   useEffect,
   useState,
 } from 'react'
-
-const tempSolve = typeof window !== 'undefined'
+import { useClientRender } from './useClientRender'
 
 export interface ILocalStorageHandler<T> {
-  getValue(str?: string): T
+  decode(str?: string): T
   toStorable(value: T): string
 }
 
 export function createLocalStorageState<T>(
   field: string,
-  { getValue, toStorable }: ILocalStorageHandler<T>
+  { decode, toStorable }: ILocalStorageHandler<T>
 ) {
   return function useLocalStorageState(): [T, Dispatch<SetStateAction<T>>] {
+    const isClientSide = useClientRender()
     const [value, setValue] = useState(
-      getValue(tempSolve && localStorage.getItem(field))
+      isClientSide ? decode(localStorage.getItem(field)) : undefined
     )
 
+    useEffect(() => {
+      if (isClientSide) setValue(decode(localStorage.getItem(field)))
+    }, [isClientSide])
+
     const save = useCallback(() => {
-      tempSolve && localStorage.setItem(field, toStorable(value))
-    }, [value])
+      isClientSide && localStorage.setItem(field, toStorable(value))
+    }, [value, isClientSide])
 
     useEffect(() => {
       window.addEventListener('beforeunload', save)

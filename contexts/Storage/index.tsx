@@ -21,8 +21,6 @@ export const StorageContext = createContext<IStorageContext>(
 
 export const useStorage = createUseContextHook(StorageContext)
 
-export * from './wrappers'
-
 export default function StorageProvider({ children }: Wrapper) {
   const [school, setSchool] = useSchoolState()
   const [classId, setClassId] = useClassId()

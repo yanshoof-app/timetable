@@ -2,8 +2,8 @@ import { Done } from '../icons'
 import Button from './Button'
 
 const orientations = {
-  horizontal: 'flex-col gap-2',
-  vertical: 'flex-row gap-2',
+  horizontal: 'flex-col',
+  vertical: 'flex-row',
 }
 
 export type RadioButtonOrientation = keyof typeof orientations
@@ -23,7 +23,7 @@ export default function RadioButton({
 }: RadioButtonProps) {
   return (
     <div
-      className={`flex justify-center items-center gap-1 ${orientations[orientation]}`}
+      className={`flex justify-center items-center gap-2 ${orientations[orientation]}`}
     >
       <p className="font-bold">{label}</p>
       <Button

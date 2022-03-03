@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import { ThemePreference } from '../../contexts/Storage/types'
+import { useStorage } from '../../contexts/Storage'
 import RadioButton from '../forms/RadioButton'
 import ThemeModeExample from './examples/ThemeModeExample'
 
-export default function ThemePreferencePick(themePreference: ThemePreference) {
-  const [picked, setPicked] = useState(themePreference)
+export default function ThemePreferencePick() {
+  const { theme, setTheme } = useStorage()
 
-  return (
+  return theme ? (
     <div className="p-[1rem] flex flex-col gap-2">
       <div className="bg-uiPrimary-200 flex flex-row justify-between p-3 rounded-[26.4px] gap-3 select-none">
-        <ThemeModeExample onClick={() => setPicked('light')} />
-        <ThemeModeExample onClick={() => setPicked('dark')} variant={'dark'} />
+        <ThemeModeExample onClick={() => setTheme('light')} />
+        <ThemeModeExample onClick={() => setTheme('dark')} variant={'dark'} />
       </div>
-      <div className="flex justify-between px-8 ">
+      <div className="flex justify-between px-12">
         <RadioButton
-          selected={picked === 'light'}
+          selected={theme === 'light'}
           label={'בהיר'}
-          onClick={() => setPicked('light')}
+          onClick={() => setTheme('light')}
         />
         <RadioButton
-          selected={picked === 'system'}
+          selected={theme === 'system'}
           label={'העדפות מערכת'}
-          onClick={() => setPicked('system')}
+          onClick={() => setTheme('system')}
         />
-
         <RadioButton
-          selected={picked === 'dark'}
+          selected={theme === 'dark'}
           label={'כהה'}
-          onClick={() => setPicked('dark')}
+          onClick={() => setTheme('dark')}
         />
       </div>
     </div>
-  )
+  ) : null
 }

@@ -13,7 +13,7 @@ import {
 } from './types'
 
 const defaultHandler: ILocalStorageHandler<string> = {
-  getValue(str?: string) {
+  decode(str?: string) {
     return str
   },
   toStorable(value: string) {
@@ -27,7 +27,7 @@ export const useClassId = createLocalStorageState('classId', defaultHandler)
 export const useOthersChanges = createLocalStorageState<boolean>(
   'showOthersChanges',
   {
-    getValue: (str?: string) => !(str === 'false'),
+    decode: (str?: string) => !(str === 'false'),
     toStorable: (value: boolean) => (value ? 'true' : 'false'),
   }
 )
@@ -35,7 +35,7 @@ export const useOthersChanges = createLocalStorageState<boolean>(
 export const useThemePreference = createLocalStorageState<ThemePreference>(
   'theme',
   {
-    getValue: (str?: string) =>
+    decode: (str?: string) =>
       THEME_OPTIONS.includes(str as ThemePreference)
         ? (str as ThemePreference)
         : 'system',
@@ -45,7 +45,7 @@ export const useThemePreference = createLocalStorageState<ThemePreference>(
 
 export const useUpdateTimePreference =
   createLocalStorageState<UpdateTimePreference>('updateTime', {
-    getValue: (str?: string) =>
+    decode: (str?: string) =>
       UPDATE_TIME_OPTIONS.includes(Number(str)) ? Number(str) : 24,
     toStorable: (value: UpdateTimePreference) => value.toString(),
   })
@@ -53,7 +53,7 @@ export const useUpdateTimePreference =
 export const useStudyGroups = createLocalStorageState<[string, string][]>(
   'studyGroups',
   {
-    getValue: (str?: string) => {
+    decode: (str?: string) => {
       try {
         return JSON.parse(str) as [string, string][]
       } catch (e) {
@@ -67,7 +67,7 @@ export const useStudyGroups = createLocalStorageState<[string, string][]>(
 export const useStudyGroupMap = createLocalStorageState<Map<string, number>>(
   'studyGroupMap',
   {
-    getValue: (str?: string) => {
+    decode: (str?: string) => {
       try {
         return new Map(JSON.parse(str))
       } catch (e) {
