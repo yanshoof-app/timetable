@@ -1,9 +1,12 @@
-import { ILesson, ILessonArrMemberIscool, ITimetable } from '../../interfaces'
+import {
+  ILesson,
+  ILessonArrMemberIscool,
+  ITimetable,
+  LessonOrMultiple,
+} from '../../interfaces'
 import { ISCOOL } from '..'
 import { initMatrix } from '..'
 import { Timetable } from './TimetableClass'
-
-type LessonOrMultiple = ILesson[]
 
 /**
  * A class that implements timetable but stays loyal to the original Iscool API

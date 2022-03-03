@@ -49,6 +49,8 @@ export interface ILesson extends IStudyGroupWithModification {
   otherChanges?: IStudyGroupWithModification[]
 }
 
+export type LessonOrMultiple = ILesson[]
+
 export function isILessonObj(obj: unknown): obj is ILesson {
   return (
     typeof obj == 'object' &&
