@@ -1,3 +1,4 @@
+import { IsPickableLesson } from '../../hooks/useLessonPicks'
 import {
   DayOfWeek,
   HourOfDay,
@@ -10,9 +11,9 @@ import { isArray } from '../../utils/data/arrays'
 import Lesson from './Lesson'
 import LessonPick from './Lesson/LessonPick'
 
-type SupportedLesson = ILesson | ILesson[] | ITeacherLesson | {}
+export type SupportedLesson = ILesson | ILesson[] | ITeacherLesson | {}
 
-const MIN_HOUR = 1
+export const MIN_HOUR = 1
 
 const FindLastLesson = (timetable) => {
   let lastLesson: number
@@ -34,30 +35,13 @@ const ShowLesson = (
   )
 }
 
-const IsPickableLesson = (
-  lesson: IStudyGroup[] | SupportedLesson,
-  hour: HourOfDay,
-  allEditable: boolean
-) => {
-  if (Array.isArray(lesson)) {
-    if (lesson.length > 1) {
-      return true
-    } else if (hour > 7 || hour < MIN_HOUR) {
-      return true
-    } else if (allEditable) {
-      return true
-    } else {
-      return false
-    }
-  }
-}
-
 export interface TimetableProps {
   day: DayOfWeek
   allEditable?: boolean
   hourToScroll?: number
   timetable: SupportedLesson[][]
   className?: string
+  onChange?(lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay): unknown
 }
 
 export default function Timetable({
@@ -65,6 +49,7 @@ export default function Timetable({
   allEditable = false,
   timetable,
   className = '',
+  onChange = () => {},
 }: TimetableProps) {
   const lastLesson = FindLastLesson(timetable[day])
   return (
@@ -78,7 +63,9 @@ export default function Timetable({
                 options={lesson as IStudyGroup[]}
                 hour={hour as HourOfDay}
                 key={hour}
-                onChange={() => {}}
+                onChange={() => {
+                  onChange(lesson, day, hour as HourOfDay)
+                }}
                 defaultLesson={
                   (lesson as IStudyGroup[]).length == 1 && lesson[0]
                 }

@@ -2,7 +2,12 @@ import Button from '../components/forms/Button'
 import Layout from '../components/Layout'
 import DayDateView from '../components/ui/DayDateView'
 import ShadowedWrapper from '../components/ui/ShadowedWrapper'
-import { DayOfWeek, HourOfDay, LessonModification } from '../interfaces'
+import {
+  DayOfWeek,
+  HourOfDay,
+  LessonModification,
+  LessonOrMultiple,
+} from '../interfaces'
 import Timetable from '../components/timetable/Timetable'
 import {
   fulltimetable_example,
@@ -22,6 +27,8 @@ import NavLink from '../components/ui/Navbar/NavLink'
 import LessonPick from '../components/timetable/Lesson/LessonPick'
 import Navbar from '../components/ui/Navbar'
 import ThemePreferencePick from '../components/settings/ThemePreferencePick'
+import TimetableInit from '../components/timetable/TimetableInit'
+import { useLessonPicks } from '../hooks/useLessonPicks'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -33,6 +40,7 @@ const defaultLesson = {
 const IndexPage = () => {
   const [date, updateDay] = useState(2 as DayOfWeek)
   const [toast, showToast] = useState(true)
+  console.log(useLessonPicks(fulltimetable_example as LessonOrMultiple[][]))
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
