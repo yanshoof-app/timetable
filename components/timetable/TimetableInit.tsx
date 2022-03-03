@@ -35,8 +35,12 @@ export default function TimetableInit() {
         onChange={handleLessonChange}
       ></Timetable>
       <div className="flex">
-        <Button onClick={gestures.next}>הבא</Button>
-        <Button onClick={gestures.prev}>הקודם</Button>
+        <Button disabled={gestures.nextDisabled} onClick={gestures.next}>
+          הבא
+        </Button>
+        <Button disabled={gestures.prevDisabled} onClick={gestures.prev}>
+          הקודם
+        </Button>
       </div>
     </div>
   )
