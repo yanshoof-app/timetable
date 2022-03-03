@@ -12,6 +12,7 @@ export default function TimetableInit() {
   const { appendScheduleSetting } = useStorage()
   const pickableLessons = useLessonPicks(timetable)
   const { day, hour, ...gestures } = useIteration(pickableLessons)
+  console.log(timetable)
 
   const handleLessonChange = useCallback(
     (lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay) => {
@@ -28,12 +29,14 @@ export default function TimetableInit() {
 
   return (
     <div>
-      <Timetable
-        day={day}
-        timetable={timetable}
-        hourToScroll={hour}
-        onChange={handleLessonChange}
-      ></Timetable>
+      {timetable.length && (
+        <Timetable
+          day={day}
+          timetable={timetable}
+          hourToScroll={hour}
+          onChange={handleLessonChange}
+        ></Timetable>
+      )}
       <div className="flex">
         <Button disabled={gestures.nextDisabled} onClick={gestures.next}>
           הבא

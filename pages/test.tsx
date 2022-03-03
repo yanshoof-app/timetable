@@ -40,7 +40,6 @@ const defaultLesson = {
 const IndexPage = () => {
   const [date, updateDay] = useState(2 as DayOfWeek)
   const [toast, showToast] = useState(true)
-  console.log(useLessonPicks(fulltimetable_example as LessonOrMultiple[][]))
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
@@ -49,7 +48,7 @@ const IndexPage = () => {
         startIcon={Done}
         onStartIconClick={() => console.log('click!')}
       />
-      <ThemePreferencePick />
+      <TimetableInit></TimetableInit>
       <Navbar />
     </Layout>
   )
