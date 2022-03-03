@@ -12,10 +12,10 @@ export default function TimetableInit() {
   const { appendScheduleSetting } = useStorage()
   const pickableLessons = useLessonPicks(timetable)
   const { day, hour, ...gestures } = useIteration(pickableLessons)
-  console.log(timetable)
 
   const handleLessonChange = useCallback(
     (lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay) => {
+      console.log(lesson, day, hour)
       isAnyLessonObj(lesson) &&
         appendScheduleSetting({
           day: day,

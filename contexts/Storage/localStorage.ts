@@ -55,7 +55,7 @@ export const useStudyGroups = createLocalStorageState<[string, string][]>(
   {
     decode: (str?: string) => {
       try {
-        return JSON.parse(str) as [string, string][]
+        return (JSON.parse(str) as [string, string][] | null) || []
       } catch (e) {
         return []
       }

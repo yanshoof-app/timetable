@@ -1,13 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import useModification from '../../../hooks/useModification'
-import {
-  HourOfDay,
-  ILesson,
-  IStudyGroup,
-  ITeacherLesson,
-} from '../../../interfaces'
+import { useDidUpdateEffect } from '../../../hooks/useUpdateEffect'
+import { HourOfDay, ILesson, IStudyGroup } from '../../../interfaces'
 import { Expand } from '../../icons'
-import { ColorMapper, ThemeColor } from '../../theme'
 import ShadowedWrapper from '../../ui/ShadowedWrapper'
 import LessonInfo from './LessonInfo'
 import LessonOption from './LessonOption'
@@ -16,7 +10,7 @@ export interface LessonPickProps {
   options: IStudyGroup[]
   defaultLesson?: ILesson | IStudyGroup
   hour: HourOfDay | string
-  onChange?(picked): unknown
+  onChange?(picked: number): unknown
 }
 
 export default function LessonPick({
@@ -30,7 +24,7 @@ export default function LessonPick({
 
   const [height, setHeight] = useState()
 
-  useEffect(() => {
+  useDidUpdateEffect(() => {
     onChange(picked.index)
     setOpen(false)
   }, [picked])

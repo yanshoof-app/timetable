@@ -15,7 +15,7 @@ export function useFullTimetable() {
   const ctx = useContext(FullTimetableContext)
   // if timetable is not fetched, fetch it
   useEffect(() => {
-    if (!ctx.isLoading && !ctx.timetable) ctx.doFetch()
+    if (!ctx.isLoading && !Array.isArray(ctx.timetable)) ctx.doFetch()
   }, [ctx.isLoading, ctx.timetable])
   return ctx
 }

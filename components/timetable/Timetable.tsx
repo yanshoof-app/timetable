@@ -63,8 +63,8 @@ export default function Timetable({
                 options={lesson as IStudyGroup[]}
                 hour={hour as HourOfDay}
                 key={hour}
-                onChange={() => {
-                  onChange(lesson, day, hour as HourOfDay)
+                onChange={(picked) => {
+                  onChange(lesson[picked], day, hour as HourOfDay)
                 }}
                 defaultLesson={
                   (lesson as IStudyGroup[]).length == 1 && lesson[0]
