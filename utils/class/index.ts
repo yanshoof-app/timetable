@@ -78,7 +78,7 @@ export class ClassLookup implements IClassLookup {
    * @param grade the grade number, a number between 1 and 12
    * @returns the hebrew format of the grade
    */
-  getFormattedGradeName(grade: number): string {
+  public static getFormattedGradeName(grade: number): string {
     return HEBREW_GRADES[grade]
   }
 

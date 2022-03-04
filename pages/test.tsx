@@ -28,7 +28,7 @@ import LessonPick from '../components/timetable/Lesson/LessonPick'
 import Navbar from '../components/ui/Navbar'
 import ThemePreferencePick from '../components/settings/ThemePreferencePick'
 import TimetableInit from '../components/timetable/TimetableInit'
-import { useLessonPicks } from '../hooks/useEditableDays'
+import ClassPick from '../components/settings/ClassPick'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -43,7 +43,7 @@ const IndexPage = () => {
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <TimetableInit></TimetableInit>
+      <ClassPick></ClassPick>
     </Layout>
   )
 }

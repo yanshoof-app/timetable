@@ -3,7 +3,7 @@
  */
 export interface IClassLookup {
   getId(grade: number, classNum: number): number
-  getFormattedGradeName(grade: number): string
+  //getFormattedGradeName(grade: number): string
   get classIds(): number[][]
   get grades(): number[]
 }

@@ -28,8 +28,8 @@ export default function DropdownPick({
   return (
     <div
       className={`${className} flex relative bg-uiPrimary-200 ${
-        !opened && 'rounded-[5px]'
-      } rounded-t-[5px] flex-col justify-start items-center font-semibold text-uiPrimary-400 fill-uiPrimary-400`}
+        opened ? 'rounded-t-lg' : 'rounded-lg'
+      }  flex-col justify-start items-center font-semibold text-uiPrimary-400 fill-uiPrimary-400`}
     >
       <Selected
         options={options}
