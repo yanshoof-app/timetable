@@ -58,7 +58,12 @@ export default function Timetable({
         (lesson, hour) =>
           ShowLesson(lesson, hour as HourOfDay, lastLesson) &&
           (Array.isArray(lesson) ? (
-            IsPickableLesson(lesson, hour as HourOfDay, allEditable) ? (
+            IsPickableLesson(
+              lesson,
+              day as DayOfWeek,
+              hour as HourOfDay,
+              allEditable
+            ) ? (
               <LessonPick
                 options={lesson as IStudyGroup[]}
                 hour={hour as HourOfDay}

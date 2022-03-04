@@ -43,13 +43,7 @@ const IndexPage = () => {
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <PageTitle
-        title="Hello World"
-        startIcon={Done}
-        onStartIconClick={() => console.log('click!')}
-      />
       <TimetableInit></TimetableInit>
-      <Navbar />
     </Layout>
   )
 }

@@ -7,13 +7,14 @@ import {
 } from '../interfaces'
 import { FullTimeable } from '../utils'
 
-type PickableLesson = {
+export type PickableLesson = {
   day: DayOfWeek
   hour: HourOfDay
 }
 
 export function IsPickableLesson(
   lesson: IStudyGroup[] | SupportedLesson,
+  day: DayOfWeek,
   hour: HourOfDay,
   allEditable: boolean
 ) {
@@ -21,6 +22,8 @@ export function IsPickableLesson(
     if (lesson.length > 1) {
       return true
     } else if (hour > 7 || hour < MIN_HOUR) {
+      return true
+    } else if (day > 4) {
       return true
     } else if (allEditable) {
       return true
@@ -39,7 +42,12 @@ export function useLessonPicks(
   for (let day in timetable) {
     for (let hour in timetable[day]) {
       if (
-        IsPickableLesson(timetable[day][hour], Number(hour) as HourOfDay, false)
+        IsPickableLesson(
+          timetable[day][hour],
+          Number(day) as DayOfWeek,
+          Number(hour) as HourOfDay,
+          false
+        )
       ) {
         pickableLessons.push({
           day: Number(day) as DayOfWeek,
