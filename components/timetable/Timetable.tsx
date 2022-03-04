@@ -9,7 +9,7 @@ import {
 } from '../../interfaces'
 import { isArray } from '../../utils/data/arrays'
 import Lesson from './Lesson'
-import LessonPick from './Lesson/LessonPick'
+import LessonPick from './LessonPick'
 
 export type SupportedLesson = ILesson | ILesson[] | ITeacherLesson | {}
 

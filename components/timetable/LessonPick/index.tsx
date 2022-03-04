@@ -3,7 +3,7 @@ import { useDidUpdateEffect } from '../../../hooks/useUpdateEffect'
 import { HourOfDay, ILesson, IStudyGroup } from '../../../interfaces'
 import { Expand } from '../../icons'
 import ShadowedWrapper from '../../ui/ShadowedWrapper'
-import LessonInfo from './LessonInfo'
+import LessonInfo from '../Lesson/LessonInfo'
 import LessonOption from './LessonOption'
 
 export interface LessonPickProps {

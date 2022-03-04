@@ -6,7 +6,7 @@ import { useIteration } from '../../hooks/useIteration'
 import { useEditableDays } from '../../hooks/useEditableDays'
 import { DayOfWeek, HourOfDay, isAnyLessonObj } from '../../interfaces'
 import Button from '../forms/Button'
-import LoadingTimetable from './Skeleton/TimetableSkeleton'
+import LoadingTimetable from './TimetableSkeleton'
 import Timetable, { SupportedLesson } from './Timetable'
 
 export default function TimetableInit() {
