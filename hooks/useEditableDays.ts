@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { MIN_HOUR, SupportedLesson } from '../components/timetable/Timetable'
 import {
   DayOfWeek,
@@ -12,7 +13,7 @@ export type PickableLesson = {
   hour: HourOfDay
 }
 
-export function IsPickableLesson(
+export function isPickableLesson(
   lesson: IStudyGroup[] | SupportedLesson,
   day: DayOfWeek,
   hour: HourOfDay,
@@ -33,28 +34,17 @@ export function IsPickableLesson(
   }
 }
 
-export type LessonPickHook = PickableLesson[]
-
-export function useLessonPicks(
-  timetable: LessonOrMultiple[][]
-): LessonPickHook {
-  let pickableLessons = []
-  for (let day in timetable) {
-    for (let hour in timetable[day]) {
+export function useEditableDays(timetable: LessonOrMultiple[][]): DayOfWeek[] {
+  return useMemo(() => {
+    const set = new Set<DayOfWeek>()
+    timetable.forEach((dailyLessons, day) => {
       if (
-        IsPickableLesson(
-          timetable[day][hour],
-          Number(day) as DayOfWeek,
-          Number(hour) as HourOfDay,
-          false
+        dailyLessons.some((lesson, hour) =>
+          isPickableLesson(lesson, day as DayOfWeek, hour as HourOfDay, false)
         )
-      ) {
-        pickableLessons.push({
-          day: Number(day) as DayOfWeek,
-          hour: Number(hour) as HourOfDay,
-        })
-      }
-    }
-  }
-  return pickableLessons
+      )
+        set.add(day as DayOfWeek)
+    })
+    return [...set]
+  }, [timetable])
 }

@@ -28,7 +28,7 @@ import LessonPick from '../components/timetable/Lesson/LessonPick'
 import Navbar from '../components/ui/Navbar'
 import ThemePreferencePick from '../components/settings/ThemePreferencePick'
 import TimetableInit from '../components/timetable/TimetableInit'
-import { useLessonPicks } from '../hooks/useLessonPicks'
+import { useLessonPicks } from '../hooks/useEditableDays'
 
 const defaultLesson = {
   class: 'מחשבים יב',

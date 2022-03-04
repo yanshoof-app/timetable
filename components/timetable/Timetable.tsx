@@ -1,4 +1,4 @@
-import { IsPickableLesson } from '../../hooks/useLessonPicks'
+import { isPickableLesson } from '../../hooks/useEditableDays'
 import {
   DayOfWeek,
   HourOfDay,
@@ -58,7 +58,7 @@ export default function Timetable({
         (lesson, hour) =>
           ShowLesson(lesson, hour as HourOfDay, lastLesson) &&
           (Array.isArray(lesson) ? (
-            IsPickableLesson(
+            isPickableLesson(
               lesson,
               day as DayOfWeek,
               hour as HourOfDay,

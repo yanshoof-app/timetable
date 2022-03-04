@@ -15,7 +15,7 @@ export function useFullTimetable() {
   const ctx = useContext(FullTimetableContext)
   // if timetable is not fetched, fetch it
   useEffect(() => {
-    if (!ctx.isLoading && !Array.isArray(ctx.timetable)) ctx.doFetch()
+    if (!ctx.isLoading && !ctx.timetable.length) ctx.doFetch()
   }, [ctx.isLoading, ctx.timetable])
   return ctx
 }
@@ -29,6 +29,7 @@ export default function FullTimetableProvider({ children }: Wrapper) {
   } = useHTTP<IFullTimetableReqType, LessonOrMultiple[][]>({
     path: FULL_TIMETABLE_URL,
     fetchOnMount: false,
+    initialValue: [],
   })
   const { school, classId } = useStorage()
 

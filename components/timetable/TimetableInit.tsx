@@ -3,7 +3,7 @@ import { useFullTimetable } from '../../contexts/FullTimetable'
 import { useStorage } from '../../contexts/Storage'
 import useHebrewDate, { HEBREW_DAYS } from '../../hooks/useHebrewDate'
 import { useIteration } from '../../hooks/useIteration'
-import { useLessonPicks } from '../../hooks/useLessonPicks'
+import { useEditableDays } from '../../hooks/useEditableDays'
 import { DayOfWeek, HourOfDay, isAnyLessonObj } from '../../interfaces'
 import Button from '../forms/Button'
 import LoadingTimetable from './Skeleton/TimetableSkeleton'
@@ -11,9 +11,9 @@ import Timetable, { SupportedLesson } from './Timetable'
 
 export default function TimetableInit() {
   const { timetable } = useFullTimetable()
+  const days = useEditableDays(timetable)
+  const { currentItem: currentDay, ...gestures } = useIteration(days)
   const { appendScheduleSetting } = useStorage()
-  const pickableLessons = useLessonPicks(timetable)
-  const { day, hour, ...gestures } = useIteration(pickableLessons)
 
   const handleLessonChange = useCallback(
     (lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay) => {
@@ -32,7 +32,7 @@ export default function TimetableInit() {
   return (
     <div className="p-[18px] h-screen flex flex-col justify-between items-center gap-2 ">
       <p className="font-bold text-2xl">הוסיפו שיעורים במקומות הריקים</p>
-      <p className="font-semibold text-xl">{HEBREW_DAYS[day]}</p>
+      <p className="font-semibold text-xl">{HEBREW_DAYS[currentDay]}</p>
       <div
         className={`bg-stone-200 p-[18px] rounded-[30px] w-full h-full ${
           timetable.length ? 'overflow-scroll' : 'overflow-hidden'
@@ -40,9 +40,8 @@ export default function TimetableInit() {
       >
         {timetable.length ? (
           <Timetable
-            day={day}
+            day={currentDay}
             timetable={timetable}
-            hourToScroll={hour}
             onChange={handleLessonChange}
           ></Timetable>
         ) : (
