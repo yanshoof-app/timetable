@@ -7,10 +7,22 @@ import DropdownPick from '../forms/DropdownPick'
 import { Edit } from '../icons'
 
 export default function ClassPick() {
-  const { classId, setClassId } = useStorage()
-  const { school, setSchool } = useStorage()
+  const { school, setSchool, setClassId } = useStorage()
   const { classes, grades, isLoading } = useClasses(school)
   const [grade, setGrade] = useState(0)
+  const classesIds = useMemo(
+    () =>
+      typeof classes[0] != 'undefined'
+        ? classes[grade]
+            .filter((grade) => grade != -1)
+            .map((classId, index) => (index + 1).toString())
+        : [],
+    [classes, grade]
+  )
+  const gradesArray = useMemo(
+    () => grades.map((grade) => ClassLookup.getFormattedGradeName(grade)),
+    [grades]
+  )
 
   return typeof classes[0] != 'undefined' ? (
     <div className="flex flex-col justify-center h-screen items-center gap-5">
@@ -25,19 +37,15 @@ export default function ClassPick() {
       </div>
       <div className="flex gap-4 justify-center">
         <DropdownPick
-          options={grades.map((grade) =>
-            ClassLookup.getFormattedGradeName(grade)
-          )}
+          options={gradesArray}
           onChange={(selectedGrade) => {
             setGrade(selectedGrade)
           }}
         ></DropdownPick>
         <DropdownPick
-          options={classes[grade]
-            .filter((grade) => grade != -1)
-            .map((classId, index) => (index + 1).toString())}
+          options={classesIds}
           onChange={(selectedClassId) => {
-            setClassId(classes[grade].toString())
+            setClassId(classes[grade][selectedClassId].toString())
           }}
         ></DropdownPick>
         <Button className="m-0 w-20">הבא</Button>

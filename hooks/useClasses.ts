@@ -10,7 +10,7 @@ export function useClasses(school: string): {
   isLoading: boolean
 } {
   const { data, isLoading } = useHTTP({
-    path: `${CLASSES_URL}/460030`,
+    path: `${CLASSES_URL}/${school}`,
     initialValue: {
       grades: [],
       classes: [],
