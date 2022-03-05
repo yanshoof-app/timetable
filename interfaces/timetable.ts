@@ -1,7 +1,8 @@
-import { ILessonArrMemberIscool } from '.';
+import { ILessonArrMemberIscool } from '.'
+import { IChange, ILesson } from './lesson'
 
 export interface ITimetable<TLesson> {
-  readonly lessons: TLesson[][];
+  readonly lessons: TLesson[][]
   /**
    * Reads Iscool schedule into the timetable
    * @param schedule an array of lesson array members as given by Iscool
@@ -9,5 +10,11 @@ export interface ITimetable<TLesson> {
    * @example
    * const timetable = new FullTimetable().fromIscool(Schedule);
    */
-  fromIscool(schedule: ILessonArrMemberIscool[]): ITimetable<TLesson>;
+  fromIscool(schedule: ILessonArrMemberIscool[]): ITimetable<TLesson>
+}
+
+/** The object returned from the updates route */
+export interface ITimetableUpdates {
+  overrideTimetable?: ILesson[][]
+  newChanges: IChange[]
 }

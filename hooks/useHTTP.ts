@@ -1,11 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
 import { useState, useCallback, useEffect } from 'react'
 
-export interface HTTPParams<Result> {
+export interface HTTPParams<ReqData, Result> {
   path: string
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
   fetchOnMount?: boolean
   initialValue?: Result
+  reqData?: ReqData
 }
 
 export function useHTTP<ReqData = unknown, Result = unknown>({
@@ -13,7 +14,8 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
   method = 'GET',
   fetchOnMount = true,
   initialValue = {} as Result,
-}: HTTPParams<Result>) {
+  reqData,
+}: HTTPParams<ReqData, Result>) {
   const [isLoading, setLoading] = useState(fetchOnMount)
   const [data, setData] = useState<Result>(initialValue)
   const [error, setError] = useState(false)
@@ -35,8 +37,8 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
   )
 
   useEffect(() => {
-    fetchOnMount && doFetch()
-  }, [doFetch, fetchOnMount])
+    if (fetchOnMount && reqData) doFetch(reqData)
+  }, [doFetch, fetchOnMount, reqData])
 
   return { isLoading, data, doFetch, error }
 }
