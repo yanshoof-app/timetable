@@ -45,5 +45,5 @@ export function useUpdateableTimetable() {
 
   const errorInFetch = useMemo(() => !!updates.error, [updates])
 
-  return { changesPending, applyUpdates, lessons: lessonMatrix }
+  return { changesPending, applyUpdates, errorInFetch, lessons: lessonMatrix }
 }
