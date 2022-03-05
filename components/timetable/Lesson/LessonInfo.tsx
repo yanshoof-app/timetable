@@ -6,7 +6,7 @@ export default function LessonInfo(info) {
   return (
     <div className={`flex flex-col gap-[0.7rem]`}>
       <InfoLine info={info.subject} newInfo={newHour} bold />
-      <InfoLine info={info.teacher} newInfo={newTeacher} />
+      {info.teacher && <InfoLine info={info.teacher} newInfo={newTeacher} />}
       {info.class && <InfoLine info={info.class} newInfo={newRoom} bold />}
     </div>
   )

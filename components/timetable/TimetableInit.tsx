@@ -53,6 +53,7 @@ export default function TimetableInit() {
           disabled={gestures.prevDisabled}
           onClick={gestures.prev}
           className="mx-0 w-24"
+          variant="secondary"
         >
           הקודם
         </Button>
