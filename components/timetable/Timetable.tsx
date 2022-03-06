@@ -1,4 +1,4 @@
-import { isPickableLesson } from '../../hooks/timetable/useEditableDays'
+import { isPickableLesson } from '../../hooks/useEditableDays'
 import {
   DayOfWeek,
   HourOfDay,

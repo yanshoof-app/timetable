@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { ThemeColor } from '../../components/theme'
-import { IModification, LessonModification } from '../../interfaces'
+import { ThemeColor } from '../components/theme'
+import { IModification, LessonModification } from '../interfaces'
 
 const LESSON_CANCELED = 'ביטול שיעור'
 const NEW_TEACHER = 'החלפת מורה'
