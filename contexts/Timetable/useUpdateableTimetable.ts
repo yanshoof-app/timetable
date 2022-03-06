@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useClientRender } from '../../hooks/useClientRender'
 import { useHTTP } from '../../hooks/useHTTP'
 import { ITimetableUpdates } from '../../interfaces'
@@ -21,14 +21,17 @@ export function useUpdateableTimetable() {
     reqData: qParamsSettings,
   })
 
+  // update timetable immedietly if overriden by server
+  useEffect(() => {
+    const { overrideTimetable } = updates.data
+    if (overrideTimetable) setLessonMatrix(overrideTimetable)
+  }, [updates, setLessonMatrix])
+
   // use in toast
   const applyUpdates = useCallback(() => {
-    const { overrideTimetable, newChanges } = updates.data
+    const { newChanges } = updates.data
     if (lessonMatrix.length && !updates.isLoading) {
-      let timetable: Timetable
-      if (overrideTimetable)
-        timetable = new Timetable(overrideTimetable, settings.showOthersChanges)
-      else timetable = new Timetable(lessonMatrix, settings.showOthersChanges)
+      const timetable = new Timetable(lessonMatrix, settings.showOthersChanges)
 
       if (newChanges) timetable.applyExistingChanges(newChanges)
       setLessonMatrix(timetable.lessons)
@@ -37,9 +40,7 @@ export function useUpdateableTimetable() {
 
   // determine if toast needs to be shown
   const changesPending = useMemo(
-    () =>
-      (updates.data.newChanges || updates.data.overrideTimetable) &&
-      !updates.isLoading,
+    () => updates.data.newChanges && !updates.isLoading,
     [updates]
   )
 
