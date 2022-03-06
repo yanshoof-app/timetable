@@ -1,4 +1,5 @@
 import { ILessonArrMemberIscool } from '.'
+import { DayOfWeek, HourOfDay } from './iscool'
 import { IChange, ILesson } from './lesson'
 
 export interface ITimetable<TLesson> {
@@ -17,4 +18,5 @@ export interface ITimetable<TLesson> {
 export interface ITimetableUpdates {
   overrideTimetable?: ILesson[][]
   newChanges: IChange[]
+  hourErrors?: [DayOfWeek, HourOfDay][]
 }
