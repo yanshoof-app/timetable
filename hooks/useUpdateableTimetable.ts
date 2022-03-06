@@ -1,14 +1,22 @@
 import { useCallback, useEffect, useMemo } from 'react'
-import { useClientRender } from '../../hooks/useClientRender'
-import { useHTTP } from '../../hooks/useHTTP'
-import { ITimetableUpdates } from '../../interfaces'
-import { QueryParams, QueryParamsSettings, Timetable } from '../../utils'
-import { useStorage } from '../Storage'
-import { useLessonMatrixState } from './localstorage'
+import { useClientRender } from './useClientRender'
+import { useHTTP } from './useHTTP'
+import { DayOfWeek, HourOfDay, ILesson, ITimetableUpdates } from '../interfaces'
+import { QueryParams, QueryParamsSettings, Timetable } from '../utils'
+import { useStorage } from '../contexts/Storage'
+import { useLessonMatrixState } from '../contexts/Timetable/localstorage'
 
 const UPDATES_ROUTE = 'TODO' // TODO
 
-export function useUpdateableTimetable() {
+export interface IUpdateableTimetable {
+  lessons: ILesson[][]
+  applyUpdates(): unknown
+  errorInFetch: boolean
+  changesPending: boolean
+  hourErrors?: [DayOfWeek, HourOfDay][] //TODO in timetable object
+}
+
+export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
   const settings = useStorage()
   const isClient = useClientRender()

@@ -6,7 +6,6 @@ import {
   IStudyGroup,
   LessonOrMultiple,
 } from '../interfaces'
-import { FullTimeable } from '../utils'
 
 export type PickableLesson = {
   day: DayOfWeek
