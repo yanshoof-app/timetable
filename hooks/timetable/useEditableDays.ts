@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { MIN_HOUR, SupportedLesson } from '../components/timetable/Timetable'
+import { MIN_HOUR, SupportedLesson } from '../../components/timetable/Timetable'
 import {
   DayOfWeek,
   HourOfDay,

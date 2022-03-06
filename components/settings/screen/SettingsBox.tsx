@@ -1,6 +1,6 @@
-import { ForwardRTL } from '../icons'
-import { ThemeColor } from '../theme'
-import ShadowedWrapper from '../ui/ShadowedWrapper'
+import { ForwardRTL } from '../../icons'
+import { ThemeColor } from '../../theme'
+import ShadowedWrapper from '../../ui/ShadowedWrapper'
 
 export interface SettingsBoxProps {
   color: ThemeColor

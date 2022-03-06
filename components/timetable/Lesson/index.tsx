@@ -1,4 +1,4 @@
-import useModification from '../../../hooks/useModification'
+import useModification from '../../../hooks/timetable/useModification'
 import {
   HourOfDay,
   ILesson,

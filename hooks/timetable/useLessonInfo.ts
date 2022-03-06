@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { IModification, LessonModification } from '../interfaces'
+import { IModification, LessonModification } from '../../interfaces'
 
 export type LessonInfoHook = {
   newHour?: string | boolean

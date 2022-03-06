@@ -1,5 +1,5 @@
 import InfoLine from './InfoLine'
-import useLessonInfo from '../../../hooks/useLessonInfo'
+import useLessonInfo from '../../../hooks/timetable/useLessonInfo'
 
 export default function LessonInfo(info) {
   const { newTeacher, newRoom, newHour } = useLessonInfo([info])

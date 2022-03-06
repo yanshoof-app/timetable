@@ -1,5 +1,5 @@
 import Layout from '../components/Layout'
-import SettingsBox from '../components/settings/SettingsBox'
+import SettingsBox from '../components/settings/screen/SettingsBox'
 import Navbar from '../components/ui/Navbar'
 
 export default function Settings() {

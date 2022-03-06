@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import useLessonInfo from '../../../hooks/useLessonInfo'
-import useModification from '../../../hooks/useModification'
+import useLessonInfo from '../../../hooks/timetable/useLessonInfo'
+import useModification from '../../../hooks/timetable/useModification'
 import { IStudyGroupWithModification } from '../../../interfaces'
 import { changeTextColor } from '../Lesson'
 
