@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useClientRender } from './useClientRender'
 import { useHTTP } from './useHTTP'
 import { DayOfWeek, HourOfDay, ILesson, ITimetableUpdates } from '../interfaces'
@@ -13,11 +13,12 @@ export interface IUpdateableTimetable {
   applyUpdates(): unknown
   errorInFetch: boolean
   changesPending: boolean
-  problems?: [DayOfWeek, HourOfDay][] //TODO in timetable object
+  problems: [DayOfWeek, HourOfDay][] //TODO in timetable object
 }
 
 export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
+  const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
   const settings = useStorage()
   const isClient = useClientRender()
   const qParamsSettings = useMemo(
@@ -31,8 +32,9 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
 
   // update timetable immedietly if overriden by server
   useEffect(() => {
-    const { overrideTimetable } = updates.data
+    const { overrideTimetable, problems } = updates.data
     if (overrideTimetable) setLessonMatrix(overrideTimetable)
+    setProblems(problems)
   }, [updates, setLessonMatrix])
 
   // use in toast
@@ -54,5 +56,11 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
 
   const errorInFetch = useMemo(() => !!updates.error, [updates])
 
-  return { changesPending, applyUpdates, errorInFetch, lessons: lessonMatrix }
+  return {
+    changesPending,
+    applyUpdates,
+    errorInFetch,
+    problems,
+    lessons: lessonMatrix,
+  }
 }
