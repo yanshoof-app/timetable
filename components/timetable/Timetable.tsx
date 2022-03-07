@@ -67,7 +67,7 @@ export default function Timetable({
               <LessonPick
                 options={lesson as IStudyGroup[]}
                 hour={hour as HourOfDay}
-                key={hour}
+                key={`${day}${hour}`}
                 onChange={(picked) => {
                   onChange(lesson[picked], day, hour as HourOfDay)
                 }}

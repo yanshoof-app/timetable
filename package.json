@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.25.0",
     "cookies-next": "^2.0.4",
+    "cross-env": "^7.0.3",
     "dotenv": "^14.3.2",
     "framer-motion": "^6.2.8",
     "next": "^12.1.0",
