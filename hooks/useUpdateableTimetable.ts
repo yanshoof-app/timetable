@@ -13,7 +13,7 @@ export interface IUpdateableTimetable {
   applyUpdates(): unknown
   errorInFetch: boolean
   changesPending: boolean
-  hourErrors?: [DayOfWeek, HourOfDay][] //TODO in timetable object
+  problems?: [DayOfWeek, HourOfDay][] //TODO in timetable object
 }
 
 export function useUpdateableTimetable(): IUpdateableTimetable {

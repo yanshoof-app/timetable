@@ -18,5 +18,5 @@ export interface ITimetable<TLesson> {
 export interface ITimetableUpdates {
   overrideTimetable?: ILesson[][]
   newChanges: IChange[]
-  hourErrors?: [DayOfWeek, HourOfDay][]
+  problems?: [DayOfWeek, HourOfDay][]
 }
