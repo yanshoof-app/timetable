@@ -25,7 +25,15 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       classId
     )
     timetable.applyChanges(Changes)
-    res.status(200).json(JSON.stringify(timetable.lessons, null, 2))
+    res
+      .status(200)
+      .json(
+        JSON.stringify(
+          { lessons: timetable.lessons, problems: timetable.problems },
+          null,
+          2
+        )
+      )
   } catch (err: any) {
     res.status(500).json({
       statusCode: err.name == InputError.errorName ? 422 : 500,
