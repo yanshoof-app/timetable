@@ -8,7 +8,7 @@ import LessonOption from './LessonOption'
 
 export interface LessonPickProps {
   options: IStudyGroup[]
-  defaultLesson?: ILesson | IStudyGroup
+  defaultLesson?: IStudyGroup
   hour: HourOfDay | string
   onChange?(picked: number): unknown
 }
@@ -28,6 +28,7 @@ export default function LessonPick({
     onChange(picked.index)
     setOpen(false)
   }, [picked])
+
   const child = useRef(null)
   const container = useRef(null)
 
@@ -35,6 +36,10 @@ export default function LessonPick({
     isOpen
       ? (container.current.style.maxHeight = child.current.offsetHeight + 'px')
       : (container.current.style.maxHeight = '')
+  }, [isOpen])
+
+  useEffect(() => {
+    setPicked(picked)
   }, [isOpen])
 
   return (
@@ -91,9 +96,11 @@ export default function LessonPick({
               setPicked={setPicked}
             ></LessonOption>
           )}
+
           {options.map(
             (option, index) =>
-              picked.studyGroup !== option && (
+              picked.studyGroup.subject !== option.subject &&
+              picked.studyGroup.teacher !== option.teacher && (
                 <LessonOption
                   key={index}
                   multipleHour={typeof hour === 'string'}

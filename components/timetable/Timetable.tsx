@@ -65,15 +65,13 @@ export default function Timetable({
               allEditable
             ) ? (
               <LessonPick
-                options={lesson as IStudyGroup[]}
+                options={lesson}
                 hour={hour as HourOfDay}
                 key={`${day}${hour}`}
                 onChange={(picked) => {
                   onChange(lesson[picked], day, hour as HourOfDay)
                 }}
-                defaultLesson={
-                  (lesson as IStudyGroup[]).length == 1 && lesson[0]
-                }
+                defaultLesson={lesson.length == 1 && lesson[0]}
               ></LessonPick>
             ) : (
               <Lesson lesson={lesson[0]} hour={hour as HourOfDay} key={hour} />
