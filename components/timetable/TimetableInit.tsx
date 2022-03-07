@@ -43,6 +43,7 @@ export default function TimetableInit() {
             day={currentDay}
             timetable={timetable}
             onChange={handleLessonChange}
+            allEditable
           ></Timetable>
         ) : (
           <LoadingTimetable></LoadingTimetable>

@@ -16,7 +16,7 @@ export function useClasses(school: string): {
       classes: [],
     },
   })
-  const grades = data.grades
-  const classes = data.classes
+  const { grades, classes } = data
+
   return { grades, classes, isLoading }
 }

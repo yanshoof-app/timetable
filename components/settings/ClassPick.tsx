@@ -24,7 +24,7 @@ export default function ClassPick() {
     [grades]
   )
 
-  return typeof classes[0] != 'undefined' ? (
+  return classes[0] ? (
     <div className="flex flex-col justify-center h-screen items-center gap-5">
       <div className="flex flex-col gap-2 justify-center items-center">
         <div className="flex justify-center items-center gap-1">

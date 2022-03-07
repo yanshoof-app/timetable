@@ -22,7 +22,7 @@ export default function LessonPick({
   const [isOpen, setOpen] = useState(false)
   const [picked, setPicked] = useState({ index: 0, studyGroup: defaultLesson })
 
-  const [height, setHeight] = useState()
+  const [height, setHeight] = useState(0)
 
   useDidUpdateEffect(() => {
     onChange(picked.index)

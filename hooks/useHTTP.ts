@@ -14,7 +14,7 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
   method = 'GET',
   fetchOnMount = true,
   initialValue = {} as Result,
-  reqData,
+  reqData = {} as ReqData,
 }: HTTPParams<ReqData, Result>) {
   const [isLoading, setLoading] = useState(fetchOnMount)
   const [data, setData] = useState<Result>(initialValue)
