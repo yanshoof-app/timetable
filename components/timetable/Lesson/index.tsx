@@ -30,7 +30,7 @@ export default function Lesson({ hour, lesson }: LessonProps) {
     <div className="flex flex-col">
       <ShadowedWrapper
         color={color}
-        className="flex flex-row rounded-[12px] gap-[0.8rem] p-[0.8rem] items-center justify-start"
+        className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] items-center justify-start"
       >
         <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
         <div className="flex flex-col gap-[0.7rem]">

@@ -45,11 +45,11 @@ export default function LessonPick({
   return (
     <ShadowedWrapper
       color={picked.studyGroup.subject ? 'gray' : 'primary'}
-      className={`flex flex-col rounded-[12px] py-[0.8rem] transition-all duration-[0s] ease-in-out ${
+      className={`flex flex-col rounded-xl py-[0.8rem] transition-all duration-[0s] ease-in-out ${
         isOpen ? 'gap-3' : 'gap-0 delay-100 transition-all duration-100'
       } justify-end`}
     >
-      <div className="flex flex-row rounded-[12px] gap-[0.8rem] p-[0.8rem] py-1 pl-0 items-center">
+      <div className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] py-1 pl-0 items-center">
         <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
         <div
           className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
