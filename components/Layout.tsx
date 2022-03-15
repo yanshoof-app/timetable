@@ -13,7 +13,7 @@ const Layout = ({
   title = 'This is the default title',
   className = '',
 }: Props) => (
-  <div className={className}>
+  <div className={`${className}`}>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
