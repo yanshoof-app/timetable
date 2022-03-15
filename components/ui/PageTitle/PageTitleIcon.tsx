@@ -1,6 +1,6 @@
 import { Icon } from '../../icons/svgFactory'
 
-const ICON_SIZE = 24
+const ICON_SIZE = 18
 
 export interface PageTitleIconProps {
   icon?: Icon

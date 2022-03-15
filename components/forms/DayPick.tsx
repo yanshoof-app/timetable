@@ -5,7 +5,6 @@ import Button from './Button'
 
 export interface DayPickProps {
   day: DayOfWeek
-  value: DayOfWeek
   onChange(index): unknown
   className?: string
 }

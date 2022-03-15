@@ -72,7 +72,6 @@ const IndexPage = () => {
       </div>
       <DayPick
         day={date}
-        value={date}
         onChange={(index) => updateDay(index)}
         className={'pr-[1rem] pl-[1rem]'}
       ></DayPick>
