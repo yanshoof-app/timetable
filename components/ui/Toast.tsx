@@ -1,5 +1,5 @@
 import { motion, useAnimation } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Icon } from '../icons/svgFactory'
 
 export interface ToastProps {
@@ -33,14 +33,23 @@ export default function Toast({
       })
   }
 
-  useEffect(() => {}, [])
+  const [toastPos, updateToastPos] = useState({} as MouseEvent | PointerEvent)
+
+  const isDraggedDown = (newPos) => {
+    if (newPos.screenY > toastPos.screenY) return true
+    return false
+  }
+
   return (
     <motion.div
       className="flex justify-between pr-5 animate-[toastin_0.4s_ease-out] pl-5 items-center fixed bg-slate-900 w-[calc(100%-2rem)] h-[3.5rem] bottom-[1rem] rounded-[10px] z-10"
       drag="y"
       dragConstraints={{ top: 0, bottom: 20 }}
-      onDragEnd={() => {
-        ToastOut()
+      onDragStart={(e) => {
+        updateToastPos(e as MouseEvent | PointerEvent)
+      }}
+      onDragEnd={(e) => {
+        if (isDraggedDown(e)) ToastOut()
       }}
       dragElastic={0.5}
       animate={controls}
