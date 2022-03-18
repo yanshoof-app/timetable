@@ -29,6 +29,7 @@ import Navbar from '../components/ui/Navbar'
 import ThemePreferencePick from '../components/settings/ThemePreferencePick'
 import TimetableInit from '../components/timetable/TimetableInit'
 import ClassPick from '../components/settings/ClassPick'
+import UpdateHourPick from '../components/settings/UpdateHourPick'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -43,7 +44,7 @@ const IndexPage = () => {
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <ClassPick></ClassPick>
+      <UpdateHourPick />
     </Layout>
   )
 }

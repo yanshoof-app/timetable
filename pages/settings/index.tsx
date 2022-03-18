@@ -3,10 +3,7 @@ import AdvancedEditingLink from '../../components/settings/AdvancedEditingLink'
 import SettingsBox from '../../components/settings/screen/SettingsBox'
 import StudyGroupsBox from '../../components/settings/StudyGroupsBox'
 import Navbar from '../../components/ui/Navbar'
-import PageTitle from '../../components/ui/PageTitle'
 import { useStorage } from '../../contexts/Storage'
-import { THEME_OPTIONS } from '../../contexts/Storage/types'
-import { ClassLookup } from '../../utils'
 
 export const HOURS = {
   16: '16:00',
@@ -17,7 +14,7 @@ export const HOURS = {
   21: '21:00',
   22: '22:00',
   23: '23:00',
-  24: '00:00',
+  24: 'אל תציג',
 }
 
 export const themePreferences = {
@@ -33,8 +30,6 @@ export const showOthersChangesText = {
 
 const Settings = () => {
   const {
-    school,
-    classId,
     theme,
     updateTime,
     showOthersChanges,
