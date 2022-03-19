@@ -7,6 +7,10 @@ const NEW_TEACHER = 'החלפת מורה'
 const NEW_ROOM = 'החלפת חדר'
 const NEW_LESSON = 'החלפת שיעור'
 
+const DEFAULT_DATA: IModification = {
+  modification: LessonModification.None,
+}
+
 /**
  * Gets information about a modification
  * @param modification the modification to check
@@ -15,7 +19,7 @@ const NEW_LESSON = 'החלפת שיעור'
 export default function useModification({
   modification,
   modData,
-}: IModification): [ThemeColor, string] {
+}: IModification = DEFAULT_DATA): [ThemeColor, string] {
   return useMemo(() => {
     switch (modification) {
       case LessonModification.Canceled:

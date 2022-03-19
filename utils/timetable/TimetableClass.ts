@@ -5,9 +5,13 @@ import {
   IChangeIscool,
   ILesson,
   ILessonArrMemberIscool,
+  IModification,
   IScheduleSettings,
   isILessonObj,
   isSettingsObj,
+  isStudyGroup,
+  IStudyGroup,
+  IStudyGroupIscool,
   ITimetable,
 } from '../../interfaces'
 import { ISCOOL } from '..'
@@ -102,49 +106,66 @@ export class Timetable implements ITimetable<ILesson> {
    * timetable.applyChanges(changes);
    */
   public applyChanges(changes: IChangeIscool[]) {
-    const { showOthersChanges } = this.settings
     for (let changeObj of changes) {
       const modification = ISCOOL.toModification(changeObj)
-      const day = ISCOOL.toDate(changeObj.Date).getDay()
-      const hour = changeObj.Hour
-
-      // compare study groups - is it a relevent change?
-      const { Teacher: changeTeacher, Subject: changeSubject } =
-        changeObj.StudyGroup
-      const lesson = this.lessons[day][hour]
-      if (lesson.teacher == changeTeacher && lesson.subject == changeSubject)
-        this.lessons[day][hour] = { ...lesson, ...modification }
-      else if (showOthersChanges) {
-        this.lessons[day][hour].otherChanges ||= []
-        this.lessons[day][hour].otherChanges.push({
-          ...modification,
-          teacher: changeTeacher,
-          subject: changeSubject,
-        })
-      }
+      const day = ISCOOL.toDate(changeObj.Date).getDay() as DayOfWeek
+      const hour = changeObj.Hour as HourOfDay
+      this.applyChange(day, hour, changeObj.StudyGroup, modification)
     }
   }
 
   public applyExistingChanges(changes: IChange[]) {
-    const { showOthersChanges } = this.settings
-    for (let {
-      day,
-      hour,
-      subject: changeSubject,
-      teacher: changeTeacher,
-      ...modification
-    } of changes) {
-      const lesson = this.lessons[day][hour]
-      if (lesson.teacher == changeTeacher && lesson.subject == changeSubject)
-        this.lessons[day][hour] = { ...lesson, ...modification }
-      else if (showOthersChanges) {
-        this.lessons[day][hour].otherChanges ||= []
-        this.lessons[day][hour].otherChanges.push({
-          ...modification,
-          teacher: changeTeacher,
-          subject: changeSubject,
-        })
-      }
+    for (let { day, hour, subject, teacher, ...modification } of changes)
+      this.applyChange(day, hour, { subject, teacher }, modification)
+  }
+
+  /**
+   * Applies a change
+   * @param day the day of the change as given
+   * @param hour the hour of the change as given
+   * @param studyGroup the study group of the change, if given
+   * @param modification the modification data
+   */
+  private applyChange(
+    day: DayOfWeek,
+    hour: HourOfDay,
+    studyGroup: IStudyGroup | IStudyGroupIscool | null,
+    modification: IModification
+  ): void {
+    // compare study groups - is it a relevent change?
+    if (!studyGroup) {
+      // event detected
+      this.lessons[day][hour].events ||= []
+      this.lessons[day][hour].events.push(modification.modData as string)
+      return
+    }
+
+    // collect change study group
+    let changeTeacher: string, changeSubject: string
+    if (isStudyGroup(studyGroup)) {
+      const { subject, teacher } = studyGroup
+      changeSubject = subject
+      changeTeacher = teacher
+    } else {
+      // studyGroup is type of IStudyGroupIscool
+      const { Subject, Teacher } = studyGroup
+      changeSubject = Subject
+      changeTeacher = Teacher
+    }
+    const { teacher, subject } = this.lessons[day][hour]
+
+    if (teacher == changeTeacher && subject == changeSubject) {
+      // change belongs to this study group
+      this.lessons[day][hour].changes ||= []
+      this.lessons[day][hour].changes.push(modification)
+    } else if (this.settings.showOthersChanges) {
+      // change belongs to another study group and the user wants to see it
+      this.lessons[day][hour].otherChanges ||= []
+      this.lessons[day][hour].otherChanges.push({
+        ...modification,
+        teacher: changeTeacher,
+        subject: changeSubject,
+      })
     }
   }
 }

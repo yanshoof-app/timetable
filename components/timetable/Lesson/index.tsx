@@ -25,7 +25,9 @@ export const changeTextColor: ColorMapper = (color: ThemeColor) =>
   }[color])
 
 export default function Lesson({ hour, lesson }: LessonProps) {
-  const [color, modificationMessage] = useModification(lesson)
+  const [color, modificationMessage] = useModification(
+    'changes' in lesson ? lesson.changes[0] : undefined
+  )
   return (
     <div className="flex flex-col">
       <ShadowedWrapper
