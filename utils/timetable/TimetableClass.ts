@@ -3,6 +3,7 @@ import {
   HourOfDay,
   IChange,
   IChangeIscool,
+  IChangesResponse,
   ILesson,
   ILessonArrMemberIscool,
   IModification,
@@ -112,6 +113,34 @@ export class Timetable implements ITimetable<ILesson> {
       const hour = changeObj.Hour as HourOfDay
       this.applyChange(day, hour, changeObj.StudyGroup, modification)
     }
+  }
+
+  /**
+   *
+   * @param lastUserUpdate the last time the user updated it's schedule
+   * @param changes the changes as given from ISCOOL
+   * @returns new changes
+   */
+  public static updateableTimetable(
+    lastUserUpdate: Date,
+    changes: IChangeIscool[]
+  ) {
+    let newChanges: IChangeIscool[] = []
+    const lastUpdate = ISCOOL.toDate(changes[0].Date)
+
+    //collect changes
+    if (lastUpdate > lastUserUpdate) {
+      for (let change of changes) {
+        const changeDate = ISCOOL.toDate(change.Date)
+
+        // check whether there are no more new changes
+        if (changeDate < lastUserUpdate) break
+
+        newChanges.push(change)
+      }
+    }
+
+    return newChanges
   }
 
   public applyExistingChanges(changes: IChange[]) {
