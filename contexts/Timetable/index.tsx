@@ -10,7 +10,7 @@ export const TimetableContext = createContext({} as IUpdateableTimetable)
 
 export const NoProblemsInSettings = createLogicalWrapper(
   TimetableContext,
-  (ctx) => !ctx.problems.length
+  (ctx) => !ctx.problems || !ctx.problems.length
 )
 
 export default function TimetableProvider({ children }: Wrapper) {
