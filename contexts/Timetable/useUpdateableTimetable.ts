@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useClientRender } from './useClientRender'
-import { useHTTP } from './useHTTP'
-import { DayOfWeek, HourOfDay, ILesson, ITimetableUpdates } from '../interfaces'
-import { QueryParams, QueryParamsSettings, Timetable } from '../utils'
-import { useStorage } from '../contexts/Storage'
-import { useLessonMatrixState } from '../contexts/Timetable/localstorage'
+import { useClientRender } from '../../hooks/useClientRender'
+import { useHTTP } from '../../hooks/useHTTP'
+import {
+  DayOfWeek,
+  HourOfDay,
+  ILesson,
+  ITimetableUpdates,
+} from '../../interfaces'
+import { QueryParams, QueryParamsSettings, Timetable } from '../../utils'
+import { useStorage } from '../Storage'
+import { useLessonMatrixState } from './localStorageState'
 
 const UPDATES_ROUTE = 'TODO' // TODO
 
