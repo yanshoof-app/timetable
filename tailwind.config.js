@@ -11,6 +11,7 @@ module.exports = {
       sans: ['"Assistant"', ...fontFamily.sans], // make assistant the default font
       hour: ['"roboto"'],
       _404: ['"M PLUS Rounded 1c"'],
+      temp: ['"Miriam Libre"'],
     },
     extend: {
       boxShadow: {
