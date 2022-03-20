@@ -27,7 +27,7 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
   )
   const updates = useHTTP<QueryParams, ITimetableUpdates>({
     path: UPDATES_ROUTE,
-    reqData: qParamsSettings,
+    reqData: qParamsSettings, //should also send school and classId
   })
 
   // update timetable immedietly if overriden by server
