@@ -7,9 +7,10 @@ import DropdownPick from '../forms/DropdownPick'
 import { Edit } from '../icons'
 
 export default function ClassPick() {
-  const { school, setSchool, setClassId } = useStorage()
+  const { school, setSchool, classId, setClassId } = useStorage()
   const { classes, grades, isLoading } = useClasses(school)
   const [grade, setGrade] = useState(0)
+  const [tempClassId, setTempClassId] = useState(classId)
   const classesIds = useMemo(
     () =>
       typeof classes[0] != 'undefined'
@@ -45,10 +46,12 @@ export default function ClassPick() {
         <DropdownPick
           options={classesIds}
           onChange={(selectedClassId) => {
-            setClassId(classes[grade][selectedClassId].toString())
+            setTempClassId(classes[grade][selectedClassId].toString())
           }}
         ></DropdownPick>
-        <Button className="m-0 w-20">הבא</Button>
+        <Button className="m-0 w-20" onClick={() => setClassId(tempClassId)}>
+          הבא
+        </Button>
       </div>
     </div>
   ) : (

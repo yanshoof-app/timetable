@@ -9,6 +9,7 @@ import { Edit } from '../icons'
 
 export default function UpdateHourPick() {
   const { updateTime, setUpdateTime } = useStorage()
+  const [tempUpdateTime, setTempUpdateTime] = useState(updateTime)
 
   return (
     <div className="flex flex-col justify-center h-screen items-center gap-5">
@@ -21,11 +22,16 @@ export default function UpdateHourPick() {
         <DropdownPick
           options={Object.values(HOURS)}
           onChange={(selectedHour) => {
-            setUpdateTime(selectedHour)
+            setTempUpdateTime(selectedHour)
           }}
-          defaultIndex={updateTime}
+          defaultIndex={tempUpdateTime}
         ></DropdownPick>
-        <Button className="m-0 w-20">הבא</Button>
+        <Button
+          className="m-0 w-20"
+          onClick={() => setUpdateTime(tempUpdateTime)}
+        >
+          סיום
+        </Button>
       </div>
     </div>
   )
