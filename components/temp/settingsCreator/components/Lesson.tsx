@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { IAppendSetting } from '../../../../contexts/Storage/types'
 import { DayOfWeek, HourOfDay, IStudyGroup } from '../../../../interfaces'
 import { isArray } from '../../../../utils/data/arrays'
 import { Expand } from '../../../icons'
@@ -10,7 +11,7 @@ export interface TempLessonProps {
   day: DayOfWeek
   hour: HourOfDay
   lesson: IStudyGroup[]
-  onChange(info: ITempAppendSetting): unknown
+  onChange(info: IAppendSetting): unknown
 }
 
 export default function TempLesson({
@@ -31,7 +32,6 @@ export default function TempLesson({
         hour: hour as HourOfDay,
         subject: isArray(lesson) ? lesson[selected].subject : '',
         teacher: isArray(lesson) ? lesson[selected].teacher : '',
-        studyGroups: lesson,
       })
   }, [selected])
 

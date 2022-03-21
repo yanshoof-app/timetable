@@ -15,4 +15,8 @@
   * {
     direction: inherit;
   }
+
+  .ltr {
+    direction: ltr;
+  }
 }
