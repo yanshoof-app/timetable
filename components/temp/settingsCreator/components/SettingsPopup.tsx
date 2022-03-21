@@ -10,7 +10,7 @@ export default function SettingsPopup({
   query: string
 }) {
   return (
-    <div className="w-full h-[50%] px-5 fixed z-10 top-0 bottom-0 m-auto">
+    <div className="w-full lg:w-2/5 h-[50%] z-20 px-5 fixed top-0 bottom-0 right-0 left-0 m-auto">
       <div className="bg-white ltr p-3 flex flex-col gap-3 w-full h-full shadow-lg shadow-black/20 rounded-xl">
         <div
           className=" absolute "
@@ -26,7 +26,7 @@ export default function SettingsPopup({
             {query}
           </p>
         </div>
-        <Link href={`/${BASE_URL}?${query}`}>בקש מערכת עם שינויים</Link>
+        <Link href={`${BASE_URL}?${query}`}>בקש מערכת עם שינויים</Link>
       </div>
     </div>
   )

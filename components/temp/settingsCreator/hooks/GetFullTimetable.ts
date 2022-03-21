@@ -9,7 +9,6 @@ export default async function useFullTimetable(
   school: string,
   classId: string
 ) {
-  setTimeout(() => {}, 1000)
   const req = `${FULL_TIMETABLE_URL}?school=${school}&classId=${classId}`
   let data = await axios(req)
 

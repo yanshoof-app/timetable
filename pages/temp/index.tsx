@@ -8,7 +8,7 @@ import TempTimetable from '../../components/temp/settingsCreator/components/Time
 import appendScheduleSetting from '../../components/temp/settingsCreator/hooks/appendScheduleSetting'
 import _appendScheduleSettings from '../../components/temp/settingsCreator/hooks/appendScheduleSetting'
 import settingsToQuery from '../../components/temp/settingsCreator/hooks/settingsToQuery'
-import useFullTimetable from '../../components/temp/settingsCreator/hooks/useFullTimetable'
+import useFullTimetable from '../../components/temp/settingsCreator/hooks/GetFullTimetable'
 import PageTitle from '../../components/ui/PageTitle'
 import { DayOfWeek } from '../../interfaces'
 
@@ -25,13 +25,13 @@ export default function SettingsExport() {
   const [classId, setClassId] = useState('28')
   const [query, updateQuery] = useState(`school=${school}&classId=${classId}`)
 
-  const requestTimeTable = useCallback(() => {
+  const requestTimeTable = () => {
     setLoading(true)
     useFullTimetable(school, classId).then((res) => {
       updateFullTimeTable(res)
       setLoading(false)
     })
-  }, [school, classId])
+  }
 
   useEffect(() => {
     setStudyGroups([])
@@ -48,7 +48,7 @@ export default function SettingsExport() {
         teacher: teacher,
       })
     },
-    [appendScheduleSetting, studyGroups]
+    [studyGroups]
   )
 
   const [date, updateDay] = useState(0 as DayOfWeek)
@@ -66,7 +66,7 @@ export default function SettingsExport() {
     resetStudyGroups()
   }, [fulltimetable])
 
-  const useQuery = () =>
+  const getQuery = () =>
     updateQuery(
       settingsToQuery({
         school: school,
@@ -77,20 +77,20 @@ export default function SettingsExport() {
     )
 
   return (
-    <Layout className="font-temp w-screen h-screen overflow-x-hidden">
+    <Layout className="font-temp flex flex-col items-center w-screen h-screen overflow-x-hidden">
       {isSettingsPopupShown && (
         <SettingsPopup BASE_URL={BASE_URL} query={query} />
       )}
 
       {isSettingsPopupShown && (
         <div
-          className="fixed inset-0 bg-black/30"
+          className="fixed z-10 inset-0 bg-black/30"
           onClick={() => showSettingsPopup(false)}
         ></div>
       )}
 
       <PageTitle title="יצירת הגדרות" />
-      <div className="flex flex-col gap-5 p-4">
+      <div className="flex w-full lg:w-1/2 lg:mt-24 flex-col gap-5 p-4">
         <div className="flex gap-5">
           <Input
             value={'460030'}
@@ -126,7 +126,7 @@ export default function SettingsExport() {
             <Button
               className="m-0"
               onClick={() => {
-                useQuery()
+                getQuery()
                 showSettingsPopup(true)
               }}
             >
