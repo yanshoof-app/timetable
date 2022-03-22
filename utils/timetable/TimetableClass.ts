@@ -125,7 +125,7 @@ export class Timetable implements ITimetable<ILesson> {
     lastUserUpdate: Date,
     changes: IChangeIscool[]
   ) {
-    let newChanges: IChangeIscool[] = []
+    let newChanges: IChange[] = []
     const lastUpdate = ISCOOL.toDate(changes[0].Date)
 
     //collect changes
@@ -136,7 +136,7 @@ export class Timetable implements ITimetable<ILesson> {
         // check whether there are no more new changes
         if (changeDate < lastUserUpdate) break
 
-        newChanges.push(change)
+        newChanges.push(ISCOOL.toChange(change))
       }
     }
 

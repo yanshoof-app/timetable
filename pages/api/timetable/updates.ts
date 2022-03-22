@@ -8,19 +8,23 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const query = _req.query
     const settings = new QueryParamsSettings(query)
-    const schoolSymbol = query.school.toString()
-    const classId = query.classId.toString()
+    const schoolSymbol = query.school as string
+    const classId = query.classId as string
+    const lastUserUpdate = query.lastUserUpdate
+      ? new Date(query.lastUserUpdate as string)
+      : new Date(0)
 
     const { Changes } = await fetchDataSource<IChangesResponse>(
       'changes',
       schoolSymbol,
       classId
     )
+    const newChanges = Timetable.updateableTimetable(lastUserUpdate, Changes)
 
-    const date = new Date()
-    const lastUserUpdate = date //TODO: get the date from query
+    // if new week, create new timetable and apply existing changes
+    // otherwise, return new changes
 
-    res.status(200).json(Timetable.updateableTimetable(lastUserUpdate, Changes))
+    // res.status(200).json()
   } catch (err: any) {
     res.status(500).json({
       statusCode: err.name == InputError.errorName ? 422 : 500,

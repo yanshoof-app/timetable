@@ -40,7 +40,7 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     const { overrideTimetable, problems } = updates.data
     if (overrideTimetable) setLessonMatrix(overrideTimetable)
     setProblems(problems)
-  }, [updates, setLessonMatrix])
+  }, [updates, setLessonMatrix, updates.data])
 
   // use in toast
   const applyUpdates = useCallback(() => {
