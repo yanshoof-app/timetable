@@ -49,7 +49,10 @@ export default function ClassPick() {
             setTempClassId(classes[grade][selectedClassId].toString())
           }}
         ></DropdownPick>
-        <Button className="m-0 w-20" onClick={() => setClassId(tempClassId)}>
+        <Button
+          className="w-20 mt-0 mb-0"
+          onClick={() => setClassId(tempClassId)}
+        >
           הבא
         </Button>
       </div>
