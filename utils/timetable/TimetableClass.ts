@@ -121,23 +121,18 @@ export class Timetable implements ITimetable<ILesson> {
    * @param changes the changes as given from ISCOOL
    * @returns new changes
    */
-  public static updateableTimetable(
-    lastUserUpdate: Date,
-    changes: IChangeIscool[]
-  ) {
+  public static newChanges(lastUserUpdate: Date, changes: IChangeIscool[]) {
     let newChanges: IChange[] = []
     const lastUpdate = ISCOOL.toDate(changes[0].Date)
 
     //collect changes
-    if (lastUpdate > lastUserUpdate) {
-      for (let change of changes) {
-        const changeDate = ISCOOL.toDate(change.Date)
+    for (let change of changes) {
+      const changeDate = ISCOOL.toDate(change.Date)
 
-        // check whether there are no more new changes
-        if (changeDate < lastUserUpdate) break
+      // check whether there are no more new changes
+      if (changeDate < lastUserUpdate) break
 
-        newChanges.push(ISCOOL.toChange(change))
-      }
+      newChanges.push(ISCOOL.toChange(change))
     }
 
     return newChanges

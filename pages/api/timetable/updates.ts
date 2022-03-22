@@ -3,6 +3,7 @@ import { IChangesResponse } from '../../../interfaces'
 import { fetchDataSource, Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../interfaces/errors'
+import { isNewWeek } from '../../../utils/data/updates'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -19,12 +20,22 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       schoolSymbol,
       classId
     )
-    const newChanges = Timetable.updateableTimetable(lastUserUpdate, Changes)
 
-    // if new week, create new timetable and apply existing changes
+    // if new week, create new timetable and apply changes
+    if (isNewWeek(lastUserUpdate)) {
+      const timetable = new Timetable(settings)
+      timetable.applyChanges(Changes)
+      res.status(200).json({
+        overrideTimetable: timetable.lessons,
+        problems: timetable.problems,
+      })
+    }
+
     // otherwise, return new changes
-
-    // res.status(200).json()
+    else {
+      const newChanges = Timetable.newChanges(lastUserUpdate, Changes)
+      res.status(200).json({ newChanges: newChanges })
+    }
   } catch (err: any) {
     res.status(500).json({
       statusCode: err.name == InputError.errorName ? 422 : 500,
