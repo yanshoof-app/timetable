@@ -40,7 +40,7 @@ export default function LessonPick({
 
   useEffect(() => {
     setPicked(picked)
-  }, [isOpen])
+  }, [picked])
 
   return (
     <ShadowedWrapper
@@ -56,12 +56,7 @@ export default function LessonPick({
           onClick={() => setOpen(!isOpen)}
         >
           {picked.studyGroup.subject ? (
-            <LessonInfo
-              {...{
-                subject: picked.studyGroup.subject,
-                teacher: picked.studyGroup.teacher,
-              }}
-            />
+            <LessonInfo {...picked.studyGroup} />
           ) : (
             <p className="font-semibold text-uiPrimary-400 text-lg">
               ללא שיעור

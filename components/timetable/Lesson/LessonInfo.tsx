@@ -3,7 +3,7 @@ import useLessonInfo from '../../../hooks/useLessonInfo'
 import { ILesson, ITeacherLesson } from '../../../interfaces'
 import { useMemo } from 'react'
 
-export type ILessonInfoProps = {} | ITeacherLesson | ILesson
+export type ILessonInfoProps = Partial<ILesson>
 
 export default function LessonInfo(info: ILessonInfoProps) {
   const { newTeacher, newRoom, newHour } = useLessonInfo(

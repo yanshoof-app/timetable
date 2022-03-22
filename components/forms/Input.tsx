@@ -19,7 +19,7 @@ export default function Input({
 
   useEffect(() => {
     onChange(input)
-  }, [input])
+  }, [input, onChange])
 
   const [selected, setSelected] = useState(false)
   return (

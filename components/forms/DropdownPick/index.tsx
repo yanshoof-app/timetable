@@ -23,7 +23,7 @@ export default function DropdownPick({
 
   useEffect(() => {
     onChange(selectedIndex)
-  }, [selectedIndex])
+  }, [selectedIndex, onChange])
 
   return (
     <div

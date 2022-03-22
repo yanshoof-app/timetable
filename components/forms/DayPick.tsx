@@ -18,7 +18,7 @@ export default function DayPick({
 
   useEffect(() => {
     onChange(value)
-  }, [value])
+  }, [value, onChange])
   return (
     <div className={`flex w-[full] justify-between items-center ${className}`}>
       {HEBREW_SHORT_DAYS.map((day, index) => (

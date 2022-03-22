@@ -3,7 +3,7 @@ import Link from 'next/link'
 const ADVANCED_EDITING = 'עריכה מתקדמת'
 
 const AdvancedEditingLink = ({ className = '' }: { className?: string }) => (
-  <Link href="/settings/edit">
+  <Link href="/settings/edit" passHref>
     <span className={`text-primary-500 font-semibold ${className}`}>
       {ADVANCED_EDITING}
     </span>

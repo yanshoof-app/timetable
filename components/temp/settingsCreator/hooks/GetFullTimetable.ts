@@ -5,7 +5,7 @@ import { LessonOrMultiple } from '../../../../interfaces/lesson'
 
 const FULL_TIMETABLE_URL = '/api/timetable/initial'
 
-export default async function useFullTimetable(
+export default async function getFullTimetable(
   school: string,
   classId: string
 ) {

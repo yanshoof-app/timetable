@@ -8,7 +8,7 @@ import TempTimetable from '../../components/temp/settingsCreator/components/Time
 import appendScheduleSetting from '../../components/temp/settingsCreator/hooks/appendScheduleSetting'
 import _appendScheduleSettings from '../../components/temp/settingsCreator/hooks/appendScheduleSetting'
 import settingsToQuery from '../../components/temp/settingsCreator/hooks/settingsToQuery'
-import useFullTimetable from '../../components/temp/settingsCreator/hooks/GetFullTimetable'
+import getFullTimetable from '../../components/temp/settingsCreator/hooks/GetFullTimetable'
 import PageTitle from '../../components/ui/PageTitle'
 import { DayOfWeek } from '../../interfaces'
 
@@ -27,7 +27,7 @@ export default function SettingsExport() {
 
   const requestTimeTable = () => {
     setLoading(true)
-    useFullTimetable(school, classId).then((res) => {
+    getFullTimetable(school, classId).then((res) => {
       updateFullTimeTable(res)
       setLoading(false)
     })
@@ -64,7 +64,7 @@ export default function SettingsExport() {
 
   useEffect(() => {
     resetStudyGroups()
-  }, [fulltimetable])
+  }, [fulltimetable, resetStudyGroups])
 
   const getQuery = () =>
     updateQuery(
