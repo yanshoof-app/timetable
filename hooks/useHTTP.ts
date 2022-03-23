@@ -17,7 +17,6 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
   reqData = {} as ReqData,
 }: HTTPParams<ReqData, Result>) {
   const isLoading = useRef(fetchOnMount)
-  const fetchedOnMount = useRef(false)
   const [data, setData] = useState<Result>(initialValue)
   const [error, setError] = useState(false)
 
@@ -38,8 +37,7 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
   )
 
   useEffect(() => {
-    if (fetchOnMount && reqData && !fetchedOnMount.current) doFetch(reqData)
-    fetchedOnMount.current = true
+    if (fetchOnMount && reqData) doFetch(reqData)
   }, [doFetch, fetchOnMount, reqData])
 
   return { isLoading, data, doFetch, error }
