@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import useTeacherSchedule from '../../hooks/useTeacherSchedule'
 import { useStorage } from '../../contexts/Storage'
 import Timetable from '../../components/timetable/Timetable'
-import LoadingTimetable from '../../components/timetable/TimetableSkeleton'
+import TimetableSkeleton from '../../components/timetable/TimetableSkeleton'
 import { DayOfWeek, isAnyLessonObj, ITeacherLesson } from '../../interfaces'
 import { useMemo, useState } from 'react'
 import DayPick from '../../components/forms/DayPick'
@@ -36,7 +36,7 @@ const TeacherSchedule = () => {
         {teacherSchedule[0] ? (
           <Timetable className="py-4" day={date} timetable={teacherSchedule} />
         ) : (
-          <LoadingTimetable className={'py-4'} />
+          <TimetableSkeleton className={'py-4'} />
         )}
       </div>
     </Layout>
