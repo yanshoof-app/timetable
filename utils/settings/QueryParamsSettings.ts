@@ -97,53 +97,62 @@ export class QueryParamsSettings implements IScheduleSettings {
 
     // build study group array
     this.studyGroups = []
-    for (let studyGroup of studyGroups.split(QueryParamsSettings.DELIMITER)) {
-      const columnSeparatedFields = toTuple(
-        studyGroup.split(QueryParamsSettings.STUDY_GROUP_QPARAMS_DELIMITER),
-        new InputError(
-          `Invalid study group "${studyGroup}", expected <subject>:<teacher>`
-        )
-      )
-      this.studyGroups.push(columnSeparatedFields)
-    }
-
-    // build study group map
     this.studyGroupMap = new Map()
-    for (let entry of studyGroupMap.split(QueryParamsSettings.DELIMITER)) {
-      const inputError = new InputError(
-        `Invalid input "${entry}" for study group array entry. Expected [day]/[hour]:[index]`
-      )
-      const [dayHour, indexStr] = toTuple(
-        entry.split(QueryParamsSettings.STUDY_GROUP_QPARAMS_DELIMITER),
-        inputError
-      )
-      const [dayStr, hourStr] = toTuple(
-        dayHour.split(QueryParamsSettings.DAY_HOUR_QPARAMS_DELIMITER),
-        inputError
-      )
 
-      // validate values
-      const [day, hour, index] = [dayStr, hourStr, indexStr].map(Number)
-      if (!QueryParamsSettings.checkInRange(day, 0, Timetable.DAYS_IN_WEEK))
-        throw new InputError(`Invalid day "${day}" in study group map`)
+    if (studyGroups !== '') {
+      for (let studyGroup of studyGroups.split(QueryParamsSettings.DELIMITER)) {
+        const columnSeparatedFields = toTuple(
+          studyGroup.split(QueryParamsSettings.STUDY_GROUP_QPARAMS_DELIMITER),
+          new InputError(
+            `Invalid study group "${studyGroup}", expected <subject>:<teacher>`
+          )
+        )
+        this.studyGroups.push(columnSeparatedFields)
+      }
 
-      if (
-        !QueryParamsSettings.checkInRange(hour, 0, Timetable.HOURS_OF_SCHEDULE)
-      )
-        throw new InputError(`Invalid hour "${hour}" in study group map`)
-
-      if (!QueryParamsSettings.checkInRange(index, -1, this.studyGroups.length))
-        throw new InputError(
-          `Invalid index in study group at day ${dayStr}, hour ${hourStr}: ${index}`
+      // build study group map
+      for (let entry of studyGroupMap.split(QueryParamsSettings.DELIMITER)) {
+        const inputError = new InputError(
+          `Invalid input "${entry}" for study group array entry. Expected [day]/[hour]:[index]`
+        )
+        const [dayHour, indexStr] = toTuple(
+          entry.split(QueryParamsSettings.STUDY_GROUP_QPARAMS_DELIMITER),
+          inputError
+        )
+        const [dayStr, hourStr] = toTuple(
+          dayHour.split(QueryParamsSettings.DAY_HOUR_QPARAMS_DELIMITER),
+          inputError
         )
 
-      const key = `${day},${hour}`
-      if (this.studyGroupMap.has(key))
-        throw new InputError(
-          `Multiple definitions of lesson in day ${day}, hour ${hour}`
-        )
+        // validate values
+        const [day, hour, index] = [dayStr, hourStr, indexStr].map(Number)
+        if (!QueryParamsSettings.checkInRange(day, 0, Timetable.DAYS_IN_WEEK))
+          throw new InputError(`Invalid day "${day}" in study group map`)
 
-      this.studyGroupMap.set(key, index)
+        if (
+          !QueryParamsSettings.checkInRange(
+            hour,
+            0,
+            Timetable.HOURS_OF_SCHEDULE
+          )
+        )
+          throw new InputError(`Invalid hour "${hour}" in study group map`)
+
+        if (
+          !QueryParamsSettings.checkInRange(index, -1, this.studyGroups.length)
+        )
+          throw new InputError(
+            `Invalid index in study group at day ${dayStr}, hour ${hourStr}: ${index}`
+          )
+
+        const key = `${day},${hour}`
+        if (this.studyGroupMap.has(key))
+          throw new InputError(
+            `Multiple definitions of lesson in day ${day}, hour ${hour}`
+          )
+
+        this.studyGroupMap.set(key, index)
+      }
     }
   }
 }
