@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useStorage } from '../../contexts/Storage'
+import useDebounce from '../../hooks/useDebounce'
 import { useHTTP } from '../../hooks/useHTTP'
 import { useSchoolSearch } from '../../hooks/useSchoolSearch'
 import Button from '../forms/Button'
@@ -8,27 +9,17 @@ import Input from '../forms/Input'
 import Layout from '../Layout'
 
 export default function SchoolPick() {
-  const { school, setSchool } = useStorage()
-  const [search, newSearch] = useState('123456')
-  const [debouncedSearch, newDebouncedSearch] = useState('עמי אסף')
-  const [tempSchool, updateTempSchool] = useState({ name: '', symbol: -1 })
+  const { setSchool } = useStorage()
+  const [tempSchool, setTempSchool] = useState({ name: '', symbol: 0 })
 
-  const [showResults, openResults] = useState(false)
+  const [search, newSearch] = useState('0')
+  const debouncedSearch = useDebounce(search, 1000)
 
   const results = useSchoolSearch(debouncedSearch)
-  /*const results = [
-    { name: 'רונסון אשקלון', symbol: 123456 },
-    { name: 'רק ביבי', symbol: 1234567 },
-  ]*/
+  const [showResults, openResults] = useState(false)
+  useEffect(() => openResults(true), [results])
 
-  useEffect(() => {
-    clearTimeout()
-    setTimeout(() => {
-      newDebouncedSearch(search)
-    }, 500)
-  }, [search])
-
-  useEffect(() => openResults(true), [debouncedSearch])
+  const options = useMemo(() => results.map((result) => result.name), [results])
 
   return (
     <Layout className="flex flex-col p-5 h-screen justify-center items-center gap-5">
@@ -36,29 +27,29 @@ export default function SchoolPick() {
         <p className="font-bold text-4xl">ברוכים הבאים!</p>
         <p className="font-bold text-2xl">באיזה בית ספר אתם לומדים?</p>
       </div>
-      <div className="flex w-full  justify-center gap-3">
+      <div className="flex w-full justify-center gap-3">
         <div className="flex grow flex-col relative">
           <Input
-            value=""
+            value={tempSchool.name}
             hint="שם בית הספר או סמל מוסד"
-            onChange={(input) => newSearch(input)}
+            onChange={(input) => {
+              newSearch(input)
+            }}
             className={`${results[0] && showResults && 'rounded-b-none'}`}
+            id={'gi'}
           />
           {results[0] && showResults && (
             <Dropdown
-              options={results.map((result) => result.name)}
+              options={options}
               selectedIndex={-1}
               setOpen={openResults}
-              changeSelectedIndex={() => {}}
-              onChange={(index) => {
-                updateTempSchool(results[index])
-              }}
+              onClick={(index) => setTempSchool(results[index])}
             ></Dropdown>
           )}
         </div>
         <Button
           className="my-0 px-6 mx-0"
-          onClick={() => setSchool(tempSchool[1].toString())}
+          onClick={() => setSchool(tempSchool.symbol.toString())}
         >
           הבא
         </Button>

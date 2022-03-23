@@ -4,16 +4,18 @@ export interface DropdownProps {
   options: string[]
   defaultIndex?: number
   onChange?(number): unknown
+  onClick?(number): unknown
   selectedIndex: number
-  changeSelectedIndex(number): unknown
+  changeSelectedIndex?(number): unknown
   setOpen(boolean): unknown
 }
 
 export default function Dropdown({
   options,
   onChange = () => {},
+  onClick = () => {},
   selectedIndex,
-  changeSelectedIndex,
+  changeSelectedIndex = () => {},
   setOpen,
 }: DropdownProps) {
   return (
@@ -27,6 +29,7 @@ export default function Dropdown({
               key={index}
               onClick={() => {
                 changeSelectedIndex(index)
+                onClick(index)
                 setOpen(false)
               }}
               className="h-8 flex items-center justify-start w-full cursor-pointer pr-[1rem] pl-[1rem]"

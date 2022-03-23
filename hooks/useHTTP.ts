@@ -38,7 +38,7 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
 
   useEffect(() => {
     if (fetchOnMount && reqData) doFetch(reqData)
-  }, [doFetch, fetchOnMount, reqData])
+  }, [doFetch])
 
   return { isLoading, data, doFetch, error }
 }

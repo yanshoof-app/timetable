@@ -45,7 +45,7 @@ const IndexPage = () => {
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <TimetableInit />
+      <SchoolPick />
     </Layout>
   )
 }
