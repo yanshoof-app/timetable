@@ -24,12 +24,12 @@ export function createLogicalWrapper<T>(
 ) {
   return function LogicalWrapper({
     children,
-    fallback = null,
+    fallback: Fallback,
   }: {
-    fallback?: ReactNode
+    fallback?(): JSX.Element
   } & Wrapper) {
     const context = useContext(ctx)
     const render = useMemo(() => shouldRender(context), [context])
-    return <>{render ? children : fallback}</>
+    return <>{render ? children : Fallback ? <Fallback /> : null}</>
   }
 }

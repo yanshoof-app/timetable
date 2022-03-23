@@ -20,16 +20,14 @@ import SchoolPick from '../components/settings/SchoolPick'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StorageProvider>
-      <SchoolExists fallback={<SchoolPick />}>
-        <ClassExists fallback={<ClassPick />}>
+      <SchoolExists fallback={SchoolPick}>
+        <ClassExists fallback={ClassPick}>
           <FullTimetableProvider>
             <TimetableProvider>
-              <NoProblemsInSettings fallback={<TimetableInit />}>
-                <UpdateTimeExists fallback={<UpdateHourPick />}>
-                  <ThemePreferenceExists fallback={<ThemePreferencePick />}>
-                    <OthersChangesPreferenceExists
-                      fallback={<OthersChangesPick />}
-                    >
+              <NoProblemsInSettings fallback={TimetableInit}>
+                <UpdateTimeExists fallback={UpdateHourPick}>
+                  <ThemePreferenceExists fallback={ThemePreferencePick}>
+                    <OthersChangesPreferenceExists fallback={OthersChangesPick}>
                       <Component {...pageProps} />
                     </OthersChangesPreferenceExists>
                   </ThemePreferenceExists>
