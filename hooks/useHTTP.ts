@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 
 export interface HTTPParams<ReqData, Result> {
   path: string
@@ -16,18 +16,19 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
   initialValue = {} as Result,
   reqData = {} as ReqData,
 }: HTTPParams<ReqData, Result>) {
-  const [isLoading, setLoading] = useState(fetchOnMount)
+  const isLoading = useRef(fetchOnMount)
+  const fetchedOnMount = useRef(false)
   const [data, setData] = useState<Result>(initialValue)
   const [error, setError] = useState(false)
 
   const doFetch = useCallback(
     async (data: ReqData = {} as ReqData) => {
-      setLoading(true)
+      isLoading.current = true
       let res: AxiosResponse<Result>
       if (method == 'GET') res = await axios.get<Result>(path, { params: data })
       else res = await axios({ method, url: path, data })
 
-      setLoading(false)
+      isLoading.current = false
       if (res.status === 200) setData(res.data)
       else setError(true)
 
@@ -37,8 +38,14 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
   )
 
   useEffect(() => {
+<<<<<<< HEAD
     if (fetchOnMount && reqData) doFetch(reqData)
   }, [doFetch])
+=======
+    if (fetchOnMount && reqData && !fetchedOnMount.current) doFetch(reqData)
+    fetchedOnMount.current = true
+  }, [doFetch, fetchOnMount, reqData])
+>>>>>>> 7dbeea7f30ad78c7a346735ef0363137782edfe8
 
   return { isLoading, data, doFetch, error }
 }

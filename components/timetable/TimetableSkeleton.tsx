@@ -3,7 +3,7 @@ import { SkeletonLesson } from './Lesson/Skeleton'
 
 const timetable = [true, true, true, true, true, true, true, true, true]
 
-export default function LoadingTimetable({
+export default function TimetableSkeleton({
   className = '',
 }: {
   className?: string

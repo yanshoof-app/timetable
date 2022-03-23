@@ -6,7 +6,7 @@ import { useIteration } from '../../hooks/useIteration'
 import { useEditableDays } from '../../hooks/useEditableDays'
 import { DayOfWeek, HourOfDay, isAnyLessonObj } from '../../interfaces'
 import Button from '../forms/Button'
-import LoadingTimetable from './TimetableSkeleton'
+import TimetableSkeleton from './TimetableSkeleton'
 import Timetable, { SupportedLesson } from './Timetable'
 
 export default function TimetableInit() {
@@ -46,7 +46,7 @@ export default function TimetableInit() {
             allEditable
           ></Timetable>
         ) : (
-          <LoadingTimetable></LoadingTimetable>
+          <TimetableSkeleton></TimetableSkeleton>
         )}
       </div>
       <div className="flex justify-between w-full p-0">
