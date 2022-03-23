@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useStorage } from '../contexts/Storage'
 import { ClassesRequest } from '../pages/api/classes/[school]'
 import { useHTTP } from './useHTTP'
@@ -9,14 +10,21 @@ export function useClasses(school: string): {
   grades: number[]
   isLoading: boolean
 } {
-  const { data, isLoading } = useHTTP({
+  const { data, isLoading, doFetch } = useHTTP<
+    { school: string },
+    { grades: []; classes: [] }
+  >({
     path: `${CLASSES_URL}/${school}`,
+    fetchOnMount: false,
     initialValue: {
       grades: [],
       classes: [],
     },
   })
-  const { grades, classes } = data
 
-  return { grades, classes, isLoading }
+  useEffect(() => {
+    doFetch({ school: school })
+  }, [doFetch, school])
+
+  return { grades: data.grades, classes: data.classes, isLoading }
 }
