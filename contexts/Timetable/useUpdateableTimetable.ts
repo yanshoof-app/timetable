@@ -9,7 +9,7 @@ import {
 } from '../../interfaces'
 import { QueryParams, QueryParamsSettings, Timetable } from '../../utils'
 import { useStorage } from '../Storage'
-import { useLessonMatrixState } from './localStorageState'
+import { useLastUserUpdate, useLessonMatrixState } from './localStorageState'
 
 const UPDATES_ROUTE = '/api/timetable/updates'
 
@@ -18,7 +18,7 @@ export interface IUpdateableTimetable {
   applyUpdates(): unknown
   errorInFetch: boolean
   changesPending: boolean
-  problems: [DayOfWeek, HourOfDay][] //TODO in timetable object
+  problems: [DayOfWeek, HourOfDay][]
 }
 
 export type UpdatesQParams = QueryParams & {
@@ -33,6 +33,7 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
   const { school, classId, showOthersChanges, studyGroupMap, studyGroups } =
     useStorage()
   const isClient = useClientRender()
+  const [lastUserUpdate] = useLastUserUpdate()
   const qParamsSettings = useMemo<UpdatesQParams>(
     () =>
       isClient
@@ -42,9 +43,18 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
             studyGroups,
             school,
             classId,
+            lastUserUpdate: lastUserUpdate.toISOString(),
           })
         : undefined,
-    [school, classId, showOthersChanges, studyGroupMap, studyGroups, isClient]
+    [
+      school,
+      classId,
+      showOthersChanges,
+      studyGroupMap,
+      studyGroups,
+      isClient,
+      lastUserUpdate,
+    ]
   )
   const updates = useHTTP<UpdatesQParams, ITimetableUpdates>({
     path: UPDATES_ROUTE,
