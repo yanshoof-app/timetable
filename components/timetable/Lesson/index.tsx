@@ -47,7 +47,7 @@ export default function Lesson({ hour, lesson }: LessonProps) {
         </div>
       </ShadowedWrapper>
       {isILessonObj(lesson) && lesson.otherChanges && (
-        <ChangeList {...lesson.otherChanges}></ChangeList>
+        <ChangeList changes={lesson.otherChanges}></ChangeList>
       )}
     </div>
   )
