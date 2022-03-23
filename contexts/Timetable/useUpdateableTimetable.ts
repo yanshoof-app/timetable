@@ -11,7 +11,7 @@ import { QueryParams, QueryParamsSettings, Timetable } from '../../utils'
 import { useStorage } from '../Storage'
 import { useLessonMatrixState } from './localStorageState'
 
-const UPDATES_ROUTE = 'TODO' // TODO
+const UPDATES_ROUTE = '/api/timetable/updates'
 
 export interface IUpdateableTimetable {
   lessons: ILesson[][]
@@ -21,16 +21,32 @@ export interface IUpdateableTimetable {
   problems: [DayOfWeek, HourOfDay][] //TODO in timetable object
 }
 
+export type UpdatesQParams = QueryParams & {
+  school: string
+  classId: string
+  // lastUserUpdate: string
+}
+
 export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
   const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
-  const settings = useStorage()
+  const { school, classId, showOthersChanges, studyGroupMap, studyGroups } =
+    useStorage()
   const isClient = useClientRender()
-  const qParamsSettings = useMemo(
-    () => (isClient ? QueryParamsSettings.toQueryParams(settings) : undefined),
-    [settings, isClient]
+  const qParamsSettings = useMemo<UpdatesQParams>(
+    () =>
+      isClient
+        ? QueryParamsSettings.toQueryParams({
+            showOthersChanges,
+            studyGroupMap,
+            studyGroups,
+            school,
+            classId,
+          })
+        : undefined,
+    [school, classId, showOthersChanges, studyGroupMap, studyGroups, isClient]
   )
-  const updates = useHTTP<QueryParams, ITimetableUpdates>({
+  const updates = useHTTP<UpdatesQParams, ITimetableUpdates>({
     path: UPDATES_ROUTE,
     reqData: qParamsSettings, //should also send school and classId
   })
@@ -46,12 +62,12 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
   const applyUpdates = useCallback(() => {
     const { newChanges } = updates.data
     if (lessonMatrix.length && !updates.isLoading) {
-      const timetable = new Timetable(lessonMatrix, settings.showOthersChanges)
+      const timetable = new Timetable(lessonMatrix, showOthersChanges)
 
       if (newChanges) timetable.applyExistingChanges(newChanges)
       setLessonMatrix(timetable.lessons)
     }
-  }, [updates, lessonMatrix, settings.showOthersChanges])
+  }, [updates, lessonMatrix, showOthersChanges])
 
   // determine if toast needs to be shown
   const changesPending = useMemo(
