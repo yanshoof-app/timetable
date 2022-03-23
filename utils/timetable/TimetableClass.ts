@@ -123,7 +123,6 @@ export class Timetable implements ITimetable<ILesson> {
    */
   public static newChanges(lastUserUpdate: Date, changes: IChangeIscool[]) {
     let newChanges: IChange[] = []
-    const lastUpdate = ISCOOL.toDate(changes[0].Date)
 
     //collect changes
     for (let change of changes) {
