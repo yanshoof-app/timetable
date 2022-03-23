@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { IChangesResponse } from '../../../interfaces'
+import { IChangesResponse, IScheduleResponse } from '../../../interfaces'
 import { fetchDataSource, Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../interfaces/errors'
@@ -15,6 +15,11 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       ? new Date(query.lastUserUpdate as string)
       : new Date(0)
 
+    if (!schoolSymbol || !classId)
+      throw new InputError(
+        'School and classId must be provided via query params'
+      )
+
     const { Changes } = await fetchDataSource<IChangesResponse>(
       'changes',
       schoolSymbol,
@@ -24,6 +29,12 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     // if new week, create new timetable and apply changes
     if (isNewWeek(lastUserUpdate)) {
       const timetable = new Timetable(settings)
+      const { Schedule } = await fetchDataSource<IScheduleResponse>(
+        'schedule',
+        schoolSymbol,
+        classId
+      )
+      timetable.fromIscool(Schedule)
       timetable.applyChanges(Changes)
       res.status(200).json({
         overrideTimetable: timetable.lessons,
