@@ -12,29 +12,31 @@ import {
   UpdateTimeExists,
   ThemePreferenceExists,
   OthersChangesPreferenceExists,
+  SchoolExists,
 } from '../contexts/Storage/wrappers'
 import TimetableProvider, { NoProblemsInSettings } from '../contexts/Timetable'
+import SchoolPick from '../components/settings/SchoolPick'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StorageProvider>
-      {/* <SchoolExists fallback={SchoolPick}> */}
-      <ClassExists fallback={ClassPick}>
-        <FullTimetableProvider>
-          <TimetableProvider>
-            <NoProblemsInSettings fallback={TimetableInit}>
-              <UpdateTimeExists fallback={UpdateHourPick}>
-                <ThemePreferenceExists fallback={ThemePreferencePick}>
-                  <OthersChangesPreferenceExists fallback={OthersChangesPick}>
-                    <Component {...pageProps} />
-                  </OthersChangesPreferenceExists>
-                </ThemePreferenceExists>
-              </UpdateTimeExists>
-            </NoProblemsInSettings>
-          </TimetableProvider>
-        </FullTimetableProvider>
-      </ClassExists>
-      {/*</SchoolExists>*/}
+      <SchoolExists fallback={SchoolPick}>
+        <ClassExists fallback={ClassPick}>
+          <FullTimetableProvider>
+            <TimetableProvider>
+              <NoProblemsInSettings fallback={TimetableInit}>
+                <UpdateTimeExists fallback={UpdateHourPick}>
+                  <ThemePreferenceExists fallback={ThemePreferencePick}>
+                    <OthersChangesPreferenceExists fallback={OthersChangesPick}>
+                      <Component {...pageProps} />
+                    </OthersChangesPreferenceExists>
+                  </ThemePreferenceExists>
+                </UpdateTimeExists>
+              </NoProblemsInSettings>
+            </TimetableProvider>
+          </FullTimetableProvider>
+        </ClassExists>
+      </SchoolExists>
     </StorageProvider>
   )
 }
