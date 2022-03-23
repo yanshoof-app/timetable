@@ -5,7 +5,7 @@ import {
 } from '../../../interfaces'
 import Change from './Change'
 
-export default function ChangeList(changes: IStudyGroupWithModification[]) {
+export default function ChangeList({ changes }: { changes: any[] }) {
   return (
     <div>
       {changes.map((change, index) => (
