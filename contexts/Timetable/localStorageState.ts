@@ -19,8 +19,6 @@ export const useLastUserUpdate = createLocalStorageState<Date>(
   'lastUserUpdate',
   {
     decode: (str?: string) => (str ? new Date(str) : new Date(0)),
-    toStorable: (
-      value: Date // value.toISOString(),
-    ) => new Date().toISOString(),
+    toStorable: (value: Date) => value.toISOString(),
   }
 )

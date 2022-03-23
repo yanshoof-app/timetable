@@ -10,8 +10,7 @@ import {
 import { QueryParams, QueryParamsSettings, Timetable } from '../../utils'
 import { useStorage } from '../Storage'
 import { useLastUserUpdate, useLessonMatrixState } from './localStorageState'
-
-const UPDATES_ROUTE = '/api/timetable/updates'
+import useUpdates from './useUpdates'
 
 export interface IUpdateableTimetable {
   lessons: ILesson[][]
@@ -21,45 +20,11 @@ export interface IUpdateableTimetable {
   problems: [DayOfWeek, HourOfDay][]
 }
 
-export type UpdatesQParams = QueryParams & {
-  school: string
-  classId: string
-  // lastUserUpdate: string
-}
-
 export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
   const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
-  const { school, classId, showOthersChanges, studyGroupMap, studyGroups } =
-    useStorage()
-  const isClient = useClientRender()
-  const [lastUserUpdate] = useLastUserUpdate()
-  const qParamsSettings = useMemo<UpdatesQParams>(
-    () =>
-      isClient
-        ? QueryParamsSettings.toQueryParams({
-            showOthersChanges,
-            studyGroupMap,
-            studyGroups,
-            school,
-            classId,
-            lastUserUpdate: lastUserUpdate.toISOString(),
-          })
-        : undefined,
-    [
-      school,
-      classId,
-      showOthersChanges,
-      studyGroupMap,
-      studyGroups,
-      isClient,
-      lastUserUpdate,
-    ]
-  )
-  const updates = useHTTP<UpdatesQParams, ITimetableUpdates>({
-    path: UPDATES_ROUTE,
-    reqData: qParamsSettings, //should also send school and classId
-  })
+  const { showOthersChanges } = useStorage()
+  const updates = useUpdates()
 
   // update timetable immedietly if overriden by server
   useEffect(() => {
