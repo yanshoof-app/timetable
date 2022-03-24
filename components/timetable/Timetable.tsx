@@ -53,7 +53,7 @@ export default function Timetable({
 }: TimetableProps) {
   const lastLesson = FindLastLesson(timetable[day])
   return (
-    <div className={`flex flex-col gap-[1rem] ${className}`}>
+    <div className={`flex flex-col gap-4 ${className}`}>
       {timetable[day].map(
         (lesson, hour) =>
           ShowLesson(lesson, hour as HourOfDay, lastLesson) &&

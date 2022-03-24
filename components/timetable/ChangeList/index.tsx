@@ -1,19 +1,22 @@
-import {
-  IModification,
-  IStudyGroup,
-  IStudyGroupWithModification,
-} from '../../../interfaces'
+import { IStudyGroupWithModification } from '../../../interfaces'
 import Change from './Change'
+import Event from './Event'
 
-export default function ChangeList({ changes }: { changes: any[] }) {
+export default function ChangeList({
+  changes,
+  events,
+}: {
+  changes: IStudyGroupWithModification[]
+  events: string[]
+}) {
   return (
-    <div>
+    <div className="flex flex-col px-4 gap-2">
+      {events.map((event, index) => (
+        <Event event={event} key={index}></Event>
+      ))}
+
       {changes.map((change, index) => (
-        <Change
-          subject={change.subject}
-          teacher={change.teacher}
-          key={index}
-        ></Change>
+        <Change {...change} key={index}></Change>
       ))}
     </div>
   )

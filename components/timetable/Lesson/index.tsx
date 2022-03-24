@@ -28,8 +28,9 @@ export default function Lesson({ hour, lesson }: LessonProps) {
   const [color, modificationMessage] = useModification(
     'changes' in lesson ? lesson.changes[0] : undefined
   )
+  const events = 'events' in lesson ? lesson.events : []
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-4">
       <ShadowedWrapper
         color={color}
         className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] items-center justify-start"
@@ -37,17 +38,24 @@ export default function Lesson({ hour, lesson }: LessonProps) {
         <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
         <div className="flex flex-col gap-[0.7rem]">
           <LessonInfo {...lesson} />
-          <p
-            className={` mb-[-0.46rem] mt-[-0.46rem] font-bold ${changeTextColor(
-              color
-            )}`}
-          >
-            {modificationMessage}
-          </p>
+          {modificationMessage && (
+            <p
+              className={` mb-[-0.46rem] mt-[-0.46rem] font-bold ${changeTextColor(
+                color
+              )}`}
+            >
+              {modificationMessage}
+            </p>
+          )}
         </div>
       </ShadowedWrapper>
       {isILessonObj(lesson) && lesson.otherChanges && (
-        <ChangeList changes={lesson.otherChanges}></ChangeList>
+        <div>
+          <ChangeList
+            changes={lesson.otherChanges}
+            events={events}
+          ></ChangeList>
+        </div>
       )}
     </div>
   )

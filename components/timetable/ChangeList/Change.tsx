@@ -16,11 +16,11 @@ export default function Change(studyGroup: IStudyGroupWithModification) {
   )
 
   return (
-    <p>
+    <p className=" truncate">
       <span className={`${changeTextColor(color)} font-bold`}>
         {modificationMessage}
       </span>
-      <span>
+      <span className="font-semibold">
         {' '}
         {TO}
         {studyGroupName}
