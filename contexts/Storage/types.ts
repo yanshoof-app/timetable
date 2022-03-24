@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import { IScheduleSettings, DayOfWeek, HourOfDay } from '../../interfaces'
 
 export const THEME_OPTIONS = ['system', 'light', 'dark'] as const
@@ -14,20 +15,14 @@ export interface IStorageValues extends IScheduleSettings {
   updateTime: UpdateTimePreference
 }
 
-export interface IAppendSetting {
-  day: DayOfWeek
-  hour: HourOfDay
-  subject: string
-  teacher: string
-}
-
 export interface IStorage {
   setSchool(newValue?: string): void
   setClassId(newValue?: string): void
   setTheme(newValue?: ThemePreference): void
   setUpdateTime(newValue?: UpdateTimePreference): void
   setOthersChangesPreference(newValue?: boolean): void
-  appendScheduleSetting(setting: IAppendSetting): void
+  setStudyGroups: Dispatch<SetStateAction<[string, string][]>>
+  setStudyGroupMap: Dispatch<SetStateAction<Map<string, number>>>
 }
 
 export interface IStorageContext extends IStorageValues, IStorage {}

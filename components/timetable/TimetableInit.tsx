@@ -8,12 +8,13 @@ import { DayOfWeek, HourOfDay, isAnyLessonObj } from '../../interfaces'
 import Button from '../forms/Button'
 import TimetableSkeleton from './TimetableSkeleton'
 import Timetable, { SupportedLesson } from './Timetable'
+import { useTimetable } from '../../contexts/Timetable'
 
 export default function TimetableInit() {
   const { timetable } = useFullTimetable()
   const days = useEditableDays(timetable)
   const { currentItem: currentDay, ...gestures } = useIteration(days)
-  const { appendScheduleSetting } = useStorage()
+  const { appendScheduleSetting } = useTimetable()
 
   const handleLessonChange = useCallback(
     (lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay) => {

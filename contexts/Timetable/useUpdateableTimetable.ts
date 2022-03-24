@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useClientRender } from '../../hooks/useClientRender'
-import { useHTTP } from '../../hooks/useHTTP'
 import {
-  DayOfWeek,
-  HourOfDay,
-  ILesson,
-  ITimetableUpdates,
-} from '../../interfaces'
-import { QueryParams, QueryParamsSettings, Timetable } from '../../utils'
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
+import { Timetable } from '../../utils'
 import { useStorage } from '../Storage'
-import { useLastUserUpdate, useLessonMatrixState } from './localStorageState'
+import { useLessonMatrixState } from './localStorageState'
 import useUpdates from './useUpdates'
 
 export interface IUpdateableTimetable {
@@ -18,6 +18,7 @@ export interface IUpdateableTimetable {
   errorInFetch: boolean
   changesPending: boolean
   problems: [DayOfWeek, HourOfDay][]
+  setProblems: Dispatch<SetStateAction<[DayOfWeek, HourOfDay][]>>
   refetchUpdates(): unknown
 }
 
@@ -63,6 +64,7 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     applyUpdates,
     errorInFetch,
     problems,
+    setProblems,
     refetchUpdates,
     lessons: lessonMatrix,
   }

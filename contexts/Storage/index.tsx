@@ -1,8 +1,7 @@
 // the context responsible for handling storage
 
-import { Component, createContext, useCallback } from 'react'
+import { createContext, useCallback } from 'react'
 import { Wrapper } from '../../components/types'
-import { DayOfWeek, HourOfDay } from '../../interfaces'
 import { createUseContextHook } from '../utils'
 import {
   useClassId,
@@ -13,7 +12,7 @@ import {
   useThemePreference,
   useUpdateTimePreference,
 } from './localStorage'
-import { IAppendSetting, IStorageContext } from './types'
+import { IStorageContext } from './types'
 
 export const StorageContext = createContext<IStorageContext>(
   {} as IStorageContext
@@ -30,19 +29,6 @@ export default function StorageProvider({ children }: Wrapper) {
   const [updateTime, setUpdateTime] = useUpdateTimePreference()
   const [theme, setTheme] = useThemePreference()
 
-  const appendScheduleSetting = useCallback(
-    ({ day, hour, subject, teacher }: IAppendSetting) => {
-      let indexOfSg = studyGroups.findIndex(
-        ([s, t]) => s === subject && t === teacher
-      )
-      if (indexOfSg == -1) {
-        indexOfSg = studyGroups.length
-        setStudyGroups((prev) => [...prev, [subject, teacher]])
-      }
-      setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
-    },
-    [studyGroups, setStudyGroups, setStudyGroupMap]
-  )
   return (
     <StorageContext.Provider
       value={{
@@ -58,7 +44,8 @@ export default function StorageProvider({ children }: Wrapper) {
         setOthersChangesPreference,
         setUpdateTime,
         setTheme,
-        appendScheduleSetting,
+        setStudyGroups,
+        setStudyGroupMap,
       }}
     >
       {children}
