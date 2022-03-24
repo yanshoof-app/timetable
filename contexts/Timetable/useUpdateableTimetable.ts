@@ -18,6 +18,7 @@ export interface IUpdateableTimetable {
   errorInFetch: boolean
   changesPending: boolean
   problems: [DayOfWeek, HourOfDay][]
+  refetchUpdates(): unknown
 }
 
 export function useUpdateableTimetable(): IUpdateableTimetable {
@@ -44,6 +45,11 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     }
   }, [updates, lessonMatrix, showOthersChanges])
 
+  const refetchUpdates = useCallback(() => {
+    setProblems([])
+    updates.fetchUpdates()
+  }, [updates.fetchUpdates])
+
   // determine if toast needs to be shown
   const changesPending = useMemo(
     () => updates.data.newChanges && !updates.isLoading,
@@ -57,6 +63,7 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     applyUpdates,
     errorInFetch,
     problems,
+    refetchUpdates,
     lessons: lessonMatrix,
   }
 }

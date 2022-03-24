@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useClientRender } from '../../hooks/useClientRender'
 import { useHTTP } from '../../hooks/useHTTP'
 import { ITimetableUpdates } from '../../interfaces'
@@ -28,19 +28,16 @@ export default function useUpdates() {
   })
 
   // fetch exactly once each render
-  useEffect(() => {
-    if (!fetched.current) {
-      const settings = QueryParamsSettings.toQueryParams({
-        showOthersChanges,
-        studyGroupMap,
-        studyGroups,
-        school,
-        classId,
-        lastUserUpdate: lastUserUpdate.toISOString(),
-      })
-      doFetch(settings)
-      fetched.current = true
-    }
+  const fetchUpdates = useCallback(() => {
+    const settings = QueryParamsSettings.toQueryParams({
+      showOthersChanges,
+      studyGroupMap,
+      studyGroups,
+      school,
+      classId,
+      lastUserUpdate: lastUserUpdate.toISOString(),
+    })
+    doFetch(settings)
   }, [
     doFetch,
     school,
@@ -51,9 +48,16 @@ export default function useUpdates() {
     lastUserUpdate,
   ])
 
+  useEffect(() => {
+    if (!fetched.current) {
+      fetchUpdates()
+      fetched.current = true
+    }
+  }, [fetchUpdates])
+
   // update last change date
   useEffect(() => {
     if (!isLoading && !error && fetched.current) setLastUserUpdate(new Date())
   }, [error, isLoading])
-  return { data, isLoading, error }
+  return { data, isLoading, error, fetchUpdates }
 }
