@@ -5,15 +5,11 @@ export const timetable_example = [
       subject: 'כימיה',
       teacher: 'זרסקי יפעת',
       class: 'כימיה מעבדה 2',
-      modification: 1,
-      modData: 'קוסטיה',
     },
     {
       subject: 'כימיה',
       teacher: 'זרסקי יפעת',
       class: 'כימיה מעבדה 2',
-      modification: 5,
-      modData: 'חח כימיה זה מקצוע הומני חח',
     },
     {
       subject: 'היסטוריה',
@@ -24,15 +20,11 @@ export const timetable_example = [
       subject: 'הבעה ולשון',
       teacher: 'אהרון שוחט גלית',
       class: 'חדר י 7',
-      modification: 3,
-      modData: 'שכנר איתי',
     },
     {
       subject: 'מתמטיקה 5',
       teacher: 'טיראן חוה',
       class: 'חדר י 6',
-      modification: 2,
-      modData: 'מבחן? אה שכחתי אתה לא לומד מתמטיקה',
     },
     {
       subject: 'מתמטיקה 5',
@@ -103,7 +95,7 @@ export const timetable_example = [
     },
     {
       subject: 'תנ"ך',
-      teacher: 'ארבל אסף',
+      teacher: 'משולם גילאור',
       class: 'חדר י 7',
     },
     {
@@ -114,12 +106,26 @@ export const timetable_example = [
     {
       subject: 'מדעי המחשב יחל 1',
       teacher: 'זבלינסקי קונסטנטין',
-      class: 'חדר מחשב שכבה  ז',
+      class: 'חדר מחשב שכבה יא',
+      otherChanges: [
+        {
+          modification: 1,
+          teacher: 'נבון בסיס מירי',
+          subject: 'הנדסת תוכנה יח"ל 1-2',
+        },
+      ],
     },
     {
       subject: 'מדעי המחשב יחל 1',
       teacher: 'זבלינסקי קונסטנטין',
-      class: 'חדר מחשב שכבה  ז',
+      class: 'חדר מחשב שכבה יא',
+      otherChanges: [
+        {
+          modification: 1,
+          teacher: 'נבון בסיס מירי',
+          subject: 'הנדסת תוכנה יח"ל 1-2',
+        },
+      ],
     },
     {
       subject: 'הבעה ולשון',
@@ -140,7 +146,7 @@ export const timetable_example = [
       class: 'מקוון סינכרוני',
     },
     {
-      subject: 'השכלה כללית',
+      subject: 'השכלה כללית ב',
       teacher: 'בן אליעזר אודי',
       class: 'מקוון סינכרוני',
     },
@@ -151,7 +157,7 @@ export const timetable_example = [
       class: 'חדר מחשב שכבה  ז',
     },
     {
-      subject: 'השכלה כללית',
+      subject: 'השכלה כללית ב',
       teacher: 'בן אליעזר אודי',
       class: 'חדר י 7',
     },
@@ -175,12 +181,12 @@ export const timetable_example = [
     {},
     {
       subject: 'תנ"ך',
-      teacher: 'ארבל אסף',
+      teacher: 'משולם גילאור',
       class: 'חדר י 7',
     },
     {
       subject: 'תנ"ך',
-      teacher: 'ארבל אסף',
+      teacher: 'משולם גילאור',
       class: 'חדר י 7',
     },
     {

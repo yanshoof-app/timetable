@@ -74,10 +74,18 @@ export default function Timetable({
                 defaultLesson={lesson.length == 1 && lesson[0]}
               ></LessonPick>
             ) : (
-              <Lesson lesson={lesson[0]} hour={hour as HourOfDay} key={hour} />
+              <Lesson
+                lesson={lesson[0]}
+                hour={hour as HourOfDay}
+                key={`${day}${hour}`}
+              />
             )
           ) : (
-            <Lesson lesson={lesson} hour={hour as HourOfDay} key={hour} />
+            <Lesson
+              lesson={lesson}
+              hour={hour as HourOfDay}
+              key={`${day}${hour}`}
+            />
           ))
       )}
     </div>
