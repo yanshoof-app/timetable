@@ -6,7 +6,7 @@ import { DayOfWeek, HourOfDay, LessonModification } from '../interfaces'
 import Timetable from '../components/timetable/Timetable'
 import { timetable_example } from '../timetable_sample'
 import DropdownPick from '../components/forms/DropdownPick'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Toast from '../components/ui/Toast'
 import PageTitle from '../components/ui/PageTitle'
 import DayPick from '../components/forms/DayPick'
@@ -16,6 +16,7 @@ import RadioButton from '../components/forms/RadioButton'
 import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
 import NavLink from '../components/ui/Navbar/NavLink'
 import useCurrentDay from '../hooks/useCurrentDay'
+import useDate from '../hooks/useDate'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -29,24 +30,24 @@ const defaultLesson = {
 const MY_SCHEDULE = 'המערכת שלי'
 
 const IndexPage = () => {
-  const currentDay = useCurrentDay()
-  const [date, updateDay] = useState(currentDay)
+  const { currentDay, date } = useCurrentDay()
+  const [day, updateDay] = useState(currentDay)
+  const dateOfSelected = useDate(day, date.current)
 
   return (
     <Layout title={MY_SCHEDULE}>
       <div className="w-full flex justify-center">
-        <DayDateView className="text-lg font-semibold"></DayDateView>
+        <DayDateView
+          className="text-lg font-semibold"
+          ofDate={dateOfSelected}
+        />
       </div>
       <DayPick
-        day={date}
+        day={day}
         onChange={(index) => updateDay(index)}
         className={'pr-[1rem] pl-[1rem]'}
       ></DayPick>
-      <Timetable
-        className="p-[1rem]"
-        day={date}
-        timetable={timetable_example}
-      />
+      <Timetable className="p-[1rem]" day={day} timetable={timetable_example} />
     </Layout>
   )
 }
