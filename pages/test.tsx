@@ -16,7 +16,7 @@ import {
 } from '../timetable_sample'
 import DropdownPick from '../components/forms/DropdownPick'
 import { useState } from 'react'
-import Toast from '../components/ui/Toast'
+import Toast from '../components/ui/Toast/Toast'
 import PageTitle from '../components/ui/PageTitle'
 import DayPick from '../components/forms/DayPick'
 import Input from '../components/forms/Input'

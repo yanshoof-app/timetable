@@ -7,7 +7,7 @@ import Timetable from '../components/timetable/Timetable'
 import { timetable_example } from '../timetable_sample'
 import DropdownPick from '../components/forms/DropdownPick'
 import { useMemo, useState } from 'react'
-import Toast from '../components/ui/Toast'
+import Toast from '../components/ui/Toast/Toast'
 import PageTitle from '../components/ui/PageTitle'
 import DayPick from '../components/forms/DayPick'
 import Input from '../components/forms/Input'
@@ -17,6 +17,7 @@ import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
 import NavLink from '../components/ui/Navbar/NavLink'
 import useCurrentDay from '../hooks/useCurrentDay'
 import useDate from '../hooks/useDate'
+import TimetableUpdatesToast from '../components/ui/Toast'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -48,6 +49,9 @@ const IndexPage = () => {
         className={'pr-[1rem] pl-[1rem]'}
       ></DayPick>
       <Timetable className="p-[1rem]" day={day} timetable={timetable_example} />
+      <div className="flex justify-center">
+        <TimetableUpdatesToast />
+      </div>
     </Layout>
   )
 }

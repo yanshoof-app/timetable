@@ -1,12 +1,9 @@
-import { createContext, useCallback, useEffect } from 'react'
+import { createContext, useCallback } from 'react'
 import { Wrapper } from '../../components/types'
 import { useStorage } from '../Storage'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
 import { IAppendSetting, ITimetableContext } from './types'
-import {
-  IUpdateableTimetable,
-  useUpdateableTimetable,
-} from './useUpdateableTimetable'
+import { useUpdateableTimetable } from './useUpdateableTimetable'
 
 export const TimetableContext = createContext({} as ITimetableContext)
 

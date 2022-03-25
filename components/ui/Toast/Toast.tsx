@@ -1,6 +1,6 @@
 import { motion, useAnimation } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Icon } from '../icons/svgFactory'
+import { Icon } from '../../icons/svgFactory'
 
 export interface ToastProps {
   icon: Icon
