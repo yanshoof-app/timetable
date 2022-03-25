@@ -11,7 +11,7 @@ export default function LessonInfo(info: ILessonInfoProps) {
   )
   if (!('subject' in info)) return <></>
   return (
-    <div className={`flex flex-col gap-[0.7rem]`}>
+    <div className={`flex flex-col gap-[0.7rem] items-stretch max-w-full`}>
       <InfoLine info={info.subject} newInfo={newHour} bold />
       {'teacher' in info && (
         <InfoLine info={info.teacher} newInfo={newTeacher} />

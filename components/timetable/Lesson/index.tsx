@@ -33,10 +33,12 @@ export default function Lesson({ hour, lesson }: LessonProps) {
     <div className="flex flex-col gap-4">
       <ShadowedWrapper
         color={color}
-        className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] items-center justify-start"
+        className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] items-center justify-stretch"
       >
-        <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
-        <div className="flex flex-col gap-[0.7rem]">
+        <p className="flex-1 font-hour font-bold text-[24px] text-gray-500">
+          {hour}
+        </p>
+        <div className="flex-grow flex flex-col gap-[0.7rem] items-stretch max-w-[calc(100%-2.4rem)]">
           <LessonInfo {...lesson} />
           {modificationMessage && (
             <p

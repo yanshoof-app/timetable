@@ -11,12 +11,12 @@ export default function InfoLine({
 }: InfoLineProps) {
   return (
     <div
-      className={`flex flex-row gap-1 truncate mb-[-0.46rem] mt-[-0.46rem] ${
+      className={`truncate mb-[-0.46rem] mt-[-0.46rem] ${
         bold ? 'font-bold' : 'font-semibold'
       }`}
     >
-      <p className={`${newInfo && 'line-through'}`}>{info}</p>
-      {typeof newInfo === 'string' && <p>{newInfo}</p>}
+      <span className={`${newInfo && 'line-through ml-1'}`}>{info}</span>
+      {typeof newInfo === 'string' && <span>{newInfo}</span>}
     </div>
   )
 }

@@ -1,51 +1,32 @@
-import Button from '../components/forms/Button'
 import Layout from '../components/Layout'
-import DayDateView from '../components/ui/DayDateView'
-import ShadowedWrapper from '../components/ui/ShadowedWrapper'
-import {
-  DayOfWeek,
-  HourOfDay,
-  LessonModification,
-  LessonOrMultiple,
-} from '../interfaces'
-import Timetable from '../components/timetable/Timetable'
-import {
-  fulltimetable_example,
-  options_example,
-  timetable_example,
-} from '../timetable_sample'
-import DropdownPick from '../components/forms/DropdownPick'
-import { useState } from 'react'
-import Toast from '../components/ui/Toast/Toast'
-import PageTitle from '../components/ui/PageTitle'
-import DayPick from '../components/forms/DayPick'
-import Input from '../components/forms/Input'
-import { Calendar, Done } from '../components/icons'
-import RadioButton from '../components/forms/RadioButton'
-import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
-import NavLink from '../components/ui/Navbar/NavLink'
-import LessonPick from '../components/timetable/LessonPick'
-import Navbar from '../components/ui/Navbar'
-import ThemePreferencePick from '../components/settings/ThemePreferencePick'
-import TimetableInit from '../components/timetable/TimetableInit'
-import ClassPick from '../components/settings/ClassPick'
-import UpdateHourPick from '../components/settings/UpdateHourPick'
-import SchoolPick from '../components/settings/SchoolPick'
+import Lesson from '../components/timetable/Lesson'
+import LessonOption from '../components/timetable/LessonPick/LessonOption'
+import { ILesson, LessonModification } from '../interfaces'
 
-const defaultLesson = {
+const defaultLesson: ILesson = {
   class: 'מחשבים יב',
-  subject: 'פרטי צמצום פערים ח תלמידים בחלון',
-  teacher: 'קונסטנטין זבלינסקי',
-  hour: 1 as HourOfDay,
+  subject: 'פרטני צמצום פערים ח תלמידים בחלון',
+  teacher: 'מלך העולם קונסטנטין זבלינסקי',
+  changes: [
+    {
+      modification: LessonModification.NewHour,
+      modData: 'הנדסת תוכנה אפליקציות',
+    },
+  ],
 }
 
 const IndexPage = () => {
-  const [date, updateDay] = useState(2 as DayOfWeek)
-  const [toast, showToast] = useState(true)
-
   return (
     <Layout title="Home | Next.js + TypeScript Example">
-      <SchoolPick />
+      <div className="p-4">
+        <Lesson lesson={defaultLesson} hour={1} />
+        <LessonOption
+          option={defaultLesson}
+          index={1}
+          setPicked={() => {}}
+          multipleHour={false}
+        />
+      </div>
     </Layout>
   )
 }

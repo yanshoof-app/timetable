@@ -14,22 +14,22 @@ export default function LessonOption({
   setPicked,
 }: LessonOptionProps) {
   return (
-    <span
-      className={`border-t-2 border-solid first:border-0 cursor-pointer ${
+    <div
+      className={`border-t-2 border-solid first:border-0 cursor-pointer truncate ${
         multipleHour ? 'pr-[52px]' : 'pr-[29px]'
       } border-uiPrimary-300 py-[4px] pt-2`}
       onClick={() => setPicked({ index: index, studyGroup: option })}
     >
       {option.subject ? (
-        <a className="font-bold ">{option.subject}</a>
+        <span className="font-bold ">{option.subject}</span>
       ) : (
-        <a className="font-bold ">ללא שיעור</a>
+        <span className="font-bold ">ללא שיעור</span>
       )}
       {option.teacher && (
-        <a className="font-semibold text-gray-500 text-sm mr-2">
+        <span className="font-semibold text-gray-500 text-sm mr-2">
           {option.teacher}
-        </a>
+        </span>
       )}
-    </span>
+    </div>
   )
 }
