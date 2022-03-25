@@ -1,7 +1,9 @@
 // the context responsible for handling storage
 
 import { createContext, useCallback } from 'react'
+import TimetableSkeleton from '../../components/timetable/TimetableSkeleton'
 import { Wrapper } from '../../components/types'
+import { useClientRender } from '../../hooks/useClientRender'
 import { createUseContextHook } from '../utils'
 import {
   useClassId,
@@ -30,6 +32,9 @@ export default function StorageProvider({ children }: Wrapper) {
   const [updateTime, setUpdateTime] = useUpdateTimePreference()
   const [theme, setTheme] = useThemePreference()
   const [lastUserUpdate, setLastUserUpdate] = useLastUserUpdate()
+  const isClient = useClientRender()
+
+  if (!isClient) return <TimetableSkeleton />
 
   return (
     <StorageContext.Provider

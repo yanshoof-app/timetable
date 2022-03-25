@@ -17,7 +17,7 @@ export function createLocalStorageState<T>(
   { decode, toStorable }: ILocalStorageHandler<T>
 ) {
   return function useLocalStorageState(): [T, Dispatch<SetStateAction<T>>] {
-    const isClientSide = useClientRender()
+    const [isClientSide] = useState(typeof localStorage != 'undefined') // loads quicker than the useClientSide() to prevent lugs
     const [value, setValue] = useState(
       isClientSide ? decode(localStorage.getItem(field)) : undefined
     )
