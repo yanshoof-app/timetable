@@ -6,7 +6,7 @@ import { useToastContent } from './useToastContent'
 
 export default function TimetableUpdatesToast() {
   const { errorInFetch, changesPending, loadingUpdates } = useTimetable()
-  const [showToast, setToastShown] = useState(true)
+  const [showToast, setToastShown] = useState(false)
   const toastProps = useToastContent()
 
   useEffect(() => {
