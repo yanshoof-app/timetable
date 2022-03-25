@@ -22,16 +22,21 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
 
   const doFetch = useCallback(
     async (data: ReqData = {} as ReqData) => {
-      setLoading(true)
-      let res: AxiosResponse<Result>
-      if (method == 'GET') res = await axios.get<Result>(path, { params: data })
-      else res = await axios({ method, url: path, data })
+      try {
+        setLoading(true)
+        let res: AxiosResponse<Result>
+        if (method == 'GET')
+          res = await axios.get<Result>(path, { params: data })
+        else res = await axios({ method, url: path, data })
 
-      setLoading(false)
-      if (res.status === 200) setData(res.data)
-      else setError(true)
+        setLoading(false)
+        if (res.status === 200) setData(res.data)
+        else setError(true)
 
-      return res.data
+        return res.data
+      } catch (err) {
+        setError(true)
+      }
     },
     [method, path]
   )
