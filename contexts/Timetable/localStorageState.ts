@@ -14,11 +14,3 @@ export const useLessonMatrixState = createLocalStorageState<ILesson[][]>(
     toStorable: (value: ILesson[][]) => JSON.stringify(value),
   }
 )
-
-export const useLastUserUpdate = createLocalStorageState<Date>(
-  'lastUserUpdate',
-  {
-    decode: (str?: string) => (str ? new Date(str) : new Date(0)),
-    toStorable: (value: Date) => value.toISOString(),
-  }
-)

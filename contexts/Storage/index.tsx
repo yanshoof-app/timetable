@@ -5,6 +5,7 @@ import { Wrapper } from '../../components/types'
 import { createUseContextHook } from '../utils'
 import {
   useClassId,
+  useLastUserUpdate,
   useOthersChanges,
   useSchoolState,
   useStudyGroupMap,
@@ -28,6 +29,7 @@ export default function StorageProvider({ children }: Wrapper) {
   const [studyGroupMap, setStudyGroupMap] = useStudyGroupMap()
   const [updateTime, setUpdateTime] = useUpdateTimePreference()
   const [theme, setTheme] = useThemePreference()
+  const [lastUserUpdate, setLastUserUpdate] = useLastUserUpdate()
 
   return (
     <StorageContext.Provider
@@ -39,6 +41,7 @@ export default function StorageProvider({ children }: Wrapper) {
         studyGroupMap,
         updateTime,
         theme,
+        lastUserUpdate,
         setSchool,
         setClassId,
         setOthersChangesPreference,
@@ -46,6 +49,7 @@ export default function StorageProvider({ children }: Wrapper) {
         setTheme,
         setStudyGroups,
         setStudyGroupMap,
+        setLastUserUpdate,
       }}
     >
       {children}

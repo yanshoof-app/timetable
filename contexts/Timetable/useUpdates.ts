@@ -4,7 +4,6 @@ import { useHTTP } from '../../hooks/useHTTP'
 import { ITimetableUpdates } from '../../interfaces'
 import { QueryParams, QueryParamsSettings } from '../../utils'
 import { useStorage } from '../Storage'
-import { useLastUserUpdate } from './localStorageState'
 
 const UPDATES_ROUTE = '/api/timetable/updates'
 
@@ -15,10 +14,16 @@ export type UpdatesQParams = QueryParams & {
 }
 
 export default function useUpdates() {
-  const [lastUserUpdate, setLastUserUpdate] = useLastUserUpdate()
   const fetched = useRef(false)
-  const { showOthersChanges, studyGroupMap, studyGroups, school, classId } =
-    useStorage()
+  const {
+    showOthersChanges,
+    studyGroupMap,
+    studyGroups,
+    school,
+    classId,
+    lastUserUpdate,
+    setLastUserUpdate,
+  } = useStorage()
   const { doFetch, data, isLoading, error } = useHTTP<
     UpdatesQParams,
     ITimetableUpdates
