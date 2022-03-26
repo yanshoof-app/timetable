@@ -58,7 +58,7 @@ const Settings = () => {
           <SettingsBox
             color="celebration"
             label="מערכת של מחר"
-            value={`מהשעה ${HOURS[updateTime]}`}
+            value={`${HOURS[updateTime]}`}
             onClick={() => setUpdateTime()}
           />
           <SettingsBox
