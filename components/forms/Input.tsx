@@ -38,6 +38,7 @@ export default function Input({
         placeholder={selected ? '' : hint}
         onSelect={() => setSelected(true)}
         onBlur={() => setSelected(false)}
+        spellCheck={false}
       ></input>
     </div>
   )
