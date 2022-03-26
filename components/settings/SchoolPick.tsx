@@ -32,7 +32,6 @@ export default function SchoolPick() {
               if (input != selectedSchool?.name) setSearchQuery(input)
             }}
             className={`${searchResults[0] && showOptions && 'rounded-b-none'}`}
-            id={'gi'}
           />
           {searchResults[0] && showOptions && (
             <Dropdown

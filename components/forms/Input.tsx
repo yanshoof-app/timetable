@@ -7,7 +7,6 @@ export interface InputProps {
   value: string
   hint: string
   className?: string
-  id?: string
 }
 
 export default function Input({
@@ -15,7 +14,6 @@ export default function Input({
   onChange = () => {},
   hint,
   className = '',
-  id = '',
 }: InputProps) {
   const [input, setInput] = useState(value)
 
@@ -40,7 +38,6 @@ export default function Input({
         placeholder={selected ? '' : hint}
         onSelect={() => setSelected(true)}
         onBlur={() => setSelected(false)}
-        id={id}
       ></input>
     </div>
   )
