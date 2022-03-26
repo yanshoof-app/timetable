@@ -20,9 +20,9 @@ const TeacherLookup = () => {
   //TODO: search history, onClear
 
   return (
-    <Layout className="flex h-screen flex-col overflow-hidden px-4">
+    <Layout className="flex h-screen flex-col px-4">
       <PageTitle title={TEACHER_SEARCH} />
-      <div className="flex flex-col overflow-hidden gap-4 mb-14">
+      <div className="flex flex-col overflow-hidden h-full gap-4 mb-14">
         <Input
           value=""
           hint={TEACHER_SEARCH}
