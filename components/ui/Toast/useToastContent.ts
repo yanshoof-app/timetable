@@ -29,6 +29,6 @@ export function useToastContent(): Omit<ToastProps, 'showToast'> {
             onClick: applyUpdates,
           }
         : { icon: Done, content: ALL_UPDATED, iconClassName: 'text-lime-400' },
-    [errorInFetch, changesPending]
+    [errorInFetch, changesPending, applyUpdates, refetchUpdates]
   )
 }
