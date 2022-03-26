@@ -22,7 +22,7 @@ export default function Dropdown<T>({
 }: DropdownProps<T>) {
   return (
     <div
-      className={`overflow-hidden flex flex-col absolute w-full top-[3rem]  bg-uiPrimary-200 text-uiPrimary-400 rounded-b-[5px] z-10`}
+      className={`overflow-hidden flex flex-col absolute w-full top-[3rem] bg-uiPrimary-200 text-uiPrimary-400 rounded-b-[5px] z-10`}
     >
       {options.map(
         (option, index) =>
@@ -34,9 +34,9 @@ export default function Dropdown<T>({
                 onClick(index)
                 setOpen(false)
               }}
-              className="h-8 flex items-center justify-start w-full cursor-pointer pr-[1rem] pl-[1rem]"
+              className="h-8 flex items-center hover:bg-uiPrimary-300 justify-start w-full cursor-pointer pr-[1rem] pl-[1rem]"
             >
-              <p>{getOption(option)}</p>
+              <p className="w-full">{getOption(option)}</p>
             </div>
           )
       )}
