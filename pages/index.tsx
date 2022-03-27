@@ -41,19 +41,19 @@ const IndexPage = () => {
   return (
     <Layout
       title={MY_SCHEDULE}
-      className="overflow-hidden flex flex-col h-screen"
+      className="overflow-hidden flex flex-col h-screen py-4"
     >
-      <div className="w-full flex justify-center">
+      <div className="w-full flex flex-col items-center justify-center gap-2">
         <DayDateView
           className="text-lg font-semibold"
           ofDate={dateOfSelected}
         />
+        <DayPick
+          day={day}
+          onChange={(index) => updateDay(index)}
+          className={'px-5 w-full'}
+        ></DayPick>
       </div>
-      <DayPick
-        day={day}
-        onChange={(index) => updateDay(index)}
-        className={'px-5'}
-      ></DayPick>
       <Timetable
         className="p-5 mb-14 overflow-y-scroll"
         day={day}
