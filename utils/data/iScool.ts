@@ -10,8 +10,8 @@ import {
   IChange,
   DayOfWeek,
   HourOfDay,
-} from '../../interfaces';
-import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings';
+} from '../../interfaces'
+import { CLASS_UNAVAILABLE, ONLINE, ONLINE_ASYNCRONOUS } from './strings'
 
 /**
  * A container class to convert Iscool types to our own
@@ -25,8 +25,8 @@ export class ISCOOL {
    * @returns its matching date object
    */
   static toDate(date: string) {
-    const milleseconds = date.match(/(\d+)/)[1];
-    return new Date(Number(milleseconds));
+    const milleseconds = date.match(/(\d+)/)[1]
+    return new Date(Number(milleseconds))
   }
 
   /**
@@ -42,7 +42,7 @@ export class ISCOOL {
       ? ONLINE
       : Te == ONLINE_ASYNCRONOUS
       ? ONLINE_ASYNCRONOUS
-      : CLASS_UNAVAILABLE;
+      : CLASS_UNAVAILABLE
   }
 
   /**
@@ -53,29 +53,29 @@ export class ISCOOL {
   static toModification(change?: IChangeIscool): IModification {
     switch (change.ChangeType) {
       case 'FreeLesson':
-        return { modification: LessonModification.Canceled };
+        return { modification: LessonModification.Canceled }
       case 'Exam':
-        return { modification: LessonModification.Exam };
+        return { modification: LessonModification.Exam }
       case 'NewTeacher':
         return {
           modification: LessonModification.NewTeacher,
           modData: change.NewTeacher,
-        };
+        }
       case 'NewRoom':
         return {
           modification: LessonModification.NewRoom,
           modData: change.NewRoom,
-        };
+        }
       case 'NewHour':
         return {
           modification: LessonModification.NewHour,
           modData: change.NewHour,
-        };
+        }
       default:
         return {
           modification: LessonModification.Other,
-          modData: change.ChangeType + change.FixType,
-        };
+          modData: change.FixType,
+        }
     }
   }
 
@@ -89,7 +89,7 @@ export class ISCOOL {
       subject: Subject,
       teacher: Teacher,
       class: ISCOOL.toClass(Te, Room),
-    };
+    }
   }
 
   /**
@@ -101,7 +101,7 @@ export class ISCOOL {
     return {
       subject: Subject,
       class: ISCOOL.toClass(Te, Room),
-    };
+    }
   }
 
   /**
@@ -116,7 +116,7 @@ export class ISCOOL {
     return {
       name,
       symbol: semel,
-    };
+    }
   }
 
   /**
@@ -125,13 +125,13 @@ export class ISCOOL {
    * @returns its matching IChange representation
    */
   static toChange(change: IChangeIscool): IChange {
-    const { Subject, Teacher } = change.StudyGroup;
+    const { Subject, Teacher } = change.StudyGroup
     return {
       subject: Subject,
       teacher: Teacher,
       day: this.toDate(change.Date).getDay() as DayOfWeek,
       hour: change.Hour as HourOfDay,
       ...this.toModification(change),
-    };
+    }
   }
 }

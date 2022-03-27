@@ -18,6 +18,7 @@ import NavLink from '../components/ui/Navbar/NavLink'
 import useCurrentDay from '../hooks/useCurrentDay'
 import useDate from '../hooks/useDate'
 import TimetableUpdatesToast from '../components/ui/Toast'
+import { useTimetable } from '../contexts/Timetable'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -34,6 +35,7 @@ const IndexPage = () => {
   const { currentDay, date } = useCurrentDay()
   const [day, updateDay] = useState(currentDay)
   const dateOfSelected = useDate(day, date.current)
+  const { lessons } = useTimetable()
 
   return (
     <Layout title={MY_SCHEDULE}>
@@ -48,7 +50,7 @@ const IndexPage = () => {
         onChange={(index) => updateDay(index)}
         className={'pr-[1rem] pl-[1rem]'}
       ></DayPick>
-      <Timetable className="p-[1rem]" day={day} timetable={timetable_example} />
+      <Timetable className="p-[1rem]" day={day} timetable={lessons} />
       <div className="flex justify-center">
         <TimetableUpdatesToast />
       </div>

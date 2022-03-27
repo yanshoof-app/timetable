@@ -32,6 +32,8 @@ export default function useModification({
         return ['change', NEW_ROOM]
       case LessonModification.NewHour:
         return ['change', NEW_LESSON]
+      case LessonModification.Other:
+        return ['event', modData as string]
       default:
         return ['gray', undefined]
     }
