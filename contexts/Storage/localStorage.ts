@@ -46,7 +46,7 @@ export const useThemePreference = createLocalStorageState<ThemePreference>(
 export const useUpdateTimePreference =
   createLocalStorageState<UpdateTimePreference>('updateTime', {
     decode: (str?: string) =>
-      UPDATE_TIME_OPTIONS.includes(Number(str)) ? Number(str) : 24,
+      UPDATE_TIME_OPTIONS.includes(Number(str)) ? Number(str) : null,
     toStorable: (value: UpdateTimePreference) => value.toString(),
   })
 
