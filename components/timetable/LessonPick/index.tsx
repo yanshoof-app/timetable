@@ -29,6 +29,7 @@ export default function LessonPick({ hour, day }: LessonPickProps) {
     () => problems.some(([d, h]) => d == day && h == displayHour),
     [problems, day, hour]
   )
+  const isWindow = studyGroupMap.get(`${day},${hour}`) == -1
 
   useDidUpdateEffect(() => {
     setOpen(false)
@@ -67,10 +68,10 @@ export default function LessonPick({ hour, day }: LessonPickProps) {
       <div className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] py-1 pl-0 items-center">
         <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
         <div
-          className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
+          className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1] cursor-pointer"
           onClick={() => setOpen(!isOpen)}
         >
-          {!problemInHour ? (
+          {!problemInHour && !isWindow ? (
             <LessonInfo {...lessons[day][displayHour]} />
           ) : (
             <p className="font-semibold text-uiPrimary-400 text-lg">
@@ -99,20 +100,27 @@ export default function LessonPick({ hour, day }: LessonPickProps) {
           } `}
         >
           {/* Window option */}
-          <LessonOption
-            multipleHour={isMultipleHour}
-            option={{ subject: null, teacher: null }}
-            onPick={() => applyLessonPick({} as ILesson)}
-          />
-          {/* Available options */}
-          {timetable[day][displayHour].map((option, index) => (
+          {!isWindow && (
             <LessonOption
-              key={index}
               multipleHour={isMultipleHour}
-              option={option}
-              onPick={() => applyLessonPick(option)}
+              option={{ subject: null, teacher: null }}
+              onPick={() => applyLessonPick({} as ILesson)}
             />
-          ))}
+          )}
+          {/* Available options */}
+          {timetable[day][displayHour]
+            .filter(
+              (option) =>
+                lessons[day][hour as HourOfDay].teacher !== option.teacher
+            )
+            .map((option, index) => (
+              <LessonOption
+                key={index}
+                multipleHour={isMultipleHour}
+                option={option}
+                onPick={() => applyLessonPick(option)}
+              />
+            ))}
         </div>
       </div>
     </ShadowedWrapper>
