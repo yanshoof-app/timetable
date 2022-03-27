@@ -51,36 +51,37 @@ export default function Timetable({
   const lastLesson = FindLastLesson(timetable[day])
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
-      {timetable[day].map(
-        (lesson, hour) =>
-          ShowLesson(lesson, hour as HourOfDay, lastLesson) &&
-          (Array.isArray(lesson) ? (
-            isPickableLesson(
-              lesson,
-              day as DayOfWeek,
-              hour as HourOfDay,
-              allEditable
-            ) ? (
-              <LessonPick
-                day={day}
-                hour={hour as HourOfDay}
-                key={`${day}${hour}`}
-              />
+      {timetable[day] &&
+        timetable[day].map(
+          (lesson, hour) =>
+            ShowLesson(lesson, hour as HourOfDay, lastLesson) &&
+            (Array.isArray(lesson) ? (
+              isPickableLesson(
+                lesson,
+                day as DayOfWeek,
+                hour as HourOfDay,
+                allEditable
+              ) ? (
+                <LessonPick
+                  day={day}
+                  hour={hour as HourOfDay}
+                  key={`${day}${hour}`}
+                />
+              ) : (
+                <Lesson
+                  lesson={lesson[0]}
+                  hour={hour as HourOfDay}
+                  key={`${day}${hour}`}
+                />
+              )
             ) : (
               <Lesson
-                lesson={lesson[0]}
+                lesson={lesson}
                 hour={hour as HourOfDay}
                 key={`${day}${hour}`}
               />
-            )
-          ) : (
-            <Lesson
-              lesson={lesson}
-              hour={hour as HourOfDay}
-              key={`${day}${hour}`}
-            />
-          ))
-      )}
+            ))
+        )}
     </div>
   )
 }
