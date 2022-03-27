@@ -30,7 +30,6 @@ export default function TimetableProvider({ children }: Wrapper) {
 
   const appendScheduleSetting = useCallback(
     ({ day, hour, lesson }: IAppendSetting) => {
-      console.log(day, hour, lesson)
       if (!lesson.subject && !lesson.teacher) {
         // window
         setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, -1)))

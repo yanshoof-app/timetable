@@ -105,18 +105,14 @@ export default function LessonPick({ hour, day }: LessonPickProps) {
             onPick={() => applyLessonPick({} as ILesson)}
           />
           {/* Available options */}
-          {timetable[day][displayHour].map(
-            (option, index) =>
-              lessons[day][displayHour].subject !== option.subject &&
-              lessons[day][displayHour].teacher !== option.teacher && (
-                <LessonOption
-                  key={index}
-                  multipleHour={isMultipleHour}
-                  option={option}
-                  onPick={() => applyLessonPick(option)}
-                />
-              )
-          )}
+          {timetable[day][displayHour].map((option, index) => (
+            <LessonOption
+              key={index}
+              multipleHour={isMultipleHour}
+              option={option}
+              onPick={() => applyLessonPick(option)}
+            />
+          ))}
         </div>
       </div>
     </ShadowedWrapper>
