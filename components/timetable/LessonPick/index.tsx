@@ -13,9 +13,14 @@ import LessonOption from './LessonOption'
 export interface LessonPickProps {
   hour: HourOfDay | HourOfDay[]
   day: DayOfWeek
+  editable?: boolean
 }
 
-export default function LessonPick({ hour, day }: LessonPickProps) {
+export default function LessonPick({
+  hour,
+  day,
+  editable: changeLesson = false,
+}: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
   const { studyGroupMap } = useStorage()
   const { lessons, appendScheduleSetting, problems } = useTimetable()
@@ -26,10 +31,11 @@ export default function LessonPick({ hour, day }: LessonPickProps) {
     [hour, isMultipleHour]
   )
   const problemInHour = useMemo(
-    () => problems.some(([d, h]) => d == day && h == displayHour),
+    () =>
+      changeLesson || problems.some(([d, h]) => d == day && h == displayHour),
     [problems, day, hour]
   )
-  const isWindow = studyGroupMap.get(`${day},${hour}`) == -1
+  const isWindow = studyGroupMap.get(`${day},${displayHour}`) == -1
 
   useDidUpdateEffect(() => {
     setOpen(false)
@@ -66,12 +72,14 @@ export default function LessonPick({ hour, day }: LessonPickProps) {
       } justify-end`}
     >
       <div className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] py-1 pl-0 items-center">
-        <p className="font-hour font-bold text-[24px] text-gray-500">{hour}</p>
+        <p className="font-hour font-bold text-[24px] text-gray-500">
+          {isMultipleHour ? (hour as HourOfDay[]).join('-') : hour}
+        </p>
         <div
-          className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1] cursor-pointer"
+          className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
           onClick={() => setOpen(!isOpen)}
         >
-          {!problemInHour && !isWindow ? (
+          {(!problemInHour || changeLesson) && !isWindow ? (
             <LessonInfo {...lessons[day][displayHour]} />
           ) : (
             <p className="font-semibold text-uiPrimary-400 text-lg">
@@ -111,7 +119,8 @@ export default function LessonPick({ hour, day }: LessonPickProps) {
           {timetable[day][displayHour]
             .filter(
               (option) =>
-                lessons[day][hour as HourOfDay].teacher !== option.teacher
+                lessons[day][displayHour as HourOfDay].teacher !==
+                option.teacher
             )
             .map((option, index) => (
               <LessonOption

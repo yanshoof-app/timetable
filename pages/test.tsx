@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import LessonsOfDay from '../components/settings/LessonsOfDay'
 import Lesson from '../components/timetable/Lesson'
 import LessonOption from '../components/timetable/LessonPick/LessonOption'
 import { ILesson, LessonModification } from '../interfaces'
