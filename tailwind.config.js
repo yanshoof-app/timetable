@@ -29,8 +29,8 @@ module.exports = {
       keyframes: {
         toastin: {
           '0%': { bottom: '-3.5rem' },
-          '50%': { bottom: '0rem' },
-          '100%': { bottom: '1rem' },
+          '50%': { bottom: '3.5rem' },
+          '100%': { bottom: '4.75rem' },
         },
       },
     },

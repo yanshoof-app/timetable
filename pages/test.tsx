@@ -16,19 +16,7 @@ const defaultLesson: ILesson = {
 }
 
 const IndexPage = () => {
-  return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <div className="p-4">
-        <Lesson lesson={defaultLesson} hour={1} />
-        <LessonOption
-          option={defaultLesson}
-          index={1}
-          setPicked={() => {}}
-          multipleHour={false}
-        />
-      </div>
-    </Layout>
-  )
+  return <Layout title="Home | Next.js + TypeScript Example"></Layout>
 }
 
 export default IndexPage

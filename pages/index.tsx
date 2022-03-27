@@ -19,6 +19,7 @@ import useCurrentDay from '../hooks/useCurrentDay'
 import useDate from '../hooks/useDate'
 import TimetableUpdatesToast from '../components/ui/Toast'
 import { useTimetable } from '../contexts/Timetable'
+import Navbar from '../components/ui/Navbar'
 
 const defaultLesson = {
   class: 'מחשבים יב',
@@ -48,12 +49,11 @@ const IndexPage = () => {
       <DayPick
         day={day}
         onChange={(index) => updateDay(index)}
-        className={'pr-[1rem] pl-[1rem]'}
+        className={'px-5'}
       ></DayPick>
-      <Timetable className="p-[1rem]" day={day} timetable={lessons} />
-      <div className="flex justify-center">
-        <TimetableUpdatesToast />
-      </div>
+      <Timetable className="p-5" day={day} timetable={lessons} />
+      <TimetableUpdatesToast />
+      <Navbar></Navbar>
     </Layout>
   )
 }
