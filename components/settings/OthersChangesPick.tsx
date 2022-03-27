@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useStorage } from '../../contexts/Storage'
 import RadioButton from '../forms/RadioButton'
+import Layout from '../Layout'
 import OthersChangesExample from './examples/OthersChangesExample'
 
 export default function OthersChangesPick() {
   const { showOthersChanges, setOthersChangesPreference } = useStorage()
 
   return (
-    <div className="p-[1rem] flex flex-col gap-2">
+    <Layout className="p-[1rem] flex flex-col gap-2">
       <div className="bg-uiPrimary-200 flex flex-row justify-between p-3 rounded-[26.4px] gap-3 select-none fk">
         <OthersChangesExample
           onClick={() => setOthersChangesPreference(false)}
@@ -32,6 +33,6 @@ export default function OthersChangesPick() {
           onClick={() => setOthersChangesPreference(true)}
         />
       </div>
-    </div>
+    </Layout>
   )
 }

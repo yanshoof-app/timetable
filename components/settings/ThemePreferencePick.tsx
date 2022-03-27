@@ -1,12 +1,13 @@
 import { useStorage } from '../../contexts/Storage'
 import RadioButton from '../forms/RadioButton'
+import Layout from '../Layout'
 import ThemeModeExample from './examples/ThemeModeExample'
 
 export default function ThemePreferencePick() {
   const { theme, setTheme } = useStorage()
 
   return theme ? (
-    <div className="p-[1rem] flex flex-col gap-2">
+    <Layout className="p-[1rem] flex flex-col gap-2">
       <div className="bg-uiPrimary-200 flex flex-row justify-between p-3 rounded-[26.4px] gap-3 select-none">
         <ThemeModeExample onClick={() => setTheme('light')} />
         <ThemeModeExample onClick={() => setTheme('dark')} variant={'dark'} />
@@ -28,6 +29,6 @@ export default function ThemePreferencePick() {
           onClick={() => setTheme('dark')}
         />
       </div>
-    </div>
+    </Layout>
   ) : null
 }
