@@ -32,7 +32,9 @@ export class FullTimeable implements ITimetable<LessonOrMultiple> {
       const day = lesson.Day
       const hourIndex = lesson.Hour
 
-      this.lessons[day][hourIndex] = lesson.Lessons.map(ISCOOL.toLesson)
+      this.lessons[day][hourIndex] = lesson.Lessons.sort((sgA, sgB) =>
+        sgA.Subject > sgB.Subject ? 1 : -1
+      ).map(ISCOOL.toLesson)
     })
     return this
   }
