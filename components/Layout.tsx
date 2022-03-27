@@ -8,11 +8,7 @@ type Props = {
   className?: string
 }
 
-const Layout = ({
-  children,
-  title = 'This is the default title',
-  className = '',
-}: Props) => (
+const Layout = ({ children, title = 'מערכת שעות', className = '' }: Props) => (
   <div className={`${className}`}>
     <Head>
       <title>{title}</title>

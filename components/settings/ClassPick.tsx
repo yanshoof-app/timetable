@@ -5,6 +5,7 @@ import { ClassLookup } from '../../utils'
 import Button from '../forms/Button'
 import DropdownPick from '../forms/DropdownPick'
 import { Edit } from '../icons'
+import Layout from '../Layout'
 
 export default function ClassPick() {
   const { school, setSchool, classId, setClassId } = useStorage()
@@ -26,7 +27,7 @@ export default function ClassPick() {
   )
 
   return classes[0] ? (
-    <div className="flex flex-col justify-center h-screen items-center gap-5">
+    <Layout className="flex flex-col justify-center h-screen items-center  -mt-20 gap-5">
       <div className="flex flex-col gap-2 justify-center items-center">
         <div className="flex justify-center items-center gap-1">
           <p className="font-bold text-4xl">עמי אסף בית ברל</p>
@@ -50,13 +51,13 @@ export default function ClassPick() {
           }}
         ></DropdownPick>
         <Button
-          className="w-20 mt-0 mb-0"
+          className="w-20 my-0 mx-0"
           onClick={() => setClassId(tempClassId)}
         >
           הבא
         </Button>
       </div>
-    </div>
+    </Layout>
   ) : (
     <div></div>
   )
