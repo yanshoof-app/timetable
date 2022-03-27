@@ -38,10 +38,8 @@ const ShowLesson = (
 export interface TimetableProps {
   day: DayOfWeek
   allEditable?: boolean
-  hourToScroll?: number
   timetable: SupportedLesson[][]
   className?: string
-  onChange?(lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay): unknown
 }
 
 export default function Timetable({
@@ -49,7 +47,6 @@ export default function Timetable({
   allEditable = false,
   timetable,
   className = '',
-  onChange = () => {},
 }: TimetableProps) {
   const lastLesson = FindLastLesson(timetable[day])
   return (
@@ -65,14 +62,10 @@ export default function Timetable({
               allEditable
             ) ? (
               <LessonPick
-                options={lesson}
+                day={day}
                 hour={hour as HourOfDay}
                 key={`${day}${hour}`}
-                onChange={(picked) => {
-                  onChange(lesson[picked], day, hour as HourOfDay)
-                }}
-                defaultLesson={lesson.length == 1 && lesson[0]}
-              ></LessonPick>
+              />
             ) : (
               <Lesson
                 lesson={lesson[0]}

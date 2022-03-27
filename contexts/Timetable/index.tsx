@@ -1,5 +1,6 @@
-import { createContext, useCallback } from 'react'
+import { createContext, useCallback, useEffect } from 'react'
 import { Wrapper } from '../../components/types'
+import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
 import { useStorage } from '../Storage'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
 import { IAppendSetting, ITimetableContext } from './types'
@@ -18,25 +19,42 @@ export default function TimetableProvider({ children }: Wrapper) {
   const updateableTimetable = useUpdateableTimetable()
   const { studyGroups, setStudyGroups, setStudyGroupMap } = useStorage()
 
-  const appendScheduleSetting = useCallback(
-    ({ day, hour, subject, teacher }: IAppendSetting) => {
-      let indexOfSg = studyGroups.findIndex(
-        ([s, t]) => s === subject && t === teacher
-      )
-      if (indexOfSg == -1) {
-        indexOfSg = studyGroups.length
-        setStudyGroups((prev) => [...prev, [subject, teacher]])
-      }
-      setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
+  const removeProblem = useCallback(
+    (day: DayOfWeek, hour: HourOfDay) => {
       updateableTimetable.setProblems((prev) =>
         prev.filter(([d, h]) => d != day || h != hour)
       )
+    },
+    [updateableTimetable.setProblems]
+  )
+
+  const appendScheduleSetting = useCallback(
+    ({ day, hour, lesson }: IAppendSetting) => {
+      console.log(day, hour, lesson)
+      if (!lesson.subject && !lesson.teacher) {
+        // window
+        setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, -1)))
+        removeProblem(day, hour)
+        updateableTimetable.applyLesson(day, hour, {} as ILesson)
+        return
+      }
+      let indexOfSg = studyGroups.findIndex(
+        ([s, t]) => s === lesson.subject && t === lesson.teacher
+      )
+      if (indexOfSg == -1) {
+        indexOfSg = studyGroups.length
+        setStudyGroups((prev) => [...prev, [lesson.subject, lesson.teacher]])
+      }
+      setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
+      removeProblem(day, hour)
+      updateableTimetable.applyLesson(day, hour, lesson)
     },
     [
       studyGroups,
       setStudyGroups,
       setStudyGroupMap,
-      updateableTimetable.setProblems,
+      removeProblem,
+      updateableTimetable.applyLesson,
     ]
   )
 

@@ -3,22 +3,20 @@ import { HourOfDay, IStudyGroup } from '../../../interfaces'
 export interface LessonOptionProps {
   multipleHour: boolean
   option: IStudyGroup
-  index: number
-  setPicked({ index: number, studyGroup: IStudyGroup }): unknown
+  onPick(): unknown
 }
 
 export default function LessonOption({
   multipleHour,
   option,
-  index,
-  setPicked,
+  onPick,
 }: LessonOptionProps) {
   return (
     <div
       className={`border-t-2 border-solid first:border-0 cursor-pointer truncate ${
         multipleHour ? 'pr-[52px]' : 'pr-[29px]'
       } border-uiPrimary-300 py-[4px] pt-2`}
-      onClick={() => setPicked({ index: index, studyGroup: option })}
+      onClick={onPick}
     >
       {option.subject ? (
         <span className="font-bold ">{option.subject}</span>

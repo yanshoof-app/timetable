@@ -21,6 +21,7 @@ export interface IUpdateableTimetable {
   problems: [DayOfWeek, HourOfDay][]
   setProblems: Dispatch<SetStateAction<[DayOfWeek, HourOfDay][]>>
   refetchUpdates(): unknown
+  applyLesson(day: DayOfWeek, hour: HourOfDay, lesson: ILesson): unknown
 }
 
 export function useUpdateableTimetable(): IUpdateableTimetable {
@@ -34,7 +35,7 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     const { overrideTimetable, problems } = updates.data
     if (overrideTimetable) setLessonMatrix(overrideTimetable)
     setProblems(problems)
-  }, [updates, setLessonMatrix, updates.data])
+  }, [setLessonMatrix, updates.data])
 
   // use in toast
   const applyUpdates = useCallback(() => {
@@ -61,12 +62,24 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     [updates]
   )
 
+  const applyLesson = useCallback(
+    (day: DayOfWeek, hour: HourOfDay, lesson: ILesson) => {
+      setLessonMatrix((prev) => {
+        let lessons = [...prev]
+        lessons[day][hour] = lesson
+        return lessons
+      })
+    },
+    [setLessonMatrix]
+  )
+
   return {
     changesPending,
     applyUpdates,
     problems,
     setProblems,
     refetchUpdates,
+    applyLesson,
     lessons: lessonMatrix,
     errorInFetch: updates.error,
     loadingUpdates: updates.isLoading,

@@ -1,33 +1,38 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useFullTimetable } from '../../../contexts/FullTimetable'
+import { useStorage } from '../../../contexts/Storage'
+import { useTimetable } from '../../../contexts/Timetable'
 import { useDidUpdateEffect } from '../../../hooks/useUpdateEffect'
-import { HourOfDay, ILesson, IStudyGroup } from '../../../interfaces'
+import { DayOfWeek, HourOfDay, ILesson, IStudyGroup } from '../../../interfaces'
 import { Expand } from '../../icons'
+import _appendScheduleSettings from '../../temp/settingsCreator/hooks/appendScheduleSetting'
 import ShadowedWrapper from '../../ui/ShadowedWrapper'
 import LessonInfo from '../Lesson/LessonInfo'
 import LessonOption from './LessonOption'
 
 export interface LessonPickProps {
-  options: IStudyGroup[]
-  defaultLesson?: IStudyGroup
-  hour: HourOfDay | string
-  onChange?(picked: number): unknown
+  hour: HourOfDay | HourOfDay[]
+  day: DayOfWeek
 }
 
-export default function LessonPick({
-  options,
-  defaultLesson,
-  hour,
-  onChange,
-}: LessonPickProps) {
+export default function LessonPick({ hour, day }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
-  const [picked, setPicked] = useState({ index: 0, studyGroup: defaultLesson })
-
-  const [height, setHeight] = useState(0)
+  const { studyGroupMap } = useStorage()
+  const { lessons, appendScheduleSetting, problems } = useTimetable()
+  const { timetable } = useFullTimetable()
+  const isMultipleHour = useMemo(() => !(typeof hour == 'number'), [hour])
+  const displayHour = useMemo<HourOfDay>(
+    () => (isMultipleHour ? hour[0] : hour),
+    [hour, isMultipleHour]
+  )
+  const problemInHour = useMemo(
+    () => problems.some(([d, h]) => d == day && h == displayHour),
+    [problems, day, hour]
+  )
 
   useDidUpdateEffect(() => {
-    onChange(picked.index)
     setOpen(false)
-  }, [picked])
+  }, [studyGroupMap])
 
   const child = useRef(null)
   const container = useRef(null)
@@ -38,13 +43,23 @@ export default function LessonPick({
       : (container.current.style.maxHeight = '')
   }, [isOpen])
 
-  useEffect(() => {
-    setPicked(picked)
-  }, [picked])
+  const applyLessonPick = useCallback(
+    (lesson: ILesson) => {
+      if (isMultipleHour) {
+        for (let currentHour of hour as HourOfDay[]) {
+          appendScheduleSetting({ lesson, day, hour: currentHour })
+        }
+      } else {
+        // single hour
+        appendScheduleSetting({ lesson, day, hour: hour as HourOfDay })
+      }
+    },
+    [appendScheduleSetting, isMultipleHour, day, hour]
+  )
 
   return (
     <ShadowedWrapper
-      color={picked.studyGroup.subject ? 'gray' : 'primary'}
+      color={problemInHour ? 'primary' : 'gray'}
       className={`flex flex-col rounded-xl py-[0.8rem] transition-all duration-[0s] ease-in-out ${
         isOpen ? 'gap-3' : 'gap-0 delay-100 transition-all duration-100'
       } justify-end`}
@@ -55,8 +70,8 @@ export default function LessonPick({
           className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
           onClick={() => setOpen(!isOpen)}
         >
-          {picked.studyGroup.subject ? (
-            <LessonInfo {...picked.studyGroup} />
+          {!problemInHour ? (
+            <LessonInfo {...lessons[day][displayHour]} />
           ) : (
             <p className="font-semibold text-uiPrimary-400 text-lg">
               ללא שיעור
@@ -74,35 +89,32 @@ export default function LessonPick({
       <div
         ref={container}
         className={`flex flex-col flex-nowrap gap-1 transition-all duration-200 ease-in-out ${
-          typeof hour === 'string' ? 'mr-[0rem]' : 'mr-[0rem]'
+          isMultipleHour ? 'mr-[0rem]' : 'mr-[0rem]'
         } max-h-0 overflow-hidden`}
       >
         <div
           ref={child}
           className={`flex flex-col flex-nowrap gap-1  ${
-            typeof hour === 'string' ? 'mr-[0rem]' : 'mr-[0rem]'
+            isMultipleHour ? 'mr-[0rem]' : 'mr-[0rem]'
           } `}
         >
-          {picked.studyGroup.subject && (
-            <LessonOption
-              multipleHour={typeof hour === 'string'}
-              option={{ subject: null, teacher: null }}
-              index={-1}
-              setPicked={setPicked}
-            ></LessonOption>
-          )}
-
-          {options.map(
+          {/* Window option */}
+          <LessonOption
+            multipleHour={isMultipleHour}
+            option={{ subject: null, teacher: null }}
+            onPick={() => applyLessonPick({} as ILesson)}
+          />
+          {/* Available options */}
+          {timetable[day][displayHour].map(
             (option, index) =>
-              picked.studyGroup.subject !== option.subject &&
-              picked.studyGroup.teacher !== option.teacher && (
+              lessons[day][displayHour].subject !== option.subject &&
+              lessons[day][displayHour].teacher !== option.teacher && (
                 <LessonOption
                   key={index}
-                  multipleHour={typeof hour === 'string'}
+                  multipleHour={isMultipleHour}
                   option={option}
-                  index={index}
-                  setPicked={setPicked}
-                ></LessonOption>
+                  onPick={() => applyLessonPick(option)}
+                />
               )
           )}
         </div>

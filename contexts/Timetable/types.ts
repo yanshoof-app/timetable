@@ -1,11 +1,10 @@
-import { DayOfWeek, HourOfDay } from '../../interfaces'
+import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
 import { IUpdateableTimetable } from './useUpdateableTimetable'
 
 export interface IAppendSetting {
   day: DayOfWeek
   hour: HourOfDay
-  subject: string
-  teacher: string
+  lesson: ILesson
 }
 
 export interface ITimetableContext extends IUpdateableTimetable {
