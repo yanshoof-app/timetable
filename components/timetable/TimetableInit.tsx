@@ -16,20 +16,6 @@ export default function TimetableInit() {
   const { currentItem: currentDay, ...gestures } = useIteration(days)
   const { appendScheduleSetting } = useTimetable()
 
-  const handleLessonChange = useCallback(
-    (lesson: SupportedLesson, day: DayOfWeek, hour: HourOfDay) => {
-      console.log(lesson, day, hour)
-      isAnyLessonObj(lesson) &&
-        appendScheduleSetting({
-          day: day,
-          hour: hour,
-          subject: lesson.subject,
-          teacher: lesson.teacher,
-        })
-    },
-    [appendScheduleSetting]
-  )
-
   return (
     <div className="p-[18px] h-screen flex flex-col justify-between items-center gap-2 ">
       <p className="font-bold text-2xl">הוסיפו שיעורים במקומות הריקים</p>
@@ -43,7 +29,6 @@ export default function TimetableInit() {
           <Timetable
             day={currentDay}
             timetable={timetable}
-            onChange={handleLessonChange}
             allEditable
           ></Timetable>
         ) : (
