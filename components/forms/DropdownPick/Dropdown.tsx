@@ -36,7 +36,7 @@ export default function Dropdown<T>({
               }}
               className="h-8 flex items-center hover:bg-uiPrimary-300 justify-start w-full cursor-pointer pr-[1rem] pl-[1rem]"
             >
-              <p className="w-full">{getOption(option)}</p>
+              <p className="w-full font-semibold">{getOption(option)}</p>
             </div>
           )
       )}

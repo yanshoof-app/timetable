@@ -6,6 +6,7 @@ import Button from '../forms/Button'
 import DropdownPick from '../forms/DropdownPick'
 import { Edit } from '../icons'
 import Layout from '../Layout'
+import LoadingScreen from '../ui/LoadingScreens'
 
 export default function ClassPick() {
   const { school, setSchool, classId, setClassId } = useStorage()
@@ -59,6 +60,6 @@ export default function ClassPick() {
       </div>
     </Layout>
   ) : (
-    <div></div>
+    <LoadingScreen label="כיתות" />
   )
 }

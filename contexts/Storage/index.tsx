@@ -2,7 +2,7 @@
 
 import { createContext } from 'react'
 import { Wrapper } from '../../components/types'
-import LoadingScreen from '../../components/ui/LoadingScreen'
+import TimetableLoadingScreen from '../../components/ui/LoadingScreens/TimetableLoadingScreen'
 import { useClientRender } from '../../hooks/useClientRender'
 import { createUseContextHook } from '../utils'
 import {
@@ -34,7 +34,7 @@ export default function StorageProvider({ children }: Wrapper) {
   const [lastUserUpdate, setLastUserUpdate] = useLastUserUpdate()
   const isClient = useClientRender()
 
-  if (!isClient) return <LoadingScreen />
+  if (!isClient) return <TimetableLoadingScreen />
 
   return (
     <StorageContext.Provider

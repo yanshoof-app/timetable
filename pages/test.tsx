@@ -2,6 +2,7 @@ import Layout from '../components/Layout'
 import LessonsOfDay from '../components/settings/LessonsOfDay'
 import Lesson from '../components/timetable/Lesson'
 import LessonOption from '../components/timetable/LessonPick/LessonOption'
+import LoadingScreen from '../components/ui/LoadingScreens'
 import { ILesson, LessonModification } from '../interfaces'
 
 const defaultLesson: ILesson = {
@@ -17,7 +18,11 @@ const defaultLesson: ILesson = {
 }
 
 const IndexPage = () => {
-  return <Layout title="Home | Next.js + TypeScript Example"></Layout>
+  return (
+    <Layout title="Home | Next.js + TypeScript Example">
+      <LoadingScreen label="כיתות" />
+    </Layout>
+  )
 }
 
 export default IndexPage

@@ -5,6 +5,7 @@ import Button from '../forms/Button'
 import Dropdown from '../forms/DropdownPick/Dropdown'
 import Input from '../forms/Input'
 import Layout from '../Layout'
+import LoadingScreen from '../ui/LoadingScreens'
 
 export default function SchoolPick() {
   const {
@@ -17,7 +18,7 @@ export default function SchoolPick() {
   } = useSchoolSearch()
   const { setSchool } = useStorage()
 
-  return (
+  return searchResults ? (
     <Layout className="flex flex-col p-5 justify-center overflow-hidden items-center gap-5">
       <div className="flex flex-col items-center gap-1">
         <p className="font-bold text-4xl">ברוכים הבאים!</p>
@@ -51,5 +52,7 @@ export default function SchoolPick() {
         </Button>
       </div>
     </Layout>
+  ) : (
+    <LoadingScreen label="בתי ספר" />
   )
 }

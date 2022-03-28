@@ -7,7 +7,7 @@ const _404Page = () => {
   return (
     <Layout
       title="העמוד לא נמצא"
-      className="bg-gray-900 flex items-center justify-center flex-col gap-3"
+      className="bg-gray-900 flex items-center justify-center flex-col gap-3 h-screen"
     >
       <div className="flex text-[90px] font-_404 font-[900] text-white gap-1">
         <Shahaf404 className="h-[70px] z-10"></Shahaf404>
