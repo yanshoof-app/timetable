@@ -8,7 +8,7 @@ import PageTitle from '../ui/PageTitle'
 import ThemeModeExample from './examples/ThemeModeExample'
 
 export default function ThemePreferencePick() {
-  const { theme, setTheme } = useStorage()
+  const { setTheme } = useStorage()
   const [selectedTheme, setSelectedTheme] = useState(
     'system' as ThemePreference
   )

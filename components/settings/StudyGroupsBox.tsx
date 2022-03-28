@@ -13,7 +13,7 @@ export default function StudyGroupsBox({
     <ShadowedWrapper className="rounded-xl">
       {studyGroups.map((studyGroup, index) => (
         <div
-          className="flex justify-between  items-center border-t-2 first:border-0 py-2 px-5 border-uiPrimary-300"
+          className="flex justify-between items-center border-t-2 first:border-0 py-2 px-5 border-uiPrimary-300"
           key={index}
         >
           <Link href={`${BASE_URL}/${index}`}>
