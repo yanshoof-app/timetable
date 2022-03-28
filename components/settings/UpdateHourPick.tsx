@@ -8,6 +8,8 @@ import DropdownPick from '../forms/DropdownPick'
 import { Edit } from '../icons'
 import Layout from '../Layout'
 
+const MIN_HOUR = 16 //Number(Object.keys(HOURS)[0])
+
 export default function UpdateHourPick() {
   const { setUpdateTime } = useStorage()
   const [tempUpdateTime, setTempUpdateTime] = useState(8)
@@ -30,7 +32,7 @@ export default function UpdateHourPick() {
           ></DropdownPick>
           <Button
             className="mx-0 my-0 h-full w-20"
-            onClick={() => setUpdateTime(tempUpdateTime)}
+            onClick={() => setUpdateTime(tempUpdateTime + MIN_HOUR)}
           >
             סיום
           </Button>
