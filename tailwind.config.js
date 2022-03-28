@@ -33,6 +33,9 @@ module.exports = {
           '100%': { bottom: '4.75rem' },
         },
       },
+      height: {
+        mobile: '-webkit-fill-available',
+      },
     },
   },
   plugins: [],
