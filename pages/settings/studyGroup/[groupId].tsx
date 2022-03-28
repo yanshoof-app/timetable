@@ -11,7 +11,7 @@ import { DayOfWeek } from '../../../interfaces'
 
 const LESSONS_IN_SCHEDULE = 'שיעורים במערכת'
 
-const studyGroup = () => {
+const StudyGroup = () => {
   const { studyGroups } = useStorage()
   const { timetable } = useFullTimetable()
 
@@ -47,4 +47,4 @@ const studyGroup = () => {
   ) : null
 }
 
-export default studyGroup
+export default StudyGroup
