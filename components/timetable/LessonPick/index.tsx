@@ -116,20 +116,14 @@ export default function LessonPick({
             />
           )}
           {/* Available options */}
-          {timetable[day][displayHour]
-            .filter(
-              (option) =>
-                lessons[day][displayHour as HourOfDay].teacher !==
-                option.teacher
-            )
-            .map((option, index) => (
-              <LessonOption
-                key={index}
-                multipleHour={isMultipleHour}
-                option={option}
-                onPick={() => applyLessonPick(option)}
-              />
-            ))}
+          {timetable[day][displayHour].map((option, index) => (
+            <LessonOption
+              key={index}
+              multipleHour={isMultipleHour}
+              option={option}
+              onPick={() => applyLessonPick(option)}
+            />
+          ))}
         </div>
       </div>
     </ShadowedWrapper>

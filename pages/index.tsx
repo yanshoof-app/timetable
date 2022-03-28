@@ -39,10 +39,7 @@ const IndexPage = () => {
   const { lessons } = useTimetable()
 
   return (
-    <Layout
-      title={MY_SCHEDULE}
-      className="overflow-hidden flex flex-col h-screen py-4"
-    >
+    <Layout title={MY_SCHEDULE} className="overflow-hidden flex flex-col py-4">
       <div className="w-full flex flex-col items-center justify-center gap-2">
         <DayDateView
           className="text-lg font-semibold"
@@ -55,7 +52,7 @@ const IndexPage = () => {
         ></DayPick>
       </div>
       <Timetable
-        className="p-5 mb-14 overflow-y-scroll"
+        className="p-5 mb-10 overflow-y-scroll"
         day={day}
         timetable={lessons}
       />

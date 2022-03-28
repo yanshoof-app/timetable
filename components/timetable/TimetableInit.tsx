@@ -9,6 +9,7 @@ import Button from '../forms/Button'
 import TimetableSkeleton from './TimetableSkeleton'
 import Timetable, { SupportedLesson } from './Timetable'
 import { useTimetable } from '../../contexts/Timetable'
+import Layout from '../Layout'
 
 export default function TimetableInit() {
   const { timetable } = useFullTimetable()
@@ -17,7 +18,7 @@ export default function TimetableInit() {
   const { appendScheduleSetting } = useTimetable()
 
   return (
-    <div className="p-[18px] h-screen flex flex-col justify-between items-center gap-2 ">
+    <Layout className="p-[18px] h-screen flex flex-col justify-between items-center gap-2 ">
       <p className="font-bold text-2xl">הוסיפו שיעורים במקומות הריקים</p>
       <p className="font-semibold text-xl">{HEBREW_DAYS[currentDay]}</p>
       <div
@@ -52,6 +53,6 @@ export default function TimetableInit() {
           הבא
         </Button>
       </div>
-    </div>
+    </Layout>
   )
 }

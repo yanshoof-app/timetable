@@ -77,7 +77,7 @@ export default function SettingsExport() {
     )
 
   return (
-    <Layout className="font-temp flex flex-col items-center w-screen h-screen overflow-x-hidden">
+    <Layout className="font-temp flex flex-col items-center overflow-x-hidden">
       {isSettingsPopupShown && (
         <SettingsPopup BASE_URL={BASE_URL} query={query} />
       )}

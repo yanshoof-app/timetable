@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Layout = ({ children, title = 'מערכת שעות', className = '' }: Props) => (
-  <div className={`${className}`}>
+  <div className={`${className} h-mobile max-h-screen absolute w-full`}>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />

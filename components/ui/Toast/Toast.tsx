@@ -41,32 +41,30 @@ export default function Toast({
   }
 
   return (
-    <div className="flex w-full justify-center fixed z-20 bottom-0">
-      <motion.div
-        className="flex justify-between pr-5 animate-[toastin_0.5s_ease-out] pl-5 items-center relative bg-slate-900 w-[calc(100%-2rem)] h-[3.5rem] bottom-[4.75rem] rounded-[10px]"
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 20 }}
-        onDragStart={(e) => {
-          updateToastPos(e as MouseEvent | PointerEvent)
-        }}
-        onDragEnd={(e) => {
-          if (isDraggedDown(e)) ToastOut()
-        }}
-        dragElastic={0.5}
-        animate={controls}
-      >
-        <div className="flex items-center text-white font-medium gap-3">
-          <Icon width={24} className={iconClassName} />
-          <p>{content}</p>
+    <motion.div
+      className="flex justify-between pr-5 animate-[toastin_0.5s_ease-out] pl-5 items-center fixed z-20 self-center bg-slate-900 w-[calc(100%-2rem)] h-[3.5rem] bottom-[4.75rem] rounded-[10px]"
+      drag="y"
+      dragConstraints={{ top: 0, bottom: 20 }}
+      onDragStart={(e) => {
+        updateToastPos(e as MouseEvent | PointerEvent)
+      }}
+      onDragEnd={(e) => {
+        if (isDraggedDown(e)) ToastOut()
+      }}
+      dragElastic={0.5}
+      animate={controls}
+    >
+      <div className="flex items-center text-white font-medium gap-3">
+        <Icon width={24} className={iconClassName} />
+        <p>{content}</p>
+      </div>
+      {actionContent && (
+        <div className="text-primary-500 font-bold">
+          <button className="font-bold" onClick={onClick}>
+            {actionContent}
+          </button>
         </div>
-        {actionContent && (
-          <div className="text-primary-500 font-bold">
-            <button className="font-bold" onClick={onClick}>
-              {actionContent}
-            </button>
-          </div>
-        )}
-      </motion.div>
-    </div>
+      )}
+    </motion.div>
   )
 }

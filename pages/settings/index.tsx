@@ -41,10 +41,7 @@ const Settings = () => {
   } = useStorage()
 
   return (
-    <Layout
-      title="הגדרות"
-      className="flex w-screen flex-col justify-start h-screen p-4"
-    >
+    <Layout title="הגדרות" className="flex flex-col justify-start p-4">
       <Navbar />
       <h1 className="font-bold text-5xl">הגדרות</h1>
       <div className="flex flex-col gap-4 py-4">

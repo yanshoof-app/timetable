@@ -8,7 +8,7 @@ export default function OthersChangesPick() {
   const { showOthersChanges, setOthersChangesPreference } = useStorage()
 
   return (
-    <Layout className="p-[1rem] flex flex-col gap-2">
+    <Layout className="p-4 flex flex-col gap-2">
       <div className="bg-uiPrimary-200 flex flex-row justify-between p-3 rounded-[26.4px] gap-3 select-none fk">
         <OthersChangesExample
           onClick={() => setOthersChangesPreference(false)}

@@ -9,11 +9,11 @@ import { Edit } from '../icons'
 import Layout from '../Layout'
 
 export default function UpdateHourPick() {
-  const { updateTime, setUpdateTime } = useStorage()
+  const { setUpdateTime } = useStorage()
   const [tempUpdateTime, setTempUpdateTime] = useState(8)
 
   return (
-    <Layout className="flex flex-col justify-center h-screen overflow-hidden items-center -mt-20 gap-5">
+    <Layout className="flex flex-col justify-center overflow-hidden items-center gap-5">
       <div className="flex flex-col justify-center gap-5">
         <div className="flex flex-col gap-2 justify-center items-center">
           <p className="font-bold text-2xl w-8/12 text-center">
