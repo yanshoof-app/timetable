@@ -3,7 +3,6 @@ import {
   HourOfDay,
   IChange,
   IChangeIscool,
-  IChangesResponse,
   ILesson,
   ILessonArrMemberIscool,
   IModification,
@@ -18,6 +17,7 @@ import {
 import { ISCOOL } from '..'
 import { initMatrix } from '..'
 import { isMatrix } from '../data/arrays'
+import { isPickableHour } from './pickableHour'
 
 /**
  * A Timetable class capable of reading settings and changes
@@ -78,6 +78,13 @@ export class Timetable implements ITimetable<ILesson> {
         if (hourlyLessons.length > 1) this.problems.push([day, hourIndex])
         continue
       }
+
+      // manually add a "problem" on pickable hours to force pick
+      if (
+        isPickableHour(day, hourIndex) &&
+        !studyGroupMap.has([day, hourIndex].join(','))
+      )
+        this.problems.push([day, hourIndex])
 
       // multiple lessons at same hour (i.e - math).
       // find lesson whose study group is present in the settings

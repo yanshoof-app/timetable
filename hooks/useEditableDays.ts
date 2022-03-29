@@ -6,6 +6,7 @@ import {
   IStudyGroup,
   LessonOrMultiple,
 } from '../interfaces'
+import { isPickableHour } from '../utils/timetable/pickableHour'
 
 export type PickableLesson = {
   day: DayOfWeek
@@ -13,24 +14,12 @@ export type PickableLesson = {
 }
 
 export function isPickableLesson(
-  lesson: IStudyGroup[] | SupportedLesson,
+  lesson: IStudyGroup[],
   day: DayOfWeek,
   hour: HourOfDay,
   allEditable: boolean
 ) {
-  if (Array.isArray(lesson)) {
-    if (lesson.length > 1) {
-      return true
-    } else if (hour > 7 || hour < MIN_HOUR) {
-      return true
-    } else if (day > 4) {
-      return true
-    } else if (allEditable) {
-      return true
-    } else {
-      return false
-    }
-  }
+  return lesson.length > 1 || allEditable || isPickableHour(day, hour)
 }
 
 export function useEditableDays(timetable: LessonOrMultiple[][]): DayOfWeek[] {

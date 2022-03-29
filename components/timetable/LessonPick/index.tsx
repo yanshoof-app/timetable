@@ -3,7 +3,7 @@ import { useFullTimetable } from '../../../contexts/FullTimetable'
 import { useStorage } from '../../../contexts/Storage'
 import { useTimetable } from '../../../contexts/Timetable'
 import { useDidUpdateEffect } from '../../../hooks/useUpdateEffect'
-import { DayOfWeek, HourOfDay, ILesson, IStudyGroup } from '../../../interfaces'
+import { DayOfWeek, HourOfDay, ILesson } from '../../../interfaces'
 import { Expand } from '../../icons'
 import ShadowedWrapper from '../../ui/ShadowedWrapper'
 import LessonInfo from '../Lesson/LessonInfo'
@@ -18,7 +18,7 @@ export interface LessonPickProps {
 export default function LessonPick({
   hour,
   day,
-  editable: changeLesson = false,
+  editable = false,
 }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
   const { studyGroupMap } = useStorage()
@@ -30,8 +30,7 @@ export default function LessonPick({
     [hour, isMultipleHour]
   )
   const problemInHour = useMemo(
-    () =>
-      changeLesson || problems.some(([d, h]) => d == day && h == displayHour),
+    () => editable || problems.some(([d, h]) => d == day && h == displayHour),
     [problems, day, hour]
   )
   const isWindow = studyGroupMap.get(`${day},${displayHour}`) == -1
@@ -78,7 +77,7 @@ export default function LessonPick({
           className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
           onClick={() => setOpen(!isOpen)}
         >
-          {(!problemInHour || changeLesson) && !isWindow ? (
+          {(!problemInHour || editable) && !isWindow ? (
             <LessonInfo {...lessons[day][displayHour]} />
           ) : (
             <p className="font-semibold text-uiPrimary-400 text-lg">
