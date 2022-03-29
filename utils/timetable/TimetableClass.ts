@@ -188,7 +188,13 @@ export class Timetable implements ITimetable<ILesson> {
       // change belongs to this study group
       this.lessons[day][hour].changes ||= []
       this.lessons[day][hour].changes.push(modification)
-    } else if (this.settings.showOthersChanges) {
+    } else if (
+      this.settings.showOthersChanges ||
+      // checks whether the student studys in the study group which the change belongs (for cases of 'תגבור' etc.)
+      (this.settings as IScheduleSettings).studyGroups.filter(
+        (studyGroup) => studyGroup[0] === subject && studyGroup[1] === teacher
+      ).length > 0
+    ) {
       // change belongs to another study group and the user wants to see it
       this.lessons[day][hour].otherChanges ||= []
       this.lessons[day][hour].otherChanges.push({
