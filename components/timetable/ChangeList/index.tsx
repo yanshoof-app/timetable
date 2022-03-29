@@ -10,7 +10,7 @@ export default function ChangeList({
   events: string[]
 }) {
   return (
-    <div className="flex flex-col px-4 gap-2">
+    <div className="flex flex-col px-3 gap-2">
       {events.map((event, index) => (
         <Event event={event} key={index}></Event>
       ))}

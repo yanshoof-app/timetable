@@ -10,7 +10,7 @@ export const TimetableContext = createContext({} as ITimetableContext)
 
 export const NoProblemsInSettings = createLogicalWrapper(
   TimetableContext,
-  (ctx) => (!ctx.problems || !ctx.problems.length) && !ctx.loadingUpdates
+  (ctx) => !ctx.problems || !ctx.problems.length
 )
 
 export const useTimetable = createUseContextHook(TimetableContext)

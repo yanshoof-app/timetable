@@ -29,6 +29,8 @@ export default function Lesson({ hour, lesson }: LessonProps) {
     'changes' in lesson ? lesson.changes[0] : undefined
   )
   const events = 'events' in lesson ? lesson.events : []
+  const otherChanges = 'otherChanges' in lesson ? lesson.otherChanges : []
+
   return (
     <div className="flex flex-col gap-4">
       <ShadowedWrapper
@@ -49,12 +51,9 @@ export default function Lesson({ hour, lesson }: LessonProps) {
           )}
         </div>
       </ShadowedWrapper>
-      {isILessonObj(lesson) && lesson.otherChanges && (
+      {isILessonObj(lesson) && (lesson.otherChanges || lesson.events) && (
         <div>
-          <ChangeList
-            changes={lesson.otherChanges}
-            events={events}
-          ></ChangeList>
+          <ChangeList changes={otherChanges} events={events}></ChangeList>
         </div>
       )}
     </div>
