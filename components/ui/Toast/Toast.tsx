@@ -60,13 +60,7 @@ export default function Toast({
       </div>
       {actionContent && (
         <div className="text-primary-500 font-bold">
-          <button
-            className="font-bold"
-            onClick={() => {
-              onClick
-              ToastOut()
-            }}
-          >
+          <button className="font-bold" onClick={onClick}>
             {actionContent}
           </button>
         </div>
