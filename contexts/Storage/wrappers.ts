@@ -3,11 +3,11 @@ import { createLogicalWrapper } from '../utils'
 
 export const SchoolExists = createLogicalWrapper(
   StorageContext,
-  ({ school }) => !!school
+  ({ school }) => !!school && school !== 'null'
 )
 export const ClassExists = createLogicalWrapper(
   StorageContext,
-  ({ classId }) => !!classId
+  ({ classId }) => !!classId && classId !== 'null'
 )
 export const ThemePreferenceExists = createLogicalWrapper(
   StorageContext,
