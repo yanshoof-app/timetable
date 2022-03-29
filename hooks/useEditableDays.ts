@@ -19,7 +19,10 @@ export function isPickableLesson(
   hour: HourOfDay,
   allEditable: boolean
 ) {
-  return lesson.length > 1 || allEditable || isPickableHour(day, hour)
+  return (
+    (lesson.length > 1 || allEditable || isPickableHour(day, hour)) &&
+    lesson.length
+  )
 }
 
 export function useEditableDays(timetable: LessonOrMultiple[][]): DayOfWeek[] {
