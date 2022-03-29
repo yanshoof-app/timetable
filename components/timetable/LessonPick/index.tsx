@@ -78,7 +78,13 @@ export default function LessonPick({
           onClick={() => setOpen(!isOpen)}
         >
           {(!problemInHour || editable) && !isWindow ? (
-            <LessonInfo {...lessons[day][displayHour]} />
+            <LessonInfo
+              {...{
+                subject: lessons[day][displayHour].subject,
+                teacher: lessons[day][displayHour].teacher,
+                class: lessons[day][displayHour].class,
+              }}
+            />
           ) : (
             <p className="font-semibold text-uiPrimary-400 text-lg">
               ללא שיעור
