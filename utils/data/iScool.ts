@@ -71,10 +71,15 @@ export class ISCOOL {
           modification: LessonModification.NewHour,
           modData: change.NewHour,
         }
-      default:
+      case 'Addition':
         return {
           modification: LessonModification.Other,
           modData: change.FixType,
+        }
+      default:
+        return {
+          modification: LessonModification.Other,
+          modData: `${change.ChangeType} ${change.FixType}`,
         }
     }
   }
@@ -133,5 +138,15 @@ export class ISCOOL {
       hour: change.Hour as HourOfDay,
       ...this.toModification(change),
     }
+  }
+
+  static toEvent(event: IChangeIscool): IChange {
+    console.log(event.ChangeType)
+
+    return {
+      day: this.toDate(event.Date).getDay() as DayOfWeek,
+      hour: event.Hour as HourOfDay,
+      ...this.toModification(event),
+    } as IChange
   }
 }

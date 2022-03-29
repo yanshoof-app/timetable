@@ -130,6 +130,7 @@ export class Timetable implements ITimetable<ILesson> {
    */
   public static newChanges(lastUserUpdate: Date, changes: IChangeIscool[]) {
     let newChanges: IChange[] = []
+    let newEvents: IChange[] = []
 
     //collect changes
     for (let change of changes) {
@@ -138,10 +139,16 @@ export class Timetable implements ITimetable<ILesson> {
       // check whether there are no more new changes
       if (changeDate < lastUserUpdate) break
 
+      // event detected
+      if (change.StudyGroup == null) {
+        newEvents.push(ISCOOL.toEvent(change))
+        continue
+      }
+
       newChanges.push(ISCOOL.toChange(change))
     }
 
-    return newChanges
+    return { newChanges, newEvents }
   }
 
   public applyExistingChanges(changes: IChange[]) {
@@ -186,14 +193,17 @@ export class Timetable implements ITimetable<ILesson> {
 
     if (teacher == changeTeacher && subject == changeSubject) {
       // change belongs to this study group
+      console.log(1)
+
       this.lessons[day][hour].changes ||= []
       this.lessons[day][hour].changes.push(modification)
     } else if (
       this.settings.showOthersChanges ||
-      // checks whether the student studys in the study group which the change belongs (for cases of 'תגבור' etc.)
+      // change belongs to one of user's study group but in another hour
       (this.settings as IScheduleSettings).studyGroups.filter(
-        (studyGroup) => studyGroup[0] === subject && studyGroup[1] === teacher
-      ).length > 0
+        (studyGroup) =>
+          studyGroup[0] === changeSubject && studyGroup[1] === changeTeacher
+      ).length
     ) {
       // change belongs to another study group and the user wants to see it
       this.lessons[day][hour].otherChanges ||= []
