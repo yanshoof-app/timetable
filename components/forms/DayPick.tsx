@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTimetable } from '../../contexts/Timetable'
 import { HEBREW_SHORT_DAYS } from '../../hooks/useHebrewDate'
 import { DayOfWeek } from '../../interfaces'
 import Button from './Button'
@@ -15,13 +16,19 @@ export default function DayPick({
   onChange = () => {},
 }: DayPickProps) {
   const [value, setValue] = useState(day)
+  const { lessons } = useTimetable()
 
   useEffect(() => {
     onChange(value)
   }, [value, onChange])
+
   return (
     <div className={`flex w-[full] justify-between items-center ${className}`}>
-      {HEBREW_SHORT_DAYS.map((day, index) => (
+      {HEBREW_SHORT_DAYS.filter((day, index) =>
+        lessons
+          ? lessons[index].filter((lesson) => lesson.subject).length > 0
+          : true
+      ).map((day, index) => (
         <Button
           className={`${
             value !== index && 'text-black bg-transparent'
