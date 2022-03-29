@@ -141,8 +141,6 @@ export class ISCOOL {
   }
 
   static toEvent(event: IChangeIscool): IChange {
-    console.log(event.ChangeType)
-
     return {
       day: this.toDate(event.Date).getDay() as DayOfWeek,
       hour: event.Hour as HourOfDay,

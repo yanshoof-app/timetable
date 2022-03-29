@@ -193,7 +193,6 @@ export class Timetable implements ITimetable<ILesson> {
 
     if (teacher == changeTeacher && subject == changeSubject) {
       // change belongs to this study group
-      console.log(1)
 
       this.lessons[day][hour].changes ||= []
       this.lessons[day][hour].changes.push(modification)

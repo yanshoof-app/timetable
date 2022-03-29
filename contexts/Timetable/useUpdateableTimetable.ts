@@ -39,11 +39,11 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
 
   // use in toast
   const applyUpdates = useCallback(() => {
-    const { newChanges } = updates.data
+    const { newChanges, newEvents } = updates.data
     if (lessonMatrix.length && !updates.isLoading) {
       const timetable = new Timetable(lessonMatrix, showOthersChanges)
-
-      if (newChanges) timetable.applyExistingChanges(newChanges)
+      if (newChanges)
+        timetable.applyExistingChanges([...newChanges, ...newEvents])
       setLessonMatrix(timetable.lessons)
     }
   }, [updates, lessonMatrix, showOthersChanges])
