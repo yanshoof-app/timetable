@@ -57,9 +57,19 @@ export default function TimetableProvider({ children }: Wrapper) {
     ]
   )
 
+  const clearProblems = useCallback(() => {
+    for (let [day, hour] of updateableTimetable.problems)
+      updateableTimetable.applyLesson(day, hour, {} as ILesson) // set lesson as window
+    updateableTimetable.setProblems([])
+  }, [
+    updateableTimetable.setProblems,
+    updateableTimetable.applyLesson,
+    updateableTimetable.problems,
+  ])
+
   return (
     <TimetableContext.Provider
-      value={{ ...updateableTimetable, appendScheduleSetting }}
+      value={{ ...updateableTimetable, appendScheduleSetting, clearProblems }}
     >
       {children}
     </TimetableContext.Provider>

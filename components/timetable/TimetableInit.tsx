@@ -1,13 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback } from 'react'
 import { useFullTimetable } from '../../contexts/FullTimetable'
-import { useStorage } from '../../contexts/Storage'
-import useHebrewDate, { HEBREW_DAYS } from '../../hooks/useHebrewDate'
+import { HEBREW_DAYS } from '../../hooks/useHebrewDate'
 import { useIteration } from '../../hooks/useIteration'
 import { useEditableDays } from '../../hooks/useEditableDays'
-import { DayOfWeek, HourOfDay, isAnyLessonObj } from '../../interfaces'
 import Button from '../forms/Button'
 import TimetableSkeleton from './TimetableSkeleton'
-import Timetable, { SupportedLesson } from './Timetable'
+import Timetable from './Timetable'
 import { useTimetable } from '../../contexts/Timetable'
 import Layout from '../Layout'
 
@@ -15,7 +13,12 @@ export default function TimetableInit() {
   const { timetable } = useFullTimetable()
   const days = useEditableDays(timetable)
   const { currentItem: currentDay, ...gestures } = useIteration(days)
-  const { appendScheduleSetting } = useTimetable()
+  const { clearProblems } = useTimetable()
+
+  const onNextClick = useCallback(() => {
+    if (gestures.nextDisabled) clearProblems()
+    else gestures.next()
+  }, [gestures, clearProblems])
 
   return (
     <Layout className="p-[18px] h-screen flex flex-col justify-between items-center gap-2 ">
@@ -45,11 +48,7 @@ export default function TimetableInit() {
         >
           הקודם
         </Button>
-        <Button
-          disabled={gestures.nextDisabled}
-          onClick={gestures.next}
-          className="mx-0 w-24"
-        >
+        <Button onClick={onNextClick} className="mx-0 w-24">
           הבא
         </Button>
       </div>

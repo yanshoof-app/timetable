@@ -9,4 +9,5 @@ export interface IAppendSetting {
 
 export interface ITimetableContext extends IUpdateableTimetable {
   appendScheduleSetting(setting: IAppendSetting): void
+  clearProblems(): void
 }
