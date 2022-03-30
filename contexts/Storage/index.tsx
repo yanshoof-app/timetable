@@ -9,6 +9,7 @@ import {
   useClassId,
   useLastUserUpdate,
   useOthersChanges,
+  useSchoolName,
   useSchoolState,
   useStudyGroupMap,
   useStudyGroups,
@@ -26,6 +27,7 @@ export const useStorage = createUseContextHook(StorageContext)
 
 export default function StorageProvider({ children }: Wrapper) {
   const [school, setSchool] = useSchoolState()
+  const [schoolName, setSchoolName] = useSchoolName()
   const [classId, setClassId] = useClassId()
   const [showOthersChanges, setOthersChangesPreference] = useOthersChanges()
   const [studyGroups, setStudyGroups] = useStudyGroups()
@@ -43,6 +45,7 @@ export default function StorageProvider({ children }: Wrapper) {
     <StorageContext.Provider
       value={{
         school,
+        schoolName,
         classId,
         showOthersChanges,
         studyGroups,
@@ -52,6 +55,7 @@ export default function StorageProvider({ children }: Wrapper) {
         theme,
         lastUserUpdate,
         setSchool,
+        setSchoolName,
         setClassId,
         setOthersChangesPreference,
         setUpdateTime,

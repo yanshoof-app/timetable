@@ -25,7 +25,7 @@ export default function DayPick({
   return (
     <div className={`flex w-[full] justify-between items-center ${className}`}>
       {HEBREW_SHORT_DAYS.filter((day, index) =>
-        lessons
+        lessons && lessons.length > 0
           ? lessons[index].filter((lesson) => lesson.subject).length > 0
           : true
       ).map((day, index) => (

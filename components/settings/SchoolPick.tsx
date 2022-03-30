@@ -16,7 +16,7 @@ export default function SchoolPick() {
     setSelectedIndex,
     showOptions,
   } = useSchoolSearch()
-  const { setSchool } = useStorage()
+  const { setSchool, setSchoolName } = useStorage()
 
   return searchResults ? (
     <Layout className="flex flex-col p-5 justify-center overflow-hidden items-center gap-5">
@@ -45,7 +45,10 @@ export default function SchoolPick() {
         </div>
         <Button
           className="my-0 px-6 mx-0"
-          onClick={() => setSchool(selectedSchool?.symbol?.toString())}
+          onClick={() => {
+            setSchool(selectedSchool?.symbol?.toString())
+            setSchoolName(selectedSchool?.name?.toString())
+          }}
           disabled={!selectedSchool}
         >
           הבא

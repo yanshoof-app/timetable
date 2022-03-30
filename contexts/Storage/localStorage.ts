@@ -22,6 +22,10 @@ const defaultHandler: ILocalStorageHandler<string> = {
 }
 
 export const useSchoolState = createLocalStorageState('school', defaultHandler)
+export const useSchoolName = createLocalStorageState(
+  'schoolName',
+  defaultHandler
+)
 export const useClassId = createLocalStorageState('classId', defaultHandler)
 
 export const useOthersChanges = createLocalStorageState<boolean>(

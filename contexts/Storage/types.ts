@@ -10,6 +10,7 @@ export type UpdateTimePreference = typeof UPDATE_TIME_OPTIONS[number]
 
 export interface IStorageValues extends IScheduleSettings {
   school: string
+  schoolName: string
   classId: string
   theme: ThemePreference
   updateTime: UpdateTimePreference
@@ -19,6 +20,7 @@ export interface IStorageValues extends IScheduleSettings {
 
 export interface IStorage {
   setSchool(newValue?: string): void
+  setSchoolName(newValue?: string): void
   setClassId(newValue?: string): void
   setTheme(newValue?: ThemePreference): void
   setUpdateTime(newValue?: UpdateTimePreference): void

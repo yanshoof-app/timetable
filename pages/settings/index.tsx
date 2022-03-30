@@ -30,6 +30,7 @@ export const showOthersChangesText = {
 
 const Settings = () => {
   const {
+    schoolName,
     theme,
     updateTime,
     showOthersChanges,
@@ -49,7 +50,7 @@ const Settings = () => {
           <SettingsBox
             color="primary"
             label="כיתה ובית ספר"
-            value={`${'ז1,'} ${'עמי אסף בית ברל'}`}
+            value={`${'ז1,'} ${schoolName}`}
             onClick={() => setClassId()}
           />
           <SettingsBox

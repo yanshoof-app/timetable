@@ -9,7 +9,7 @@ import Layout from '../Layout'
 import LoadingScreen from '../ui/LoadingScreens'
 
 export default function ClassPick() {
-  const { school, setSchool, classId, setClassId } = useStorage()
+  const { school, schoolName, setSchool, classId, setClassId } = useStorage()
   const { classes, grades, isLoading } = useClasses(school)
   const [grade, setGrade] = useState(0)
   const [tempClassId, setTempClassId] = useState(classId)
@@ -31,7 +31,7 @@ export default function ClassPick() {
     <Layout className="flex flex-col justify-center items-center gap-5">
       <div className="flex flex-col gap-2 justify-center items-center">
         <div className="flex justify-center items-center gap-1">
-          <p className="font-bold text-4xl">עמי אסף בית ברל</p>
+          <p className="font-bold text-4xl">{schoolName}</p>
           <button onClick={() => setSchool('')}>
             <Edit width={24} height={24}></Edit>
           </button>
