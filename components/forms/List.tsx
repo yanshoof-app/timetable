@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useStorage } from '../../contexts/Storage'
+import { Clear } from '../icons'
 
 export default function List({
   list,
@@ -30,7 +31,7 @@ export default function List({
                 })
               }
             >
-              נקה
+              <Clear width={20} className="fill-black" />
             </button>
           </div>
         ))}
