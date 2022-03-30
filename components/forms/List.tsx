@@ -1,29 +1,34 @@
 import Link from 'next/link'
+import { useStorage } from '../../contexts/Storage'
 
 export default function List({
   list,
-  historyList,
   showHistory,
   query,
   PATH,
-  onClear = (index) => {},
 }: {
   list: string[]
-  historyList: string[]
   showHistory: boolean
   query: string
   PATH: string
-  onClear?(index: number): unknown
 }) {
+  const { teacherSearchHistory, setTeacherSearchHistory } = useStorage()
+
   return (
     <div className="flex flex-col gap-2 rounded-lg font-semibold px-4 py-3 w-full h-full overflow-y-scroll bg-white">
       {showHistory &&
-        historyList.map((element, index) => (
+        [...teacherSearchHistory].map((element, index) => (
           <div className="flex justify-between" key={index}>
             <Link href={`${PATH}/${element}`}>{element}</Link>
             <button
               className="font-semibold text-primary-500"
-              onClick={() => onClear(index)}
+              onClick={() =>
+                setTeacherSearchHistory((prev) => {
+                  const set = new Set(prev)
+                  set.delete(element)
+                  return set
+                })
+              }
             >
               נקה
             </button>
@@ -33,11 +38,17 @@ export default function List({
         .filter(
           (teacher) =>
             teacher.includes(query) &&
-            !(showHistory && historyList.includes(teacher))
+            !(showHistory && [...teacherSearchHistory].includes(teacher))
         )
         .map((element, index) => (
           <Link href={`${PATH}/${element}`} key={index}>
-            {element}
+            <a
+              onClick={() =>
+                setTeacherSearchHistory((prev) => new Set(prev).add(element))
+              }
+            >
+              {element}
+            </a>
           </Link>
         ))}
     </div>

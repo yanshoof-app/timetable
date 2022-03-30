@@ -4,6 +4,7 @@ import List from '../../components/forms/List'
 import Layout from '../../components/Layout'
 import Navbar from '../../components/ui/Navbar'
 import PageTitle from '../../components/ui/PageTitle'
+import { useStorage } from '../../contexts/Storage'
 import { useUpdateableTimetable } from '../../contexts/Timetable/useUpdateableTimetable'
 import { TeacherList } from '../../utils/teacherList/TeacherList'
 
@@ -15,9 +16,8 @@ const TeacherLookup = () => {
 
   const teachers = useMemo(() => TeacherList.fromSchedule(lessons), [lessons])
 
-  const history = ['אגסי רוני']
   const showHistory = useMemo(() => searchQuery === '', [searchQuery])
-  //TODO: search history, onClear
+  //TODO: onClear
 
   return (
     <Layout className="flex flex-col px-4">
@@ -30,7 +30,6 @@ const TeacherLookup = () => {
         />
         <List
           list={teachers}
-          historyList={history}
           showHistory={showHistory}
           query={searchQuery}
           PATH={'/teachers'}

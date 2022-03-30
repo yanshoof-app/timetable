@@ -12,6 +12,7 @@ import {
   useSchoolState,
   useStudyGroupMap,
   useStudyGroups,
+  useTeacherSearchHistory,
   useThemePreference,
   useUpdateTimePreference,
 } from './localStorage'
@@ -32,6 +33,8 @@ export default function StorageProvider({ children }: Wrapper) {
   const [updateTime, setUpdateTime] = useUpdateTimePreference()
   const [theme, setTheme] = useThemePreference()
   const [lastUserUpdate, setLastUserUpdate] = useLastUserUpdate()
+  const [teacherSearchHistory, setTeacherSearchHistory] =
+    useTeacherSearchHistory()
   const isClient = useClientRender()
 
   if (!isClient) return <TimetableLoadingScreen />
@@ -45,6 +48,7 @@ export default function StorageProvider({ children }: Wrapper) {
         studyGroups,
         studyGroupMap,
         updateTime,
+        teacherSearchHistory,
         theme,
         lastUserUpdate,
         setSchool,
@@ -55,6 +59,7 @@ export default function StorageProvider({ children }: Wrapper) {
         setStudyGroups,
         setStudyGroupMap,
         setLastUserUpdate,
+        setTeacherSearchHistory,
       }}
     >
       {children}

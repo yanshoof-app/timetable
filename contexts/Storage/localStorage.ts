@@ -86,3 +86,11 @@ export const useLastUserUpdate = createLocalStorageState<Date>(
     toStorable: (value: Date) => value.toISOString(),
   }
 )
+
+export const useTeacherSearchHistory = createLocalStorageState<Set<string>>(
+  'teacherSearchHistory',
+  {
+    decode: (str?: string) => (str ? new Set(JSON.parse(str)) : new Set()),
+    toStorable: (value: Set<string>) => JSON.stringify([...value]),
+  }
+)
