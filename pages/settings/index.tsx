@@ -1,7 +1,7 @@
 import Layout from '../../components/Layout'
 import AdvancedEditingLink from '../../components/settings/AdvancedEditingLink'
 import SettingsBox from '../../components/settings/screen/SettingsBox'
-import StudyGroupsBox from '../../components/settings/StudyGroupsBox'
+import StudyGroupBox from '../../components/settings/StudyGroupBox'
 import Navbar from '../../components/ui/Navbar'
 import { useStorage } from '../../contexts/Storage'
 
@@ -44,7 +44,7 @@ const Settings = () => {
     <Layout title="הגדרות" className="flex flex-col justify-start p-4">
       <Navbar />
       <h1 className="font-bold text-5xl">הגדרות</h1>
-      <div className="flex flex-col gap-4 py-4">
+      <div className="flex flex-col gap-4 py-4 overflow-hidden">
         <div className="p-2 grid grid-cols-2 gap-8">
           <SettingsBox
             color="primary"
@@ -71,10 +71,10 @@ const Settings = () => {
             onClick={() => setOthersChangesPreference()}
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 overflow-hidden">
           <h1 className="font-bold text-3xl">קבוצות לימוד</h1>
-          <div className="flex flex-col px-2 py-2 gap-3">
-            {studyGroups && <StudyGroupsBox studyGroups={studyGroups} />}
+          <div className="flex flex-col px-2 pt-2 pb-8 gap-3 overflow-hidden">
+            {studyGroups && <StudyGroupBox studyGroups={studyGroups} />}
             <AdvancedEditingLink />
           </div>
         </div>

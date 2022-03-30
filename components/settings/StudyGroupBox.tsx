@@ -3,14 +3,14 @@ import { IStudyGroup } from '../../interfaces'
 import { ForwardRTL } from '../icons'
 import ShadowedWrapper from '../ui/ShadowedWrapper'
 
-export default function StudyGroupsBox({
+export default function StudyGroupBox({
   studyGroups,
 }: {
   studyGroups: string[][]
 }) {
   const BASE_URL = '/settings/studyGroup'
   return (
-    <ShadowedWrapper className="rounded-xl">
+    <ShadowedWrapper className="rounded-xl overflow-y-scroll">
       {studyGroups.map((studyGroup, index) => (
         <div
           className="flex justify-between items-center border-t-2 first:border-0 py-2 px-5 border-uiPrimary-300"
