@@ -5,12 +5,15 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useClientRender } from './useClientRender'
 
 export interface ILocalStorageHandler<T> {
   decode(str?: string): T
   toStorable(value: T): string
 }
+
+const isOnIOS =
+  navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i)
+const eventName = isOnIOS ? 'pagehide' : 'beforeunload'
 
 export function createLocalStorageState<T>(
   field: string,
@@ -31,9 +34,9 @@ export function createLocalStorageState<T>(
     }, [value, isClientSide])
 
     useEffect(() => {
-      window.addEventListener('beforeunload', save)
+      window.addEventListener(eventName, save)
       return () => {
-        window.removeEventListener('beforeunload', save)
+        window.removeEventListener(eventName, save)
       }
     }, [save])
 
