@@ -1,3 +1,4 @@
+import { time } from 'console'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { BackRTL } from '../../../components/icons'
@@ -13,13 +14,14 @@ const LESSONS_IN_SCHEDULE = 'שיעורים במערכת'
 
 const StudyGroup = () => {
   const { studyGroups } = useStorage()
-  const { timetable } = useFullTimetable()
-
+  const { isLoading } = useFullTimetable()
   const router = useRouter()
   const { groupId } = router.query
   const studyGroupId = useMemo(() => Number(groupId), [groupId])
-  const studyGroup = studyGroups[Number(groupId)]
-
+  const studyGroup = useMemo(
+    () => studyGroups[Number(groupId)],
+    [groupId, studyGroups]
+  )
   const days = useLessonsOfStudyGroup(studyGroupId)
   return studyGroup ? (
     <Layout title={studyGroup[0]}>
@@ -31,17 +33,17 @@ const StudyGroup = () => {
       />
       <div className="p-4">
         <h2 className=" font-bold text-lg">{LESSONS_IN_SCHEDULE}</h2>
-        {days.map(
-          (hours, day) =>
-            hours.length > 0 && (
-              <LessonsOfDay
-                day={day as DayOfWeek}
-                hourSet={hours}
-                key={day}
-                timetable={timetable}
-              ></LessonsOfDay>
-            )
-        )}
+        {!isLoading &&
+          days.map(
+            (hours, day) =>
+              hours.length > 0 && (
+                <LessonsOfDay
+                  day={day as DayOfWeek}
+                  hourSet={hours}
+                  key={day}
+                ></LessonsOfDay>
+              )
+          )}
       </div>
     </Layout>
   ) : null

@@ -1,16 +1,20 @@
+import { useMemo } from 'react'
 import { useStorage } from '../contexts/Storage'
+import { HourOfDay } from '../interfaces'
 
-export default function useLessonsOfStudyGroup(studyGroupId: number) {
-  const hours = []
+export default function useLessonsOfStudyGroup(
+  studyGroupId: number
+): HourOfDay[][] {
   const { studyGroupMap } = useStorage()
-  const studyGroupKeys = Array.from(studyGroupMap) //TODO: Make it more clear and efficient
-    .filter((elm) => elm[1] == studyGroupId)
-    .map((elm) => elm[0].split(',').map((elm) => Number(elm)))
-  for (let day = 0; day < 7; day++) {
-    hours.push(
-      studyGroupKeys.filter((key) => key[0] == day).map((key) => key[1])
-    )
-  }
-
-  return hours
+  return useMemo(() => {
+    const days: HourOfDay[][] = new Array(7).fill([])
+    for (let [key, currentStudyGroupId] of studyGroupMap) {
+      if (studyGroupId == currentStudyGroupId) {
+        // found study group
+        const [day, hour] = key.split(',')
+        days[Number(day)].push(Number(hour) as HourOfDay)
+      }
+    }
+    return days
+  }, [studyGroupMap, studyGroupId])
 }
