@@ -66,6 +66,7 @@ export default function Timetable({
                   day={day}
                   hour={hour as HourOfDay}
                   key={`${day}${hour}`}
+                  editable={allEditable}
                 />
               ) : (
                 <Lesson
