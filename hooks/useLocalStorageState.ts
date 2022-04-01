@@ -11,10 +11,6 @@ export interface ILocalStorageHandler<T> {
   toStorable(value: T): string
 }
 
-const isOnIOS =
-  navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i)
-const eventName = isOnIOS ? 'pagehide' : 'beforeunload'
-
 export function createLocalStorageState<T>(
   field: string,
   { decode, toStorable }: ILocalStorageHandler<T>
@@ -34,6 +30,10 @@ export function createLocalStorageState<T>(
     }, [value, isClientSide])
 
     useEffect(() => {
+      const isOnIOS =
+        navigator.userAgent.match(/iPad/i) ||
+        navigator.userAgent.match(/iPhone/i)
+      const eventName = isOnIOS ? 'pagehide' : 'beforeunload'
       window.addEventListener(eventName, save)
       return () => {
         window.removeEventListener(eventName, save)
