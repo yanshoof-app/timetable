@@ -13,7 +13,7 @@ export default function OthersChangesPick() {
   return (
     <Layout className="px-4">
       <PageTitle
-        title="מראה"
+        title="שינויים של אחרים"
         startIcon={BackRTL}
         onStartIconClick={() => setOthersChangesPreference(selectedPreference)}
       />
