@@ -71,7 +71,9 @@ export default function LessonPick({
     >
       <div className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] py-1 pl-0 items-center">
         <p className="font-hour font-bold text-[24px] text-gray-500">
-          {isMultipleHour ? (hour as HourOfDay[]).join('-') : hour}
+          {isMultipleHour && (hour as HourOfDay[]).length
+            ? (hour as HourOfDay[]).join('-')
+            : displayHour}
         </p>
         <div
           className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
