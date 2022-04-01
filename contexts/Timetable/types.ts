@@ -8,6 +8,6 @@ export interface IAppendSetting {
 }
 
 export interface ITimetableContext extends IUpdateableTimetable {
-  appendScheduleSetting(setting: IAppendSetting): void
+  appendScheduleSetting(setting: IAppendSetting, isEditing?: boolean): void
   clearProblems(): void
 }

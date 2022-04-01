@@ -29,11 +29,11 @@ export default function TimetableProvider({ children }: Wrapper) {
   )
 
   const appendScheduleSetting = useCallback(
-    ({ day, hour, lesson }: IAppendSetting) => {
+    ({ day, hour, lesson }: IAppendSetting, isEditing = false) => {
       if (!lesson.subject && !lesson.teacher) {
         // window
         setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, -1)))
-        removeProblem(day, hour)
+        if (!isEditing) removeProblem(day, hour)
         updateableTimetable.applyLesson(day, hour, {} as ILesson)
         return
       }
@@ -45,7 +45,7 @@ export default function TimetableProvider({ children }: Wrapper) {
         setStudyGroups((prev) => [...prev, [lesson.subject, lesson.teacher]])
       }
       setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
-      removeProblem(day, hour)
+      if (!isEditing) removeProblem(day, hour)
       updateableTimetable.applyLesson(day, hour, lesson)
     },
     [

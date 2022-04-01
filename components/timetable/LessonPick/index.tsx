@@ -30,7 +30,7 @@ export default function LessonPick({
     [hour, isMultipleHour]
   )
   const problemInHour = useMemo(
-    () => editable || problems.some(([d, h]) => d == day && h == displayHour),
+    () => problems && problems.some(([d, h]) => d == day && h == displayHour),
     [problems, day, hour]
   )
   const isWindow = studyGroupMap.get(`${day},${displayHour}`) == -1
@@ -52,14 +52,17 @@ export default function LessonPick({
     (lesson: ILesson) => {
       if (isMultipleHour) {
         for (let currentHour of hour as HourOfDay[]) {
-          appendScheduleSetting({ lesson, day, hour: currentHour })
+          appendScheduleSetting({ lesson, day, hour: currentHour }, editable)
         }
       } else {
         // single hour
-        appendScheduleSetting({ lesson, day, hour: hour as HourOfDay })
+        appendScheduleSetting(
+          { lesson, day, hour: hour as HourOfDay },
+          editable
+        )
       }
     },
-    [appendScheduleSetting, isMultipleHour, day, hour]
+    [appendScheduleSetting, isMultipleHour, day, hour, editable]
   )
 
   return (
