@@ -8,33 +8,19 @@ import { HourOfDay } from '../interfaces'
  */
 export default function useRanges(hours: HourOfDay[]): HourOfDay[][] {
   return useMemo(() => {
-    let hourSet = new Set(hours),
-      recordedSet = new Set()
-    let ranges = []
-    for (let hour of hours) {
-      if (recordedSet.has(hours)) continue
-      // hour is not recorded
-      let range = [hour],
-        currentHour = (hour + 1) as HourOfDay
-      recordedSet.add(hour)
-      while (hourSet.has(currentHour)) {
-        // there is a lesson in that hour
-        if (!recordedSet.has(currentHour)) {
-          // hour was not recorded before
-          range.push(currentHour)
-          recordedSet.add(hour)
-        } else {
-          // there is a range already existing with the current hour as the first hour
-          const indexOfRange = ranges.findIndex(
-            ([first]) => first == currentHour
-          )
-          range.push(...ranges.splice(indexOfRange, 1)) // push hours of deleted range to current range
-        }
-        currentHour++
+    const sortedHours = hours.sort()
+    let index = 1,
+      currentRangeIndex = 0,
+      ranges = [[sortedHours[0]]]
+    while (index < sortedHours.length) {
+      if (sortedHours[index] != sortedHours[index - 1] + 1) {
+        // create new range
+        currentRangeIndex++
+        ranges.push([])
       }
-      ranges.push(range)
+      ranges[currentRangeIndex].push(sortedHours[index])
+      index++
     }
-    ranges.sort(([firstA], [firstB]) => firstA - firstB) // sort by first hour
     return ranges
   }, [hours])
 }
