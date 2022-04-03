@@ -33,7 +33,7 @@ export function createLocalStorageState<T>(
       const isOnIOS =
         navigator.userAgent.match(/iPad/i) ||
         navigator.userAgent.match(/iPhone/i)
-      const eventName = isOnIOS ? 'pagehide' : 'beforeunload'
+      const eventName = /*isOnIOS ? 'pagehide' : */ 'beforeunload'
       window.addEventListener(eventName, save)
       return () => {
         window.removeEventListener(eventName, save)

@@ -30,11 +30,7 @@ export default function TimetableInit() {
         }`}
       >
         {timetable.length ? (
-          <Timetable
-            day={currentDay}
-            timetable={timetable}
-            allEditable
-          ></Timetable>
+          <Timetable day={currentDay} timetable={timetable} />
         ) : (
           <TimetableSkeleton></TimetableSkeleton>
         )}
