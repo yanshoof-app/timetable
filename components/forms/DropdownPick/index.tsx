@@ -30,6 +30,7 @@ export default function DropdownPick({
       className={`${className} flex relative bg-uiPrimary-200 ${
         opened ? 'rounded-t-lg' : 'rounded-lg'
       }  flex-col justify-start items-center font-semibold text-uiPrimary-400 fill-uiPrimary-400`}
+      role="menu"
     >
       <Selected
         options={options}
