@@ -1,3 +1,4 @@
+import DropdownPick from '../components/forms/DropdownPick'
 import Layout from '../components/Layout'
 import LessonsOfDay from '../components/settings/LessonsOfDay'
 import Lesson from '../components/timetable/Lesson'
@@ -19,8 +20,11 @@ const defaultLesson: ILesson = {
 
 const IndexPage = () => {
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <LoadingScreen label="כיתות" />
+    <Layout
+      title="Home | Next.js + TypeScript Example"
+      className="flex justify-center w-full items-center"
+    >
+      <DropdownPick options={['1', '2', '3']} />
     </Layout>
   )
 }
