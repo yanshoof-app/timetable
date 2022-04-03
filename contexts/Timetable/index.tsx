@@ -58,12 +58,13 @@ export default function TimetableProvider({ children }: Wrapper) {
   )
 
   const clearProblems = useCallback(() => {
-    for (let [day, hour] of updateableTimetable.problems)
-      updateableTimetable.applyLesson(day, hour, {} as ILesson) // set lesson as window
+    for (let [day, hour] of updateableTimetable.problems) {
+      appendScheduleSetting({ day: day, hour: hour, lesson: {} as ILesson })
+    }
     updateableTimetable.setProblems([])
   }, [
+    appendScheduleSetting,
     updateableTimetable.setProblems,
-    updateableTimetable.applyLesson,
     updateableTimetable.problems,
   ])
 
