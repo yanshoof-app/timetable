@@ -31,7 +31,7 @@ export default function Input({
       className={`flex relative bg-uiPrimary-200 rounded-lg flex-col justify-start items-center text-uiPrimary-400 fill-uiPrimary-400 ${className}`}
     >
       <input
-        className="bg-transparent h-[3rem] w-full pr-[1rem] pl-[1rem] font-semibold appearance-none focus:outline-none"
+        className="bg-transparent h-12 w-full px-4 font-semibold appearance-none focus:outline-none"
         type={'text'}
         value={input}
         onChange={(input) => setInput(input.target.value)}
