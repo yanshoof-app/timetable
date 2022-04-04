@@ -17,7 +17,8 @@ export const useTimetable = createUseContextHook(TimetableContext)
 
 export default function TimetableProvider({ children }: Wrapper) {
   const updateableTimetable = useUpdateableTimetable()
-  const { studyGroups, setStudyGroups, setStudyGroupMap } = useStorage()
+  const { studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap } =
+    useStorage()
 
   const removeProblem = useCallback(
     (day: DayOfWeek, hour: HourOfDay) => {
@@ -27,6 +28,26 @@ export default function TimetableProvider({ children }: Wrapper) {
     },
     [updateableTimetable.setProblems]
   )
+
+  const clearUnusedStudyGroups = useCallback(() => {
+    const studyGroupMapValues = [...studyGroupMap.values()]
+    for (let i = 0; i < studyGroups.length; i++) {
+      //detect unused study group
+      if (studyGroupMapValues.includes(i)) continue
+
+      //remove the unused study group
+      setStudyGroups((prev) => {
+        prev.splice(i, 1)
+        return prev
+      })
+
+      //updates indexes in studyGroupMap
+      studyGroupMap.forEach((value, key) => {
+        if (value > i) studyGroupMap.set(key, value - 1)
+        setStudyGroupMap(studyGroupMap)
+      })
+    }
+  }, [studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap])
 
   const appendScheduleSetting = useCallback(
     ({ day, hour, lesson }: IAppendSetting, isEditing = false) => {
@@ -70,7 +91,11 @@ export default function TimetableProvider({ children }: Wrapper) {
 
   return (
     <TimetableContext.Provider
-      value={{ ...updateableTimetable, appendScheduleSetting, clearProblems }}
+      value={{
+        ...updateableTimetable,
+        appendScheduleSetting,
+        clearProblems,
+      }}
     >
       {children}
     </TimetableContext.Provider>
