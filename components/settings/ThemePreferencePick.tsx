@@ -28,7 +28,7 @@ export default function ThemePreferencePick() {
             variant={'dark'}
           />
         </div>
-        <div className="flex justify-between px-12">
+        <div className="grid grid-cols-3 px-3">
           <RadioButton
             selected={selectedTheme === 'light'}
             label={'בהיר'}

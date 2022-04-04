@@ -21,7 +21,7 @@ export default function LessonPick({
   editable = false,
 }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
-  const { studyGroupMap } = useStorage()
+  const { studyGroupMap, setLastUserUpdate } = useStorage()
   const { lessons, appendScheduleSetting, problems } = useTimetable()
   const { timetable } = useFullTimetable()
   const isMultipleHour = useMemo(() => !(typeof hour == 'number'), [hour])
@@ -51,6 +51,10 @@ export default function LessonPick({
 
   const applyLessonPick = useCallback(
     (lesson: ILesson) => {
+      const now = new Date()
+      const sunday = new Date(now.setDate(now.getDate() - now.getDay())) //Sunday of this week
+      setLastUserUpdate(sunday)
+
       if (isMultipleHour) {
         for (let currentHour of hour as HourOfDay[]) {
           appendScheduleSetting({ lesson, day, hour: currentHour }, editable)
