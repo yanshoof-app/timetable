@@ -21,14 +21,14 @@ export default function DropdownPick({
   const ref = useRef()
 
   const [selectedIndex, changeSelectedIndex] = useState(defaultIndex)
-  const [opened, setOpen] = useState(false)
+  const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
       if (
-        opened &&
+        isOpen &&
         ref.current &&
         !(ref.current as HTMLElement).contains(e.target)
       ) {
@@ -42,7 +42,7 @@ export default function DropdownPick({
       // Cleanup the event listener
       document.removeEventListener('mousedown', checkIfClickedOutside)
     }
-  }, [opened])
+  }, [isOpen])
 
   useEffect(() => {
     onChange(selectedIndex)
@@ -51,7 +51,7 @@ export default function DropdownPick({
   return (
     <div
       className={`${className} flex relative bg-uiPrimary-200 ${
-        opened ? 'rounded-t-lg' : 'rounded-lg'
+        isOpen ? 'rounded-t-lg' : 'rounded-lg'
       }  flex-col justify-start items-center font-semibold text-uiPrimary-400 fill-uiPrimary-400`}
       role="menu"
       ref={ref}
@@ -59,12 +59,12 @@ export default function DropdownPick({
       <Selected
         options={options}
         selectedIndex={selectedIndex}
-        opened={opened}
+        opened={isOpen}
         setOpen={setOpen}
       >
-        <Expand width={24} className={opened ? 'rotate-180' : 'rotate-0'} />
+        <Expand width={24} className={isOpen ? 'rotate-180' : 'rotate-0'} />
       </Selected>
-      {opened && (
+      {isOpen && (
         <Dropdown
           options={options}
           selectedIndex={selectedIndex}

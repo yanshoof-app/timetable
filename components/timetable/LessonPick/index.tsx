@@ -39,8 +39,9 @@ export default function LessonPick({
     setOpen(false)
   }, [studyGroupMap])
 
-  const child = useRef(null)
-  const container = useRef(null)
+  const ref = useRef(null)
+  const container = useRef(null) //animated study groups options
+  const child = useRef(null) //study groups options flex box
 
   useEffect(() => {
     isOpen
@@ -65,6 +66,27 @@ export default function LessonPick({
     [appendScheduleSetting, isMultipleHour, day, hour, editable]
   )
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (
+        isOpen &&
+        ref.current &&
+        !(ref.current as HTMLElement).contains(e.target)
+      ) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', checkIfClickedOutside)
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener('mousedown', checkIfClickedOutside)
+    }
+  }, [isOpen])
+
   return (
     <ShadowedWrapper
       color={problemInHour ? 'primary' : 'gray'}
@@ -72,7 +94,10 @@ export default function LessonPick({
         isOpen ? 'gap-3' : 'gap-0 delay-100 transition-all duration-100'
       } justify-end`}
     >
-      <div className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] py-1 pl-0 items-center cursor-pointer">
+      <div
+        className="flex flex-row rounded-xl gap-[0.8rem] p-[0.8rem] py-1 pl-0 items-center cursor-pointer"
+        ref={ref}
+      >
         <p className="font-hour font-bold text-[24px] text-gray-500">
           {isMultipleHour && (hour as HourOfDay[]).length
             ? (hour as HourOfDay[]).join('-')
