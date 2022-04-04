@@ -55,7 +55,10 @@ export class Timetable implements ITimetable<ILesson> {
       )
       this.settings = arg
       this.problems = []
-    } else if (isMatrix(arg) && isILessonObj(arg[0][0])) {
+    } else if (
+      isMatrix(arg) &&
+      (arg as unknown[][]).some((day) => day.some((hour) => isILessonObj(hour)))
+    ) {
       this.lessons = arg as ILesson[][]
       this.settings = { showOthersChanges: showOthersChanges as boolean }
     } else throw new Error('Invalid values in constructor')
