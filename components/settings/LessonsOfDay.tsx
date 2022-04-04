@@ -11,7 +11,7 @@ export interface LessonsOfDayProps {
 }
 
 export default function LessonsOfDay({ day, hourSet }: LessonsOfDayProps) {
-  const { timetable } = useFullTimetable()
+  const { timetable, isLoading } = useFullTimetable()
   const rangedHours = useRanges(hourSet)
   return (
     <div className="flex flex-col gap-2 py-2">

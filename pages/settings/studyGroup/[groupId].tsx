@@ -33,17 +33,16 @@ const StudyGroup = () => {
       />
       <div className="px-4">
         <h2 className=" font-bold text-lg">{LESSONS_IN_SCHEDULE}</h2>
-        {!isLoading &&
-          days.map(
-            (hours, day) =>
-              hours.length > 0 && (
-                <LessonsOfDay
-                  day={day as DayOfWeek}
-                  hourSet={hours}
-                  key={day}
-                ></LessonsOfDay>
-              )
-          )}
+        {days.map(
+          (hours, day) =>
+            hours.length > 0 && (
+              <LessonsOfDay
+                day={day as DayOfWeek}
+                hourSet={hours}
+                key={day}
+              ></LessonsOfDay>
+            )
+        )}
       </div>
     </Layout>
   ) : null
