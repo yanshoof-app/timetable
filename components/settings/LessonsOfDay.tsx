@@ -15,7 +15,7 @@ export default function LessonsOfDay({ day, hourSet }: LessonsOfDayProps) {
   const rangedHours = useRanges(hourSet)
   return (
     <div className="flex flex-col gap-2 py-2">
-      <p className="font-semibold text-lg px-5">{`יום ${HEBREW_DAYS[day]}`}</p>
+      <p className="font-semibold text-lg px-3">{`יום ${HEBREW_DAYS[day]}`}</p>
       <div className="flex flex-col gap-4">
         {rangedHours.map((hours, index) =>
           timetable[day] && timetable[day][hours[0]] ? (

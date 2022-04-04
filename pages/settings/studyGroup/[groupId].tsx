@@ -31,7 +31,7 @@ const StudyGroup = () => {
         startIcon={BackRTL}
         onStartIconClick={() => router.back()}
       />
-      <div className="p-4">
+      <div className="px-4">
         <h2 className=" font-bold text-lg">{LESSONS_IN_SCHEDULE}</h2>
         {!isLoading &&
           days.map(
