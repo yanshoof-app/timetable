@@ -30,8 +30,10 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
         else res = await axios({ method, url: path, data })
 
         setLoading(false)
-        if (res.status === 200) setData(res.data)
-        else setError(true)
+        if (res.status === 200) {
+          setData(res.data)
+          setError(false)
+        } else setError(true)
 
         return res.data
       } catch (err) {
