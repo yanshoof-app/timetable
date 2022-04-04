@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { BackRTL } from '../../../components/icons'
 import Layout from '../../../components/Layout'
+import AdvancedEditingLink from '../../../components/settings/AdvancedEditingLink'
 import LessonsOfDay from '../../../components/settings/LessonsOfDay'
 import LoadingScreen from '../../../components/ui/LoadingScreens'
 import PageTitle from '../../../components/ui/PageTitle'
@@ -30,7 +31,10 @@ const StudyGroup = () => {
         onStartIconClick={() => router.back()}
       />
       <div className="px-4">
-        <h2 className=" font-bold text-lg">{LESSONS_IN_SCHEDULE}</h2>
+        <div className="flex justify-between px-4 items-center">
+          <h2 className=" font-bold text-xl">{LESSONS_IN_SCHEDULE}</h2>
+          <AdvancedEditingLink />
+        </div>
         {days.map(
           (hours, day) =>
             hours.length > 0 && (

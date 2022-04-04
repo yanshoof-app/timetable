@@ -44,7 +44,7 @@ const Settings = () => {
   return (
     <Layout title="הגדרות" className="flex flex-col justify-start p-4">
       <Navbar />
-      <h1 className="font-bold text-5xl">הגדרות</h1>
+      <h1 className="font-bold text-4xl">הגדרות</h1>
       <div className="flex flex-col gap-4 py-4 overflow-hidden">
         <div className="p-2 grid grid-cols-2 gap-8">
           <SettingsBox
@@ -73,10 +73,10 @@ const Settings = () => {
           />
         </div>
         <div className="flex flex-col gap-2 overflow-hidden">
-          <h1 className="font-bold text-3xl">קבוצות לימוד</h1>
+          <h1 className="font-bold text-2xl">קבוצות לימוד</h1>
           <div className="flex flex-col px-2 pt-2 pb-8 gap-3 overflow-hidden">
             {studyGroups && <StudyGroupBox studyGroups={studyGroups} />}
-            <AdvancedEditingLink />
+            <AdvancedEditingLink className="w-fit" />
           </div>
         </div>
       </div>
