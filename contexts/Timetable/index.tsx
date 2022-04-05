@@ -14,6 +14,11 @@ export const NoProblemsInSettings = createLogicalWrapper(
   (ctx) => !ctx.problems || !ctx.problems.length
 )
 
+export const TimetableIsSaved = createLogicalWrapper(
+  TimetableContext,
+  (ctx) => !!ctx.lessons.length
+)
+
 export const useTimetable = createUseContextHook(TimetableContext)
 
 export default function TimetableProvider({ children }: Wrapper) {

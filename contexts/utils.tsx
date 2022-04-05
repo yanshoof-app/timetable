@@ -24,9 +24,9 @@ export function createLogicalWrapper<T>(
 ) {
   return function LogicalWrapper({
     children,
-    fallback: Fallback,
+    orElse: Fallback,
   }: {
-    fallback?(): JSX.Element
+    orElse?(): JSX.Element
   } & Wrapper) {
     const context = useContext(ctx)
     const render = useMemo(() => shouldRender(context), [context])

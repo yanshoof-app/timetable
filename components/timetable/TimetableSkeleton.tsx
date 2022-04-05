@@ -1,4 +1,3 @@
-import ShadowedWrapper from '../ui/ShadowedWrapper'
 import { SkeletonLesson } from './Lesson/Skeleton'
 
 const timetable = [true, true, true, true, true, true, true, true, true]
