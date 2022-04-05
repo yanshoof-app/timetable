@@ -1,8 +1,7 @@
-import { createContext, useCallback, useEffect } from 'react'
+import { createContext, useCallback } from 'react'
 import { Wrapper } from '../../components/types'
 import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
 import { useStorage } from '../Storage'
-import { useLastUserUpdate } from '../Storage/localStorage'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
 import { IAppendSetting, ITimetableContext } from './types'
 import { useUpdateableTimetable } from './useUpdateableTimetable'
@@ -48,20 +47,46 @@ export default function TimetableProvider({ children }: Wrapper) {
       })
 
       //updates indexes in studyGroupMap
-      studyGroupMap.forEach((value, key) => {
-        if (value > i) studyGroupMap.set(key, value - 1)
-        setStudyGroupMap(studyGroupMap)
+      setStudyGroupMap((prev) => {
+        const map = new Map(prev)
+        for (let key of map.keys()) {
+          if (map.get(key) > i) map.set(key, i - 1)
+        }
+        return map
       })
     }
   }, [studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap])
+
+  const applyLesson = useCallback(
+    (
+      day: DayOfWeek,
+      hour: HourOfDay,
+      lesson: ILesson,
+      isEditing: boolean,
+      indexOfSg: number
+    ) => {
+      setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
+      if (!isEditing) removeProblem(day, hour)
+      updateableTimetable.applyLesson(day, hour, lesson)
+
+      async function clearSgs() {
+        clearUnusedStudyGroups()
+      }
+      clearSgs()
+    },
+    [
+      setStudyGroupMap,
+      removeProblem,
+      updateableTimetable.applyLesson,
+      clearUnusedStudyGroups,
+    ]
+  )
 
   const appendScheduleSetting = useCallback(
     ({ day, hour, lesson }: IAppendSetting, isEditing = false) => {
       if (!lesson.subject && !lesson.teacher) {
         // window
-        setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, -1)))
-        if (!isEditing) removeProblem(day, hour)
-        updateableTimetable.applyLesson(day, hour, {} as ILesson)
+        applyLesson(day, hour, {} as ILesson, isEditing, -1)
         return
       }
       let indexOfSg = studyGroups.findIndex(
@@ -71,17 +96,9 @@ export default function TimetableProvider({ children }: Wrapper) {
         indexOfSg = studyGroups.length
         setStudyGroups((prev) => [...prev, [lesson.subject, lesson.teacher]])
       }
-      setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
-      if (!isEditing) removeProblem(day, hour)
-      updateableTimetable.applyLesson(day, hour, lesson)
+      applyLesson(day, hour, lesson, isEditing, indexOfSg)
     },
-    [
-      studyGroups,
-      setStudyGroups,
-      setStudyGroupMap,
-      removeProblem,
-      updateableTimetable.applyLesson,
-    ]
+    [applyLesson, studyGroups, setStudyGroups]
   )
 
   const clearProblems = useCallback(() => {

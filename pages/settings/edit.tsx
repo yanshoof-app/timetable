@@ -28,7 +28,7 @@ export default function AdvancedEditingPage() {
         onChange={setDay}
         className="px-5 w-full"
         dayFilterer={(_dayName, index) =>
-          timetable[index].some((lessons) => !!lessons.length)
+          timetable[0] && timetable[index].some((lessons) => !!lessons.length)
         }
       />
       {isLoading ? (
