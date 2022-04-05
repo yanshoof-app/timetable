@@ -7,7 +7,7 @@ import Timetable from '../../components/timetable/Timetable'
 import TimetableSkeleton from '../../components/timetable/TimetableSkeleton'
 import PageTitle from '../../components/ui/PageTitle'
 import { useFullTimetable } from '../../contexts/FullTimetable'
-import { DayOfWeek } from '../../interfaces'
+import { DayOfWeek, isAnyLessonObj } from '../../interfaces'
 
 const TITLE = 'עריכה מתקדמת'
 
@@ -23,7 +23,14 @@ export default function AdvancedEditingPage() {
         startIcon={BackRTL}
         onStartIconClick={() => router.push('/settings')}
       />
-      <DayPick day={day} onChange={setDay} className="px-5 w-full" />
+      <DayPick
+        day={day}
+        onChange={setDay}
+        className="px-5 w-full"
+        dayFilterer={(_dayName, index) =>
+          timetable[index].some((lessons) => !!lessons.length)
+        }
+      />
       {isLoading ? (
         <TimetableSkeleton className="p-5" />
       ) : (

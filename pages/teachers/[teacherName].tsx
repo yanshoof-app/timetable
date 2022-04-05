@@ -32,7 +32,13 @@ const TeacherSchedule = () => {
         onStartIconClick={() => router.back()}
       />
       <div className="px-4">
-        <DayPick day={day} onChange={updateDay} />
+        <DayPick
+          day={day}
+          onChange={updateDay}
+          dayFilterer={(_dayname, index) =>
+            teacherSchedule[index].some(isAnyLessonObj)
+          }
+        />
         {teacherSchedule[0] ? (
           <Timetable className="py-4" day={day} timetable={teacherSchedule} />
         ) : (
