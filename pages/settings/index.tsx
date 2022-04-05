@@ -39,6 +39,8 @@ const Settings = () => {
     setTheme,
     setUpdateTime,
     setOthersChangesPreference,
+    setStudyGroups,
+    setStudyGroupMap,
   } = useStorage()
 
   return (
@@ -51,7 +53,11 @@ const Settings = () => {
             color="primary"
             label="כיתה ובית ספר"
             value={`${'ז1,'} ${schoolName}`}
-            onClick={() => setClassId()}
+            onClick={() => {
+              setClassId()
+              setStudyGroups([])
+              setStudyGroupMap(new Map())
+            }}
           />
           <SettingsBox
             color="celebration"

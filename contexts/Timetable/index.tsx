@@ -1,4 +1,4 @@
-import { createContext, useCallback } from 'react'
+import { createContext, useCallback, useEffect } from 'react'
 import { Wrapper } from '../../components/types'
 import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
 import { useStorage } from '../Storage'
@@ -50,7 +50,7 @@ export default function TimetableProvider({ children }: Wrapper) {
       setStudyGroupMap((prev) => {
         const map = new Map(prev)
         for (let key of map.keys()) {
-          if (map.get(key) > i) map.set(key, i - 1)
+          if (map.get(key) > i) map.set(key, map.get(key) - 1)
         }
         return map
       })
@@ -72,7 +72,6 @@ export default function TimetableProvider({ children }: Wrapper) {
       async function clearSgs() {
         clearUnusedStudyGroups()
       }
-      clearSgs()
     },
     [
       setStudyGroupMap,
@@ -101,6 +100,17 @@ export default function TimetableProvider({ children }: Wrapper) {
     [applyLesson, studyGroups, setStudyGroups]
   )
 
+  const removeScheduleSetting = useCallback(
+    ({ day, hour, lesson }: IAppendSetting) => {
+      setStudyGroupMap((prev) => {
+        prev.delete(`${day},${hour}`)
+        return prev
+      })
+      updateableTimetable.applyLesson(day, hour, lesson)
+    },
+    [studyGroupMap]
+  )
+
   const clearProblems = useCallback(() => {
     for (let [day, hour] of updateableTimetable.problems) {
       appendScheduleSetting({ day: day, hour: hour, lesson: {} as ILesson })
@@ -114,11 +124,15 @@ export default function TimetableProvider({ children }: Wrapper) {
 
   return (
     <TimetableContext.Provider
-      value={{
-        ...updateableTimetable,
-        appendScheduleSetting,
-        clearProblems,
-      }}
+      value={
+        {
+          ...updateableTimetable,
+          appendScheduleSetting,
+          removeScheduleSetting,
+          clearProblems,
+          clearUnusedStudyGroups,
+        } as ITimetableContext
+      }
     >
       {children}
     </TimetableContext.Provider>

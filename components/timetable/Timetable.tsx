@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useStorage } from '../../contexts/Storage'
+import { useTimetable } from '../../contexts/Timetable'
 import { isPickableLesson } from '../../hooks/useEditableDays'
 import {
   DayOfWeek,
@@ -7,6 +10,7 @@ import {
   IStudyGroup,
   ITeacherLesson,
 } from '../../interfaces'
+import StudyGroup from '../../pages/settings/studyGroup/[groupId]'
 import { isArray } from '../../utils/data/arrays'
 import Lesson from './Lesson'
 import LessonPick from './LessonPick'
@@ -49,6 +53,13 @@ export default function Timetable({
   className = '',
 }: TimetableProps) {
   const lastLesson = FindLastLesson(timetable[day])
+
+  /*const { studyGroupMap } = useStorage()
+  const { clearUnusedStudyGroups } = useTimetable()
+
+  useEffect(() => clearUnusedStudyGroups(), [studyGroupMap])
+*/
+
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       {timetable[day] &&

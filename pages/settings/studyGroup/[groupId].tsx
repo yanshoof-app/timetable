@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { BackRTL } from '../../../components/icons'
 import Layout from '../../../components/Layout'
 import AdvancedEditingLink from '../../../components/settings/AdvancedEditingLink'
@@ -7,13 +7,15 @@ import LessonsOfDay from '../../../components/settings/LessonsOfDay'
 import LoadingScreen from '../../../components/ui/LoadingScreens'
 import PageTitle from '../../../components/ui/PageTitle'
 import { useStorage } from '../../../contexts/Storage'
+import { useTimetable } from '../../../contexts/Timetable'
 import useLessonsOfStudyGroup from '../../../hooks/useLessonsOfStudyGroup'
 import { DayOfWeek } from '../../../interfaces'
 
 const LESSONS_IN_SCHEDULE = 'שיעורים במערכת'
 
 const StudyGroup = () => {
-  const { studyGroups } = useStorage()
+  const { studyGroups, studyGroupMap } = useStorage()
+
   const router = useRouter()
   const { groupId } = router.query
   const studyGroupId = useMemo(() => Number(groupId), [groupId])
@@ -22,6 +24,12 @@ const StudyGroup = () => {
     [groupId, studyGroups]
   )
   const days = useLessonsOfStudyGroup(studyGroupId)
+
+  /*
+  const { clearUnusedStudyGroups } = useTimetable()
+  useEffect(() => clearUnusedStudyGroups(), [studyGroupMap])
+  */
+
   return studyGroup ? (
     <Layout title={studyGroup[0]}>
       <PageTitle
