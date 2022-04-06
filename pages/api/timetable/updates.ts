@@ -44,15 +44,13 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     // otherwise, return new changes
     else {
-      const { newChanges, newOtherChanges, newEvents } = Timetable.newChanges(
+      const { newChanges } = Timetable.newChanges(
         lastUserUpdate,
         Changes,
         settings
       )
       res.status(200).json({
         newChanges: newChanges,
-        newOtherChanges: newOtherChanges,
-        newEvents: newEvents,
       })
     }
   } catch (err: any) {

@@ -52,10 +52,6 @@ export default function LessonPick({
 
   const applyLessonPick = useCallback(
     (lesson: ILesson) => {
-      const now = new Date()
-      const sunday = new Date(now.setDate(now.getDate() - now.getDay())) //Sunday of this week
-      setLastUserUpdate(sunday)
-
       if (isMultipleHour) {
         for (let currentHour of hour as HourOfDay[]) {
           appendScheduleSetting({ lesson, day, hour: currentHour }, editable)
@@ -73,6 +69,9 @@ export default function LessonPick({
             { lesson, day, hour: hour as HourOfDay },
             editable
           )
+        const now = new Date()
+        const sunday = new Date(now.setDate(now.getDate() - now.getDay())) //Sunday of this week
+        setLastUserUpdate(sunday)
       }
     },
     [appendScheduleSetting, isMultipleHour, day, hour, editable]

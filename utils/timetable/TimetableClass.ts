@@ -146,8 +146,6 @@ export class Timetable implements ITimetable<ILesson> {
     settings: QueryParamsSettings
   ) {
     let newChanges: IChange[] = []
-    let newOtherChanges: IChange[] = []
-    let newEvents: IChange[] = []
 
     //collect changes
     for (let change of changes) {
@@ -158,31 +156,21 @@ export class Timetable implements ITimetable<ILesson> {
 
       // event detected
       if (change.StudyGroup == null) {
-        newEvents.push(ISCOOL.toEvent(change))
+        newChanges.push(ISCOOL.toEvent(change))
         continue
-      }
-
-      if (
-        settings.showOthersChanges ||
-        // change belongs to one of user's study group but in another hour
-        (settings as IScheduleSettings).studyGroups.some(
-          (studyGroup) =>
-            studyGroup[0] === change.StudyGroup.Subject &&
-            studyGroup[1] === change.StudyGroup.Teacher
-        )
-      ) {
-        newOtherChanges.push(ISCOOL.toChange(change))
       }
 
       newChanges.push(ISCOOL.toChange(change))
     }
 
-    return { newChanges, newOtherChanges, newEvents }
+    return { newChanges }
   }
 
   public applyExistingChanges(changes: IChange[]) {
-    for (let { day, hour, subject, teacher, ...modification } of changes)
-      this.applyChange(day, hour, { subject, teacher }, modification)
+    for (let { day, hour, subject, teacher, ...modification } of changes) {
+      if (!subject || !teacher) this.applyChange(day, hour, null, modification)
+      else this.applyChange(day, hour, { subject, teacher }, modification)
+    }
   }
 
   /**
@@ -195,7 +183,7 @@ export class Timetable implements ITimetable<ILesson> {
   private applyChange(
     day: DayOfWeek,
     hour: HourOfDay,
-    studyGroup: IStudyGroup | IStudyGroupIscool | null,
+    studyGroup: IStudyGroup | IStudyGroupIscool,
     modification: IModification
   ): void {
     // compare study groups - is it a relevent change?
