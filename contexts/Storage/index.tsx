@@ -7,6 +7,7 @@ import { useClientRender } from '../../hooks/useClientRender'
 import { createUseContextHook } from '../utils'
 import {
   useClassId,
+  useUserClassName,
   useLastUserUpdate,
   useOthersChanges,
   useSchoolName,
@@ -29,6 +30,7 @@ export default function StorageProvider({ children }: Wrapper) {
   const [school, setSchool] = useSchoolState()
   const [schoolName, setSchoolName] = useSchoolName()
   const [classId, setClassId] = useClassId()
+  const [userClassName, setUserClassName] = useUserClassName()
   const [showOthersChanges, setOthersChangesPreference] = useOthersChanges()
   const [studyGroups, setStudyGroups] = useStudyGroups()
   const [studyGroupMap, setStudyGroupMap] = useStudyGroupMap()
@@ -47,6 +49,7 @@ export default function StorageProvider({ children }: Wrapper) {
         school,
         schoolName,
         classId,
+        userClassName,
         showOthersChanges,
         studyGroups,
         studyGroupMap,
@@ -57,6 +60,7 @@ export default function StorageProvider({ children }: Wrapper) {
         setSchool,
         setSchoolName,
         setClassId,
+        setUserClassName,
         setOthersChangesPreference,
         setUpdateTime,
         setTheme,

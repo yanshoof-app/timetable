@@ -9,10 +9,19 @@ import Layout from '../Layout'
 import LoadingScreen from '../ui/LoadingScreens'
 
 export default function ClassPick() {
-  const { school, schoolName, setSchool, classId, setClassId } = useStorage()
+  const {
+    school,
+    schoolName,
+    classId,
+    userClassName,
+    setSchool,
+    setClassId,
+    setUserClassName,
+  } = useStorage()
   const { classes, grades, isLoading } = useClasses(school)
   const [grade, setGrade] = useState(0)
   const [tempClassId, setTempClassId] = useState(classId)
+  const [tempUserClassName, setTempUserClassName] = useState('')
   const classesIds = useMemo(
     () =>
       typeof classes[0] != 'undefined'
@@ -49,11 +58,15 @@ export default function ClassPick() {
           options={classesIds}
           onChange={(selectedClassId) => {
             setTempClassId(classes[grade][selectedClassId].toString())
+            setTempUserClassName(`${gradesArray[grade]}${selectedClassId + 1}`)
           }}
         ></DropdownPick>
         <Button
           className="w-20 my-0 mx-0"
-          onClick={() => setClassId(tempClassId)}
+          onClick={() => {
+            setClassId(tempClassId)
+            setUserClassName(tempUserClassName)
+          }}
         >
           הבא
         </Button>

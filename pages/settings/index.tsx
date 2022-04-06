@@ -31,6 +31,7 @@ export const showOthersChangesText = {
 const Settings = () => {
   const {
     schoolName,
+    userClassName,
     theme,
     updateTime,
     showOthersChanges,
@@ -52,7 +53,7 @@ const Settings = () => {
           <SettingsBox
             color="primary"
             label="כיתה ובית ספר"
-            value={`${'ז1,'} ${schoolName}`}
+            value={`${userClassName}, ${schoolName}`}
             onClick={() => {
               setClassId()
               setStudyGroups([])

@@ -12,6 +12,7 @@ export interface IStorageValues extends IScheduleSettings {
   school: string
   schoolName: string
   classId: string
+  userClassName: string
   theme: ThemePreference
   updateTime: UpdateTimePreference
   teacherSearchHistory: Set<string>
@@ -22,6 +23,7 @@ export interface IStorage {
   setSchool(newValue?: string): void
   setSchoolName(newValue?: string): void
   setClassId(newValue?: string): void
+  setUserClassName(newValue?: string): void
   setTheme(newValue?: ThemePreference): void
   setUpdateTime(newValue?: UpdateTimePreference): void
   setOthersChangesPreference(newValue?: boolean): void

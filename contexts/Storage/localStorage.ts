@@ -4,7 +4,6 @@ import {
   createLocalStorageState,
   ILocalStorageHandler,
 } from '../../hooks/useLocalStorageState'
-import { IStudyGroup } from '../../interfaces'
 import {
   ThemePreference,
   THEME_OPTIONS,
@@ -22,11 +21,17 @@ const defaultHandler: ILocalStorageHandler<string> = {
 }
 
 export const useSchoolState = createLocalStorageState('school', defaultHandler)
+
 export const useSchoolName = createLocalStorageState(
   'schoolName',
   defaultHandler
 )
 export const useClassId = createLocalStorageState('classId', defaultHandler)
+
+export const useUserClassName = createLocalStorageState(
+  'userClassName',
+  defaultHandler
+)
 
 export const useOthersChanges = createLocalStorageState<boolean>(
   'showOthersChanges',
