@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { ILocalStorageHandler } from './useLocalStorageState'
+import { eventName, ILocalStorageHandler } from './useLocalStorageState'
 import { getCookie, setCookies } from 'cookies-next'
 
 export default function createCookieState<T>(
@@ -18,9 +18,9 @@ export default function createCookieState<T>(
     }, [value])
 
     useEffect(() => {
-      window.addEventListener('beforeunload', save)
+      window.addEventListener(eventName, save)
       return () => {
-        window.removeEventListener('beforeunload', save)
+        window.removeEventListener(eventName, save)
       }
     }, [save])
 
