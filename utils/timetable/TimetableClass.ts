@@ -43,9 +43,18 @@ export class Timetable implements ITimetable<ILesson> {
    */
   constructor(existing: ILesson[][], showOthersChanges: boolean)
 
+  /**
+   * Creates a timetable object with given settings and existing lessons
+   * @param existing the lessons to put in the timetable
+   * @param settings the schedule settings object, determining which lesson of multiple will be used
+   */
+  constructor(existing: ILesson[][], settings: IScheduleSettings)
+
   constructor(...args: unknown[]) {
-    const [arg, showOthersChanges] = args
-    if (!arg || (showOthersChanges && typeof showOthersChanges != 'boolean'))
+    const [arg, settings] = args
+    if (
+      !arg /* || (showOthersChanges && typeof showOthersChanges != 'boolean')*/
+    )
       throw new Error('Invalid values in constructor')
     else if (isSettingsObj(arg)) {
       // initialize array
@@ -60,7 +69,7 @@ export class Timetable implements ITimetable<ILesson> {
       (arg as unknown[][]).some((day) => day.some((hour) => isILessonObj(hour)))
     ) {
       this.lessons = arg as ILesson[][]
-      this.settings = { showOthersChanges: showOthersChanges as boolean }
+      this.settings = settings as IScheduleSettings
     } else throw new Error('Invalid values in constructor')
   }
 

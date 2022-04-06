@@ -27,7 +27,7 @@ export interface IUpdateableTimetable {
 export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
   const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
-  const { showOthersChanges } = useStorage()
+  const { studyGroups, studyGroupMap, showOthersChanges } = useStorage()
   const updates = useUpdates()
 
   // update timetable immedietly if overriden by server
@@ -41,7 +41,11 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
   const applyUpdates = useCallback(() => {
     const { newChanges, newOtherChanges, newEvents } = updates.data
     if (lessonMatrix.length && !updates.isLoading) {
-      const timetable = new Timetable(lessonMatrix, showOthersChanges)
+      const timetable = new Timetable(lessonMatrix, {
+        studyGroups: studyGroups,
+        studyGroupMap: studyGroupMap,
+        showOthersChanges: showOthersChanges,
+      })
       if (newChanges || newOtherChanges || newEvents)
         timetable.applyExistingChanges([
           ...newChanges,
