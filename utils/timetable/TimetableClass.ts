@@ -14,7 +14,7 @@ import {
   IStudyGroupIscool,
   ITimetable,
 } from '../../interfaces'
-import { ISCOOL } from '..'
+import { ISCOOL, QueryParamsSettings } from '..'
 import { initMatrix } from '..'
 import { isMatrix } from '../data/arrays'
 import { isPickableHour } from './pickableHour'
@@ -131,8 +131,13 @@ export class Timetable implements ITimetable<ILesson> {
    * @param changes the changes as given from ISCOOL
    * @returns new changes
    */
-  public static newChanges(lastUserUpdate: Date, changes: IChangeIscool[]) {
+  public static newChanges(
+    lastUserUpdate: Date,
+    changes: IChangeIscool[],
+    settings: QueryParamsSettings
+  ) {
     let newChanges: IChange[] = []
+    let newOtherChanges: IChange[] = []
     let newEvents: IChange[] = []
 
     //collect changes
@@ -148,10 +153,22 @@ export class Timetable implements ITimetable<ILesson> {
         continue
       }
 
+      if (
+        settings.showOthersChanges ||
+        // change belongs to one of user's study group but in another hour
+        (settings as IScheduleSettings).studyGroups.some(
+          (studyGroup) =>
+            studyGroup[0] === change.StudyGroup.Subject &&
+            studyGroup[1] === change.StudyGroup.Teacher
+        )
+      ) {
+        newOtherChanges.push(ISCOOL.toChange(change))
+      }
+
       newChanges.push(ISCOOL.toChange(change))
     }
 
-    return { newChanges, newEvents }
+    return { newChanges, newOtherChanges, newEvents }
   }
 
   public applyExistingChanges(changes: IChange[]) {
