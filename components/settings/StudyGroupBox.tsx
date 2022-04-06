@@ -10,7 +10,7 @@ export default function StudyGroupBox({
 }) {
   const BASE_URL = '/settings/studyGroup'
   return (
-    <ShadowedWrapper className="rounded-xl overflow-y-scroll">
+    <ShadowedWrapper className="rounded-xl">
       {studyGroups.map((studyGroup, index) => (
         <div
           className="flex justify-between items-center border-t-2 first:border-0 py-2 px-5 border-uiPrimary-300 cursor-pointer"

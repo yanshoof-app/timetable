@@ -48,7 +48,7 @@ const Settings = () => {
     <Layout title="הגדרות" className="flex flex-col justify-start p-4">
       <Navbar />
       <h1 className="font-bold text-4xl">הגדרות</h1>
-      <div className="flex flex-col gap-4 py-4 overflow-hidden">
+      <div className="flex flex-col gap-4 py-4 overflow-y-scroll">
         <div className="p-2 grid grid-cols-2 gap-8">
           <SettingsBox
             color="primary"
@@ -79,9 +79,9 @@ const Settings = () => {
             onClick={() => setOthersChangesPreference()}
           />
         </div>
-        <div className="flex flex-col gap-2 overflow-hidden">
+        <div className="flex flex-col gap-2">
           <h1 className="font-bold text-2xl">קבוצות לימוד</h1>
-          <div className="flex flex-col px-2 pt-2 pb-8 gap-3 overflow-hidden">
+          <div className="flex flex-col px-2 pt-2 pb-8 gap-3">
             {studyGroups && <StudyGroupBox studyGroups={studyGroups} />}
             <AdvancedEditingLink className="w-fit" />
           </div>
