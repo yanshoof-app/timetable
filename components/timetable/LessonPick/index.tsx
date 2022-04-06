@@ -62,7 +62,10 @@ export default function LessonPick({
         }
       } else {
         // single hour
-        if (studyGroupMap.get(`${day},${hour}`) == -1)
+        if (
+          studyGroupMap.get(`${day},${hour}`) == -1 &&
+          timetable[day][displayHour].length == 1
+        )
           // was window
           removeScheduleSetting({ lesson, day: day, hour: hour as HourOfDay })
         else
