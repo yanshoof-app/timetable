@@ -68,10 +68,6 @@ export default function TimetableProvider({ children }: Wrapper) {
       setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
       if (!isEditing) removeProblem(day, hour)
       updateableTimetable.applyLesson(day, hour, lesson)
-
-      async function clearSgs() {
-        clearUnusedStudyGroups()
-      }
     },
     [
       setStudyGroupMap,
@@ -121,6 +117,8 @@ export default function TimetableProvider({ children }: Wrapper) {
     updateableTimetable.setProblems,
     updateableTimetable.problems,
   ])
+
+  useEffect(() => clearUnusedStudyGroups(), [studyGroupMap])
 
   return (
     <TimetableContext.Provider
