@@ -110,8 +110,10 @@ export default function LessonPick({
         ref={ref}
       >
         <p className="font-hour font-bold text-[24px] text-gray-500">
-          {isMultipleHour && (hour as HourOfDay[]).length
-            ? (hour as HourOfDay[]).join('-')
+          {isMultipleHour && (hour as HourOfDay[]).length > 1
+            ? `${(hour as HourOfDay[])[0]}-${
+                (hour as HourOfDay[])[(hour as HourOfDay[]).length - 1]
+              }`
             : displayHour}
         </p>
         <div
