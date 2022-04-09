@@ -8,12 +8,19 @@ import TimetableSkeleton from './TimetableSkeleton'
 import Timetable from './Timetable'
 import { useTimetable } from '../../contexts/Timetable'
 import Layout from '../Layout'
+import { useStorage } from '../../contexts/Storage'
 
 export default function TimetableInit() {
   const { timetable } = useFullTimetable()
   const days = useEditableDays(timetable)
   const { currentItem: currentDay, ...gestures } = useIteration(days)
   const { clearProblems } = useTimetable()
+  const { setClassId } = useStorage()
+
+  const onPrevClick = useCallback(() => {
+    if (gestures.prevDisabled) setClassId(undefined)
+    else gestures.prev()
+  }, [gestures, setClassId])
 
   const onNextClick = useCallback(() => {
     if (gestures.nextDisabled) clearProblems()
@@ -36,12 +43,7 @@ export default function TimetableInit() {
         )}
       </div>
       <div className="flex justify-between w-full p-0">
-        <Button
-          disabled={gestures.prevDisabled}
-          onClick={gestures.prev}
-          className="mx-0 w-24"
-          variant="secondary"
-        >
+        <Button onClick={onPrevClick} className="mx-0 w-24" variant="secondary">
           הקודם
         </Button>
         <Button onClick={onNextClick} className="mx-0 w-24">
