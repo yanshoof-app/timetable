@@ -21,7 +21,7 @@ export interface IUpdateableTimetable {
   problems: [DayOfWeek, HourOfDay][]
   setProblems: Dispatch<SetStateAction<[DayOfWeek, HourOfDay][]>>
   refetchUpdates(): unknown
-  applyLesson(day: DayOfWeek, hour: HourOfDay, lesson: ILesson): unknown
+  applyLesson(day: DayOfWeek, hour: HourOfDay[], lesson: ILesson): unknown
 }
 
 export function useUpdateableTimetable(): IUpdateableTimetable {
@@ -66,10 +66,10 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
   )
 
   const applyLesson = useCallback(
-    (day: DayOfWeek, hour: HourOfDay, lesson: ILesson) => {
+    (day: DayOfWeek, hour: HourOfDay[], lesson: ILesson) => {
       setLessonMatrix((prev) => {
         let lessons = [...prev]
-        lessons[day][hour] = lesson
+        for (let h of hour) lessons[day][h] = lesson
         return lessons
       })
     },

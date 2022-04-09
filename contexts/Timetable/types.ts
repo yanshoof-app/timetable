@@ -3,7 +3,7 @@ import { IUpdateableTimetable } from './useUpdateableTimetable'
 
 export interface IAppendSetting {
   day: DayOfWeek
-  hour: HourOfDay
+  hour: HourOfDay[]
   lesson: ILesson
 }
 

@@ -34,7 +34,10 @@ export default function LessonPick({
     () => problems && problems.some(([d, h]) => d == day && h == displayHour),
     [problems, day, hour]
   )
-  const isWindow = studyGroupMap.get(`${day},${displayHour}`) == -1
+  const isWindow = useMemo(
+    () => studyGroupMap.get(`${day},${displayHour}`) == -1,
+    [studyGroupMap, day, displayHour]
+  )
 
   useDidUpdateEffect(() => {
     setOpen(false)
@@ -53,20 +56,26 @@ export default function LessonPick({
   const applyLessonPick = useCallback(
     (lesson: ILesson) => {
       if (isMultipleHour) {
-        for (let currentHour of hour as HourOfDay[]) {
-          appendScheduleSetting({ lesson, day, hour: currentHour }, editable)
-        }
+        appendScheduleSetting(
+          { lesson, day, hour: hour as HourOfDay[] },
+          editable
+        )
       } else {
         // single hour
-        if (
-          studyGroupMap.get(`${day},${hour}`) == -1 &&
-          timetable[day][displayHour].length == 1
-        )
+        if (isWindow && timetable[day][displayHour].length == 1)
           // was window
-          removeScheduleSetting({ lesson, day: day, hour: hour as HourOfDay })
+          /*
+           * NOTE: The case of removal of multiple hours is not handled,
+           * but is not supported in the current version of the app.
+           */
+          removeScheduleSetting({
+            lesson,
+            day: day,
+            hour: [hour] as HourOfDay[],
+          })
         else
           appendScheduleSetting(
-            { lesson, day, hour: hour as HourOfDay },
+            { lesson, day, hour: [hour] as HourOfDay[] },
             editable
           )
         const now = new Date()
@@ -74,7 +83,7 @@ export default function LessonPick({
         setLastUserUpdate(sunday)
       }
     },
-    [appendScheduleSetting, isMultipleHour, day, hour, editable]
+    [appendScheduleSetting, isMultipleHour, day, hour, editable, isWindow]
   )
 
   useEffect(() => {
