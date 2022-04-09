@@ -19,6 +19,7 @@ import {
   useUpdateTimePreference,
 } from './localStorage'
 import { IStorageContext } from './types'
+import { useClearUnusedStudyGroups } from './utils'
 
 export const StorageContext = createContext<IStorageContext>(
   {} as IStorageContext
@@ -40,6 +41,13 @@ export default function StorageProvider({ children }: Wrapper) {
   const [teacherSearchHistory, setTeacherSearchHistory] =
     useTeacherSearchHistory()
   const isClient = useClientRender()
+
+  useClearUnusedStudyGroups({
+    studyGroupMap,
+    studyGroups,
+    setStudyGroupMap,
+    setStudyGroups,
+  } as IStorageContext)
 
   if (!isClient) return <TimetableLoadingScreen />
 

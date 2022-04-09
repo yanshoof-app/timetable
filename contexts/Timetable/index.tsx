@@ -5,6 +5,7 @@ import { useStorage } from '../Storage'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
 import { IAppendSetting, ITimetableContext } from './types'
 import { useUpdateableTimetable } from './useUpdateableTimetable'
+import { useRemoveProblem } from './utils'
 
 export const TimetableContext = createContext({} as ITimetableContext)
 
@@ -25,37 +26,7 @@ export default function TimetableProvider({ children }: Wrapper) {
   const { studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap } =
     useStorage()
 
-  const removeProblem = useCallback(
-    (day: DayOfWeek, hour: HourOfDay) => {
-      updateableTimetable.setProblems((prev) =>
-        prev.filter(([d, h]) => d != day || h != hour)
-      )
-    },
-    [updateableTimetable.setProblems]
-  )
-
-  const clearUnusedStudyGroups = useCallback(() => {
-    const studyGroupMapValues = [...studyGroupMap.values()]
-    for (let i = 0; i < studyGroups.length; i++) {
-      //detect unused study group
-      if (studyGroupMapValues.includes(i)) continue
-
-      //remove the unused study group
-      setStudyGroups((prev) => {
-        prev.splice(i, 1)
-        return prev
-      })
-
-      //updates indexes in studyGroupMap
-      setStudyGroupMap((prev) => {
-        const map = new Map(prev)
-        for (let key of map.keys()) {
-          if (map.get(key) > i) map.set(key, map.get(key) - 1)
-        }
-        return map
-      })
-    }
-  }, [studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap])
+  const removeProblem = useRemoveProblem(updateableTimetable)
 
   const applyLesson = useCallback(
     (
@@ -69,12 +40,7 @@ export default function TimetableProvider({ children }: Wrapper) {
       if (!isEditing) removeProblem(day, hour)
       updateableTimetable.applyLesson(day, hour, lesson)
     },
-    [
-      setStudyGroupMap,
-      removeProblem,
-      updateableTimetable.applyLesson,
-      clearUnusedStudyGroups,
-    ]
+    [setStudyGroupMap, removeProblem, updateableTimetable.applyLesson]
   )
 
   const appendScheduleSetting = useCallback(
@@ -118,19 +84,14 @@ export default function TimetableProvider({ children }: Wrapper) {
     updateableTimetable.problems,
   ])
 
-  useEffect(() => clearUnusedStudyGroups(), [studyGroupMap])
-
   return (
     <TimetableContext.Provider
-      value={
-        {
-          ...updateableTimetable,
-          appendScheduleSetting,
-          removeScheduleSetting,
-          clearProblems,
-          clearUnusedStudyGroups,
-        } as ITimetableContext
-      }
+      value={{
+        ...updateableTimetable,
+        appendScheduleSetting,
+        removeScheduleSetting,
+        clearProblems,
+      }}
     >
       {children}
     </TimetableContext.Provider>

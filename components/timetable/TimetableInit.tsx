@@ -32,7 +32,7 @@ export default function TimetableInit() {
         {timetable.length ? (
           <Timetable day={currentDay} timetable={timetable} />
         ) : (
-          <TimetableSkeleton></TimetableSkeleton>
+          <TimetableSkeleton />
         )}
       </div>
       <div className="flex justify-between w-full p-0">
