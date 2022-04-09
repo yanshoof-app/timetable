@@ -14,9 +14,10 @@ export function useRemoveProblems(updateableTimetable: IUpdateableTimetable) {
 }
 
 export function useApplyLessons(
-  setStudyGroupMap: Dispatch<SetStateAction<Map<string, number>>>,
   removeProblems: (day: DayOfWeek, hours: HourOfDay[]) => unknown,
-  updateableTimetable: IUpdateableTimetable
+  updateableTimetable: IUpdateableTimetable,
+  setStudyGroupMap: Dispatch<SetStateAction<Map<string, number>>>,
+  setLastUpdateTime: Dispatch<SetStateAction<Date>>
 ) {
   return useCallback(
     (
@@ -32,7 +33,13 @@ export function useApplyLessons(
       })
       if (!isEditing) removeProblems(day, hour)
       updateableTimetable.applyLesson(day, hour, lesson)
+      setLastUpdateTime(undefined)
     },
-    [setStudyGroupMap, removeProblems, updateableTimetable.applyLesson]
+    [
+      setStudyGroupMap,
+      removeProblems,
+      updateableTimetable.applyLesson,
+      setLastUpdateTime,
+    ]
   )
 }

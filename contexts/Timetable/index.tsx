@@ -23,13 +23,19 @@ export const useTimetable = createUseContextHook(TimetableContext)
 
 export default function TimetableProvider({ children }: Wrapper) {
   const updateableTimetable = useUpdateableTimetable()
-  const { studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap } =
-    useStorage()
+  const {
+    studyGroups,
+    studyGroupMap,
+    setStudyGroups,
+    setStudyGroupMap,
+    setLastUserUpdate,
+  } = useStorage()
   const removeProblems = useRemoveProblems(updateableTimetable)
   const applyLessons = useApplyLessons(
-    setStudyGroupMap,
     removeProblems,
-    updateableTimetable
+    updateableTimetable,
+    setStudyGroupMap,
+    setLastUserUpdate
   )
 
   const appendScheduleSetting = useCallback(

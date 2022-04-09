@@ -21,7 +21,7 @@ export default function LessonPick({
   editable = false,
 }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
-  const { studyGroupMap, setLastUserUpdate } = useStorage()
+  const { studyGroupMap } = useStorage()
   const { lessons, appendScheduleSetting, removeScheduleSetting, problems } =
     useTimetable()
   const { timetable } = useFullTimetable()
@@ -78,9 +78,6 @@ export default function LessonPick({
             { lesson, day, hour: [hour] as HourOfDay[] },
             editable
           )
-        const now = new Date()
-        const sunday = new Date(now.setDate(now.getDate() - now.getDay())) //Sunday of this week
-        setLastUserUpdate(sunday)
       }
     },
     [appendScheduleSetting, isMultipleHour, day, hour, editable, isWindow]

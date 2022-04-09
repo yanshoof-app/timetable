@@ -34,14 +34,15 @@ export default function useUpdates() {
 
   // fetch exactly once each render
   const fetchUpdates = useCallback(() => {
-    const settings = QueryParamsSettings.toQueryParams({
+    let settings = QueryParamsSettings.toQueryParams({
       showOthersChanges,
       studyGroupMap,
       studyGroups,
       school,
       classId,
-      lastUserUpdate: lastUserUpdate.toISOString(),
     })
+    if (lastUserUpdate)
+      settings['lastUserUpdate'] = lastUserUpdate.toISOString()
     doFetch(settings)
   }, [
     doFetch,

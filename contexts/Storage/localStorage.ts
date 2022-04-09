@@ -91,7 +91,7 @@ export const useStudyGroupMap = createLocalStorageState<Map<string, number>>(
 export const useLastUserUpdate = createLocalStorageState<Date>(
   'lastUserUpdate',
   {
-    decode: (str?: string) => (str ? new Date(str) : new Date(0)),
+    decode: (str?: string) => (str ? new Date(str) : undefined),
     toStorable: (value: Date) => value.toISOString(),
   }
 )
