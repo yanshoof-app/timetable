@@ -5,7 +5,7 @@ import { useStorage } from '../Storage'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
 import { IAppendSetting, ITimetableContext } from './types'
 import { useUpdateableTimetable } from './useUpdateableTimetable'
-import { useRemoveProblem } from './utils'
+import { useRemoveProblems } from './utils'
 
 export const TimetableContext = createContext({} as ITimetableContext)
 
@@ -26,7 +26,7 @@ export default function TimetableProvider({ children }: Wrapper) {
   const { studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap } =
     useStorage()
 
-  const removeProblem = useRemoveProblem(updateableTimetable)
+  const removeProblems = useRemoveProblems(updateableTimetable)
 
   const applyLesson = useCallback(
     (
@@ -37,10 +37,10 @@ export default function TimetableProvider({ children }: Wrapper) {
       indexOfSg: number
     ) => {
       setStudyGroupMap((prev) => new Map(prev.set(`${day},${hour}`, indexOfSg)))
-      if (!isEditing) removeProblem(day, hour)
+      if (!isEditing) removeProblems(day, [hour])
       updateableTimetable.applyLesson(day, hour, lesson)
     },
-    [setStudyGroupMap, removeProblem, updateableTimetable.applyLesson]
+    [setStudyGroupMap, removeProblems, updateableTimetable.applyLesson]
   )
 
   const appendScheduleSetting = useCallback(

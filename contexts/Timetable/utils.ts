@@ -1,17 +1,20 @@
-import { useCallback } from 'react'
+import { Dispatch, SetStateAction, useCallback } from 'react'
 import { DayOfWeek, HourOfDay } from '../../interfaces'
-import { useStorage } from '../Storage'
-import { IStorageContext } from '../Storage/types'
 import { IUpdateableTimetable } from './useUpdateableTimetable'
 
-export function useRemoveProblem(updateableTimetable: IUpdateableTimetable) {
+export function useRemoveProblems(updateableTimetable: IUpdateableTimetable) {
   return useCallback(
-    (day: DayOfWeek, hour: HourOfDay) => {
+    (day: DayOfWeek, hours: HourOfDay[]) => {
       updateableTimetable.setProblems((prev) =>
-        prev.filter(([d, h]) => d != day || h != hour)
+        prev.filter(([d, h]) => d != day || hours.every((hour) => hour != h))
       )
     },
     [updateableTimetable.setProblems]
   )
 }
 
+export function useApplyLessons(
+  setStudyGroupMap: Dispatch<SetStateAction<Map<string, number>>>,
+  removeProblems: (day: DayOfWeek, hours: HourOfDay[]) => unknown,
+  updateableTimetable: IUpdateableTimetable
+) {}
