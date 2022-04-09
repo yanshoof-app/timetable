@@ -25,7 +25,6 @@ export default function TimetableProvider({ children }: Wrapper) {
   const updateableTimetable = useUpdateableTimetable()
   const { studyGroups, studyGroupMap, setStudyGroups, setStudyGroupMap } =
     useStorage()
-
   const removeProblems = useRemoveProblems(updateableTimetable)
   const applyLessons = useApplyLessons(
     setStudyGroupMap,

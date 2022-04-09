@@ -4,6 +4,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
@@ -27,6 +28,7 @@ export interface IUpdateableTimetable {
 export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
   const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
+  const needsRefreshRef = useRef(false)
   const { studyGroups, studyGroupMap, showOthersChanges } = useStorage()
   const updates = useUpdates()
 
@@ -35,7 +37,16 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     const { overrideTimetable, problems } = updates.data
     if (overrideTimetable) setLessonMatrix(overrideTimetable)
     setProblems(problems)
+    if (problems && problems.length > 0) needsRefreshRef.current = true
   }, [setLessonMatrix, updates.data])
+
+  // refetch timetable once problems are eliminated
+  useEffect(() => {
+    if (needsRefreshRef.current && problems && !problems.length) {
+      needsRefreshRef.current = false
+      updates.fetchUpdates()
+    }
+  }, [problems, updates.fetchUpdates])
 
   // use in toast
   const applyUpdates = useCallback(() => {
