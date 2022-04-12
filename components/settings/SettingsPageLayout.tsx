@@ -8,32 +8,32 @@ export interface ISettingsPageLayoutProps
   extends Required<ISettingsPageProps>,
     Wrapper {
   title: string
-  showPageTitle: boolean
+  hidePageTitle?: boolean
+  centerContent?: boolean
   className?: string
 }
 
 export default function SettingsPageLayout({
   onBackPress,
   title,
-  showPageTitle,
+  centerContent = false,
+  hidePageTitle = false,
   children,
   className = '',
 }: ISettingsPageLayoutProps) {
   return (
     <Layout
       title={title}
-      className={`px-4 flex flex-col items-center ${
-        showPageTitle ? 'justify-between' : 'justify-center'
-      }`}
+      className={`px-4 ${centerContent ? 'flex flex-col justify-between' : ''}`}
     >
-      {showPageTitle && (
+      {onBackPress && !hidePageTitle && (
         <PageTitle
-          title="בחירת כיתה"
+          title={title}
           startIcon={BackRTL}
           onStartIconClick={onBackPress}
         />
       )}
-      <div className={`${showPageTitle ? 'mb-[40vh]' : '0'} ${className}`}>
+      <div className={`${centerContent ? 'mb-[40vh]' : '0'} ${className}`}>
         {children}
       </div>
     </Layout>
