@@ -1,25 +1,9 @@
-import Button from '../components/forms/Button'
 import Layout from '../components/Layout'
 import DayDateView from '../components/ui/DayDateView'
-import ShadowedWrapper from '../components/ui/ShadowedWrapper'
-import {
-  DayOfWeek,
-  HourOfDay,
-  isILessonObj,
-  LessonModification,
-} from '../interfaces'
+import { isILessonObj } from '../interfaces'
 import Timetable from '../components/timetable/Timetable'
-import { timetable_example } from '../timetable_sample'
-import DropdownPick from '../components/forms/DropdownPick'
-import { useMemo, useState } from 'react'
-import Toast from '../components/ui/Toast/Toast'
-import PageTitle from '../components/ui/PageTitle'
+import { useState } from 'react'
 import DayPick from '../components/forms/DayPick'
-import Input from '../components/forms/Input'
-import { Calendar, Done } from '../components/icons'
-import RadioButton from '../components/forms/RadioButton'
-import AdvancedEditingLink from '../components/settings/AdvancedEditingLink'
-import NavLink from '../components/ui/Navbar/NavLink'
 import useCurrentDay from '../hooks/useCurrentDay'
 import useDate from '../hooks/useDate'
 import TimetableUpdatesToast from '../components/ui/Toast'
@@ -54,7 +38,7 @@ const IndexPage = () => {
         timetable={lessons}
       />
       <TimetableUpdatesToast />
-      <Navbar></Navbar>
+      <Navbar />
     </Layout>
   )
 }

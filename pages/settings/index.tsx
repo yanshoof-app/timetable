@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import Layout from '../../components/Layout'
-import AdvancedEditingLink from '../../components/settings/AdvancedEditingLink'
+import AdvancedEditingLink from '../../components/settings/screen/AdvancedEditingLink'
 import SettingsBox from '../../components/settings/screen/SettingsBox'
-import StudyGroupBox from '../../components/settings/StudyGroupBox'
+import StudyGroupBox from '../../components/settings/screen/StudyGroupBox'
 import Navbar from '../../components/ui/Navbar'
 import { useStorage } from '../../contexts/Storage'
 

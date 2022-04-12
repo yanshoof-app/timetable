@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { IStudyGroup } from '../../interfaces'
-import { ForwardRTL } from '../icons'
-import ShadowedWrapper from '../ui/ShadowedWrapper'
+import { IStudyGroup } from '../../../interfaces'
+import { ForwardRTL } from '../../icons'
+import ShadowedWrapper from '../../ui/ShadowedWrapper'
 
 export default function StudyGroupBox({
   studyGroups,

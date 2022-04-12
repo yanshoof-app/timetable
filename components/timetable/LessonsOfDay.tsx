@@ -2,8 +2,8 @@ import { useFullTimetable } from '../../contexts/FullTimetable'
 import { HEBREW_DAYS } from '../../hooks/useHebrewDate'
 import useRanges from '../../hooks/useRanges'
 import { DayOfWeek, HourOfDay, LessonOrMultiple } from '../../interfaces'
-import { SkeletonLesson } from '../timetable/Lesson/Skeleton'
-import LessonPick from '../timetable/LessonPick'
+import { SkeletonLesson } from './Lesson/Skeleton'
+import LessonPick from './LessonPick'
 
 export interface LessonsOfDayProps {
   day: DayOfWeek
