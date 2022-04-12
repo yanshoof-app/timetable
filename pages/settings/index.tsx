@@ -56,11 +56,7 @@ const Settings = () => {
             color="primary"
             label="כיתה ובית ספר"
             value={`${userClassName}, ${schoolName}`}
-            onClick={() => {
-              setClassId()
-              setStudyGroups([])
-              setStudyGroupMap(new Map())
-            }}
+            onClick={() => push('/settings/class')}
           />
           <SettingsBox
             color="celebration"

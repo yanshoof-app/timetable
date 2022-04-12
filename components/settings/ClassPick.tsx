@@ -4,21 +4,29 @@ import { useClasses } from '../../hooks/useClasses'
 import { ClassLookup } from '../../utils'
 import Button from '../forms/Button'
 import DropdownPick from '../forms/DropdownPick'
-import { Edit } from '../icons'
+import { BackRTL, Edit } from '../icons'
 import Layout from '../Layout'
 import LoadingScreen from '../ui/LoadingScreens'
+import PageTitle from '../ui/PageTitle'
+import { SettingsPageProps } from './types'
 
-export default function ClassPick() {
+export interface IClassPickProps extends SettingsPageProps {
+  onSchoolEditPress?(): void
+}
+
+export default function ClassPick({
+  onBackPress,
+  onSchoolEditPress,
+}: IClassPickProps) {
   const {
     school,
     schoolName,
     classId,
-    userClassName,
     setSchool,
     setClassId,
     setUserClassName,
   } = useStorage()
-  const { classes, grades, isLoading } = useClasses(school)
+  const { classes, grades } = useClasses(school)
   const [grade, setGrade] = useState(0)
   const [tempClassId, setTempClassId] = useState(classId)
   const [tempUserClassName, setTempUserClassName] = useState('')
@@ -36,43 +44,66 @@ export default function ClassPick() {
     [grades]
   )
 
-  return classes[0] ? (
-    <Layout className="flex flex-col justify-center items-center gap-5">
-      <div className="flex flex-col gap-2 justify-center items-center">
-        <div className="flex justify-center items-center gap-1">
-          <p className="font-bold text-4xl">{schoolName}</p>
-          <button onClick={() => setSchool('')}>
-            <Edit width={24} height={24}></Edit>
-          </button>
-        </div>
-        <p className="font-bold text-2xl">באיזו כיתה אתם לומדים?</p>
-      </div>
-      <div className="flex gap-4 justify-center">
-        <DropdownPick
-          options={gradesArray}
-          onChange={(selectedGrade) => {
-            setGrade(selectedGrade)
-          }}
-        ></DropdownPick>
-        <DropdownPick
-          options={classesIds}
-          onChange={(selectedClassId) => {
-            setTempClassId(classes[grade][selectedClassId].toString())
-            setTempUserClassName(`${gradesArray[grade]}${selectedClassId + 1}`)
-          }}
-        ></DropdownPick>
-        <Button
-          className="w-20 my-0 mx-0"
-          onClick={() => {
+  return (
+    <Layout className="px-4 flex flex-col justify-between" title="בחירת כיתה">
+      {onBackPress && (
+        <PageTitle
+          title="בחירת כיתה"
+          startIcon={BackRTL}
+          onStartIconClick={() => {
             setClassId(tempClassId)
             setUserClassName(tempUserClassName)
+            onBackPress()
           }}
-        >
-          הבא
-        </Button>
-      </div>
+        />
+      )}
+      {classes[0] ? (
+        <div className="flex flex-col justify-center items-center gap-5 mb-[40vh]">
+          <div className="flex flex-col gap-2 justify-center items-center">
+            <div className="flex justify-center items-center gap-1">
+              <p className="font-bold text-4xl">{schoolName}</p>
+              <button
+                onClick={() =>
+                  onSchoolEditPress ? onSchoolEditPress() : setSchool()
+                }
+              >
+                <Edit width={24} height={24}></Edit>
+              </button>
+            </div>
+            <p className="font-bold text-2xl">באיזו כיתה אתם לומדים?</p>
+          </div>
+          <div className="flex gap-4 justify-center">
+            <DropdownPick
+              options={gradesArray}
+              onChange={(selectedGrade) => {
+                setGrade(selectedGrade)
+              }}
+            />
+            <DropdownPick
+              options={classesIds}
+              onChange={(selectedClassId) => {
+                setTempClassId(classes[grade][selectedClassId].toString())
+                setTempUserClassName(
+                  `${gradesArray[grade]}${selectedClassId + 1}`
+                )
+              }}
+            />
+            {!onBackPress && (
+              <Button
+                className="w-20 my-0 mx-0"
+                onClick={() => {
+                  setClassId(tempClassId)
+                  setUserClassName(tempUserClassName)
+                }}
+              >
+                הבא
+              </Button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <LoadingScreen label="כיתות" />
+      )}
     </Layout>
-  ) : (
-    <LoadingScreen label="כיתות" />
   )
 }
