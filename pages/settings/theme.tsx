@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import RadioButton from '../../components/forms/RadioButton'
 import ThemeModeExample from '../../components/settings/examples/ThemeModeExample'
-import SettingsPageLayout from '../../components/settings/SettingsPageLayout'
+import SettingsPageLayout from '../../components/settings/layout/SettingsPageLayout'
 import { useStorage } from '../../contexts/Storage'
 import useBackPress from '../../hooks/useBackPress'
 

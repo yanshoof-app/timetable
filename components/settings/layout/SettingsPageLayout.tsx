@@ -1,12 +1,10 @@
-import { BackRTL } from '../icons'
-import Layout from '../Layout'
-import { Wrapper } from '../types'
-import PageTitle from '../ui/PageTitle'
-import { ISettingsPageProps } from './types'
+import { BackRTL } from '../../icons'
+import Layout from '../../Layout'
+import { Wrapper } from '../../types'
+import PageTitle from '../../ui/PageTitle'
 
-export interface ISettingsPageLayoutProps
-  extends Required<ISettingsPageProps>,
-    Wrapper {
+export interface ISettingsPageLayoutProps extends Wrapper {
+  onBackPress?(): void
   title: string
   hidePageTitle?: boolean
   centerContent?: boolean
@@ -33,7 +31,7 @@ export default function SettingsPageLayout({
           onStartIconClick={onBackPress}
         />
       )}
-      <div className={`${centerContent ? 'mb-[40vh]' : '0'} ${className}`}>
+      <div className={`${centerContent ? 'mb-[40vh]' : ''} ${className}`}>
         {children}
       </div>
     </Layout>

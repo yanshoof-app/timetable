@@ -1,10 +1,21 @@
-import { useState } from 'react'
-import RadioButton from '../../components/forms/RadioButton'
-import OthersChangesExample from '../../components/settings/examples/OthersChangesExample'
-import SettingsPageLayout from '../../components/settings/SettingsPageLayout'
-import { useStorage } from '../../contexts/Storage'
-import useBackPress from '../../hooks/useBackPress'
+import asPage from '../../components/settings/layout/asPage'
+import OthersChangesSetting from '../../components/settings/OthersChangesSetting'
 
+const OthersChangesSettingPage = asPage(
+  OthersChangesSetting,
+  { title: 'שינויים של אחרים' },
+  ({ showOthersChanges, setOthersChangesPreference }, router) => ({
+    value: showOthersChanges,
+    save: (value) => {
+      setOthersChangesPreference(value)
+      router.push('/settings')
+    },
+  })
+)
+
+export default OthersChangesSettingPage
+
+/*
 export default function OthersChangesSetting() {
   const { back } = useBackPress('/settings')
   const { setOthersChangesPreference, showOthersChanges } = useStorage()
@@ -47,3 +58,4 @@ export default function OthersChangesSetting() {
     </SettingsPageLayout>
   )
 }
+*/

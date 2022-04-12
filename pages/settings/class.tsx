@@ -1,14 +1,16 @@
-import { useRouter } from 'next/router'
-import ClassPick from '../../components/settings/ClassPick'
-import useBackPress from '../../hooks/useBackPress'
+import ClassSetting from '../../components/settings/ClassSetting'
+import asPage from '../../components/settings/layout/asPage'
 
-export default function ClassPickPage() {
-  const { back } = useBackPress('/settings')
-  const { push } = useRouter()
-  return (
-    <ClassPick
-      onBackPress={back}
-      onSchoolEditPress={() => push('/settings/school')}
-    />
-  )
-}
+const ClassSettingPage = asPage(
+  ClassSetting,
+  { title: 'בחר כיתה', centerContent: true },
+  ({ classId, setClassId, setSchool }, router) => ({
+    value: { grade: 10, classNum: 7, classId }, // TODO: Save grade and classNum
+    save: ({ grade, classNum, classId }) => {
+      setClassId(classId)
+    },
+    onSchoolEditClick: () => router.push('/settings/school'),
+  })
+)
+
+export default ClassSettingPage
