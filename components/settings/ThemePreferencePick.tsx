@@ -6,19 +6,23 @@ import { BackRTL } from '../icons'
 import Layout from '../Layout'
 import PageTitle from '../ui/PageTitle'
 import ThemeModeExample from './examples/ThemeModeExample'
+import { SettingsPageProps } from './types'
 
-export default function ThemePreferencePick() {
-  const { setTheme } = useStorage()
-  const [selectedTheme, setSelectedTheme] = useState(
-    'system' as ThemePreference
-  )
+export default function ThemePreferencePick({
+  onBackPress = () => {},
+}: SettingsPageProps) {
+  const { setTheme, theme } = useStorage()
+  const [selectedTheme, setSelectedTheme] = useState(theme)
 
   return (
-    <Layout className="px-4">
+    <Layout className="px-4" title="מראה">
       <PageTitle
         title="מראה"
         startIcon={BackRTL}
-        onStartIconClick={() => setTheme(selectedTheme)}
+        onStartIconClick={() => {
+          setTheme(selectedTheme)
+          onBackPress()
+        }}
       />
       <div className="flex flex-col gap-2">
         <div className="bg-uiPrimary-200 flex flex-row justify-between p-3 rounded-[26.4px] gap-3 select-none">

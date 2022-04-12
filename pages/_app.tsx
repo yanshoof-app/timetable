@@ -31,11 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <TimetableIsSaved orElse={FetchingTimetable}>
                 <NoProblemsInSettings orElse={TimetableInit}>
                   <UpdateTimeExists orElse={UpdateHourPick}>
-                    <ThemePreferenceExists orElse={ThemePreferencePick}>
-                      <OthersChangesPreferenceExists orElse={OthersChangesPick}>
-                        <Component {...pageProps} />
-                      </OthersChangesPreferenceExists>
-                    </ThemePreferenceExists>
+                    <Component {...pageProps} />
                   </UpdateTimeExists>
                 </NoProblemsInSettings>
               </TimetableIsSaved>

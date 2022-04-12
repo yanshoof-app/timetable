@@ -5,17 +5,24 @@ import { BackRTL } from '../icons'
 import Layout from '../Layout'
 import PageTitle from '../ui/PageTitle'
 import OthersChangesExample from './examples/OthersChangesExample'
+import { SettingsPageProps } from './types'
 
-export default function OthersChangesPick() {
-  const { setOthersChangesPreference } = useStorage()
-  const [selectedPreference, setSelectedPreference] = useState(false)
+export default function OthersChangesPick({
+  onBackPress = () => {},
+}: SettingsPageProps) {
+  const { setOthersChangesPreference, showOthersChanges } = useStorage()
+  const [selectedPreference, setSelectedPreference] =
+    useState(showOthersChanges)
 
   return (
     <Layout className="px-4">
       <PageTitle
         title="שינויים של אחרים"
         startIcon={BackRTL}
-        onStartIconClick={() => setOthersChangesPreference(selectedPreference)}
+        onStartIconClick={() => {
+          setOthersChangesPreference(selectedPreference)
+          onBackPress()
+        }}
       />
       <div className="flex flex-col gap-2">
         <div className="bg-uiPrimary-200 flex flex-row justify-between p-3 rounded-[26.4px] gap-3 select-none fk">

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import Layout from '../../components/Layout'
 import AdvancedEditingLink from '../../components/settings/AdvancedEditingLink'
 import SettingsBox from '../../components/settings/screen/SettingsBox'
@@ -43,6 +44,7 @@ const Settings = () => {
     setStudyGroups,
     setStudyGroupMap,
   } = useStorage()
+  const { push } = useRouter()
 
   return (
     <Layout title="הגדרות" className="flex flex-col justify-start p-4">
@@ -70,13 +72,13 @@ const Settings = () => {
             color="event"
             label="מראה"
             value={`${themePreferences[theme]}`}
-            onClick={() => setTheme()}
+            onClick={() => push('/settings/theme')}
           />
           <SettingsBox
             color="change"
             label="שינויים של אחרים"
             value={`${showOthersChangesText[String(showOthersChanges)]}`}
-            onClick={() => setOthersChangesPreference()}
+            onClick={() => push('/settings/changes')}
           />
         </div>
         <div className="flex flex-col gap-2">
