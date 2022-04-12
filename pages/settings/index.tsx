@@ -66,7 +66,7 @@ const Settings = () => {
             color="celebration"
             label="מערכת של מחר"
             value={`${HOURS[updateTime]}`}
-            onClick={() => setUpdateTime()}
+            onClick={() => push('/settings/updateTime')}
           />
           <SettingsBox
             color="event"
