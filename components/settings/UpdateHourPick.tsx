@@ -8,11 +8,11 @@ import DropdownPick from '../forms/DropdownPick'
 import { BackRTL, Edit } from '../icons'
 import Layout from '../Layout'
 import PageTitle from '../ui/PageTitle'
-import { SettingsPageProps } from './types'
+import { ISettingsPageProps } from './types'
 
 const MIN_HOUR = 16 //Number(Object.keys(HOURS)[0])
 
-export default function UpdateHourPick({ onBackPress }: SettingsPageProps) {
+export default function UpdateHourPick({ onBackPress }: ISettingsPageProps) {
   const { setUpdateTime, updateTime } = useStorage()
   const [selectedUpdateTimeIndex, selectUpdateTimeIndex] = useState(
     updateTime ? updateTime - MIN_HOUR : 8

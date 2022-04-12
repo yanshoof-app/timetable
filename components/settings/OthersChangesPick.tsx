@@ -5,11 +5,11 @@ import { BackRTL } from '../icons'
 import Layout from '../Layout'
 import PageTitle from '../ui/PageTitle'
 import OthersChangesExample from './examples/OthersChangesExample'
-import { SettingsPageProps } from './types'
+import { ISettingsPageProps } from './types'
 
 export default function OthersChangesPick({
   onBackPress = () => {},
-}: SettingsPageProps) {
+}: ISettingsPageProps) {
   const { setOthersChangesPreference, showOthersChanges } = useStorage()
   const [selectedPreference, setSelectedPreference] =
     useState(showOthersChanges)

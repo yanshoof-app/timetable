@@ -7,9 +7,9 @@ import { BackRTL } from '../icons'
 import Layout from '../Layout'
 import LoadingScreen from '../ui/LoadingScreens'
 import PageTitle from '../ui/PageTitle'
-import { SettingsPageProps } from './types'
+import { ISettingsPageProps } from './types'
 
-export default function SchoolPick({ onBackPress }: SettingsPageProps) {
+export default function SchoolPick({ onBackPress }: ISettingsPageProps) {
   const {
     searchQuery,
     setSearchQuery,

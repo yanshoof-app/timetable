@@ -1,3 +1,3 @@
-export interface SettingsPageProps {
+export interface ISettingsPageProps {
   onBackPress?(): void
 }

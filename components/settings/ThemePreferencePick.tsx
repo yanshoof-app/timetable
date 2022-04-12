@@ -6,11 +6,11 @@ import { BackRTL } from '../icons'
 import Layout from '../Layout'
 import PageTitle from '../ui/PageTitle'
 import ThemeModeExample from './examples/ThemeModeExample'
-import { SettingsPageProps } from './types'
+import { ISettingsPageProps } from './types'
 
 export default function ThemePreferencePick({
   onBackPress = () => {},
-}: SettingsPageProps) {
+}: ISettingsPageProps) {
   const { setTheme, theme } = useStorage()
   const [selectedTheme, setSelectedTheme] = useState(theme)
 
