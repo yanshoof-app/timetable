@@ -22,9 +22,9 @@ export default function PageTitle({
     <div
       className={`flex flex-row h-14 ${orientation} gap-2 items-center px-4`}
     >
-      <PageTitleIcon icon={startIcon} onIconClick={onStartIconClick} />
+      <PageTitleIcon icon={startIcon} onIconClick={() => onStartIconClick()} />
       <h1 className="font-bold text-lg">{title}</h1>
-      <PageTitleIcon icon={endIcon} onIconClick={onEndIconClick} />
+      <PageTitleIcon icon={endIcon} onIconClick={() => onEndIconClick()} />
     </div>
   )
 }

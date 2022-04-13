@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useStorage } from '../../contexts/Storage'
 import { useClasses } from '../../hooks/useClasses'
 import { ClassLookup } from '../../utils'
@@ -44,6 +44,38 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
     [classes, gradeIndex]
   )
 
+  const onGradeIndexChange = useCallback(
+    (idx: number) => {
+      onChange((prev) => ({
+        ...prev,
+        grade: idx + grades[0],
+        classId: classes[idx][prev.classId].toString(),
+      }))
+    },
+    [classes, grades, onChange]
+  )
+
+  const onClassNumIndexChange = useCallback(
+    (idx: number) => {
+      onChange((prev) => ({
+        ...prev,
+        classNum: idx + 1,
+        classId: classes[gradeIndex][idx].toString(),
+      }))
+    },
+    [classes, onChange, gradeIndex]
+  )
+
+  // set value as default picks if not defined
+  useEffect(() => {
+    if ((!classNum || !grade) && classes[0] && grades[0])
+      onChange({
+        grade: grades[0],
+        classNum: 1,
+        classId: classes[0][0].toString(),
+      })
+  }, [classNum, classes, grade, grades, onChange])
+
   if (!classes[0]) return <LoadingScreen label="כיתות" />
 
   return (
@@ -60,20 +92,12 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
       <div className="flex gap-4 justify-center">
         <DropdownPick
           options={gradeOptions}
-          onIndexChange={(idx) =>
-            onChange((prev) => ({ ...prev, grade: idx + grades[0] }))
-          }
+          onIndexChange={onGradeIndexChange}
           indexOfValue={gradeIndex}
         />
         <DropdownPick
           options={classNumOptions}
-          onIndexChange={(selectedIndex) =>
-            onChange((prev) => ({
-              ...prev,
-              classNum: selectedIndex + 1,
-              classId: classes[gradeIndex][selectedIndex].toString(),
-            }))
-          }
+          onIndexChange={onClassNumIndexChange}
           indexOfValue={classNum ? classNum - 1 : 0}
         />
         <Button className="w-20 my-0 mx-0" onClick={save}>

@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from 'next/router'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useStorage } from '../../../contexts/Storage'
 import { IStorageContext } from '../../../contexts/Storage/types'
 import { ISettingsComponentProps, SettingsComponent } from '../types'
@@ -26,13 +26,21 @@ function asPage<T, AdditionalProps>(
       ...additionalProps
     } = useMemo(() => propProvider(storage, router), [storage, router])
     const [selectedValue, setSelectedValue] = useState(initialValue)
+    const saveCallback = useCallback(
+      (ob?: T) => {
+        console.log(ob, selectedValue)
+        if (ob) save(ob)
+        else save(selectedValue)
+      },
+      [save, selectedValue]
+    )
     return (
-      <SettingsPageLayout {...layoutProps} onBackPress={save}>
+      <SettingsPageLayout {...layoutProps} onBackPress={saveCallback}>
         <Component
           {...(additionalProps as unknown as AdditionalProps)}
           value={selectedValue}
           onChange={setSelectedValue}
-          save={(ob) => (ob ? save(ob) : save(selectedValue))}
+          save={saveCallback}
         />
       </SettingsPageLayout>
     )
