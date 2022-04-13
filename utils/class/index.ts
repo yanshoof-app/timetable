@@ -1,6 +1,5 @@
 import { HEBREW_GRADES } from '..'
 import { IClassIscool, IClassLookup, isIscoolClass } from '../../interfaces'
-import { isArray } from '../data/arrays'
 
 /**
  * Class Lookup: a lookup object used in both frontend and backend.
@@ -22,18 +21,26 @@ export class ClassLookup implements IClassLookup {
 
   /**
    * Initialize a class lookup from existing values
-   * @param gradeMap the existing map of grade to classIds
+   * @param classes the matrix representing classIds, as given by the classIds() method
+   * @param grades the array of grades, as given by the grades() method
    * @example
-   * const classLookup = new ClassLookup(gradeMap)
+   * const classLookup = new ClassLookup(classes, grades)
    */
-  constructor(gradeMap: Map<number, number[]>)
+  constructor(classes: number[][], grades: number[])
 
   constructor(...args: unknown[]) {
-    const [classes] = args
-    if (isArray(classes) && isIscoolClass(classes[0]))
-      this.fromIscool(classes as IClassIscool[])
-    else if (classes instanceof Map) {
-      this.gradeMap = classes
+    const [classes, grades] = args
+    if (!Array.isArray(classes))
+      throw new Error('Invalid values in constructor')
+    if (isIscoolClass(classes[0])) this.fromIscool(classes as IClassIscool[])
+    else if (
+      Array.isArray(classes[0]) &&
+      Array.isArray(grades) &&
+      typeof classes[0][0] == 'number' &&
+      typeof grades[0] == 'number' &&
+      classes[0].length == grades.length
+    ) {
+      this.fromExisting(classes, grades)
     } else throw new Error('Invalid values in constructor')
   }
 
@@ -56,6 +63,18 @@ export class ClassLookup implements IClassLookup {
     classes.forEach(({ Grade, Number: classNum, Id }) =>
       this.setId(Grade, classNum, Id)
     )
+  }
+
+  /**
+   * Write existing values into object
+   * @param classes the class id matrix
+   * @param grades the grade array, assuming it has the same size as the classes 2nd dimension
+   */
+  private fromExisting(classes: number[][], grades: number[]) {
+    this.gradeMap = new Map()
+    grades.forEach((gradeNum, gradeIndex) => {
+      this.gradeMap.set(gradeNum, classes[gradeIndex])
+    })
   }
 
   /**
