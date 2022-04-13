@@ -19,11 +19,17 @@ export default function SettingsPageLayout({
   children,
   className = '',
 }: ISettingsPageLayoutProps) {
+  let layoutClassName = 'px-4'
+  let childrenDivClassName = ''
+  if (centerContent) {
+    layoutClassName += ` flex flex-col ${
+      hidePageTitle ? 'justify-center' : 'justify-between'
+    }`
+    childrenDivClassName = hidePageTitle ? '' : 'mb-[vh-40] '
+  }
+  childrenDivClassName += className
   return (
-    <Layout
-      title={title}
-      className={`px-4 ${centerContent ? 'flex flex-col justify-between' : ''}`}
-    >
+    <Layout title={title} className={layoutClassName}>
       {onBackPress && !hidePageTitle && (
         <PageTitle
           title={title}
@@ -31,9 +37,7 @@ export default function SettingsPageLayout({
           onStartIconClick={onBackPress}
         />
       )}
-      <div className={`${centerContent ? 'mb-[40vh]' : ''} ${className}`}>
-        {children}
-      </div>
+      <div className={childrenDivClassName}>{children}</div>
     </Layout>
   )
 }
