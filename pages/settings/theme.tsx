@@ -6,10 +6,8 @@ const ThemeSettingPage = asPage(
   { title: 'מראה' },
   ({ theme, setTheme }, router) => ({
     value: theme,
-    save: (value) => {
-      setTheme(value)
-      router.push('/settings')
-    },
+    save: setTheme,
+    navigateBack: () => router.push('/settings'),
   })
 )
 

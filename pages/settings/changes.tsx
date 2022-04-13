@@ -8,8 +8,8 @@ const OthersChangesSettingPage = asPage(
     value: showOthersChanges,
     save: (value) => {
       setOthersChangesPreference(value)
-      router.push('/settings')
     },
+    navigateBack: () => router.push('/settings'),
   })
 )
 

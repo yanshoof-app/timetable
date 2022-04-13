@@ -15,9 +15,9 @@ const ClassSettingPage = asPage(
       setClassId(classId)
       setGrade(grade)
       setClassNum(classNum)
-      router.push('/settings')
     },
     onSchoolEditClick: () => router.push('/settings/school'),
+    navigateBack: () => router.push('/settings'),
   })
 )
 

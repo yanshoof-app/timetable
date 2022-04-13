@@ -23,6 +23,7 @@ function asPage<T, AdditionalProps>(
     const {
       value: initialValue,
       save,
+      navigateBack = () => {},
       ...additionalProps
     } = useMemo(() => propProvider(storage, router), [storage, router])
     const [selectedValue, setSelectedValue] = useState(initialValue)
@@ -30,8 +31,9 @@ function asPage<T, AdditionalProps>(
       (ob?: T) => {
         if (ob) save(ob)
         else save(selectedValue)
+        navigateBack()
       },
-      [save, selectedValue]
+      [save, selectedValue, navigateBack]
     )
     return (
       <SettingsPageLayout {...layoutProps} onBackPress={saveCallback}>
@@ -40,6 +42,7 @@ function asPage<T, AdditionalProps>(
           value={selectedValue}
           onChange={setSelectedValue}
           save={saveCallback}
+          navigateBack={navigateBack}
         />
       </SettingsPageLayout>
     )

@@ -12,8 +12,8 @@ const SchoolSettingPage = asPage(
         setSchool(symbol.toString())
         setSchoolName(name)
       }
-      router.push('/settings/class')
     },
+    navigateBack: () => router.push('/settings/class'),
   })
 )
 
