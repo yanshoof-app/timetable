@@ -5,6 +5,7 @@ import SettingsBox from '../../components/settings/screen/SettingsBox'
 import StudyGroupBox from '../../components/settings/screen/StudyGroupBox'
 import Navbar from '../../components/ui/Navbar'
 import { useStorage } from '../../contexts/Storage'
+import { ClassLookup } from '../../utils'
 
 export const HOURS = {
   16: '16:00',
@@ -32,17 +33,12 @@ export const showOthersChangesText = {
 const Settings = () => {
   const {
     schoolName,
-    userClassName,
+    grade,
+    classNum,
     theme,
     updateTime,
     showOthersChanges,
     studyGroups,
-    setClassId,
-    setTheme,
-    setUpdateTime,
-    setOthersChangesPreference,
-    setStudyGroups,
-    setStudyGroupMap,
   } = useStorage()
   const { push } = useRouter()
 
@@ -55,7 +51,9 @@ const Settings = () => {
           <SettingsBox
             color="primary"
             label="כיתה ובית ספר"
-            value={`${userClassName}, ${schoolName}`}
+            value={`${ClassLookup.getFormattedGradeName(
+              grade
+            )}${classNum}, ${schoolName}`}
             onClick={() => push('/settings/class')}
           />
           <SettingsBox
