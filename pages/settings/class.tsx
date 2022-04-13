@@ -8,6 +8,7 @@ const ClassSettingPage = asPage(
     { classId, setClassId, grade, setGrade, classNum, setClassNum },
     router
   ) => ({
+    isEditing: true,
     value: { grade, classNum, classId },
     save: ({ grade, classNum, classId }) => {
       console.log(grade, classNum, classId)

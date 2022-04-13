@@ -5,6 +5,7 @@ const SchoolSettingPage = asPage(
   SchoolSetting,
   { title: 'בחר בית ספר', centerContent: true },
   ({ school, schoolName, setSchool, setSchoolName }, router) => ({
+    isEditing: true,
     value: { symbol: Number(school), name: schoolName },
     save: ({ symbol, name }) => {
       if (symbol && name) {

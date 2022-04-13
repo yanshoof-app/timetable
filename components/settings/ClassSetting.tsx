@@ -16,6 +16,7 @@ export interface IClassSetting {
 }
 
 export interface IClassSettingProps {
+  isEditing?: boolean
   onSchoolEditClick(): unknown
 }
 
@@ -24,6 +25,7 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
   onChange,
   save,
   onSchoolEditClick,
+  isEditing = false,
 }) => {
   const { schoolName } = useStorage()
   const { isLoadingClasses } = useClassLookup()
@@ -60,7 +62,7 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
           indexOfValue={classNum ? classNum - 1 : 0}
         />
         <Button className="w-20" onClick={save}>
-          הבא
+          {isEditing ? 'סיום' : 'הבא'}
         </Button>
       </div>
     </div>

@@ -6,7 +6,14 @@ import Input from '../forms/Input'
 import LoadingScreen from '../ui/LoadingScreens'
 import { SettingsComponent } from './types'
 
-const SchoolSetting: SettingsComponent<ISchoolLookupResult> = ({ save }) => {
+export interface ISchoolSettingProps {
+  isEditing?: boolean
+}
+
+const SchoolSetting: SettingsComponent<
+  ISchoolLookupResult,
+  ISchoolSettingProps
+> = ({ save, isEditing = false }) => {
   const {
     searchQuery,
     setSearchQuery,
@@ -45,7 +52,7 @@ const SchoolSetting: SettingsComponent<ISchoolLookupResult> = ({ save }) => {
           onClick={() => save(selectedSchool)}
           disabled={!selectedSchool}
         >
-          הבא
+          {isEditing ? 'סיום' : 'הבא'}
         </Button>
       </div>
     </div>
