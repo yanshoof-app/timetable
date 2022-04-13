@@ -41,7 +41,7 @@ const SchoolSetting: SettingsComponent<ISchoolLookupResult> = ({ save }) => {
           )}
         </div>
         <Button
-          className="my-0 px-6 mx-0"
+          className="px-6"
           onClick={() => save(selectedSchool)}
           disabled={!selectedSchool}
         >

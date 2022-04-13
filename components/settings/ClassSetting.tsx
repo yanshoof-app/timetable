@@ -100,7 +100,7 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
           onIndexChange={onClassNumIndexChange}
           indexOfValue={classNum ? classNum - 1 : 0}
         />
-        <Button className="w-20 my-0 mx-0" onClick={save}>
+        <Button className="w-20" onClick={save}>
           הבא
         </Button>
       </div>

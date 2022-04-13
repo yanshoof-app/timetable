@@ -43,10 +43,10 @@ export default function TimetableInit() {
         )}
       </div>
       <div className="flex justify-between w-full p-0">
-        <Button onClick={onPrevClick} className="mx-0 w-24" variant="secondary">
+        <Button onClick={onPrevClick} className="my-2 w-24" variant="secondary">
           הקודם
         </Button>
-        <Button onClick={onNextClick} className="mx-0 w-24">
+        <Button onClick={onNextClick} className="my-2 w-24">
           הבא
         </Button>
       </div>

@@ -33,7 +33,7 @@ export default function DayPick({
         <Button
           className={`${
             value !== index && 'text-black bg-transparent'
-          } font-semibold mx-0 my-0`}
+          } font-semibold`}
           onClick={() => {
             setValue(index as DayOfWeek)
           }}

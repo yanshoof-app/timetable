@@ -41,7 +41,7 @@ const UpdateTimeSetting: SettingsComponent<number> = ({
           onIndexChange={onIndexChange}
           indexOfValue={selectedIndex}
         />
-        <Button className="mx-0 my-0 h-full w-20" onClick={save}>
+        <Button className="h-full w-20" onClick={save}>
           סיום
         </Button>
       </div>

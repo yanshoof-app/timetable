@@ -14,10 +14,10 @@ const _404Page = () => {
       </div>
       <p className="text-white font-extrabold text-2xl">העמוד לא נמצא</p>
       <div>
-        <Button>
+        <Button className="m-2">
           <Link href={'/'}> לדף הבית</Link>
         </Button>
-        <Button variant="secondary">
+        <Button className="m-2" variant="secondary">
           <Link href={'/'}>למערכת שחף</Link>
         </Button>
       </div>

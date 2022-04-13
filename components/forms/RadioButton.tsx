@@ -27,7 +27,7 @@ export default function RadioButton({
     >
       <p className="font-bold">{label}</p>
       <Button
-        className={`rounded-full m-0 px-[3px] py-[3px] w-6 h-6 justify-center items-center ring-black ${
+        className={`rounded-full px-[3px] py-[3px] w-6 h-6 justify-center items-center ring-black ${
           !selected && 'ring-2'
         }`}
         onClick={() => onClick()}

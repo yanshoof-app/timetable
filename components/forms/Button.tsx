@@ -24,7 +24,7 @@ export default function Button({
 }: ButtonProps & Wrapper) {
   return (
     <button
-      className={`${variants[variant]} rounded-lg px-4 py-2 font-semibold m-2 disabled:opacity-60 ${className}`}
+      className={`${variants[variant]} rounded-lg px-4 py-2 font-semibold disabled:opacity-60 ${className}`}
       onClick={() => onClick()}
       disabled={disabled}
     >
