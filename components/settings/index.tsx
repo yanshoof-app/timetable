@@ -24,19 +24,6 @@ export const SchoolInit = asPage(
   })
 )
 
-export const SchoolSettingPage = asPage(
-  SchoolSetting,
-  { title: 'בחר בית ספר', centerContent: true },
-  ({ school, schoolName, setSchool, setSchoolName }, router) => ({
-    value: { symbol: Number(school), name: schoolName },
-    save: ({ symbol, name }) => {
-      setSchool(symbol.toString())
-      setSchoolName(name)
-      router.push('/settings/class')
-    },
-  })
-)
-
 export const ClassInit = asPage(
   ClassSetting,
   INIT_PAGE_PROPS,

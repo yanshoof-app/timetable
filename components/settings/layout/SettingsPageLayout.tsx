@@ -25,7 +25,7 @@ export default function SettingsPageLayout({
     layoutClassName += ` flex flex-col ${
       hidePageTitle ? 'justify-center' : 'justify-between'
     }`
-    childrenDivClassName = hidePageTitle ? '' : 'mb-[vh-40] '
+    childrenDivClassName = hidePageTitle ? '' : 'mb-[40vh] '
   }
   childrenDivClassName += className
   return (

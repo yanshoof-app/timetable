@@ -1,7 +1,19 @@
-import SchoolPick from '../../components/settings/SchoolPick'
-import useBackPress from '../../hooks/useBackPress'
+import asPage from '../../components/settings/layout/asPage'
+import SchoolSetting from '../../components/settings/SchoolSetting'
 
-export default function SchoolSettingPage() {
-  const { back } = useBackPress('/settings')
-  return <SchoolPick onBackPress={back} />
-}
+const SchoolSettingPage = asPage(
+  SchoolSetting,
+  { title: 'בחר בית ספר', centerContent: true },
+  ({ school, schoolName, setSchool, setSchoolName }, router) => ({
+    value: { symbol: Number(school), name: schoolName },
+    save: ({ symbol, name }) => {
+      if (symbol && name) {
+        setSchool(symbol.toString())
+        setSchoolName(name)
+      }
+      router.push('/settings/class')
+    },
+  })
+)
+
+export default SchoolSettingPage
