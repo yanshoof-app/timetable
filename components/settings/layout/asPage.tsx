@@ -28,7 +28,6 @@ function asPage<T, AdditionalProps>(
     const [selectedValue, setSelectedValue] = useState(initialValue)
     const saveCallback = useCallback(
       (ob?: T) => {
-        console.log(ob, selectedValue)
         if (ob) save(ob)
         else save(selectedValue)
       },

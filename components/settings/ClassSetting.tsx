@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react'
+import { useClassLookup } from '../../contexts/ClassLookup'
 import { useStorage } from '../../contexts/Storage'
-import { useClasses } from '../../hooks/useClasses'
+import useClassPick from '../../hooks/useClassPick'
 import { ClassLookup } from '../../utils'
 import Button from '../forms/Button'
 import DropdownPick from '../forms/DropdownPick'
@@ -24,59 +25,17 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
   save,
   onSchoolEditClick,
 }) => {
-  const { school, schoolName } = useStorage()
-  const { classes, grades } = useClasses(school)
-  const gradeOptions = useMemo(
-    () => grades.map((grade) => ClassLookup.getFormattedGradeName(grade)),
-    [grades]
-  )
-  const gradeIndex = useMemo(
-    () => (grades[0] && grade ? grade - grades[0] : 0),
-    [grade, grades]
-  )
-  const classNumOptions = useMemo(
-    () =>
-      classes && classes[gradeIndex]
-        ? classes[gradeIndex]
-            .filter((grade) => grade != -1)
-            .map((classId, index) => (index + 1).toString())
-        : [],
-    [classes, gradeIndex]
-  )
+  const { schoolName } = useStorage()
+  const { isLoadingClasses } = useClassLookup()
+  const {
+    gradeOptions,
+    gradeIndex,
+    onGradeIndexChange,
+    classNumOptions,
+    onClassNumIndexChange,
+  } = useClassPick({ grade, classNum, onChange })
 
-  const onGradeIndexChange = useCallback(
-    (idx: number) => {
-      onChange((prev) => ({
-        ...prev,
-        grade: idx + grades[0],
-        classId: classes[idx][prev.classId].toString(),
-      }))
-    },
-    [classes, grades, onChange]
-  )
-
-  const onClassNumIndexChange = useCallback(
-    (idx: number) => {
-      onChange((prev) => ({
-        ...prev,
-        classNum: idx + 1,
-        classId: classes[gradeIndex][idx].toString(),
-      }))
-    },
-    [classes, onChange, gradeIndex]
-  )
-
-  // set value as default picks if not defined
-  useEffect(() => {
-    if ((!classNum || !grade) && classes[0] && grades[0])
-      onChange({
-        grade: grades[0],
-        classNum: 1,
-        classId: classes[0][0].toString(),
-      })
-  }, [classNum, classes, grade, grades, onChange])
-
-  if (!classes[0]) return <LoadingScreen label="כיתות" />
+  if (isLoadingClasses) return <LoadingScreen label="כיתות" />
 
   return (
     <div className="flex flex-col justify-center items-center gap-5">

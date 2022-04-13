@@ -31,14 +31,16 @@ export class ClassLookup implements IClassLookup {
   constructor(...args: unknown[]) {
     const [classes, grades] = args
     if (!Array.isArray(classes))
-      throw new Error('Invalid values in constructor')
-    if (isIscoolClass(classes[0])) this.fromIscool(classes as IClassIscool[])
+      throw new Error('First argument in constructor must be an array')
+    if (!classes[0]) this.gradeMap = new Map()
+    else if (isIscoolClass(classes[0]))
+      this.fromIscool(classes as IClassIscool[])
     else if (
       Array.isArray(classes[0]) &&
       Array.isArray(grades) &&
-      typeof classes[0][0] == 'number' &&
-      typeof grades[0] == 'number' &&
-      classes[0].length == grades.length
+      classes.length === grades.length &&
+      typeof classes[0][0] === 'number' &&
+      typeof grades[0] === 'number'
     ) {
       this.fromExisting(classes, grades)
     } else throw new Error('Invalid values in constructor')
@@ -84,8 +86,12 @@ export class ClassLookup implements IClassLookup {
    * @returns the id of the class, -1 if not available
    */
   getId(grade: number, classNum: number): number {
-    if (!this.gradeMap.has(grade)) return ClassLookup.CLASS_NOT_FOUND
-    return this.gradeMap.get(grade)[classNum - 1]
+    if (!this.gradeMap || !this.gradeMap.has(grade))
+      return ClassLookup.CLASS_NOT_FOUND
+    const classesOfGrade = this.gradeMap.get(grade)
+    if (classNum > classesOfGrade.length || classNum < 1)
+      return ClassLookup.CLASS_NOT_FOUND
+    return classesOfGrade[classNum - 1]
   }
 
   private setId(grade: number, classNum: number, id: number) {

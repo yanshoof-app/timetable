@@ -14,24 +14,27 @@ import TimetableProvider, {
 } from '../contexts/Timetable'
 import FetchingTimetable from '../components/ui/LoadingScreens/FetchingTimetable'
 import { ClassInit, SchoolInit, UpdateTimeInit } from '../components/settings'
+import ClassLookupProvider from '../contexts/ClassLookup'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StorageProvider>
       <SchoolExists orElse={SchoolInit}>
-        <ClassExists orElse={ClassInit}>
-          <FullTimetableProvider>
-            <TimetableProvider>
-              <TimetableIsSaved orElse={FetchingTimetable}>
-                <NoProblemsInSettings orElse={TimetableInit}>
-                  <UpdateTimeExists orElse={UpdateTimeInit}>
-                    <Component {...pageProps} />
-                  </UpdateTimeExists>
-                </NoProblemsInSettings>
-              </TimetableIsSaved>
-            </TimetableProvider>
-          </FullTimetableProvider>
-        </ClassExists>
+        <ClassLookupProvider>
+          <ClassExists orElse={ClassInit}>
+            <FullTimetableProvider>
+              <TimetableProvider>
+                <TimetableIsSaved orElse={FetchingTimetable}>
+                  <NoProblemsInSettings orElse={TimetableInit}>
+                    <UpdateTimeExists orElse={UpdateTimeInit}>
+                      <Component {...pageProps} />
+                    </UpdateTimeExists>
+                  </NoProblemsInSettings>
+                </TimetableIsSaved>
+              </TimetableProvider>
+            </FullTimetableProvider>
+          </ClassExists>
+        </ClassLookupProvider>
       </SchoolExists>
     </StorageProvider>
   )
