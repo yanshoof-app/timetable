@@ -79,15 +79,3 @@ export const UpdateTimeSettingPage = asPage(
     },
   })
 )
-
-export const ThemeSettingPage = asPage(
-  ThemeSetting,
-  { title: 'מראה' },
-  ({ theme, setTheme }, router) => ({
-    value: theme,
-    save: (value) => {
-      setTheme(value)
-      router.push('/settings')
-    },
-  })
-)

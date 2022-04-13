@@ -1,10 +1,21 @@
-import { useState } from 'react'
-import RadioButton from '../../components/forms/RadioButton'
-import ThemeModeExample from '../../components/settings/examples/ThemeModeExample'
-import SettingsPageLayout from '../../components/settings/layout/SettingsPageLayout'
-import { useStorage } from '../../contexts/Storage'
-import useBackPress from '../../hooks/useBackPress'
+import asPage from '../../components/settings/layout/asPage'
+import ThemeSetting from '../../components/settings/ThemeSetting'
 
+const ThemeSettingPage = asPage(
+  ThemeSetting,
+  { title: 'מראה' },
+  ({ theme, setTheme }, router) => ({
+    value: theme,
+    save: (value) => {
+      setTheme(value)
+      router.push('/settings')
+    },
+  })
+)
+
+export default ThemeSettingPage
+
+/*
 export default function ThemePreferenceSetting() {
   const { back } = useBackPress('/settings')
   const { setTheme, theme } = useStorage()
@@ -46,3 +57,4 @@ export default function ThemePreferenceSetting() {
     </SettingsPageLayout>
   )
 }
+*/
