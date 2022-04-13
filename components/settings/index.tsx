@@ -54,15 +54,3 @@ export const UpdateTimeInit = asPage(
     save: setUpdateTime,
   })
 )
-
-export const UpdateTimeSettingPage = asPage(
-  UpdateTimeSetting,
-  { title: 'מערכת של מחר', centerContent: true },
-  ({ updateTime, setUpdateTime }, router) => ({
-    value: updateTime,
-    save: (value) => {
-      setUpdateTime(value)
-      router.push('/settings')
-    },
-  })
-)

@@ -1,7 +1,16 @@
-import UpdateHourPick from '../../components/settings/UpdateHourPick'
-import useBackPress from '../../hooks/useBackPress'
+import asPage from '../../components/settings/layout/asPage'
+import UpdateTimeSetting from '../../components/settings/UpdateTimeSetting'
 
-export default function UpdateTimeSettings() {
-  const { back } = useBackPress('/settings')
-  return <UpdateHourPick onBackPress={back} />
-}
+const UpdateTimeSettingPage = asPage(
+  UpdateTimeSetting,
+  { title: 'מערכת של מחר', centerContent: true },
+  ({ updateTime, setUpdateTime }, router) => ({
+    value: updateTime,
+    save: (value) => {
+      setUpdateTime(value)
+      router.push('/settings')
+    },
+  })
+)
+
+export default UpdateTimeSettingPage
