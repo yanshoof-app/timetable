@@ -35,13 +35,13 @@ const UpdateTimeSetting: SettingsComponent<number> = ({
           מאיזו שעה תרצו שתוצג המערכת הבאה?
         </p>
       </div>
-      <div className="flex gap-4 items-center justify-center">
+      <div className="flex gap-4 items-stretch justify-center">
         <DropdownPick
           options={Object.values(HOURS)}
           onIndexChange={onIndexChange}
           indexOfValue={selectedIndex}
         />
-        <Button className="h-full w-20" onClick={save}>
+        <Button className="py-4 w-20" onClick={save}>
           סיום
         </Button>
       </div>
