@@ -20,6 +20,15 @@ const defaultHandler: ILocalStorageHandler<string> = {
   },
 }
 
+const numericHandler: ILocalStorageHandler<number> = {
+  decode(str?: string) {
+    return str ? Number(str) : undefined
+  },
+  toStorable(value: number) {
+    return value.toString()
+  },
+}
+
 export const useSchoolState = createLocalStorageState('school', defaultHandler)
 
 export const useSchoolName = createLocalStorageState(
@@ -28,10 +37,16 @@ export const useSchoolName = createLocalStorageState(
 )
 export const useClassId = createLocalStorageState('classId', defaultHandler)
 
+/*
 export const useUserClassName = createLocalStorageState(
   'userClassName',
   defaultHandler
 )
+*/
+
+export const useGrade = createLocalStorageState('grade', numericHandler)
+
+export const useClassNum = createLocalStorageState('classNum', numericHandler)
 
 export const useOthersChanges = createLocalStorageState<boolean>(
   'showOthersChanges',

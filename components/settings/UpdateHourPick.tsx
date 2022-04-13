@@ -43,10 +43,10 @@ export default function UpdateHourPick({ onBackPress }: ISettingsPageProps) {
         <div className="flex gap-4 items-center justify-center">
           <DropdownPick
             options={Object.values(HOURS)}
-            onChange={(selectedHour) => {
+            onIndexChange={(selectedHour) => {
               selectUpdateTimeIndex(selectedHour)
             }}
-            defaultIndex={selectedUpdateTimeIndex}
+            indexOfValue={selectedUpdateTimeIndex}
           />
           {!onBackPress && (
             <Button

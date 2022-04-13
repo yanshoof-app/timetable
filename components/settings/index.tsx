@@ -40,10 +40,20 @@ export const SchoolSettingPage = asPage(
 export const ClassInit = asPage(
   ClassSetting,
   INIT_PAGE_PROPS,
-  ({ classId, setClassId, setSchool }) => ({
-    value: { grade: 10, classNum: 7, classId }, // TODO: Save grade and classNum
+  ({
+    classId,
+    setClassId,
+    grade,
+    setGrade,
+    classNum,
+    setClassNum,
+    setSchool,
+  }) => ({
+    value: { grade, classNum, classId },
     save: ({ grade, classNum, classId }) => {
       setClassId(classId)
+      setGrade(grade)
+      setClassNum(classNum)
     },
     onSchoolEditClick: () => setSchool(),
   })

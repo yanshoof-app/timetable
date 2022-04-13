@@ -31,10 +31,9 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
     [grades]
   )
   const gradeIndex = useMemo(
-    () => (grades[0] ? grade - grades[0] : 0),
+    () => (grades[0] && grade ? grade - grades[0] : 0),
     [grade, grades]
   )
-  console.log(grade, classNum, gradeIndex)
   const classNumOptions = useMemo(
     () =>
       classes && classes[gradeIndex]
@@ -45,7 +44,9 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
     [classes, gradeIndex]
   )
 
-  return classes[0] ? (
+  if (!classes[0]) return <LoadingScreen label="כיתות" />
+
+  return (
     <div className="flex flex-col justify-center items-center gap-5">
       <div className="flex flex-col gap-2 justify-center items-center">
         <div className="flex justify-center items-center gap-1">
@@ -59,29 +60,27 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
       <div className="flex gap-4 justify-center">
         <DropdownPick
           options={gradeOptions}
-          onChange={(idx) =>
+          onIndexChange={(idx) =>
             onChange((prev) => ({ ...prev, grade: idx + grades[0] }))
           }
-          defaultIndex={gradeIndex}
+          indexOfValue={gradeIndex}
         />
         <DropdownPick
           options={classNumOptions}
-          onChange={(selectedIndex) =>
+          onIndexChange={(selectedIndex) =>
             onChange((prev) => ({
               ...prev,
               classNum: selectedIndex + 1,
               classId: classes[gradeIndex][selectedIndex].toString(),
             }))
           }
-          defaultIndex={classNum - 1}
+          indexOfValue={classNum ? classNum - 1 : 0}
         />
         <Button className="w-20 my-0 mx-0" onClick={save}>
           הבא
         </Button>
       </div>
     </div>
-  ) : (
-    <LoadingScreen label="כיתות" />
   )
 }
 

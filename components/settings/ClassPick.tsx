@@ -75,13 +75,13 @@ export default function ClassPick({
           <div className="flex gap-4 justify-center">
             <DropdownPick
               options={gradesArray}
-              onChange={(selectedGrade) => {
+              onIndexChange={(selectedGrade) => {
                 setGrade(selectedGrade)
               }}
             />
             <DropdownPick
               options={classesIds}
-              onChange={(selectedClassId) => {
+              onIndexChange={(selectedClassId) => {
                 setTempClassId(classes[grade][selectedClassId].toString())
                 setTempUserClassName(
                   `${gradesArray[grade]}${selectedClassId + 1}`

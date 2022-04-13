@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { HOURS } from '../../pages/settings'
 import Button from '../forms/Button'
 import DropdownPick from '../forms/DropdownPick'
@@ -16,6 +16,18 @@ const UpdateTimeSetting: SettingsComponent<number> = ({
     () => (value ? value - MIN_HOUR : DEFAULT_OPTION),
     [value]
   )
+  const onIndexChange = useCallback(
+    (idx) => {
+      onChange(idx + MIN_HOUR)
+    },
+    [onChange]
+  )
+
+  // set initial state to default pick if not existing
+  useEffect(() => {
+    if (!value) onIndexChange(DEFAULT_OPTION)
+  }, [value, onIndexChange])
+
   return (
     <div className="flex flex-col justify-center items-center gap-5">
       <div className="flex flex-col gap-2 justify-center items-center">
@@ -26,8 +38,8 @@ const UpdateTimeSetting: SettingsComponent<number> = ({
       <div className="flex gap-4 items-center justify-center">
         <DropdownPick
           options={Object.values(HOURS)}
-          onChange={onChange}
-          defaultIndex={selectedIndex}
+          onIndexChange={onIndexChange}
+          indexOfValue={selectedIndex}
         />
         <Button className="mx-0 my-0 h-full w-20" onClick={save}>
           סיום

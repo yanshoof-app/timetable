@@ -2,35 +2,29 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import StorageProvider from '../contexts/Storage'
 import FullTimetableProvider from '../contexts/FullTimetable'
-import ClassPick from '../components/settings/ClassPick'
-import OthersChangesPick from '../components/settings/OthersChangesPick'
-import ThemePreferencePick from '../components/settings/ThemePreferencePick'
-import UpdateHourPick from '../components/settings/UpdateHourPick'
 import TimetableInit from '../components/timetable/TimetableInit'
 import {
   ClassExists,
   UpdateTimeExists,
-  ThemePreferenceExists,
-  OthersChangesPreferenceExists,
   SchoolExists,
 } from '../contexts/Storage/wrappers'
 import TimetableProvider, {
   NoProblemsInSettings,
   TimetableIsSaved,
 } from '../contexts/Timetable'
-import SchoolPick from '../components/settings/SchoolPick'
 import FetchingTimetable from '../components/ui/LoadingScreens/FetchingTimetable'
+import { ClassInit, SchoolInit, UpdateTimeInit } from '../components/settings'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StorageProvider>
-      <SchoolExists orElse={SchoolPick}>
-        <ClassExists orElse={ClassPick}>
+      <SchoolExists orElse={SchoolInit}>
+        <ClassExists orElse={ClassInit}>
           <FullTimetableProvider>
             <TimetableProvider>
               <TimetableIsSaved orElse={FetchingTimetable}>
                 <NoProblemsInSettings orElse={TimetableInit}>
-                  <UpdateTimeExists orElse={UpdateHourPick}>
+                  <UpdateTimeExists orElse={UpdateTimeInit}>
                     <Component {...pageProps} />
                   </UpdateTimeExists>
                 </NoProblemsInSettings>

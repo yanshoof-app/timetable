@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Expand } from '../../icons'
 import Dropdown from './Dropdown'
 import Selected from './Selected'
@@ -7,20 +7,18 @@ type Variant = 'default' | 'lesson'
 
 export interface DropdownPickProps {
   options: string[]
-  defaultIndex?: number
-  onChange?(number): unknown
+  indexOfValue?: number
+  onIndexChange?(number): unknown
   className?: string
 }
 
 export default function DropdownPick({
   className = '',
   options,
-  defaultIndex = 0,
-  onChange = () => {},
+  indexOfValue = 0,
+  onIndexChange = () => {},
 }: DropdownPickProps) {
   const ref = useRef()
-
-  const [selectedIndex, changeSelectedIndex] = useState(defaultIndex)
   const [isOpen, setOpen] = useState(false)
 
   useEffect(() => {
@@ -44,9 +42,13 @@ export default function DropdownPick({
     }
   }, [isOpen])
 
-  useEffect(() => {
-    onChange(selectedIndex)
-  }, [selectedIndex, onChange])
+  const changeSelectedIndex = useCallback(
+    (newIndex: number) => {
+      console.log(indexOfValue, newIndex)
+      if (newIndex !== indexOfValue) onIndexChange(newIndex)
+    },
+    [indexOfValue, onIndexChange]
+  )
 
   return (
     <div
@@ -58,7 +60,7 @@ export default function DropdownPick({
     >
       <Selected
         options={options}
-        selectedIndex={selectedIndex}
+        selectedIndex={indexOfValue}
         opened={isOpen}
         setOpen={setOpen}
       >
@@ -67,10 +69,10 @@ export default function DropdownPick({
       {isOpen && (
         <Dropdown
           options={options}
-          selectedIndex={selectedIndex}
+          selectedIndex={indexOfValue}
           changeSelectedIndex={changeSelectedIndex}
           setOpen={setOpen}
-        ></Dropdown>
+        />
       )}
     </div>
   )
