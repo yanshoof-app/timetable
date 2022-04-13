@@ -37,7 +37,10 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
     onClassNumIndexChange,
   } = useClassPick({ grade, classNum, onChange })
 
-  if (isLoadingClasses) return <LoadingScreen label="כיתות" />
+  if (isLoadingClasses)
+    return (
+      <LoadingScreen label="כיתות" className="absolute inset-0 w-full h-full" />
+    )
 
   return (
     <div className="flex flex-col justify-center items-center gap-5">
