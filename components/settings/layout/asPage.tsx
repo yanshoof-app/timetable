@@ -36,7 +36,7 @@ function asPage<T, AdditionalProps>(
       [save, selectedValue, navigateBack]
     )
     return (
-      <SettingsPageLayout {...layoutProps} onBackPress={saveCallback}>
+      <SettingsPageLayout {...layoutProps} onBackPress={navigateBack}>
         <Component
           {...(additionalProps as unknown as AdditionalProps)}
           value={selectedValue}

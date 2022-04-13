@@ -1,10 +1,13 @@
 import RadioButton from '../forms/RadioButton'
 import OthersChangesExample from './examples/OthersChangesExample'
+import ApplyCancelButtons from './layout/ApplyCancelButtons'
 import { SettingsComponent } from './types'
 
 const OthersChangesSetting: SettingsComponent<boolean> = ({
   value,
   onChange,
+  save,
+  navigateBack,
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -32,6 +35,11 @@ const OthersChangesSetting: SettingsComponent<boolean> = ({
           onClick={() => onChange(true)}
         />
       </div>
+      <ApplyCancelButtons
+        apply={save}
+        cancel={navigateBack}
+        className="justify-end px-8 pt-8"
+      />
     </div>
   )
 }

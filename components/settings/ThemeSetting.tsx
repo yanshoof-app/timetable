@@ -1,11 +1,14 @@
 import { ThemePreference } from '../../contexts/Storage/types'
 import RadioButton from '../forms/RadioButton'
 import ThemeModeExample from './examples/ThemeModeExample'
+import ApplyCancelButtons from './layout/ApplyCancelButtons'
 import { SettingsComponent } from './types'
 
 const ThemeSetting: SettingsComponent<ThemePreference> = ({
   value: selectedTheme,
   onChange: setSelectedTheme,
+  save,
+  navigateBack,
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -33,6 +36,11 @@ const ThemeSetting: SettingsComponent<ThemePreference> = ({
           onClick={() => setSelectedTheme('dark')}
         />
       </div>
+      <ApplyCancelButtons
+        apply={save}
+        cancel={navigateBack}
+        className="justify-end px-8 pt-8"
+      />
     </div>
   )
 }
