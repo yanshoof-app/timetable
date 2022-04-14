@@ -1,8 +1,8 @@
 import asPage from '../../components/settings/layout/asPage'
-import OthersChangesSetting from '../../components/settings/OthersChangesSetting'
+import OtherChangesSetting from '../../components/settings/OtherChangesSetting'
 
 const OthersChangesSettingPage = asPage(
-  OthersChangesSetting,
+  OtherChangesSetting,
   { title: 'שינויים של אחרים' },
   ({ showOthersChanges, setOthersChangesPreference }, router) => ({
     value: showOthersChanges,

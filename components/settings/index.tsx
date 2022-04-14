@@ -1,4 +1,4 @@
-import OthersChangesSetting from './OthersChangesSetting'
+import OtherChangesSetting from './OtherChangesSetting'
 import ClassSetting from './ClassSetting'
 import SchoolSetting from './SchoolSetting'
 import ThemeSetting from './ThemeSetting'
