@@ -58,11 +58,11 @@ export default function ClassLookupProvider({ children }: Wrapper) {
     if (newClassIds.length != newGrades.length)
       // invalid value received, abort
       return
-    if (newGrades.length > grades.length) {
+    if (newGrades.length > 0) {
       setGrades(newGrades)
       setClassIds(newClassIds)
     }
-  }, [data, grades.length, setClassIds, setGrades])
+  }, [data, setClassIds, setGrades])
 
   const classLookup = useMemo(
     () => new ClassLookup(classIds, grades),
@@ -72,6 +72,7 @@ export default function ClassLookupProvider({ children }: Wrapper) {
   const isLoadingClasses = useMemo(() => !grades.length, [grades.length])
 
   const revalidate = useCallback(() => {
+    console.log('refetching', hasFetched.current, school)
     if (hasFetched.current || !school) return
     doFetch({ school })
     hasFetched.current = true
@@ -79,6 +80,7 @@ export default function ClassLookupProvider({ children }: Wrapper) {
 
   // delete value in local storage if school changes
   useValueChangeCallback(school, () => {
+    console.log('refetching')
     hasFetched.current = false
     setClassIds([])
     setGrades([])

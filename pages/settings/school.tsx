@@ -25,7 +25,7 @@ const SchoolSettingPage = asPage(
         resetTimetableSettings()
       }
     },
-    navigateBack: () => router.push('/settings/class'),
+    navigateBack: () => router.push('/settings'),
   })
 )
 

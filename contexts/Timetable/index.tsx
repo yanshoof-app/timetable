@@ -1,5 +1,6 @@
 import { createContext, useCallback, useEffect } from 'react'
 import { Wrapper } from '../../components/types'
+import useValueChangeCallback from '../../hooks/useValueChangeCallback'
 import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
 import { useStorage } from '../Storage'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
@@ -23,13 +24,8 @@ export const useTimetable = createUseContextHook(TimetableContext)
 
 export default function TimetableProvider({ children }: Wrapper) {
   const updateableTimetable = useUpdateableTimetable()
-  const {
-    studyGroups,
-    studyGroupMap,
-    setStudyGroups,
-    setStudyGroupMap,
-    setLastUserUpdate,
-  } = useStorage()
+  const { studyGroups, setStudyGroups, setStudyGroupMap, setLastUserUpdate } =
+    useStorage()
   const removeProblems = useRemoveProblems(updateableTimetable)
   const applyLessons = useApplyLessons(
     removeProblems,
