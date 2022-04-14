@@ -5,16 +5,28 @@ const ClassSettingPage = asPage(
   ClassSetting,
   { title: 'בחר כיתה', centerContent: true },
   (
-    { classId, setClassId, grade, setGrade, classNum, setClassNum },
+    {
+      classId,
+      setClassId,
+      grade,
+      setGrade,
+      classNum,
+      setClassNum,
+      resetTimetableSettings,
+    },
     router
   ) => ({
     isEditing: true,
     value: { grade, classNum, classId },
-    save: ({ grade, classNum, classId }) => {
-      console.log(grade, classNum, classId)
-      setClassId(classId)
-      setGrade(grade)
-      setClassNum(classNum)
+    save: ({ grade: newGrade, classNum: newClassNum, classId: newClassId }) => {
+      if (newClassId !== classId) {
+        setClassId(newClassId)
+        setGrade(newGrade)
+        setClassNum(newClassNum)
+        if (newGrade !== grade)
+          // if switched classes in the same grade, maintain settings
+          resetTimetableSettings()
+      }
     },
     onSchoolEditClick: () => router.push('/settings/school'),
     navigateBack: () => router.push('/settings'),

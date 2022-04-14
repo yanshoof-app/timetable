@@ -1,6 +1,6 @@
 // the context responsible for handling storage
 
-import { createContext } from 'react'
+import { createContext, useCallback } from 'react'
 import { Wrapper } from '../../components/types'
 import AppLoadingScreen from '../../components/ui/LoadingScreens/AppLoadingScreen'
 import { useClientRender } from '../../hooks/useClientRender'
@@ -51,6 +51,11 @@ export default function StorageProvider({ children }: Wrapper) {
     setStudyGroups,
   } as IStorageContext)
 
+  const resetTimetableSettings = useCallback(() => {
+    setStudyGroupMap(new Map())
+    setStudyGroups([])
+  }, [setStudyGroupMap, setStudyGroups])
+
   if (!isClient) return <AppLoadingScreen />
 
   return (
@@ -80,6 +85,7 @@ export default function StorageProvider({ children }: Wrapper) {
         setStudyGroupMap,
         setLastUserUpdate,
         setTeacherSearchHistory,
+        resetTimetableSettings,
       }}
     >
       {children}

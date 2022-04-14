@@ -35,6 +35,7 @@ export interface IStorage {
   setStudyGroups: Dispatch<SetStateAction<[string, string][]>>
   setStudyGroupMap: Dispatch<SetStateAction<Map<string, number>>>
   setLastUserUpdate: Dispatch<SetStateAction<Date>>
+  resetTimetableSettings(): void
 }
 
 export interface IStorageContext extends IStorageValues, IStorage {}

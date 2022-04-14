@@ -12,6 +12,7 @@ import {
 } from 'react'
 import { Wrapper } from '../../components/types'
 import { useHTTP } from '../../hooks/useHTTP'
+import useValueChangeCallback from '../../hooks/useValueChangeCallback'
 import { ClassLookup } from '../../utils'
 import { useStorage } from '../Storage'
 import { useClassMatrixState, useGradeState } from './localStorage'
@@ -75,6 +76,14 @@ export default function ClassLookupProvider({ children }: Wrapper) {
     doFetch({ school })
     hasFetched.current = true
   }, [school, doFetch])
+
+  // delete value in local storage if school changes
+  useValueChangeCallback(school, () => {
+    hasFetched.current = false
+    setClassIds([])
+    setGrades([])
+    revalidate()
+  })
 
   return (
     <ClassLookupContext.Provider
