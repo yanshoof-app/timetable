@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { IChangesResponse, IScheduleResponse } from '../../../interfaces'
+import {
+  IChange,
+  IChangesResponse,
+  IScheduleResponse,
+} from '../../../interfaces'
 import { fetchDataSource, Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../interfaces/errors'
@@ -44,11 +48,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     // otherwise, return new changes
     else {
-      const { newChanges } = Timetable.newChanges(
-        lastUserUpdate,
-        Changes,
-        settings
-      )
+      const { newChanges } = Timetable.newChanges(lastUserUpdate, Changes)
       res.status(200).json({
         newChanges: newChanges,
       })
