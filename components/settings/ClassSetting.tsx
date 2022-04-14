@@ -35,6 +35,7 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
     onGradeIndexChange,
     classNumOptions,
     onClassNumIndexChange,
+    isValid,
   } = useClassPick({ grade, classNum, onChange })
 
   if (isLoadingClasses)
@@ -64,7 +65,7 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
           onIndexChange={onClassNumIndexChange}
           indexOfValue={classNum ? classNum - 1 : 0}
         />
-        <Button className="w-20" onClick={save}>
+        <Button className="w-20" onClick={save} disabled={!isValid}>
           {isEditing ? 'סיום' : 'הבא'}
         </Button>
       </div>
