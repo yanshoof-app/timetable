@@ -140,11 +140,7 @@ export class Timetable implements ITimetable<ILesson> {
    * @param changes the changes as given from ISCOOL
    * @returns new changes
    */
-  public static newChanges(
-    lastUserUpdate: Date,
-    changes: IChangeIscool[],
-    settings: QueryParamsSettings
-  ) {
+  public static newChanges(lastUserUpdate: Date, changes: IChangeIscool[]) {
     let newChanges: IChange[] = []
 
     //collect changes
