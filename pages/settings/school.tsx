@@ -11,6 +11,8 @@ const SchoolSettingPage = asPage(
       setSchool,
       setSchoolName,
       setClassId,
+      setGrade,
+      setClassNum,
       resetTimetableSettings,
     },
     router
@@ -22,6 +24,8 @@ const SchoolSettingPage = asPage(
         setSchool(symbol.toString())
         setSchoolName(name)
         setClassId()
+        setGrade(null)
+        setClassNum(null)
         resetTimetableSettings()
       }
     },
