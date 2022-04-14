@@ -22,10 +22,12 @@ export function useSchoolSearch(): ISchoolSearchHook {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(NO_INDEX)
   const debouncedQuery = useDebounce(searchQuery, 1000)
-  const { data, isLoading, error, doFetch } = useHTTP<
-    { search: string },
-    ISchoolLookupResult[]
-  >({
+  const {
+    data,
+    isLoading: isFetchLoading,
+    error,
+    doFetch,
+  } = useHTTP<{ search: string }, ISchoolLookupResult[]>({
     path: SCHOOL_SEARCH_URL,
     fetchOnMount: false,
     initialValue: [],
@@ -45,14 +47,22 @@ export function useSchoolSearch(): ISchoolSearchHook {
     setSelectedIndex(NO_INDEX)
   }, [searchQuery])
 
+  const isLoading = useMemo(
+    () => debouncedQuery !== searchQuery || isFetchLoading,
+    [debouncedQuery, isFetchLoading, searchQuery]
+  )
+
+  // overcome state change delay
+  const debouncedIsLoading = useDebounce(isLoading, 100)
+
   return {
     searchQuery,
     setSearchQuery,
     selectedSchool,
     setSelectedIndex,
-    isLoading,
     error,
     searchResults: data,
     showOptions: selectedIndex == NO_INDEX,
+    isLoading: debouncedIsLoading,
   }
 }

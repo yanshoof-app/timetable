@@ -4,6 +4,7 @@ import Button from '../forms/Button'
 import Dropdown from '../forms/DropdownPick/Dropdown'
 import Input from '../forms/Input'
 import LoadingScreen from '../ui/LoadingScreens'
+import Spinner from '../ui/LoadingScreens/Spinner'
 import { SettingsComponent } from './types'
 
 export interface ISchoolSettingProps {
@@ -21,6 +22,7 @@ const SchoolSetting: SettingsComponent<
     selectedSchool,
     setSelectedIndex,
     showOptions,
+    isLoading,
   } = useSchoolSearch()
   return searchResults ? (
     <div className="flex flex-col p-5 justify-center items-center gap-5">
@@ -38,6 +40,9 @@ const SchoolSetting: SettingsComponent<
             }}
             className={`${searchResults[0] && showOptions && 'rounded-b-none'}`}
           />
+          {isLoading && (
+            <Spinner className="absolute left-0 fill-gray-800 h-[24px] w-[24px] m-2" />
+          )}
           {searchResults[0] && showOptions && (
             <Dropdown
               options={searchResults}
