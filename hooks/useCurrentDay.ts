@@ -1,15 +1,23 @@
 import { useMemo, useRef } from 'react'
+import { DayFilterer } from '../components/forms/DayPick'
 import { useStorage } from '../contexts/Storage'
 import { DayOfWeek } from '../interfaces'
+import { HEBREW_DAYS } from './useHebrewDate'
 
-export default function useCurrentDay() {
+function nextDay(day: DayOfWeek): DayOfWeek {
+  if (day == 6) return 0 as DayOfWeek
+  return (day + 1) as DayOfWeek
+}
+
+export default function useCurrentDay(filterDays: DayFilterer = () => true) {
   const { updateTime } = useStorage()
   const dateRef = useRef(new Date())
   const currentDay = useMemo(() => {
-    const day = dateRef.current.getDay(),
-      hours = dateRef.current.getHours()
-    if (day == 6 && hours >= updateTime) return 0 as DayOfWeek // circle days
-    return (hours >= updateTime ? day + 1 : day) as DayOfWeek
-  }, [updateTime])
+    let day = dateRef.current.getDay() as DayOfWeek
+    const hours = dateRef.current.getHours()
+    if (hours >= updateTime) day = nextDay(day)
+    while (!filterDays(HEBREW_DAYS[day], day)) day = nextDay(day)
+    return day
+  }, [updateTime, filterDays])
   return { currentDay, date: dateRef }
 }

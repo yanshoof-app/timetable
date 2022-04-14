@@ -3,11 +3,13 @@ import { HEBREW_SHORT_DAYS } from '../../hooks/useHebrewDate'
 import { DayOfWeek } from '../../interfaces'
 import Button from './Button'
 
+export type DayFilterer = (dayName: string, day: number) => boolean
+
 export interface DayPickProps {
   day: DayOfWeek
   onChange(index): unknown
   className?: string
-  dayFilterer?(dayName: string, day: number): boolean
+  dayFilterer?: DayFilterer
 }
 
 export default function DayPick({
