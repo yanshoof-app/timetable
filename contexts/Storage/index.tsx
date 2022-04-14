@@ -2,7 +2,7 @@
 
 import { createContext } from 'react'
 import { Wrapper } from '../../components/types'
-import TimetableLoadingScreen from '../../components/ui/LoadingScreens/TimetableLoadingScreen'
+import AppLoadingScreen from '../../components/ui/LoadingScreens/AppLoadingScreen'
 import { useClientRender } from '../../hooks/useClientRender'
 import { createUseContextHook } from '../utils'
 import {
@@ -51,7 +51,7 @@ export default function StorageProvider({ children }: Wrapper) {
     setStudyGroups,
   } as IStorageContext)
 
-  if (!isClient) return <TimetableLoadingScreen />
+  if (!isClient) return <AppLoadingScreen />
 
   return (
     <StorageContext.Provider
