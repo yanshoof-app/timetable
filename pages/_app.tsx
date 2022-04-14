@@ -15,6 +15,7 @@ import TimetableProvider, {
 import FetchingTimetable from '../components/ui/LoadingScreens/FetchingTimetable'
 import { ClassInit, SchoolInit, UpdateTimeInit } from '../components/settings'
 import ClassLookupProvider from '../contexts/ClassLookup'
+import TimetableUpdatesProvider from '../contexts/Updates'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <TimetableIsSaved orElse={FetchingTimetable}>
                   <NoProblemsInSettings orElse={TimetableInit}>
                     <UpdateTimeExists orElse={UpdateTimeInit}>
-                      <Component {...pageProps} />
+                      <TimetableUpdatesProvider>
+                        <Component {...pageProps} />
+                      </TimetableUpdatesProvider>
                     </UpdateTimeExists>
                   </NoProblemsInSettings>
                 </TimetableIsSaved>

@@ -46,26 +46,36 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
       needsRefreshRef.current = false
       updates.fetchUpdates()
     }
-  }, [problems, updates.fetchUpdates])
+  }, [problems, updates, updates.fetchUpdates])
 
   // use in toast
   const applyUpdates = useCallback(() => {
     const { newChanges } = updates.data
     if (lessonMatrix.length && !updates.isLoading) {
-      const timetable = new Timetable(lessonMatrix, {
-        studyGroups: studyGroups,
-        studyGroupMap: studyGroupMap,
-        showOthersChanges: showOthersChanges,
+      setLessonMatrix((prev) => {
+        const timetable = new Timetable(prev, {
+          studyGroups: studyGroups,
+          studyGroupMap: studyGroupMap,
+          showOthersChanges: showOthersChanges,
+        })
+        if (newChanges) timetable.applyExistingChanges([...newChanges])
+        return timetable.lessons
       })
-      if (newChanges) timetable.applyExistingChanges([...newChanges])
-      setLessonMatrix(timetable.lessons)
     }
-  }, [updates, lessonMatrix, showOthersChanges])
+  }, [
+    updates.data,
+    updates.isLoading,
+    lessonMatrix,
+    studyGroups,
+    studyGroupMap,
+    showOthersChanges,
+    setLessonMatrix,
+  ])
 
   const refetchUpdates = useCallback(() => {
     setProblems([])
     updates.fetchUpdates()
-  }, [updates.fetchUpdates])
+  }, [updates])
 
   // determine if toast needs to be shown
   const changesPending = useMemo(

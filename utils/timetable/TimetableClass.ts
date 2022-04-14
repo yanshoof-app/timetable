@@ -68,7 +68,7 @@ export class Timetable implements ITimetable<ILesson> {
       isMatrix(arg) &&
       (arg as unknown[][]).some((day) => day.some((hour) => isILessonObj(hour)))
     ) {
-      this.lessons = arg as ILesson[][]
+      this.lessons = [...(arg as ILesson[][])] // react did not rerender this because the array had the same address
       this.settings = settings as IScheduleSettings
     } else throw new Error('Invalid values in constructor')
   }
