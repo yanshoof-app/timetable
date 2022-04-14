@@ -43,10 +43,10 @@ const Settings = () => {
   const { push } = useRouter()
 
   return (
-    <Layout title="הגדרות" className="flex flex-col justify-start p-4">
+    <Layout title="הגדרות" className="flex flex-col justify-start py-4">
       <Navbar />
-      <h1 className="font-bold text-4xl">הגדרות</h1>
-      <div className="flex flex-col gap-4 py-4 overflow-y-scroll">
+      <h1 className="font-bold text-4xl px-4">הגדרות</h1>
+      <div className="flex flex-col gap-4 py-4 px-4 overflow-y-scroll">
         <div className="p-2 grid grid-cols-2 gap-8">
           <SettingsBox
             color="primary"
