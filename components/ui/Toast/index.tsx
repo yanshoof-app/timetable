@@ -8,7 +8,6 @@ export interface ToastProps {
   content: string
   actionContent?: string
   onClick?(): unknown
-  hide?: boolean
   setToastVisible(boolean): unknown
 }
 
@@ -27,6 +26,17 @@ export default function Toast({
       .start({
         y: '8.25rem',
         transition: { ease: 'easeOut', duration: '0.3' },
+      })
+      .then(() => {
+        setToastVisible(false)
+      })
+  }
+
+  const ToastFadeOut = async () => {
+    controls
+      .start({
+        opacity: 0,
+        transition: { ease: 'easeOut', duration: '0.2' },
       })
       .then(() => {
         setToastVisible(false)
@@ -63,7 +73,7 @@ export default function Toast({
             className="font-bold"
             onClick={() => {
               onClick()
-              setToastVisible(false)
+              ToastFadeOut()
             }}
           >
             {actionContent}

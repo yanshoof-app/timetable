@@ -20,7 +20,7 @@ export default function SettingsBox({
   return (
     <ShadowedWrapper
       color={color}
-      className={`rounded-[12px] px-2 py-4 ${className}`}
+      className={`rounded-xl px-2 py-4 cursor-pointer ${className}`}
     >
       <div className="inset-0 flex flex-col space-y-1" onClick={onClick}>
         <p className="font-semibold">{label}</p>
