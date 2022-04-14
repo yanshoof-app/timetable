@@ -36,8 +36,7 @@ export default function Toast({
   const [toastPos, updateToastPos] = useState({} as MouseEvent | PointerEvent)
 
   const isDraggedDown = (newPos) => {
-    if (newPos.screenY > toastPos.screenY) return true
-    return false
+    return newPos.screenY > toastPos.screenY
   }
 
   return (
