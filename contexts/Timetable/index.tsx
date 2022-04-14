@@ -65,7 +65,7 @@ export default function TimetableProvider({ children }: Wrapper) {
       })
       updateableTimetable.applyLesson(day, hour, lesson)
     },
-    [studyGroupMap]
+    [setStudyGroupMap, updateableTimetable]
   )
 
   const clearProblems = useCallback(() => {
@@ -73,11 +73,7 @@ export default function TimetableProvider({ children }: Wrapper) {
       appendScheduleSetting({ day: day, hour: [hour], lesson: {} as ILesson })
     }
     updateableTimetable.setProblems([])
-  }, [
-    appendScheduleSetting,
-    updateableTimetable.setProblems,
-    updateableTimetable.problems,
-  ])
+  }, [updateableTimetable, appendScheduleSetting])
 
   return (
     <TimetableContext.Provider
