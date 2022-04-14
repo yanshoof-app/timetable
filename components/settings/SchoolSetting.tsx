@@ -41,7 +41,9 @@ const SchoolSetting: SettingsComponent<
             className={`${searchResults[0] && showOptions && 'rounded-b-none'}`}
           />
           {isLoading && (
-            <Spinner className="absolute left-0 fill-gray-800 h-[24px] w-[24px] m-2" />
+            <div className="flex justify-end px-1 items-center absolute left-0 h-12">
+              <Spinner className="fill-gray-800 h-[24px] w-[24px] m-2" />
+            </div>
           )}
           {searchResults[0] && showOptions && (
             <Dropdown
