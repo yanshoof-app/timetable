@@ -30,7 +30,8 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
   const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
   const needsRefreshRef = useRef(false)
-  const { studyGroups, studyGroupMap, showOthersChanges } = useStorage()
+  const { studyGroups, studyGroupMap, showOthersChanges, classId, school } =
+    useStorage()
   const updates = useUpdates()
 
   // update timetable immedietly if overriden by server
@@ -40,6 +41,14 @@ export function useUpdateableTimetable(): IUpdateableTimetable {
     setProblems(problems)
     if (problems && problems.length > 0) needsRefreshRef.current = true
   }, [setLessonMatrix, updates.data])
+
+  // mark needs refresh when school and classId values change
+  const markNeedsRefresh = useCallback(() => {
+    needsRefreshRef.current = true
+    setLessonMatrix([])
+  }, [setLessonMatrix])
+  useValueChangeCallback(school, markNeedsRefresh)
+  useValueChangeCallback(classId, markNeedsRefresh)
 
   // refetch timetable once problems are eliminated
   useEffect(() => {

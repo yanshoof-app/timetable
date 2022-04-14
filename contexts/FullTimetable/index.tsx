@@ -55,8 +55,8 @@ export default function FullTimetableProvider({ children }: Wrapper) {
   }, [doFetch])
 
   useEffect(() => {
-    if (data.length > timetable.length) setTimetable(data)
-  }, [data, timetable.length])
+    if (data.length > 0) setTimetable(data)
+  }, [data])
 
   useValueChangeCallback(school, refresh)
   useValueChangeCallback(classId, refresh)

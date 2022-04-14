@@ -8,7 +8,6 @@ export default function useValueChangeCallback<T>(
   useEffect(() => {
     if (valueRef.current && valueRef.current !== value) callback()
     return () => {
-      console.log(valueRef.current, value)
       valueRef.current = value
     }
   }, [callback, value])
