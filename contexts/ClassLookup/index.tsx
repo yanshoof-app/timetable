@@ -73,7 +73,7 @@ export default function ClassLookupProvider({ children }: Wrapper) {
 
   const revalidate = useCallback(() => {
     if (hasFetched.current || !school) return
-    doFetch({ school })
+    doFetch()
     hasFetched.current = true
   }, [school, doFetch])
 
