@@ -94,10 +94,11 @@ export default function LessonPick({
     ]
   )
 
-  useEffect(() => {
+  /*useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
+      console.log(e.target)
       if (
         isOpen &&
         ref.current &&
@@ -113,7 +114,8 @@ export default function LessonPick({
       // Cleanup the event listener
       document.removeEventListener('mousedown', checkIfClickedOutside)
     }
-  }, [isOpen])
+  }, [isOpen])*/
+  //TODO: Close options container if a click is detected outside of it
 
   return (
     <ShadowedWrapper
@@ -176,7 +178,10 @@ export default function LessonPick({
             <LessonOption
               multipleHour={isMultipleHour}
               option={{ subject: null, teacher: null }}
-              onPick={() => applyLessonPick({} as ILesson)}
+              onPick={() => {
+                applyLessonPick({} as ILesson)
+                setOpen(false)
+              }}
             />
           )}
           {/* Available options */}
@@ -185,7 +190,10 @@ export default function LessonPick({
               key={index}
               multipleHour={isMultipleHour}
               option={option}
-              onPick={() => applyLessonPick(option)}
+              onPick={() => {
+                applyLessonPick(option)
+                setOpen(false)
+              }}
             />
           ))}
         </div>
