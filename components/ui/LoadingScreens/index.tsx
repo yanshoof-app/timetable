@@ -14,7 +14,7 @@ export default function LoadingScreen({
     <Layout
       className={`flex justify-center flex-col items-center gap-3 ${className}`}
     >
-      <Spinner />
+      <Spinner className="w-16 h-16 fill-primary-500" />
       <p className="font-semibold">{`${LOADING} ${label}...`}</p>
     </Layout>
   )
