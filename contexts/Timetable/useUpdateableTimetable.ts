@@ -26,6 +26,10 @@ export interface IUpdateableTimetable {
   applyLesson(day: DayOfWeek, hour: HourOfDay[], lesson: ILesson): unknown
 }
 
+/**
+ * Warning: DO NOT use this in components.
+ * This hook is responsible for managing the state of the TimetableContextProvider
+ */
 export function useUpdateableTimetable(): IUpdateableTimetable {
   const [lessonMatrix, setLessonMatrix] = useLessonMatrixState()
   const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
