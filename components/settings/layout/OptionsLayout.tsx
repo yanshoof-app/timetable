@@ -1,34 +1,54 @@
 import { options_example } from '../../../timetable_sample'
 import RadioButton from '../../forms/RadioButton'
+import Image from 'next/image'
 
 interface option {
-  image: unknown
   label: string
+  value: string | boolean
+}
+
+interface image {
+  image: StaticImageData
   value: string | boolean
 }
 
 export interface OptionsLayoutProps {
   options: option[]
+  images: image[]
   onChange
   value
 }
 
 export default function OptionsLayout({
   options,
+  images,
   onChange,
   value,
 }: OptionsLayoutProps) {
   return (
-    <div>
-      {options.map((option) => (
-        <div>
-          {option.image}
+    <div className="flex flex-col">
+      <div className="flex justify-evenly">
+        {images.map((image, index) => (
+          <div className="w-5/12" key={index}>
+            <Image src={image.image} onClick={() => onChange(image.value)} />
+          </div>
+        ))}
+      </div>
+      <div
+        className={`grid ${
+          options.length == 2 ? 'grid-cols-2' : 'grid-cols-3'
+        }`}
+      >
+        {options.map((option, index) => (
           <RadioButton
             selected={value === option.value}
             label={option.label}
-          ></RadioButton>
-        </div>
-      ))}
+            onClick={() => onChange(option.value)}
+            orientation="horizontal"
+            key={index}
+          />
+        ))}
+      </div>
     </div>
   )
 }
