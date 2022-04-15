@@ -18,6 +18,7 @@ export const SchoolInit = asPage(
   ({ school, schoolName, setSchool, setSchoolName }) => ({
     value: { symbol: Number(school), name: schoolName },
     save: ({ symbol, name }) => {
+      console.log(symbol, name)
       setSchool(symbol.toString())
       setSchoolName(name)
     },
