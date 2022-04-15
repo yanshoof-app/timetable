@@ -54,7 +54,8 @@ export default function StorageProvider({ children }: Wrapper) {
   const resetTimetableSettings = useCallback(() => {
     setStudyGroupMap(new Map())
     setStudyGroups([])
-  }, [setStudyGroupMap, setStudyGroups])
+    setLastUserUpdate(undefined)
+  }, [setLastUserUpdate, setStudyGroupMap, setStudyGroups])
 
   if (!isClient) return <AppLoadingScreen />
 

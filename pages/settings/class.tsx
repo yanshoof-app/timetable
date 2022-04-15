@@ -23,9 +23,7 @@ const ClassSettingPage = asPage(
         setClassId(newClassId)
         setGrade(newGrade)
         setClassNum(newClassNum)
-        if (newGrade !== grade)
-          // if switched classes in the same grade, maintain settings
-          resetTimetableSettings()
+        resetTimetableSettings()
       }
     },
     onSchoolEditClick: () => router.push('/settings/school'),
