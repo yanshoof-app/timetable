@@ -7,10 +7,15 @@ import { SettingsComponent } from './types'
 const MIN_HOUR = 16 //Number(Object.keys(HOURS)[0])
 const DEFAULT_OPTION = 8 // 24 - 16
 
-const UpdateTimeSetting: SettingsComponent<number> = ({
+export interface IUpdateTimeSettingProps {
+  isEditing?: boolean
+}
+
+const UpdateTimeSetting: SettingsComponent<number, IUpdateTimeSettingProps> = ({
   value,
   onChange,
   save,
+  isEditing = false,
 }) => {
   const selectedIndex = useMemo(
     () => (value ? value - MIN_HOUR : DEFAULT_OPTION),
@@ -41,9 +46,11 @@ const UpdateTimeSetting: SettingsComponent<number> = ({
           onIndexChange={onIndexChange}
           indexOfValue={selectedIndex}
         />
-        <Button className="py-4 w-20" onClick={save}>
-          סיום
-        </Button>
+        {!isEditing && (
+          <Button className="py-4 w-20" onClick={save}>
+            סיום
+          </Button>
+        )}
       </div>
     </div>
   )
