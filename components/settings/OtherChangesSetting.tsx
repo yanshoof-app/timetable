@@ -1,6 +1,5 @@
 import RadioButton from '../forms/RadioButton'
 import OthersChangesExample from './examples/OthersChangesExample'
-import ApplyCancelButtons from './layout/ApplyCancelButtons'
 import { SettingsComponent } from './types'
 import Image from 'next/image'
 import lightModeExample from '../../public/lightModeExample.png'
@@ -33,11 +32,6 @@ const OtherChangesSetting: SettingsComponent<boolean> = ({
         </div>
       </div>
       <div className="grid grid-cols-2 px-3"></div>
-      <ApplyCancelButtons
-        apply={save}
-        cancel={navigateBack}
-        className="justify-end px-8 pt-8"
-      />
     </div>
   )
 }

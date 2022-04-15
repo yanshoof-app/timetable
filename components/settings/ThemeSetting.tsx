@@ -1,7 +1,6 @@
 import { ThemePreference } from '../../contexts/Storage/types'
 import RadioButton from '../forms/RadioButton'
 import ThemeModeExample from './examples/ThemeModeExample'
-import ApplyCancelButtons from './layout/ApplyCancelButtons'
 import { SettingsComponent } from './types'
 
 const ThemeSetting: SettingsComponent<ThemePreference> = ({

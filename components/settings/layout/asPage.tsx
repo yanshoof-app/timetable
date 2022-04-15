@@ -23,7 +23,7 @@ function asPage<T, AdditionalProps>(
     const {
       value: initialValue,
       save,
-      navigateBack = () => {},
+      navigateBack = save,
       ...additionalProps
     } = useMemo(() => propProvider(storage, router), [storage, router])
     const [selectedValue, setSelectedValue] = useState(initialValue)
