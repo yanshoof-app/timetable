@@ -4,7 +4,7 @@ export interface ISettingsComponentProps<T> {
   value: T
   onChange: Dispatch<SetStateAction<T>>
   save: (value?: T) => unknown
-  navigateBack: () => unknown
+  navigateBack: (value?: T) => unknown
 }
 
 export type SettingsComponent<

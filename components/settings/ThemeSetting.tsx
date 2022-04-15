@@ -36,11 +36,6 @@ const ThemeSetting: SettingsComponent<ThemePreference> = ({
           onClick={() => setSelectedTheme('dark')}
         />
       </div>
-      <ApplyCancelButtons
-        apply={save}
-        cancel={navigateBack}
-        className="justify-end px-8 pt-8"
-      />
     </div>
   )
 }
