@@ -7,7 +7,6 @@ import {
   HourOfDay,
   ILesson,
   isAnyLessonObj,
-  IStudyGroup,
   ITeacherLesson,
 } from '../../interfaces'
 import StudyGroup from '../../pages/settings/studyGroup/[groupId]'
@@ -41,14 +40,14 @@ const ShowLesson = (
 
 export interface TimetableProps {
   day: DayOfWeek
-  allEditable?: boolean
+  isEditing?: boolean
   timetable: SupportedLesson[][]
   className?: string
 }
 
 export default function Timetable({
   day = 0,
-  allEditable = false,
+  isEditing = false,
   timetable,
   className = '',
 }: TimetableProps) {
@@ -67,25 +66,12 @@ export default function Timetable({
           (lesson, hour) =>
             ShowLesson(lesson, hour as HourOfDay, lastLesson) &&
             (Array.isArray(lesson) ? (
-              isPickableLesson(
-                lesson,
-                day as DayOfWeek,
-                hour as HourOfDay,
-                allEditable
-              ) ? (
-                <LessonPick
-                  day={day}
-                  hour={hour as HourOfDay}
-                  key={`${day}${hour}`}
-                  editable={allEditable}
-                />
-              ) : (
-                <Lesson
-                  lesson={lesson[0]}
-                  hour={hour as HourOfDay}
-                  key={`${day}${hour}`}
-                />
-              )
+              <LessonPick
+                day={day}
+                hour={hour as HourOfDay}
+                key={`${day}${hour}`}
+                isEditing={isEditing}
+              />
             ) : (
               <Lesson
                 lesson={lesson}

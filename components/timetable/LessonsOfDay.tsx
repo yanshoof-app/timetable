@@ -19,7 +19,7 @@ export default function LessonsOfDay({ day, hourSet }: LessonsOfDayProps) {
       <div className="flex flex-col gap-4">
         {rangedHours.map((hours, index) =>
           timetable[day] && timetable[day][hours[0]] ? (
-            <LessonPick day={day} hour={hours} key={index} editable />
+            <LessonPick day={day} hour={hours} key={index} isEditing />
           ) : (
             <SkeletonLesson key={index} />
           )

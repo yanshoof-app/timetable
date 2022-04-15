@@ -38,7 +38,7 @@ export default function AdvancedEditingPage() {
           className="p-5 mb-10 overflow-y-scroll"
           day={day}
           timetable={timetable}
-          allEditable
+          isEditing
         />
       )}
     </Layout>

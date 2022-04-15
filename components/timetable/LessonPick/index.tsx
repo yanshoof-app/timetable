@@ -12,13 +12,13 @@ import LessonOption from './LessonOption'
 export interface LessonPickProps {
   hour: HourOfDay | HourOfDay[]
   day: DayOfWeek
-  editable?: boolean
+  isEditing?: boolean
 }
 
 export default function LessonPick({
   hour,
   day,
-  editable = false,
+  isEditing = false,
 }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
   const { studyGroupMap } = useStorage()
@@ -58,7 +58,7 @@ export default function LessonPick({
       if (isMultipleHour) {
         appendScheduleSetting(
           { lesson, day, hour: hour as HourOfDay[] },
-          editable
+          isEditing
         )
       } else {
         // single hour
@@ -76,11 +76,22 @@ export default function LessonPick({
         else
           appendScheduleSetting(
             { lesson, day, hour: [hour] as HourOfDay[] },
-            editable
+            isEditing
           )
       }
     },
-    [appendScheduleSetting, isMultipleHour, day, hour, editable, isWindow]
+    [
+      isMultipleHour,
+      appendScheduleSetting,
+      day,
+      hour,
+      isEditing,
+      problemInHour,
+      isWindow,
+      timetable,
+      displayHour,
+      removeScheduleSetting,
+    ]
   )
 
   useEffect(() => {
@@ -126,7 +137,7 @@ export default function LessonPick({
           className="flex flex-row items-center justify-between pl-[0.8rem] gap-[0.7rem] grow-[1]"
           onClick={() => setOpen(!isOpen)}
         >
-          {(!problemInHour || editable) && !isWindow ? (
+          {(!problemInHour || isEditing) && !isWindow ? (
             <LessonInfo
               {...{
                 subject: lessons[day][displayHour].subject,
