@@ -5,9 +5,12 @@ const UpdateTimeSettingPage = asPage(
   UpdateTimeSetting,
   { title: 'מערכת של מחר', centerContent: true },
   ({ updateTime, setUpdateTime }, router) => ({
+    isEditing: true,
     value: updateTime,
-    save: setUpdateTime,
-    navigateBack: () => router.push('/settings'),
+    save: (newUpdateTime) => {
+      setUpdateTime(newUpdateTime)
+      router.push('/settings')
+    },
   })
 )
 
