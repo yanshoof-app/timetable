@@ -19,10 +19,10 @@ export default function List({
     <div className="flex flex-col gap-2 rounded-lg font-semibold px-4 py-3 w-full h-full overflow-y-scroll bg-white">
       {showHistory &&
         [...teacherSearchHistory].map((element, index) => (
-          <div className="flex justify-between" key={index}>
+          <div className="flex justify-between text-primary-500" key={index}>
             <Link href={`${PATH}/${element}`}>{element}</Link>
             <button
-              className="font-semibold text-primary-500"
+              className="font-semibold "
               onClick={() =>
                 setTeacherSearchHistory((prev) => {
                   const set = new Set(prev)
@@ -44,9 +44,10 @@ export default function List({
         .map((element, index) => (
           <Link href={`${PATH}/${element}`} key={index}>
             <a
-              onClick={() =>
-                setTeacherSearchHistory((prev) => new Set(prev).add(element))
-              }
+              onClick={() => {
+                if (query !== '')
+                  setTeacherSearchHistory((prev) => new Set(prev).add(element))
+              }}
             >
               {element}
             </a>
