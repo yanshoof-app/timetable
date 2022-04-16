@@ -1,15 +1,15 @@
-import { options_example } from '../../../timetable_sample'
 import RadioButton from '../../forms/RadioButton'
 import Image from 'next/image'
+import { ThemePreference } from '../../../contexts/Storage/types'
 
 interface option {
   label: string
-  value: string | boolean
+  value: ThemePreference | boolean
 }
 
 export interface image {
   image: StaticImageData
-  value: string | boolean
+  value: ThemePreference | boolean
 }
 
 export interface OptionsLayoutProps {
@@ -25,6 +25,7 @@ export default function OptionsLayout({
   onChange,
   value,
 }: OptionsLayoutProps) {
+  //TODO: Center radioButtons and examples
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">

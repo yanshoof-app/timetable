@@ -1,7 +1,7 @@
 import { SettingsComponent } from './types'
 import lightModeExample from '../../public/lightMode.png'
 import otherChangesExample from '../../public/otherChangesLight.png'
-import asOptionsPage from './layout/OptionsLayout'
+import OptionsLayout from './layout/OptionsLayout'
 
 const OtherChangesSetting: SettingsComponent<boolean> = ({
   value,
@@ -9,7 +9,7 @@ const OtherChangesSetting: SettingsComponent<boolean> = ({
   save,
   navigateBack,
 }) => {
-  return asOptionsPage({
+  return OptionsLayout({
     options: [
       { label: 'הצג', value: true },
 
