@@ -26,7 +26,9 @@ export default function SettingsBox({
         <p className="font-semibold">{label}</p>
         <div className="flex justify-end text-left items-center text-gray-600">
           <p className="truncate font-semibold">{value}</p>
-          <ForwardRTL width={14} height={14} />
+          <div>
+            <ForwardRTL width={14} height={14} />
+          </div>
         </div>
       </div>
     </ShadowedWrapper>
