@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
 
 type Props = {
@@ -12,6 +11,8 @@ const Layout = ({ children, title = 'מערכת שעות', className = '' }: Pro
   <div className={`${className} h-mobile max-h-screen absolute w-full`}>
     <Head>
       <title>{title}</title>
+      <link rel="shortcut icon" href="/icon.png" />
+
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
