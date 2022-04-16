@@ -33,6 +33,10 @@ module.exports = {
           '50%': { bottom: '3.5rem' },
           '100%': { bottom: '4.75rem' },
         },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 100 },
+        },
       },
       height: {
         mobile: '-webkit-fill-available',

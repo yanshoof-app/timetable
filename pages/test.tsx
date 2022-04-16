@@ -7,6 +7,7 @@ import LessonOption from '../components/timetable/LessonPick/LessonOption'
 import LoadingScreen from '../components/ui/LoadingScreens'
 import { useTimetable } from '../contexts/Timetable'
 import { ILesson, LessonModification } from '../interfaces'
+import AppLoadingScreen from '../components/ui/LoadingScreens/AppLoadingScreen'
 
 const defaultLesson: ILesson = {
   class: 'מחשבים יב',
@@ -26,7 +27,7 @@ const IndexPage = () => {
       title="Home | Next.js + TypeScript Example"
       className="flex justify-center w-full items-center"
     >
-      <DropdownPick options={['1', '2', '3']} />
+      <AppLoadingScreen></AppLoadingScreen>
     </Layout>
   )
 }
