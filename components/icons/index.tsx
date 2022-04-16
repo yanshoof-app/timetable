@@ -83,16 +83,16 @@ export const Logo = ({ className = '' }: { className?: string }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
   >
-    <circle cx="151" cy="128" r="120" stroke="#0EA5E9" stroke-width="16" />
-    <circle cx="125" cy="128" r="26" fill="#0EA5E9" />
-    <circle cx="424" cy="128" r="120" stroke="#0EA5E9" stroke-width="16" />
-    <circle cx="398" cy="128" r="26" fill="#0EA5E9" />
+    <circle cx="151" cy="128" r="120" stroke="white" stroke-width="16" />
+    <circle cx="125" cy="128" r="26" fill="white" />
+    <circle cx="424" cy="128" r="120" stroke="white" stroke-width="16" />
+    <circle cx="398" cy="128" r="26" fill="white" />
     <line
       x1="271"
       y1="119.5"
       x2="308"
       y2="119.5"
-      stroke="#0EA5E9"
+      stroke="white"
       stroke-width="17"
     />
     <line
@@ -100,18 +100,15 @@ export const Logo = ({ className = '' }: { className?: string }) => (
       y1="120"
       x2="575"
       y2="120"
-      stroke="#0EA5E9"
+      stroke="white"
       stroke-width="16"
     />
-    <line y1="120" x2="30" y2="120" stroke="#0EA5E9" stroke-width="16" />
+    <line y1="120" x2="30" y2="120" stroke="white" stroke-width="16" />
     <path
       d="M251.398 234.32L276.405 209.314C282.653 203.065 292.756 203.093 298.969 209.376L323.836 234.522L287.516 270.842L251.398 234.32Z"
-      fill="#0EA5E9"
+      fill="white"
     />
-    <path
-      d="M287.417 298L323.286 234.622H251.549L287.417 298Z"
-      fill="#0EA5E9"
-    />
+    <path d="M287.417 298L323.286 234.622H251.549L287.417 298Z" fill="white" />
   </svg>
 )
 
