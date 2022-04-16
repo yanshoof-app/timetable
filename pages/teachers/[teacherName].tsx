@@ -18,13 +18,15 @@ const TeacherSchedule = () => {
   const router = useRouter()
   const { teacherName } = useMemo(() => router.query, [router.query])
   const { school } = useStorage()
-  const { teacherSchedule } = useTeacherSchedule(school, teacherName as string)
+  //omitted to prevent page from crash the whole browser
+  /*
+  const { teacherSchedule } = { teacherSchedule: [] } //useTeacherSchedule(school, teacherName as string)
   const dayFilterer = useDayFilterer(teacherSchedule)
   const { currentDay } = useCurrentDay(dayFilterer)
   const [day, updateDay] = useState(currentDay)
 
   console.log('Rerender')
-
+  */
   return (
     <Layout title={`${SCHEDULEOF} ${teacherName}`}>
       <PageTitle
@@ -34,12 +36,12 @@ const TeacherSchedule = () => {
         onStartIconClick={() => router.back()}
       />
       <div className="px-4">
-        <DayPick day={day} onChange={updateDay} dayFilterer={dayFilterer} />
+        {/*<DayPick day={day} onChange={updateDay} dayFilterer={dayFilterer} />
         {teacherSchedule[0] ? (
           <Timetable className="py-4" day={day} timetable={teacherSchedule} />
         ) : (
           <TimetableSkeleton className={'py-4'} />
-        )}
+        )}*/}
       </div>
     </Layout>
   )
