@@ -22,10 +22,10 @@ export function LoadingScreenWrapper({ children }) {
     }, LOADING_SCREEN_DURATION)
 
     return (
-      <React.Fragment>
+      <>
         {showChild && showLoadingScreen && <AppLoadingScreen transition />}
         {showChild ? children : <AppLoadingScreen />}
-      </React.Fragment>
+      </>
     )
   }
 }
