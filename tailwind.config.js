@@ -37,6 +37,10 @@ module.exports = {
           '0%': { opacity: 0 },
           '100%': { opacity: 100 },
         },
+        fadeOut: {
+          '0%': { opacity: 100 },
+          '100%': { opacity: 0 },
+        },
       },
       height: {
         mobile: '-webkit-fill-available',

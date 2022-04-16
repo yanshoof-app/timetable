@@ -16,30 +16,33 @@ import FetchingTimetable from '../components/ui/LoadingScreens/FetchingTimetable
 import { ClassInit, SchoolInit, UpdateTimeInit } from '../components/settings'
 import ClassLookupProvider from '../contexts/ClassLookup'
 import TimetableUpdatesProvider from '../contexts/Updates'
+import { LoadingScreenWrapper } from '../contexts/LoadingScreenWrapper'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <StorageProvider>
-      <SchoolExists orElse={SchoolInit}>
-        <ClassLookupProvider>
-          <ClassExists orElse={ClassInit}>
-            <FullTimetableProvider>
-              <TimetableProvider>
-                <TimetableIsSaved orElse={FetchingTimetable}>
-                  <NoProblemsInSettings orElse={TimetableInit}>
-                    <UpdateTimeExists orElse={UpdateTimeInit}>
-                      <TimetableUpdatesProvider>
-                        <Component {...pageProps} />
-                      </TimetableUpdatesProvider>
-                    </UpdateTimeExists>
-                  </NoProblemsInSettings>
-                </TimetableIsSaved>
-              </TimetableProvider>
-            </FullTimetableProvider>
-          </ClassExists>
-        </ClassLookupProvider>
-      </SchoolExists>
-    </StorageProvider>
+    <LoadingScreenWrapper>
+      <StorageProvider>
+        <SchoolExists orElse={SchoolInit}>
+          <ClassLookupProvider>
+            <ClassExists orElse={ClassInit}>
+              <FullTimetableProvider>
+                <TimetableProvider>
+                  <TimetableIsSaved orElse={FetchingTimetable}>
+                    <NoProblemsInSettings orElse={TimetableInit}>
+                      <UpdateTimeExists orElse={UpdateTimeInit}>
+                        <TimetableUpdatesProvider>
+                          <Component {...pageProps} />
+                        </TimetableUpdatesProvider>
+                      </UpdateTimeExists>
+                    </NoProblemsInSettings>
+                  </TimetableIsSaved>
+                </TimetableProvider>
+              </FullTimetableProvider>
+            </ClassExists>
+          </ClassLookupProvider>
+        </SchoolExists>
+      </StorageProvider>
+    </LoadingScreenWrapper>
   )
 }
 

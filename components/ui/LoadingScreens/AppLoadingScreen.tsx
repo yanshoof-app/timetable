@@ -1,9 +1,15 @@
 import { Logo } from '../../icons'
 import Layout from '../../Layout'
 
-export default function AppLoadingScreen() {
+type fade = 'in' | 'out'
+
+export default function AppLoadingScreen({ fade = 'in' }: { fade?: fade }) {
   return (
-    <Layout className="flex flex-col justify-center items-center py-4 animate-[fadeIn_0.5s_ease-out] z-50">
+    <Layout
+      className={`flex flex-col justify-center items-center py-4 bg-gray-100 ${
+        fade === 'in' ? '' : 'animate-[fadeOut_0.5s_ease-out]'
+      } z-50`}
+    >
       <Logo className="w-48 h-auto" />
     </Layout>
   )
