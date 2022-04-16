@@ -16,7 +16,6 @@ const TeacherLookup = () => {
   const teachers = useMemo(() => TeacherList.fromSchedule(lessons), [lessons])
 
   const showHistory = useMemo(() => searchQuery === '', [searchQuery])
-  //TODO: onClear
 
   return (
     <Layout className="flex flex-col px-4">

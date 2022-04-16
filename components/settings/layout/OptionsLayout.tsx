@@ -25,7 +25,6 @@ export default function OptionsLayout({
   onChange,
   value,
 }: OptionsLayoutProps) {
-  //TODO: Center radioButtons and examples
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">
@@ -35,14 +34,14 @@ export default function OptionsLayout({
               <Image
                 src={image.image}
                 onClick={() => onChange(image.value)}
-                alt="Picture of the author"
+                alt=""
               />
             </div>
           ))}
         </div>
         <div
-          className={`grid ${
-            options.length == 2 ? 'grid-cols-2' : 'grid-cols-3'
+          className={`${
+            options.length == 2 ? 'grid grid-cols-2' : 'flex justify-evenly'
           }`}
         >
           {options.map((option, index) => (
