@@ -3,18 +3,18 @@ import AppLoadingScreen from '../components/ui/LoadingScreens/AppLoadingScreen'
 import { useClientRender } from '../hooks/useClientRender'
 
 const LOADING_SCREEN_DURATION = 250
-const TRANSITION_DURATION = 500
+const TRANSITION_DURATION = 250
 
 export function LoadingScreenWrapper({ children }) {
   const isClient = useClientRender()
 
   const [showChild, setShowChild] = useState(false)
-  const [showAnimation, setShowAnimation] = useState(true)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
 
   if (!isClient) return <AppLoadingScreen />
   else {
     setTimeout(() => {
-      setShowAnimation(false)
+      setShowLoadingScreen(false)
     }, LOADING_SCREEN_DURATION + TRANSITION_DURATION)
 
     setTimeout(() => {
@@ -23,7 +23,7 @@ export function LoadingScreenWrapper({ children }) {
 
     return (
       <React.Fragment>
-        {showChild && showAnimation && <AppLoadingScreen fade />}
+        {showChild && showLoadingScreen && <AppLoadingScreen transition />}
         {showChild ? children : <AppLoadingScreen />}
       </React.Fragment>
     )
