@@ -7,7 +7,7 @@ interface option {
   value: string | boolean
 }
 
-interface image {
+export interface image {
   image: StaticImageData
   value: string | boolean
 }
@@ -30,7 +30,11 @@ export default function OptionsLayout({
       <div className="flex justify-evenly">
         {images.map((image, index) => (
           <div className="w-5/12" key={index}>
-            <Image src={image.image} onClick={() => onChange(image.value)} />
+            <Image
+              src={image.image}
+              onClick={() => onChange(image.value)}
+              alt="Picture of the author"
+            />
           </div>
         ))}
       </div>
