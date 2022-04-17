@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from 'axios'
+import { HTTPError } from '../../interfaces/errors'
 
-export type FetchFor = 'schedule' | 'changes' | 'classes';
+export type FetchFor = 'schedule' | 'changes' | 'classes'
 
 /**
  * Build a fetch URL.
@@ -14,7 +15,7 @@ export function buildFetchUrl(
   schoolId: string | number,
   classId: string | number = '0'
 ) {
-  return `https://${process.env.BASE_URL}/api/student/${schoolId}/0/${fetchFor}/?token=${process.env.TOKEN}&clsId=${classId}`;
+  return `https://${process.env.BASE_URL}/api/student/${schoolId}/0/${fetchFor}/?token=${process.env.TOKEN}&clsId=${classId}`
 }
 
 /**
@@ -34,9 +35,20 @@ export async function fetchDataSource<T extends {}>(
   schoolId: string | number,
   classId: string | number
 ) {
-  const url = buildFetchUrl(fetchFor, schoolId, classId);
-  const res = await axios.get<T>(url);
-  if (res.status != 200)
-    throw new Error('Error fetching iscool server for ' + fetchFor);
-  return res.data;
+  try {
+    const url = buildFetchUrl(fetchFor, schoolId, classId)
+    const res = await axios.get<T>(url)
+    return res.data
+  } catch (err: unknown) {
+    if (
+      typeof err === 'object' &&
+      'response' in err &&
+      'status' in err['response']
+    )
+      throw new HTTPError(
+        err['response'].status,
+        'Error fetching iscool servers'
+      )
+    throw new Error('Unknown error')
+  }
 }

@@ -14,7 +14,7 @@ export abstract class MultiClassQuery<
   private classLookup: ClassLookup
   private sleepInterval = 100 // 100 ms
 
-  private static MAX_SLEEP_INTERVAL = 5000 // 5 seconds
+  private static MAX_SLEEP_INTERVAL = 7000 // 5 seconds
 
   /**
    * Constrcuts a new MultiClassQuery object
@@ -62,10 +62,11 @@ export abstract class MultiClassQuery<
   protected async forEachClass(
     callback: (classId: number) => Promise<unknown>
   ) {
+    const callbackBinded = callback.bind(this)
     for (let grade of this.classLookup.classIds) {
       for (let classId of grade) {
         if (classId == ClassLookup.CLASS_NOT_FOUND) continue
-        await callback(classId)
+        await callbackBinded(classId)
       }
     }
   }
@@ -88,9 +89,8 @@ export abstract class MultiClassQuery<
             this.sleepInterval *= 2
             hasSleptFlag = false
           }
-        }
-        // another error
-        this.emitError(ErrorCode.UNEXPECTED_ERROR_DURING_CLASS_FETCH)
+        } // another error
+        else this.emitError(ErrorCode.UNEXPECTED_ERROR_DURING_CLASS_FETCH)
       }
     }
     throw new Error('Timeout exceeded')

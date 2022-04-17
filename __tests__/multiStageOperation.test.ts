@@ -5,6 +5,8 @@ import axios from 'axios'
 axios.defaults.adapter = require('axios/lib/adapters/http')
 
 describe('Tests multi stage operations', () => {
+  jest.setTimeout(40000)
+
   let grades: number[] = [],
     classIds: number[][] = [] // mock given from client
   const school = '460030',
