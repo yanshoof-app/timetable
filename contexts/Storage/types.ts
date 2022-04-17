@@ -26,7 +26,7 @@ export interface IStorageValues extends IScheduleSettings {
   lastUserUpdate: Date
   grades: number[]
   classIds: number[][]
-  // lessons: ILesson[][]
+  lessons: ILesson[][]
 }
 
 export interface IStorage {
@@ -45,7 +45,7 @@ export interface IStorage {
   setLastUserUpdate: Dispatch<SetStateAction<Date>>
   setGrades: Dispatch<SetStateAction<number[]>>
   setClassIds: Dispatch<SetStateAction<number[][]>>
-  // setLessonMatrix: Dispatch<SetStateAction<ILesson[][]>>
+  setLessonMatrix: Dispatch<SetStateAction<ILesson[][]>>
   resetClassSettings(): void
   resetTimetableSettings(): void
 }

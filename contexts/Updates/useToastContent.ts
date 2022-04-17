@@ -10,7 +10,7 @@ const APPLY_CHANGES = 'רענון'
 const ALL_UPDATED = 'הכל מעודכן'
 
 export function useToastContent(): Omit<ToastProps, 'setToastVisible'> {
-  const { errorInFetch, changesPending, applyUpdates, refetchUpdates } =
+  const { errorInFetch, changesPending, applyUpdates, refetchUpdatesOnError } =
     useTimetable()
   return useMemo(
     () =>
@@ -19,7 +19,7 @@ export function useToastContent(): Omit<ToastProps, 'setToastVisible'> {
             icon: Warning,
             content: ERROR_IN_FETCH,
             actionContent: TRY_AGAIN,
-            onClick: refetchUpdates,
+            onClick: refetchUpdatesOnError,
           }
         : changesPending
         ? {
@@ -33,6 +33,6 @@ export function useToastContent(): Omit<ToastProps, 'setToastVisible'> {
             content: ALL_UPDATED,
             iconClassName: 'text-celebration-400',
           },
-    [errorInFetch, changesPending, applyUpdates, refetchUpdates]
+    [errorInFetch, changesPending, applyUpdates, refetchUpdatesOnError]
   )
 }

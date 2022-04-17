@@ -12,6 +12,7 @@ import {
   useGrade,
   useGradeState,
   useLastUserUpdate,
+  useLessonMatrixState,
   useOthersChanges,
   useSchoolName,
   useSchoolState,
@@ -46,6 +47,7 @@ export default function StorageProvider({ children }: Wrapper) {
     useTeacherSearchHistory()
   const [classIds, setClassIds] = useClassMatrixState()
   const [grades, setGrades] = useGradeState()
+  const [lessons, setLessonMatrix] = useLessonMatrixState()
   const isClient = useClientRender()
 
   useClearUnusedStudyGroups({
@@ -96,6 +98,7 @@ export default function StorageProvider({ children }: Wrapper) {
         lastUserUpdate,
         classIds,
         grades,
+        lessons,
         setSchool,
         setSchoolName,
         setClassId,
@@ -110,6 +113,7 @@ export default function StorageProvider({ children }: Wrapper) {
         setTeacherSearchHistory,
         setClassIds,
         setGrades,
+        setLessonMatrix,
         resetTimetableSettings,
         resetClassSettings,
       }}

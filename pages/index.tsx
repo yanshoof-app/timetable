@@ -1,21 +1,20 @@
 import Layout from '../components/Layout'
 import DayDateView from '../components/ui/DayDateView'
-import { isILessonObj } from '../interfaces'
 import Timetable from '../components/timetable/Timetable'
 import { useCallback, useState } from 'react'
 import DayPick from '../components/forms/DayPick'
 import useCurrentDay from '../hooks/useCurrentDay'
 import useDate from '../hooks/useDate'
-import { useTimetable } from '../contexts/Timetable'
 import Navbar from '../components/ui/Navbar'
 import { useTimetableUpdates } from '../contexts/Updates'
 import Toast from '../components/ui/Toast'
 import { useDayFilterer } from '../hooks/useDayFilterer'
+import { useStorage } from '../contexts/Storage'
 
 const MY_SCHEDULE = 'המערכת שלי'
 
 const IndexPage = () => {
-  const { lessons } = useTimetable()
+  const { lessons } = useStorage()
   const { showToast, ...toastProps } = useTimetableUpdates()
   const dayFilterer = useDayFilterer(lessons)
   const { currentDay, date } = useCurrentDay(dayFilterer)
