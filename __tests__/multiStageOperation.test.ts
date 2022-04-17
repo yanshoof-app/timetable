@@ -10,7 +10,7 @@ describe('Tests multi stage operations', () => {
   let grades: number[] = [],
     classIds: number[][] = [] // mock given from client
   const school = '460030',
-    teacherName = 'טיראן חוה'
+    teacherName = 'ורגוליס ארתור'
 
   it('Fetches classes', async () => {
     const { Classes } = await fetchDataSource('classes', school, 0)

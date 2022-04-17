@@ -8,7 +8,6 @@ import {
   TeacherTimetable,
 } from '../timetable/TeacherTimetableClass'
 import { MultiClassQuery } from './MultiClassQuery'
-import { ErrorCode } from './types'
 
 /**
  * Handles building the teacher timetable and notifying about errors
@@ -26,6 +25,7 @@ export class TeacherTimetableQuery extends MultiClassQuery<
   ITeacherTimetableEvents
 > {
   private teacherTimetable: TeacherTimetable
+  private shouldFetchChanges: boolean
 
   /**
    * Constructs a new SessionTeacherTimetable object
@@ -45,9 +45,11 @@ export class TeacherTimetableQuery extends MultiClassQuery<
     this.teacherTimetable.on('newChange', (...args) =>
       this.emit('newChange', ...args)
     )
-    this.teacherTimetable.on('newLesson', (...args) =>
+    this.teacherTimetable.on('newLesson', (...args) => {
+      this.shouldFetchChanges = true
       this.emit('newLesson', ...args)
-    )
+    })
+    this.shouldFetchChanges = false
   }
 
   private async fetchClassLessons(classId: number) {
@@ -57,6 +59,11 @@ export class TeacherTimetableQuery extends MultiClassQuery<
       classId
     )
     this.teacherTimetable.fromIscool(Schedule)
+    if (this.shouldFetchChanges) {
+      // class had lessons
+      await this.fetchChanges(classId)
+      this.shouldFetchChanges = false
+    }
   }
 
   private async fetchChanges(classId: number) {
@@ -70,7 +77,6 @@ export class TeacherTimetableQuery extends MultiClassQuery<
 
   protected async beginWithClassLookup(): Promise<void> {
     await this.forEachClass(this.fetchClassLessons)
-    await this.forEachClass(this.fetchChanges)
     this.emit('ready', this.teacherTimetable.lessons)
   }
 }
