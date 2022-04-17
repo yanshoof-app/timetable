@@ -114,8 +114,6 @@ export default function LessonPick({
   }, [isOpen])*/
   //TODO: Close options container if a click is detected outside of it
 
-  if (day == 2 && displayHour == 5) console.log(isEditing, !isWindow)
-
   return (
     <ShadowedWrapper
       color={problemInHour ? 'primary' : 'gray'}
