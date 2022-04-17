@@ -1,6 +1,7 @@
 import { ListenerSignature } from 'tiny-typed-emitter'
 import { fetchDataSource } from '..'
 import { IClassesResponse } from '../../interfaces'
+import { HTTPError } from '../../interfaces/errors'
 import { ClassLookup } from '../class'
 import MultiStageOperation from './MultiStageOperation'
 import { ErrorCode } from './types'
@@ -11,6 +12,9 @@ export abstract class MultiClassQuery<
 > extends MultiStageOperation<Success, ErrorCode, T> {
   protected school: string
   private classLookup: ClassLookup
+  private sleepInterval = 100 // 100 ms
+
+  private static MAX_SLEEP_INTERVAL = 5000 // 5 seconds
 
   /**
    * Constrcuts a new MultiClassQuery object
@@ -28,6 +32,12 @@ export abstract class MultiClassQuery<
     this.classLookup = new ClassLookup(givenClassIds, givenGrades)
   }
 
+  private async sleep() {
+    return new Promise((resolve) => {
+      setTimeout(resolve, this.sleepInterval)
+    })
+  }
+
   protected abstract beginWithClassLookup(): Promise<void>
 
   public async begin(): Promise<void> {
@@ -40,6 +50,7 @@ export abstract class MultiClassQuery<
       const queriedLookup = new ClassLookup(Classes)
       if (queriedLookup.gradesSize > this.classLookup.gradesSize)
         this.classLookup = queriedLookup
+      await this.beginWithClassLookup()
     } catch (err) {
       this.emitError(ErrorCode.ERROR_FETCHING_CLASSES)
     }
@@ -59,15 +70,23 @@ export abstract class MultiClassQuery<
   protected async fetchUntilResult<T extends {}>(
     ...args: Parameters<typeof fetchDataSource>
   ): Promise<T> {
-    while (true) {
+    let hasSleptFlag = false
+    while (this.sleepInterval <= MultiClassQuery.MAX_SLEEP_INTERVAL) {
       try {
         const result = await fetchDataSource<T>(...args)
         return result
       } catch (err) {
-        // if (HTTPError.isHTTPError(err) && err.code == 429 /* too many requests */)
-        // this.emitDelay()
-        // sleep!!!
-        // else
+        if (HTTPError.isHTTPError(err) && err.code == 429) {
+          // too many requests
+          this.emitDelay()
+          await this.sleep()
+          if (!hasSleptFlag) hasSleptFlag = true
+          else {
+            this.sleepInterval *= 2
+            hasSleptFlag = false
+          }
+        }
+        // another error
         this.emitError(ErrorCode.UNEXPECTED_ERROR_DURING_CLASS_FETCH)
       }
     }
