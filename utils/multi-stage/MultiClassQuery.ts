@@ -15,11 +15,17 @@ export abstract class MultiClassQuery<
   /**
    * Constrcuts a new MultiClassQuery object
    * @param school the school where the classes are located
+   * @param givenClassIds the classIds as sent by the client
+   * @param givenGrades the grades as sent by the client
    */
-  constructor(school: string) {
+  constructor(
+    school: string,
+    givenClassIds: number[][],
+    givenGrades: number[]
+  ) {
     super()
     this.school = school
-    this.classLookup = null
+    this.classLookup = new ClassLookup(givenClassIds, givenGrades)
   }
 
   protected abstract beginWithClassLookup(): Promise<void>
@@ -31,7 +37,9 @@ export abstract class MultiClassQuery<
         this.school,
         0
       )
-      this.classLookup = new ClassLookup(Classes)
+      const queriedLookup = new ClassLookup(Classes)
+      if (queriedLookup.gradesSize > this.classLookup.gradesSize)
+        this.classLookup = queriedLookup
     } catch (err) {
       this.emitError(ErrorCode.ERROR_FETCHING_CLASSES)
     }

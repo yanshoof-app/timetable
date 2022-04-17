@@ -42,9 +42,16 @@ export class TeacherTimetableQuery extends MultiClassQuery<
    * Constructs a new SessionTeacherTimetable object
    * @param school the name of the school
    * @param teacherName the name of the teacher
+   * @param givenClassIds the classIds as sent by the client
+   * @param givenGrades the grades as sent by the client
    */
-  constructor(school: string, teacherName: string) {
-    super(school)
+  constructor(
+    school: string,
+    teacherName: string,
+    givenClassIds: number[][],
+    givenGrades: number[]
+  ) {
+    super(school, givenClassIds, givenGrades)
     this.teacherTimetable = new TeacherTimetable(teacherName)
     this.teacherTimetable.on('newChange', (...args) =>
       this.emit('newChange', ...args)

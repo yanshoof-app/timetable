@@ -6,4 +6,5 @@ export interface IClassLookup {
   //getFormattedGradeName(grade: number): string
   get classIds(): number[][]
   get grades(): number[]
+  get gradesSize(): number
 }
