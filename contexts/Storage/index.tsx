@@ -1,6 +1,6 @@
 // the context responsible for handling storage
 
-import { createContext, useCallback } from 'react'
+import { createContext, useCallback, useEffect } from 'react'
 import { Wrapper } from '../../components/types'
 import AppLoadingScreen from '../../components/ui/LoadingScreens/AppLoadingScreen'
 import { useClientRender } from '../../hooks/useClientRender'

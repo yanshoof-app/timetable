@@ -36,7 +36,7 @@ export default function ClassLookupProvider({ children }: Wrapper) {
   const { school, classIds, setClassIds, grades, setGrades } = useStorage()
   const hasFetched = useRef(false)
 
-  const { data, doFetch } = useHTTP<
+  const { doFetch } = useHTTP<
     { school: string },
     { grades: number[]; classes: number[][] }
   >({
@@ -48,19 +48,6 @@ export default function ClassLookupProvider({ children }: Wrapper) {
     },
   })
 
-  // update value of class matrix and grade matrix if the data fetched contains more values
-  useEffect(() => {
-    if (!hasFetched.current) return
-    const { classes: newClassIds, grades: newGrades } = data
-    if (newClassIds.length != newGrades.length)
-      // invalid value received, abort
-      return
-    if (newGrades.length > 0) {
-      setGrades(newGrades)
-      setClassIds(newClassIds)
-    }
-  }, [data, setClassIds, setGrades, grades.length])
-
   const classLookup = useMemo(
     () => new ClassLookup(classIds, grades),
     [classIds, grades]
@@ -70,16 +57,27 @@ export default function ClassLookupProvider({ children }: Wrapper) {
 
   const revalidate = useCallback(() => {
     if (hasFetched.current || !school) return
-    doFetch()
+    doFetch().then(({ classes: newClassIds, grades: newGrades }) => {
+      if (newClassIds.length != newGrades.length)
+        // invalid value received, abort
+        return
+      if (newGrades.length > grades.length) {
+        setGrades(newGrades)
+        setClassIds(newClassIds)
+      }
+    })
     hasFetched.current = true
-  }, [school, doFetch])
+  }, [school, doFetch, grades.length, setGrades, setClassIds])
 
   // fetch if value does not exist in local storage
   useEffect(() => {
     if (!grades.length) {
-      doFetch()
+      doFetch().then(({ classes: newClassIds, grades: newGrades }) => {
+        setGrades(newGrades)
+        setClassIds(newClassIds)
+      })
     }
-  }, [grades.length, doFetch])
+  }, [grades.length, doFetch, setGrades, setClassIds])
 
   return (
     <ClassLookupContext.Provider
