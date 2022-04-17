@@ -8,6 +8,9 @@ import LoadingScreen from '../components/ui/LoadingScreens'
 import { useTimetable } from '../contexts/Timetable'
 import { ILesson, LessonModification } from '../interfaces'
 import AppLoadingScreen from '../components/ui/LoadingScreens/AppLoadingScreen'
+import { useStorage } from '../contexts/Storage'
+import useChanges from '../hooks/useChanges'
+import { timetable_example } from '../timetable_sample'
 
 const defaultLesson: ILesson = {
   class: 'מחשבים יב',
@@ -22,13 +25,14 @@ const defaultLesson: ILesson = {
 }
 
 const IndexPage = () => {
+  const lessons = timetable_example as ILesson[][]
+  const changes = useChanges(lessons)
+  console.log(changes)
   return (
     <Layout
       title="Home | Next.js + TypeScript Example"
       className="flex justify-center w-full items-center"
-    >
-      <AppLoadingScreen></AppLoadingScreen>
-    </Layout>
+    ></Layout>
   )
 }
 
