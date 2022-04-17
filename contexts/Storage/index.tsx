@@ -50,12 +50,14 @@ export default function StorageProvider({ children }: Wrapper) {
   const [lessons, setLessonMatrix] = useLessonMatrixState()
   const isClient = useClientRender()
 
+  /*
   useClearUnusedStudyGroups({
     studyGroupMap,
     studyGroups,
     setStudyGroupMap,
     setStudyGroups,
   } as IStorageContext)
+  */
 
   const resetTimetableSettings = useCallback(() => {
     setStudyGroupMap(new Map())

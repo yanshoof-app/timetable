@@ -35,10 +35,7 @@ export default function LessonPick({
     () => problems && problems.some(([d, h]) => d == day && h == displayHour),
     [problems, day, displayHour]
   )
-  const isWindow = useMemo(
-    () => studyGroupMap.get(`${day},${displayHour}`) == -1,
-    [studyGroupMap, day, displayHour]
-  )
+  const isWindow = studyGroupMap.get(`${day},${displayHour}`) == -1
 
   useDidUpdateEffect(() => {
     setOpen(false)
@@ -116,6 +113,8 @@ export default function LessonPick({
     }
   }, [isOpen])*/
   //TODO: Close options container if a click is detected outside of it
+
+  if (day == 2 && displayHour == 5) console.log(isEditing, !isWindow)
 
   return (
     <ShadowedWrapper
