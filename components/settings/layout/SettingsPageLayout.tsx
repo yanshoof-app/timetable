@@ -5,7 +5,7 @@ import PageTitle from '../../ui/PageTitle'
 
 export interface ISettingsPageLayoutProps extends Wrapper {
   onBackPress?(): void
-  title: string
+  title?: string
   hidePageTitle?: boolean
   centerContent?: boolean
   className?: string
@@ -30,7 +30,7 @@ export default function SettingsPageLayout({
   childrenDivClassName += className
   return (
     <Layout title={title} className={layoutClassName}>
-      {onBackPress && !hidePageTitle && (
+      {onBackPress && !hidePageTitle && title && (
         <PageTitle
           title={title}
           startIcon={BackRTL}

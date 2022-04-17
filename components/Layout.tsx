@@ -7,10 +7,10 @@ type Props = {
   className?: string
 }
 
-const Layout = ({ children, title = 'מערכת שעות', className = '' }: Props) => (
+const Layout = ({ children, title, className = '' }: Props) => (
   <div className={`${className} h-mobile max-h-screen absolute w-full`}>
     <Head>
-      <title>{title}</title>
+      {title && <title>{title}</title>}
       <link rel="shortcut icon" href="/icon.png" />
 
       <meta charSet="utf-8" />

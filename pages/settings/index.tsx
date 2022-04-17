@@ -1,4 +1,6 @@
+import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
+import { buildTitleGetStaticProps } from '../../components/DocumentHead'
 import Layout from '../../components/Layout'
 import AdvancedEditingLink from '../../components/settings/screen/AdvancedEditingLink'
 import SettingsBox from '../../components/settings/screen/SettingsBox'
@@ -43,7 +45,7 @@ const Settings = () => {
   const { push } = useRouter()
 
   return (
-    <Layout title="הגדרות" className="flex flex-col justify-start py-4">
+    <Layout className="flex flex-col justify-start py-4">
       <Navbar />
       <h1 className="font-bold text-4xl px-4">הגדרות</h1>
       <div className="flex flex-col gap-4 py-4 px-4 overflow-y-scroll">
@@ -86,5 +88,7 @@ const Settings = () => {
     </Layout>
   )
 }
+
+export const getStaticProps: GetStaticProps = buildTitleGetStaticProps('הגדרות')
 
 export default Settings

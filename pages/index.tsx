@@ -10,6 +10,8 @@ import { useTimetableUpdates } from '../contexts/Updates'
 import Toast from '../components/ui/Toast'
 import { useDayFilterer } from '../hooks/useDayFilterer'
 import { useStorage } from '../contexts/Storage'
+import { GetStaticProps } from 'next'
+import { buildTitleGetStaticProps } from '../components/DocumentHead'
 
 const MY_SCHEDULE = 'המערכת שלי'
 
@@ -22,7 +24,7 @@ const IndexPage = () => {
   const dateOfSelected = useDate(day, date.current)
 
   return (
-    <Layout title={MY_SCHEDULE} className="overflow-hidden flex flex-col pt-2">
+    <Layout className="overflow-hidden flex flex-col pt-2">
       <div className="w-full flex flex-col items-center justify-center gap-2 ">
         <DayDateView
           className="text-lg font-semibold"
@@ -45,5 +47,8 @@ const IndexPage = () => {
     </Layout>
   )
 }
+
+export const getStaticProps: GetStaticProps =
+  buildTitleGetStaticProps(MY_SCHEDULE)
 
 export default IndexPage

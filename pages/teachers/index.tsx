@@ -1,4 +1,6 @@
+import { GetStaticProps } from 'next'
 import { useMemo, useState } from 'react'
+import { buildTitleGetStaticProps } from '../../components/DocumentHead'
 import Input from '../../components/forms/Input'
 import List from '../../components/forms/List'
 import Layout from '../../components/Layout'
@@ -37,5 +39,8 @@ const TeacherLookup = () => {
     </Layout>
   )
 }
+
+export const getStaticProps: GetStaticProps =
+  buildTitleGetStaticProps(TEACHER_SEARCH)
 
 export default TeacherLookup

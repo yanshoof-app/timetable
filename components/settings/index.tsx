@@ -9,7 +9,6 @@ const WELCOME_TITLE = 'ברוכים הבאים'
 const INIT_PAGE_PROPS = {
   hidePageTitle: true,
   centerContent: true,
-  title: WELCOME_TITLE,
 }
 
 export const SchoolInit = asPage(
