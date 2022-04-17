@@ -7,6 +7,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './contexts/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     fontFamily: {
       sans: ['"Assistant"', ...fontFamily.sans], // make assistant the default font
