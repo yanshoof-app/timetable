@@ -59,7 +59,7 @@ export default function ClassLookupProvider({ children }: Wrapper) {
       setGrades(newGrades)
       setClassIds(newClassIds)
     }
-  }, [data, setClassIds, setGrades])
+  }, [data, setClassIds, setGrades, grades.length])
 
   const classLookup = useMemo(
     () => new ClassLookup(classIds, grades),
@@ -78,7 +78,6 @@ export default function ClassLookupProvider({ children }: Wrapper) {
   useEffect(() => {
     if (!grades.length) {
       doFetch()
-      hasFetched.current = true
     }
   }, [grades.length, doFetch])
 

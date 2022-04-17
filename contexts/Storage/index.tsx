@@ -67,7 +67,15 @@ export default function StorageProvider({ children }: Wrapper) {
     setGrade(undefined)
     setClassNum(undefined)
     setClassId(undefined)
-  }, [setClassId, setClassIds, setClassNum, setGrade, setGrades])
+    setLastUserUpdate(undefined)
+  }, [
+    setClassId,
+    setClassIds,
+    setClassNum,
+    setGrade,
+    setGrades,
+    setLastUserUpdate,
+  ])
 
   if (!isClient) return <AppLoadingScreen />
 
