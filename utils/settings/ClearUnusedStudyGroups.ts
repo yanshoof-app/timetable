@@ -9,13 +9,14 @@ export default function clearUnusedStudyGroups(settings: IScheduleSettings) {
     //detect unused study group
     if (studyGroupMapValues.has(i)) continue
 
+    override = true
+
     //remove the unused study group
     studyGroups.splice(i, 1)
 
     //update indexes in studyGroupMap
     for (let key of studyGroupMap.keys()) {
       if (studyGroupMap.get(key) > i) {
-        override = true
         studyGroupMap.set(key, studyGroupMap.get(key) - 1)
       }
     }
