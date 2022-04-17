@@ -116,4 +116,8 @@ export class ClassLookup implements IClassLookup {
   get grades(): number[] {
     return [...this.gradeMap.keys()]
   }
+
+  get gradesSize(): number {
+    return this.gradeMap.size
+  }
 }
