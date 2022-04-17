@@ -86,8 +86,9 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
       setProblems(problems)
       if (overrideTimetable) setLessonMatrix(overrideTimetable)
       if (problems && problems.length > 0) needsRefresh.current = true
+      setLastUserUpdate(new Date())
     },
-    [setLessonMatrix]
+    [setLessonMatrix, setLastUserUpdate]
   )
 
   // fetch updates when needed
