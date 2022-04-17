@@ -50,9 +50,12 @@ export abstract class MultiClassQuery<
       const queriedLookup = new ClassLookup(Classes)
       if (queriedLookup.gradesSize > this.classLookup.gradesSize)
         this.classLookup = queriedLookup
-      await this.beginWithClassLookup()
     } catch (err) {
+      console.log(err)
       this.emitError(ErrorCode.ERROR_FETCHING_CLASSES)
+    } finally {
+      // continue with given classes
+      await this.beginWithClassLookup()
     }
   }
 
@@ -90,5 +93,6 @@ export abstract class MultiClassQuery<
         this.emitError(ErrorCode.UNEXPECTED_ERROR_DURING_CLASS_FETCH)
       }
     }
+    throw new Error('Timeout exceeded')
   }
 }
