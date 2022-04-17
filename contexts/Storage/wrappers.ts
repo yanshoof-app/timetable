@@ -9,15 +9,11 @@ export const ClassExists = createLogicalWrapper(
   StorageContext,
   ({ classId }) => !!classId && classId !== 'null'
 )
-export const ThemePreferenceExists = createLogicalWrapper(
+export const TimetableIsSaved = createLogicalWrapper(
   StorageContext,
-  ({ theme }) => !!theme
+  (ctx) => !!ctx.lessons.length
 )
 export const UpdateTimeExists = createLogicalWrapper(
   StorageContext,
   ({ updateTime }) => !!updateTime
-)
-export const OthersChangesPreferenceExists = createLogicalWrapper(
-  StorageContext,
-  ({ showOthersChanges }) => showOthersChanges != undefined
 )

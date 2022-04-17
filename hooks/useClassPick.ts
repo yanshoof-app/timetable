@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { IClassSetting } from '../components/settings/ClassSetting'
 import { useClassLookup } from '../contexts/ClassLookup'
+import { useStorage } from '../contexts/Storage'
 import { ClassLookup } from '../utils'
 
 export interface IClassPickHookParams {
@@ -29,7 +30,8 @@ export default function useClassPick({
   classNum,
   onChange,
 }: IClassPickHookParams) {
-  const { classIds, grades, getId } = useClassLookup()
+  const { grades, classIds } = useStorage()
+  const { getId } = useClassLookup()
   const gradeOptions = useMemo(
     () => grades.map((grade) => ClassLookup.getFormattedGradeName(grade)),
     [grades]

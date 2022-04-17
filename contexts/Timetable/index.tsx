@@ -1,12 +1,8 @@
-import { createContext, useCallback, useEffect } from 'react'
+import { createContext } from 'react'
 import { Wrapper } from '../../components/types'
-import useValueChangeCallback from '../../hooks/useValueChangeCallback'
-import { DayOfWeek, HourOfDay, ILesson } from '../../interfaces'
-import { useStorage } from '../Storage'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
-import { IAppendSetting, ITimetableContext } from './types'
-import { useUpdateableTimetable } from './useUpdateableTimetable'
-import { useApplyLessons, useRemoveProblems } from './utils'
+import { ITimetableContext } from './types'
+import { useRefreshableTimetable } from './useRefreshableTimetable'
 
 export const TimetableContext = createContext({} as ITimetableContext)
 
@@ -15,14 +11,10 @@ export const NoProblemsInSettings = createLogicalWrapper(
   (ctx) => !ctx.problems || !ctx.problems.length
 )
 
-export const TimetableIsSaved = createLogicalWrapper(
-  TimetableContext,
-  (ctx) => !!ctx.lessons.length
-)
-
 export const useTimetable = createUseContextHook(TimetableContext)
 
 export default function TimetableProvider({ children }: Wrapper) {
+  /*
   const updateableTimetable = useUpdateableTimetable()
   const { studyGroups, setStudyGroups, setStudyGroupMap, setLastUserUpdate } =
     useStorage()
@@ -71,15 +63,10 @@ export default function TimetableProvider({ children }: Wrapper) {
     updateableTimetable.setProblems([])
   }, [updateableTimetable, appendScheduleSetting])
 
+  */
+  const refreshableTimetable = useRefreshableTimetable()
   return (
-    <TimetableContext.Provider
-      value={{
-        ...updateableTimetable,
-        appendScheduleSetting,
-        removeScheduleSetting,
-        clearProblems,
-      }}
-    >
+    <TimetableContext.Provider value={{ ...refreshableTimetable }}>
       {children}
     </TimetableContext.Provider>
   )

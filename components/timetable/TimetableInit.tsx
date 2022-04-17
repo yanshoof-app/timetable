@@ -9,12 +9,13 @@ import Timetable from './Timetable'
 import { useTimetable } from '../../contexts/Timetable'
 import Layout from '../Layout'
 import { useStorage } from '../../contexts/Storage'
+import { useClearProblems } from '../../hooks/useClearProblems'
 
 export default function TimetableInit() {
   const { timetable } = useFullTimetable()
   const days = useEditableDays(timetable)
   const { currentItem: currentDay, ...gestures } = useIteration(days)
-  const { clearProblems } = useTimetable()
+  const clearProblems = useClearProblems()
   const { setClassId } = useStorage()
 
   const onPrevClick = useCallback(() => {

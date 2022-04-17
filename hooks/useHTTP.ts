@@ -39,6 +39,7 @@ export function useHTTP<ReqData = unknown, Result = unknown>({
       } catch (err) {
         setError(true)
         setLoading(false)
+        return {} as Result
       }
     },
     [method, path]

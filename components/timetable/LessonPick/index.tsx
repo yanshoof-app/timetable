@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFullTimetable } from '../../../contexts/FullTimetable'
 import { useStorage } from '../../../contexts/Storage'
 import { useTimetable } from '../../../contexts/Timetable'
+import useScheduleSet from '../../../hooks/useScheduleSet'
 import { useDidUpdateEffect } from '../../../hooks/useUpdateEffect'
 import { DayOfWeek, HourOfDay, ILesson } from '../../../interfaces'
 import { Expand } from '../../icons'
@@ -21,9 +22,9 @@ export default function LessonPick({
   isEditing = false,
 }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
-  const { studyGroupMap } = useStorage()
-  const { lessons, appendScheduleSetting, removeScheduleSetting, problems } =
-    useTimetable()
+  const { studyGroupMap, lessons } = useStorage()
+  const { problems } = useTimetable()
+  const { appendScheduleSetting, removeScheduleSetting } = useScheduleSet()
   const { timetable } = useFullTimetable()
   const isMultipleHour = useMemo(() => !(typeof hour == 'number'), [hour])
   const displayHour = useMemo<HourOfDay>(
@@ -32,12 +33,9 @@ export default function LessonPick({
   )
   const problemInHour = useMemo(
     () => problems && problems.some(([d, h]) => d == day && h == displayHour),
-    [problems, day, hour]
+    [problems, day, displayHour]
   )
-  const isWindow = useMemo(
-    () => studyGroupMap.get(`${day},${displayHour}`) == -1,
-    [studyGroupMap, day, displayHour]
-  )
+  const isWindow = studyGroupMap.get(`${day},${displayHour}`) == -1
 
   useDidUpdateEffect(() => {
     setOpen(false)
@@ -86,7 +84,6 @@ export default function LessonPick({
       day,
       hour,
       isEditing,
-      problemInHour,
       isWindow,
       timetable,
       displayHour,
@@ -116,6 +113,8 @@ export default function LessonPick({
     }
   }, [isOpen])*/
   //TODO: Close options container if a click is detected outside of it
+
+  if (day == 2 && displayHour == 5) console.log(isEditing, !isWindow)
 
   return (
     <ShadowedWrapper

@@ -1,15 +1,18 @@
 // the context responsible for handling storage
 
-import { createContext, useCallback } from 'react'
+import { createContext, useCallback, useEffect } from 'react'
 import { Wrapper } from '../../components/types'
 import AppLoadingScreen from '../../components/ui/LoadingScreens/AppLoadingScreen'
 import { useClientRender } from '../../hooks/useClientRender'
 import { createUseContextHook } from '../utils'
 import {
   useClassId,
+  useClassMatrixState,
   useClassNum,
   useGrade,
+  useGradeState,
   useLastUserUpdate,
+  useLessonMatrixState,
   useOthersChanges,
   useSchoolName,
   useSchoolState,
@@ -42,20 +45,41 @@ export default function StorageProvider({ children }: Wrapper) {
   const [lastUserUpdate, setLastUserUpdate] = useLastUserUpdate()
   const [teacherSearchHistory, setTeacherSearchHistory] =
     useTeacherSearchHistory()
+  const [classIds, setClassIds] = useClassMatrixState()
+  const [grades, setGrades] = useGradeState()
+  const [lessons, setLessonMatrix] = useLessonMatrixState()
   const isClient = useClientRender()
 
+  /*
   useClearUnusedStudyGroups({
     studyGroupMap,
     studyGroups,
     setStudyGroupMap,
     setStudyGroups,
   } as IStorageContext)
+  */
 
   const resetTimetableSettings = useCallback(() => {
     setStudyGroupMap(new Map())
     setStudyGroups([])
     setLastUserUpdate(undefined)
   }, [setLastUserUpdate, setStudyGroupMap, setStudyGroups])
+
+  const resetClassSettings = useCallback(() => {
+    setGrades([])
+    setClassIds([])
+    setGrade(undefined)
+    setClassNum(undefined)
+    setClassId(undefined)
+    setLastUserUpdate(undefined)
+  }, [
+    setClassId,
+    setClassIds,
+    setClassNum,
+    setGrade,
+    setGrades,
+    setLastUserUpdate,
+  ])
 
   if (!isClient) return <AppLoadingScreen />
 
@@ -74,6 +98,9 @@ export default function StorageProvider({ children }: Wrapper) {
         teacherSearchHistory,
         theme,
         lastUserUpdate,
+        classIds,
+        grades,
+        lessons,
         setSchool,
         setSchoolName,
         setClassId,
@@ -86,7 +113,11 @@ export default function StorageProvider({ children }: Wrapper) {
         setStudyGroupMap,
         setLastUserUpdate,
         setTeacherSearchHistory,
+        setClassIds,
+        setGrades,
+        setLessonMatrix,
         resetTimetableSettings,
+        resetClassSettings,
       }}
     >
       {children}

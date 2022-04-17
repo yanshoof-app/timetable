@@ -4,13 +4,13 @@ import List from '../../components/forms/List'
 import Layout from '../../components/Layout'
 import Navbar from '../../components/ui/Navbar'
 import PageTitle from '../../components/ui/PageTitle'
-import { useTimetable } from '../../contexts/Timetable'
+import { useStorage } from '../../contexts/Storage'
 import { TeacherList } from '../../utils/teacherList/TeacherList'
 
 const TEACHER_SEARCH = 'חיפוש מורה'
 
 const TeacherLookup = () => {
-  const { lessons } = useTimetable()
+  const { lessons } = useStorage()
   const [searchQuery, setSearchQuery] = useState('')
 
   const teachers = useMemo(() => TeacherList.fromSchedule(lessons), [lessons])

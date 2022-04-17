@@ -7,11 +7,9 @@ import {
   ClassExists,
   UpdateTimeExists,
   SchoolExists,
-} from '../contexts/Storage/wrappers'
-import TimetableProvider, {
-  NoProblemsInSettings,
   TimetableIsSaved,
-} from '../contexts/Timetable'
+} from '../contexts/Storage/wrappers'
+import TimetableProvider, { NoProblemsInSettings } from '../contexts/Timetable'
 import FetchingTimetable from '../components/ui/LoadingScreens/FetchingTimetable'
 import { ClassInit, SchoolInit, UpdateTimeInit } from '../components/settings'
 import ClassLookupProvider from '../contexts/ClassLookup'

@@ -15,7 +15,6 @@ import { useHTTP } from '../../hooks/useHTTP'
 import useValueChangeCallback from '../../hooks/useValueChangeCallback'
 import { ClassLookup } from '../../utils'
 import { useStorage } from '../Storage'
-import { useClassMatrixState, useGradeState } from './localStorage'
 import { IClassLookupContext } from './types'
 
 const CLASSES_URL = '/api/classes'
@@ -34,12 +33,10 @@ export function useClassLookup() {
 }
 
 export default function ClassLookupProvider({ children }: Wrapper) {
-  const { school } = useStorage()
-  const [classIds, setClassIds] = useClassMatrixState()
-  const [grades, setGrades] = useGradeState()
+  const { school, classIds, setClassIds, grades, setGrades } = useStorage()
   const hasFetched = useRef(false)
 
-  const { data, doFetch } = useHTTP<
+  const { doFetch } = useHTTP<
     { school: string },
     { grades: number[]; classes: number[][] }
   >({
@@ -51,19 +48,6 @@ export default function ClassLookupProvider({ children }: Wrapper) {
     },
   })
 
-  // update value of class matrix and grade matrix if the data fetched contains more values
-  useEffect(() => {
-    if (!hasFetched.current) return
-    const { classes: newClassIds, grades: newGrades } = data
-    if (newClassIds.length != newGrades.length)
-      // invalid value received, abort
-      return
-    if (newGrades.length > 0) {
-      setGrades(newGrades)
-      setClassIds(newClassIds)
-    }
-  }, [data, setClassIds, setGrades])
-
   const classLookup = useMemo(
     () => new ClassLookup(classIds, grades),
     [classIds, grades]
@@ -73,23 +57,31 @@ export default function ClassLookupProvider({ children }: Wrapper) {
 
   const revalidate = useCallback(() => {
     if (hasFetched.current || !school) return
-    doFetch()
+    doFetch().then(({ classes: newClassIds, grades: newGrades }) => {
+      if (newClassIds.length != newGrades.length)
+        // invalid value received, abort
+        return
+      if (newGrades.length > grades.length) {
+        setGrades(newGrades)
+        setClassIds(newClassIds)
+      }
+    })
     hasFetched.current = true
-  }, [school, doFetch])
+  }, [school, doFetch, grades.length, setGrades, setClassIds])
 
-  // delete value in local storage if school changes
-  useValueChangeCallback(school, () => {
-    hasFetched.current = false
-    setClassIds([])
-    setGrades([])
-    revalidate()
-  })
+  // fetch if value does not exist in local storage
+  useEffect(() => {
+    if (!grades.length) {
+      doFetch().then(({ classes: newClassIds, grades: newGrades }) => {
+        setGrades(newGrades)
+        setClassIds(newClassIds)
+      })
+    }
+  }, [grades.length, doFetch, setGrades, setClassIds])
 
   return (
     <ClassLookupContext.Provider
       value={{
-        classIds,
-        grades,
         isLoadingClasses,
         revalidate,
         getId: (grade, num) => classLookup.getId(grade, num),
