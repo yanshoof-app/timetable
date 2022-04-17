@@ -80,7 +80,7 @@ const Settings = () => {
         <div className="flex flex-col gap-2">
           <h1 className="font-bold text-2xl">קבוצות לימוד</h1>
           <div className="flex flex-col px-2 pt-2 pb-8 gap-3">
-            {studyGroups && <StudyGroupBox studyGroups={studyGroups} />}
+            <StudyGroupBox />
             <AdvancedEditingLink className="w-fit" />
           </div>
         </div>
