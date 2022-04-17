@@ -1,9 +1,12 @@
 import { ClassLookup, fetchDataSource } from '../utils'
 import { TeacherTimetableQuery } from '../utils/multi-stage/TeacherTimetableQuery'
+import axios from 'axios'
+
+axios.defaults.adapter = require('axios/lib/adapters/http')
 
 describe('Tests multi stage operations', () => {
-  let grades = [],
-    classIds = [] // mock given from client
+  let grades: number[] = [],
+    classIds: number[][] = [] // mock given from client
   const school = '460030',
     teacherName = 'טיראן חוה'
 
@@ -18,8 +21,8 @@ describe('Tests multi stage operations', () => {
     const query = new TeacherTimetableQuery(
       school,
       teacherName,
-      grades,
-      classIds
+      classIds,
+      grades
     )
     query.on('delay', () => {
       console.log('The query will take a little longer...')
