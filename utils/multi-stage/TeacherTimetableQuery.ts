@@ -1,25 +1,14 @@
-import { TypedEmitter } from 'tiny-typed-emitter'
 import {
   IChangesResponse,
-  IClassesResponse,
   IScheduleResponse,
   ITeacherLesson,
 } from '../../interfaces'
-import { HTTPError } from '../../interfaces/errors'
-import { ClassLookup } from '../class'
-import { fetchDataSource } from '../data/datasource'
 import {
   ITeacherTimetableEvents,
   TeacherTimetable,
 } from '../timetable/TeacherTimetableClass'
 import { MultiClassQuery } from './MultiClassQuery'
 import { ErrorCode } from './types'
-
-interface SessionTimetableEvents extends ITeacherTimetableEvents {
-  ready: (timetable: ITeacherLesson[][]) => void
-  error: (code: ErrorCode) => void
-  delay: () => void
-}
 
 /**
  * Handles building the teacher timetable and notifying about errors
@@ -61,16 +50,16 @@ export class TeacherTimetableQuery extends MultiClassQuery<
     )
   }
 
-  private fetchClassLessons = async (classId: number) => {
+  private async fetchClassLessons(classId: number) {
     const { Schedule } = await this.fetchUntilResult<IScheduleResponse>(
-      'classes',
+      'schedule',
       this.school,
       classId
     )
     this.teacherTimetable.fromIscool(Schedule)
   }
 
-  private fetchChanges = async (classId: number) => {
+  private async fetchChanges(classId: number) {
     const { Changes } = await this.fetchUntilResult<IChangesResponse>(
       'changes',
       this.school,
@@ -80,8 +69,8 @@ export class TeacherTimetableQuery extends MultiClassQuery<
   }
 
   protected async beginWithClassLookup(): Promise<void> {
-    this.forEachClass(this.fetchClassLessons)
-    this.forEachClass(this.fetchChanges)
+    await this.forEachClass(this.fetchClassLessons)
+    await this.forEachClass(this.fetchChanges)
     this.emit('ready', this.teacherTimetable.lessons)
   }
 }
