@@ -15,7 +15,6 @@ import { useHTTP } from '../../hooks/useHTTP'
 import useValueChangeCallback from '../../hooks/useValueChangeCallback'
 import { ClassLookup } from '../../utils'
 import { useStorage } from '../Storage'
-import { useClassMatrixState, useGradeState } from './localStorage'
 import { IClassLookupContext } from './types'
 
 const CLASSES_URL = '/api/classes'
@@ -34,9 +33,7 @@ export function useClassLookup() {
 }
 
 export default function ClassLookupProvider({ children }: Wrapper) {
-  const { school } = useStorage()
-  const [classIds, setClassIds] = useClassMatrixState()
-  const [grades, setGrades] = useGradeState()
+  const { school, classIds, setClassIds, grades, setGrades } = useStorage()
   const hasFetched = useRef(false)
 
   const { data, doFetch } = useHTTP<
@@ -77,19 +74,14 @@ export default function ClassLookupProvider({ children }: Wrapper) {
     hasFetched.current = true
   }, [school, doFetch])
 
-  // delete value in local storage if school changes
-  useValueChangeCallback(school, () => {
-    hasFetched.current = false
-    setClassIds([])
-    setGrades([])
-    revalidate()
-  })
+  // fetch if value does not exist in local storage
+  useEffect(() => {
+    if (!grades.length) doFetch()
+  }, [grades.length, doFetch])
 
   return (
     <ClassLookupContext.Provider
       value={{
-        classIds,
-        grades,
         isLoadingClasses,
         revalidate,
         getId: (grade, num) => classLookup.getId(grade, num),

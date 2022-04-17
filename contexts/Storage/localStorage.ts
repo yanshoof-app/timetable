@@ -4,6 +4,7 @@ import {
   createLocalStorageState,
   ILocalStorageHandler,
 } from '../../hooks/useLocalStorageState'
+import { ILesson } from '../../interfaces'
 import {
   ThemePreference,
   THEME_OPTIONS,
@@ -116,5 +117,44 @@ export const useTeacherSearchHistory = createLocalStorageState<Set<string>>(
   {
     decode: (str?: string) => (str ? new Set(JSON.parse(str)) : new Set()),
     toStorable: (value: Set<string>) => JSON.stringify([...value]),
+  }
+)
+
+export const useClassMatrixState = createLocalStorageState<number[][]>(
+  'classMatrix',
+  {
+    decode: (str?: string) => {
+      try {
+        return (JSON.parse(str) as number[][] | null) || []
+      } catch (e) {
+        return []
+      }
+    },
+    toStorable: (value: number[][]) => JSON.stringify(value),
+  }
+)
+
+export const useGradeState = createLocalStorageState<number[]>('grades', {
+  decode: (str?: string) => {
+    try {
+      return (JSON.parse(str) as number[] | null) || []
+    } catch (e) {
+      return []
+    }
+  },
+  toStorable: (value: number[]) => JSON.stringify(value),
+})
+
+export const useLessonMatrixState = createLocalStorageState<ILesson[][]>(
+  'lessons',
+  {
+    decode: (str?: string) => {
+      try {
+        return (JSON.parse(str) as ILesson[][] | null) || []
+      } catch (e) {
+        return []
+      }
+    },
+    toStorable: (value: ILesson[][]) => JSON.stringify(value),
   }
 )
