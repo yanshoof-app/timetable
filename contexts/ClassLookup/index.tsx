@@ -76,7 +76,10 @@ export default function ClassLookupProvider({ children }: Wrapper) {
 
   // fetch if value does not exist in local storage
   useEffect(() => {
-    if (!grades.length) doFetch()
+    if (!grades.length) {
+      doFetch()
+      hasFetched.current = true
+    }
   }, [grades.length, doFetch])
 
   return (
