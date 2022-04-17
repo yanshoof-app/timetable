@@ -20,8 +20,8 @@ import DocumentHead from '../components/DocumentHead'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <DocumentHead title={pageProps.title}>
-      <LoadingScreenWrapper>
-        <StorageProvider>
+      <StorageProvider>
+        <LoadingScreenWrapper>
           <SchoolExists orElse={SchoolInit}>
             <ClassLookupProvider>
               <ClassExists orElse={ClassInit}>
@@ -41,8 +41,8 @@ function MyApp({ Component, pageProps }: AppProps) {
               </ClassExists>
             </ClassLookupProvider>
           </SchoolExists>
-        </StorageProvider>
-      </LoadingScreenWrapper>
+        </LoadingScreenWrapper>
+      </StorageProvider>
     </DocumentHead>
   )
 }
