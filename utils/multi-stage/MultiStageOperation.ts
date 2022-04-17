@@ -29,6 +29,11 @@ abstract class MultiStageOperation<
     this.emit('error', ...params)
   }
 
+  protected emitDelay() {
+    const params = [] as Parameters<TypeSafeMSOE<Success, Error, T>['delay']> // this must be [] type
+    this.emit('delay', ...params)
+  }
+
   public abstract begin(): Promise<void>
 }
 
