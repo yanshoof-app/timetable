@@ -81,7 +81,9 @@ const ChangesPage = () => {
           )}
         </div>
       </div>
-      {numOfChanges == 0 && <p className="font-semibold">{NO_CHANGES}</p>}
+      {numOfChanges == 0 && (
+        <p className="font-semibold dark:text-white">{NO_CHANGES}</p>
+      )}
 
       <Navbar />
     </Layout>
