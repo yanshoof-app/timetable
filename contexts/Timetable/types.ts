@@ -7,4 +7,4 @@ export interface ITimetableContext extends IUpdateableTimetable {
   clearProblems(): void
 }
 */
-export interface ITimetableContext extends IRefreshableTimetable {}
+export interface IUpdatesContext extends IRefreshableTimetable {}

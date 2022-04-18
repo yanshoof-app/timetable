@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { useTimetable } from '../Timetable'
-import { Done, Warning, Notification } from '../../components/icons'
-import { ToastProps } from '../../components/ui/Toast'
+import { useTimetable } from '../contexts/Timetable'
+import { Done, Warning, Notification } from '../components/icons'
+import { ToastProps } from '../components/ui/Toast'
 
 const ERROR_IN_FETCH = 'הייתה שגיאה בהבאת המידע'
 const TRY_AGAIN = 'נסו שוב'

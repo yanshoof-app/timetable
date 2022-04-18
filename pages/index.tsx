@@ -6,8 +6,6 @@ import DayPick from '../components/forms/DayPick'
 import useCurrentDay from '../hooks/useCurrentDay'
 import useDate from '../hooks/useDate'
 import Navbar from '../components/ui/Navbar'
-import { useTimetableUpdates } from '../contexts/Updates'
-import Toast from '../components/ui/Toast'
 import { useDayFilterer } from '../hooks/useDayFilterer'
 import { useStorage } from '../contexts/Storage'
 import { GetStaticProps } from 'next'
@@ -17,7 +15,6 @@ const MY_SCHEDULE = 'המערכת שלי'
 
 const IndexPage = () => {
   const { lessons } = useStorage()
-  const { showToast, ...toastProps } = useTimetableUpdates()
   const dayFilterer = useDayFilterer(lessons)
   const { currentDay, date } = useCurrentDay(dayFilterer)
   const [day, updateDay] = useState(currentDay)
@@ -42,7 +39,6 @@ const IndexPage = () => {
         day={day}
         timetable={lessons}
       />
-      {showToast && <Toast {...toastProps} />}
       <Navbar />
     </Layout>
   )

@@ -13,10 +13,10 @@ import TimetableProvider, { NoProblemsInSettings } from '../contexts/Timetable'
 import FetchingTimetable from '../components/ui/LoadingScreens/FetchingTimetable'
 import { ClassInit, SchoolInit, UpdateTimeInit } from '../components/settings'
 import ClassLookupProvider from '../contexts/ClassLookup'
-import TimetableUpdatesProvider from '../contexts/Updates'
 import { LoadingScreenWrapper } from '../contexts/LoadingScreenWrapper'
 import DocumentHead from '../components/DocumentHead'
 import ThemeProvider from '../components/ThemeProvider'
+import TimetableUpdatesWrapper from '../components/ui/Toast/TimetableUpdatesWrapper'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -32,9 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                       <TimetableIsSaved orElse={FetchingTimetable}>
                         <NoProblemsInSettings orElse={TimetableInit}>
                           <UpdateTimeExists orElse={UpdateTimeInit}>
-                            <TimetableUpdatesProvider>
+                            <TimetableUpdatesWrapper>
                               <Component {...pageProps} />
-                            </TimetableUpdatesProvider>
+                            </TimetableUpdatesWrapper>
                           </UpdateTimeExists>
                         </NoProblemsInSettings>
                       </TimetableIsSaved>
