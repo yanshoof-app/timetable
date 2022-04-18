@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { ChangeInfo } from '../components/changes/change'
 import {
   DayOfWeek,
   HourOfDay,
@@ -7,8 +6,15 @@ import {
   IModification,
   LessonModification,
 } from '../interfaces'
-import { initMatrix } from '../utils'
 import { initArray } from '../utils/data/arrays'
+
+export interface ChangeInfo {
+  day: DayOfWeek
+  hour: HourOfDay
+  studyGroup?: string
+  typeOfChange: LessonModification
+  change?: string
+}
 
 const infoToStudyGroup = (subject: string, teacher: string) => {
   return `${teacher && `${teacher} עם`} ${subject}`
