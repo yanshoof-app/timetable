@@ -1,3 +1,4 @@
+import { useStorage } from '../../../contexts/Storage'
 import useChanges from '../../../hooks/useChanges'
 import { ILesson } from '../../../interfaces'
 import { timetable_example } from '../../../timetable_sample'
@@ -10,7 +11,7 @@ const BY_TEACHER = 'לפי מורה'
 const SETTINGS = 'הגדרות'
 
 const Navbar = () => {
-  const lessons = timetable_example as ILesson[][]
+  const { lessons } = useStorage()
   const { numOfChanges } = useChanges(lessons)
 
   return (

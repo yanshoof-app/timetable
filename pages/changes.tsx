@@ -4,6 +4,7 @@ import RadioButton from '../components/forms/RadioButton'
 import Layout from '../components/Layout'
 import Navbar from '../components/ui/Navbar'
 import PageTitle from '../components/ui/PageTitle'
+import { useStorage } from '../contexts/Storage'
 import useChanges from '../hooks/useChanges'
 import useCurrentDay from '../hooks/useCurrentDay'
 import useDate from '../hooks/useDate'
@@ -18,7 +19,7 @@ import { timetable_example } from '../timetable_sample'
 const NO_CHANGES = 'אין שינויים להצגה'
 
 const ChangesPage = () => {
-  const lessons = timetable_example as ILesson[][]
+  const { lessons } = useStorage()
   const { changes, numOfChanges } = useChanges(lessons)
 
   const dayFilterer = useDayFilterer(lessons)
