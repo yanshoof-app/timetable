@@ -13,7 +13,11 @@ export default function PageTitleIcon({
 }: PageTitleIconProps) {
   return Icon && onIconClick ? (
     <button onClick={onIconClick}>
-      <Icon width={ICON_SIZE} height={ICON_SIZE} />
+      <Icon
+        width={ICON_SIZE}
+        height={ICON_SIZE}
+        className="dark:fill-gray-300"
+      />
     </button>
   ) : (
     <div style={{ width: ICON_SIZE, height: ICON_SIZE }}></div>
