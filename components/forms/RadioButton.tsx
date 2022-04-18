@@ -25,11 +25,11 @@ export default function RadioButton({
     <div
       className={`flex justify-center items-center gap-2 ${orientations[orientation]}`}
     >
-      <p className="font-bold" onClick={() => onClick()}>
+      <p className="font-semibold dark:text-white" onClick={() => onClick()}>
         {label}
       </p>
       <Button
-        className={`rounded-full px-[3px] py-[3px] w-6 h-6 justify-center items-center ring-black ${
+        className={`rounded-full px-[3px] py-[3px] w-6 h-6 justify-center items-center ring-black dark:ring-gray-300 ${
           !selected && 'ring-2'
         }`}
         onClick={() => onClick()}
