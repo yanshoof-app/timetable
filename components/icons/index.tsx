@@ -74,6 +74,11 @@ export const Clear = createSVGResource(
   <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
 )
 
+export const List = createSVGResource(
+  <path d="M0 0h24v24H0V0z" fill="none" />,
+  <path d="M3 15h18v-2H3v2zm0 4h18v-2H3v2zm0-8h18V9H3v2zm0-6v2h18V5H3z" />
+)
+
 export const Logo = ({ className = '' }: { className?: string }) => (
   <svg
     width="575"
