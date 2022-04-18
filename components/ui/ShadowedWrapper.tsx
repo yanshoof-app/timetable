@@ -3,11 +3,11 @@ import { Wrapper } from '../types'
 
 const colorOptions: ColorMapper = (color: ThemeColor) =>
   ({
-    event: 'shadow-event-600/70',
-    change: 'shadow-change-500/70',
-    celebration: 'shadow-celebration-500/70',
-    primary: 'shadow-primary-500',
-    gray: 'shadow-gray-500/30 dark:shadow-gray-400/80',
+    event: 'shadow-event-600/70 dark:shadow-event-600/40',
+    change: 'shadow-change-500/70 dark:shadow-change-600/40',
+    celebration: 'shadow-celebration-500/70 dark:shadow-celebration-600/70',
+    primary: 'shadow-primary-500 dark:shadow-primary-600/70',
+    gray: 'shadow-gray-500/30 dark:shadow-gray-600/30',
   }[color])
 
 export interface ShadowedWrapperProps {
@@ -22,7 +22,7 @@ export default function ShadowedWrapper({
 }: ShadowedWrapperProps & Wrapper) {
   return (
     <div
-      className={` shadow-theme bg-white -translate-x-[2px] ${colorOptions(
+      className={` shadow-theme bg-white dark:bg-slate-900 dark:text-gray-300 -translate-x-[2px] ${colorOptions(
         color
       )} ${className}`}
     >
