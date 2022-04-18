@@ -35,19 +35,7 @@ const IndexPage = () => {
       title="Home | Next.js + TypeScript Example"
       className="flex justify-center w-full items-center"
     >
-      <div className="flex flex-col">
-        {changes.map(
-          (day, dayIndex) =>
-            day.length > 0 && (
-              <div className="flex flex-col" key={dayIndex}>
-                <p className="font-semibold text-lg px-3">{`יום ${HEBREW_DAYS[dayIndex]}`}</p>
-                {/*day.map((change, index) => (
-                  <SingleChange {...change} key={index} />
-                ))*/}
-              </div>
-            )
-        )}
-      </div>
+      <div className="flex flex-col"></div>
     </Layout>
   )
 }

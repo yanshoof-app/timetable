@@ -58,3 +58,9 @@ export default function useHebrewDate(date: Date) {
     }`
   }, [date])
 }
+
+export function useHebrewDateNoMonth(date: Date) {
+  return useMemo(() => {
+    return `${date.getDate()} ${OF}${HEBREW_MONTHS[date.getMonth()]}`
+  }, [date])
+}

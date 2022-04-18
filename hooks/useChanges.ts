@@ -80,6 +80,8 @@ export const eventToChange = (event: string): ChangeInfo => {
 export default function useChanges(lessons: ILesson[][]) {
   return useMemo(() => {
     const changes = initArray<HourlyChanges>(7)
+    let numOfChanges = 0
+
     for (let day in lessons) {
       for (let hour in lessons[day]) {
         const lesson = lessons[day][hour]
@@ -98,6 +100,7 @@ export default function useChanges(lessons: ILesson[][]) {
         if (lesson.changes) {
           for (let change of lesson.changes) {
             changes[dayOfWeek][hour].changes.push(modToChange(change, lesson))
+            numOfChanges++
           }
         }
 
@@ -106,17 +109,19 @@ export default function useChanges(lessons: ILesson[][]) {
             changes[dayOfWeek][hour].otherChanges.push(
               modToChange(change, lesson)
             )
+            numOfChanges++
           }
         }
 
         if (lesson.events) {
           for (let event of lesson.events) {
             changes[dayOfWeek][hour].events.push(eventToChange(event))
+            numOfChanges++
           }
         }
       }
     }
 
-    return changes
+    return { changes, numOfChanges }
   }, [lessons])
 }
