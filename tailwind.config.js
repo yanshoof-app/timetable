@@ -27,6 +27,9 @@ module.exports = {
         change: colors.amber,
         celebration: colors.lime,
         uiPrimary: colors.zinc,
+        slate: {
+          850: '#172033',
+        },
       },
       keyframes: {
         toastin: {

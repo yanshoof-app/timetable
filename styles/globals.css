@@ -8,7 +8,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-100 dark:bg-slate-800;
+    @apply bg-gray-100 dark:bg-slate-850;
     direction: rtl;
   }
 
