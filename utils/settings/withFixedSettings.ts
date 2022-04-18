@@ -13,6 +13,9 @@ export default function withFixedSettings(
   let override: boolean = false
   const studyGroupMapValues = new Set(studyGroupMap.values())
 
+  // if problems existing, don't fix anything
+  if (updates.problems && updates.problems.length) return updates
+
   for (let i = 0; i < studyGroups.length; i++) {
     //detect unused study group
     if (studyGroupMapValues.has(i)) continue
