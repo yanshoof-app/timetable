@@ -19,7 +19,7 @@ export default function Change(studyGroup: IStudyGroupWithModification) {
       <span className={`${changeTextColor(color)} font-bold`}>
         {modificationMessage}
       </span>
-      <span className="font-semibold">
+      <span className="font-semibold dark:text-gray-300">
         {' '}
         {TO}
         {studyGroupName}
