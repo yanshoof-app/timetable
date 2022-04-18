@@ -14,7 +14,7 @@ export default function StudyGroupBox() {
         studyGroups.map((studyGroup, index) =>
           activeStudyGroups.has(index) ? (
             <div
-              className="flex justify-between items-center border-t-2 first:border-0 py-2 px-5 border-uiPrimary-300 dark:border-gray-600 cursor-pointer"
+              className="flex justify-between items-center border-t-2 first:border-0 py-2 px-5 border-uiPrimary-300 dark:border-gray-700 cursor-pointer"
               key={index}
             >
               <Link href={`${BASE_URL}/${index}`} passHref>

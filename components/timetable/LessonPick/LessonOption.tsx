@@ -15,7 +15,7 @@ export default function LessonOption({
     <div
       className={`border-t-2 border-solid first:border-0 cursor-pointer truncate ${
         multipleHour ? 'pr-[52px]' : 'pr-[29px]'
-      } border-uiPrimary-300 py-[4px] pt-2`}
+      } border-uiPrimary-300 dark:border-gray-700 py-[4px] pt-2`}
       onClick={onPick}
     >
       {option.subject ? (
