@@ -51,7 +51,7 @@ export default function Toast({
 
   return (
     <motion.div
-      className="flex justify-between pr-5 animate-[toastin_0.5s_ease-out] pl-5 items-center fixed z-20 bg-slate-900 w-[calc(100%-2rem)] h-[3.5rem] bottom-[4.75rem] rounded-[10px] inset-x-0 mx-auto"
+      className="flex justify-between pr-5 animate-[toastin_0.5s_ease-out] pl-5 items-center fixed z-20 bg-slate-900 dark:bg-primary-500 w-[calc(100%-2rem)] h-[3.5rem] bottom-[4.75rem] rounded-[10px] inset-x-0 mx-auto"
       drag="y"
       dragConstraints={{ top: 0, bottom: 20 }}
       onDragStart={(e) => {
@@ -68,7 +68,7 @@ export default function Toast({
         <p>{content}</p>
       </div>
       {actionContent && (
-        <div className="text-primary-500 font-bold">
+        <div className="text-primary-500 dark:text-white font-bold">
           <button
             className="font-bold"
             onClick={() => {

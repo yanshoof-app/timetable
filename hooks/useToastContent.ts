@@ -31,7 +31,7 @@ export function useToastContent(): Omit<ToastProps, 'setToastVisible'> {
         : {
             icon: Done,
             content: ALL_UPDATED,
-            iconClassName: 'text-celebration-400',
+            iconClassName: 'text-celebration-400 dark:text-white',
           },
     [errorInFetch, changesPending, applyUpdates, refetchUpdatesOnError]
   )
