@@ -1,19 +1,19 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext } from 'react'
 import { Wrapper } from '../../components/types'
 import { createLogicalWrapper, createUseContextHook } from '../utils'
 import { IUpdatesContext } from './types'
 import { useRefreshableTimetable } from './useRefreshableTimetable'
 
-export const TimetableContext = createContext({} as IUpdatesContext)
+export const UpdatesContext = createContext({} as IUpdatesContext)
 
 export const NoProblemsInSettings = createLogicalWrapper(
-  TimetableContext,
+  UpdatesContext,
   (ctx) => !ctx.problems || !ctx.problems.length
 )
 
-export const useTimetable = createUseContextHook(TimetableContext)
+export const useUpdates = createUseContextHook(UpdatesContext)
 
-export default function TimetableProvider({ children }: Wrapper) {
+export default function UpdatesProvider({ children }: Wrapper) {
   /*
   const updateableTimetable = useUpdateableTimetable()
   const { studyGroups, setStudyGroups, setStudyGroupMap, setLastUserUpdate } =
@@ -67,8 +67,8 @@ export default function TimetableProvider({ children }: Wrapper) {
   const refreshableTimetable = useRefreshableTimetable()
 
   return (
-    <TimetableContext.Provider value={{ ...refreshableTimetable }}>
+    <UpdatesContext.Provider value={{ ...refreshableTimetable }}>
       {children}
-    </TimetableContext.Provider>
+    </UpdatesContext.Provider>
   )
 }

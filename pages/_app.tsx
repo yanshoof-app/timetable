@@ -9,7 +9,7 @@ import {
   SchoolExists,
   TimetableIsSaved,
 } from '../contexts/Storage/wrappers'
-import TimetableProvider, { NoProblemsInSettings } from '../contexts/Timetable'
+import UpdatesProvider, { NoProblemsInSettings } from '../contexts/Updates'
 import FetchingTimetable from '../components/ui/LoadingScreens/FetchingTimetable'
 import { ClassInit, SchoolInit, UpdateTimeInit } from '../components/settings'
 import ClassLookupProvider from '../contexts/ClassLookup'
@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <ClassLookupProvider>
                 <ClassExists orElse={ClassInit}>
                   <FullTimetableProvider>
-                    <TimetableProvider>
+                    <UpdatesProvider>
                       <TimetableIsSaved orElse={FetchingTimetable}>
                         <NoProblemsInSettings orElse={TimetableInit}>
                           <UpdateTimeExists orElse={UpdateTimeInit}>
@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                           </UpdateTimeExists>
                         </NoProblemsInSettings>
                       </TimetableIsSaved>
-                    </TimetableProvider>
+                    </UpdatesProvider>
                   </FullTimetableProvider>
                 </ClassExists>
               </ClassLookupProvider>

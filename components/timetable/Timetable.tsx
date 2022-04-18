@@ -1,7 +1,3 @@
-import { useEffect } from 'react'
-import { useStorage } from '../../contexts/Storage'
-import { useTimetable } from '../../contexts/Timetable'
-import { isPickableLesson } from '../../hooks/useEditableDays'
 import {
   DayOfWeek,
   HourOfDay,
@@ -9,7 +5,6 @@ import {
   isAnyLessonObj,
   ITeacherLesson,
 } from '../../interfaces'
-import StudyGroup from '../../pages/settings/studyGroup/[groupId]'
 import { isArray } from '../../utils/data/arrays'
 import Lesson from './Lesson'
 import LessonPick from './LessonPick'

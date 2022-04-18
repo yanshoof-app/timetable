@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useTimetable } from '../contexts/Timetable'
+import { useUpdates } from '../contexts/Updates'
 import { Done, Warning, Notification } from '../components/icons'
 import { ToastProps } from '../components/ui/Toast'
 
@@ -11,7 +11,7 @@ const ALL_UPDATED = 'הכל מעודכן'
 
 export function useToastContent(): Omit<ToastProps, 'setToastVisible'> {
   const { errorInFetch, changesPending, applyUpdates, refetchUpdatesOnError } =
-    useTimetable()
+    useUpdates()
   return useMemo(
     () =>
       errorInFetch

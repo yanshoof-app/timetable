@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useStorage } from '../contexts/Storage'
-import { useTimetable } from '../contexts/Timetable'
+import { useUpdates } from '../contexts/Updates'
 import { DayOfWeek, HourOfDay, ILesson } from '../interfaces'
 
 export interface IAppendSetting {
@@ -22,7 +22,7 @@ export default function useScheduleSet(): IScheduleSet {
     setLessonMatrix,
     studyGroups,
   } = useStorage()
-  const { setProblems } = useTimetable()
+  const { setProblems } = useUpdates()
 
   const applyLessons = useCallback(
     (

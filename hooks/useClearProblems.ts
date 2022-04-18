@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
-import { useTimetable } from '../contexts/Timetable'
+import { useUpdates } from '../contexts/Updates'
 import { ILesson } from '../interfaces'
 import useScheduleSet from './useScheduleSet'
 
 export function useClearProblems() {
-  const { problems, setProblems } = useTimetable()
+  const { problems, setProblems } = useUpdates()
   const { appendScheduleSetting } = useScheduleSet()
   return useCallback(() => {
     for (let [day, hour] of problems) {

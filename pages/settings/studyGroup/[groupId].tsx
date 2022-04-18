@@ -7,7 +7,6 @@ import LessonsOfDay from '../../../components/timetable/LessonsOfDay'
 import LoadingScreen from '../../../components/ui/LoadingScreens'
 import PageTitle from '../../../components/ui/PageTitle'
 import { useStorage } from '../../../contexts/Storage'
-import { useTimetable } from '../../../contexts/Timetable'
 import useLessonsOfStudyGroup from '../../../hooks/useLessonsOfStudyGroup'
 import { DayOfWeek } from '../../../interfaces'
 

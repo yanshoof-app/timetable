@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFullTimetable } from '../../../contexts/FullTimetable'
 import { useStorage } from '../../../contexts/Storage'
-import { useTimetable } from '../../../contexts/Timetable'
+import { useUpdates } from '../../../contexts/Updates'
 import useScheduleSet from '../../../hooks/useScheduleSet'
 import { useDidUpdateEffect } from '../../../hooks/useUpdateEffect'
 import { DayOfWeek, HourOfDay, ILesson } from '../../../interfaces'
@@ -23,7 +23,7 @@ export default function LessonPick({
 }: LessonPickProps) {
   const [isOpen, setOpen] = useState(false)
   const { studyGroupMap, lessons } = useStorage()
-  const { problems } = useTimetable()
+  const { problems } = useUpdates()
   const { appendScheduleSetting, removeScheduleSetting } = useScheduleSet()
   const { timetable } = useFullTimetable()
   const isMultipleHour = useMemo(() => !(typeof hour == 'number'), [hour])
