@@ -35,7 +35,7 @@ export const modToChange = (
         hour: hour,
         studyGroup: studyGroup,
         typeOfChange: modification.modification,
-        change: `${modification.modData}ל ${lesson.subject}`,
+        change: `${lesson.subject} ל${modification.modData}`,
       }
 
     case LessonModification.NewRoom:
@@ -44,7 +44,7 @@ export const modToChange = (
         hour: hour,
         studyGroup: studyGroup,
         typeOfChange: modification.modification,
-        change: `${modification.modData}ל ${lesson.class}מ`,
+        change: `${lesson.class}מ ${modification.modData}ל`,
       }
 
     case LessonModification.NewTeacher:
@@ -53,7 +53,7 @@ export const modToChange = (
         hour: hour,
         studyGroup: studyGroup,
         typeOfChange: modification.modification,
-        change: `${lesson.teacher} מחליף את ${modification.modData}`,
+        change: `${modification.modData} מחליף את ${lesson.teacher}`,
       }
 
     case LessonModification.Exam:
@@ -88,6 +88,9 @@ export const eventToChange = (
   }
 }
 
+/**
+ * Returns array of all changes from given lessons matrix
+ */
 export default function useChanges(lessons: ILesson[][]) {
   return useMemo(() => {
     const changes = initArray<ChangeInfo>(7)
