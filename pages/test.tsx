@@ -11,6 +11,9 @@ import AppLoadingScreen from '../components/ui/LoadingScreens/AppLoadingScreen'
 import { useStorage } from '../contexts/Storage'
 import useChanges from '../hooks/useChanges'
 import { timetable_example } from '../timetable_sample'
+import Change from '../components/changes/GroupOfChanges'
+import SingleChange from '../components/changes/GroupOfChanges'
+import { HEBREW_DAYS } from '../hooks/useHebrewDate'
 
 const defaultLesson: ILesson = {
   class: 'מחשבים יב',
@@ -27,12 +30,25 @@ const defaultLesson: ILesson = {
 const IndexPage = () => {
   const lessons = timetable_example as ILesson[][]
   const changes = useChanges(lessons)
-  console.log(changes)
   return (
     <Layout
       title="Home | Next.js + TypeScript Example"
       className="flex justify-center w-full items-center"
-    ></Layout>
+    >
+      <div className="flex flex-col">
+        {changes.map(
+          (day, dayIndex) =>
+            day.length > 0 && (
+              <div className="flex flex-col" key={dayIndex}>
+                <p className="font-semibold text-lg px-3">{`יום ${HEBREW_DAYS[dayIndex]}`}</p>
+                {/*day.map((change, index) => (
+                  <SingleChange {...change} key={index} />
+                ))*/}
+              </div>
+            )
+        )}
+      </div>
+    </Layout>
   )
 }
 

@@ -13,14 +13,30 @@ export function initMatrix<T>(
   dim2: number,
   defaultValue: any = {}
 ): T[][] {
-  const result: T[][] = new Array<T[]>(dim1);
+  const result: T[][] = new Array<T[]>(dim1)
   for (let i = 0; i < dim1; i++) {
-    result[i] = new Array<T>(dim2);
+    result[i] = new Array<T>(dim2)
     for (let j = 0; j < dim2; j++) {
-      result[i][j] = defaultValue as T;
+      result[i][j] = defaultValue as T
     }
   }
-  return result;
+  return result
+}
+
+/**
+ * Creates a matrix in given dimension
+ * @example
+ * const changes = initMatrix<ChangeInfo>(7)
+ *
+ * @param dim1 the length of the array
+ * @returns a matrix in the size of dim1
+ */
+export function initArray<T>(dim1: number): T[][] {
+  const result: T[][] = new Array<T[]>(dim1)
+  for (let i = 0; i < dim1; i++) {
+    result[i] = new Array<T>()
+  }
+  return result
 }
 
 /**
@@ -30,9 +46,9 @@ export function initMatrix<T>(
  * @returns a tuple made of the array
  */
 export function toTuple<T>(array: T[], failError: Error): [T, T] {
-  if (array.length == 1) throw failError;
-  if (array.length > 2) throw failError;
-  return array as [T, T];
+  if (array.length == 1) throw failError
+  if (array.length > 2) throw failError
+  return array as [T, T]
 }
 
 /**
@@ -41,7 +57,7 @@ export function toTuple<T>(array: T[], failError: Error): [T, T] {
  * @returns true if an array, false otherwise
  */
 export function isArray(obj: unknown) {
-  return typeof obj == 'object' && 0 in obj;
+  return typeof obj == 'object' && 0 in obj
 }
 /**
  * Checks if a given object is a matrix
@@ -49,5 +65,5 @@ export function isArray(obj: unknown) {
  * @return true if matrix, false otherwise
  */
 export function isMatrix(obj: unknown) {
-  return isArray(obj) && isArray(obj[0]);
+  return isArray(obj) && isArray(obj[0])
 }
