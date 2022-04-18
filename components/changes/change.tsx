@@ -3,8 +3,9 @@ import { DayOfWeek, HourOfDay, LessonModification } from '../../interfaces'
 export interface ChangeInfo {
   day: DayOfWeek
   hour: HourOfDay
+  studyGroup?: string
   typeOfChange: LessonModification
-  change: string
+  change?: string
 }
 
 export default function Change(change: ChangeInfo) {
