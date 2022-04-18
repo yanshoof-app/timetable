@@ -6,10 +6,11 @@ const OthersChangesSettingPage = asPage(
   { title: 'שינויים של אחרים' },
   ({ showOthersChanges, setOthersChangesPreference }, router) => ({
     value: showOthersChanges,
+    applyImmedietly: true,
     save: (value) => {
       setOthersChangesPreference(value)
-      router.push('/settings')
     },
+    navigateBack: () => router.push('/settings'),
   })
 )
 
