@@ -25,9 +25,9 @@ const SchoolSetting: SettingsComponent<
     isLoading,
   } = useSchoolSearch()
   return searchResults ? (
-    <div className="flex flex-col p-5 justify-center items-center gap-5">
+    <div className="flex flex-col p-5 justify-center items-center gap-5 dark:text-gray-300">
       <div className="flex flex-col items-center gap-1">
-        <p className="font-bold text-4xl">ברוכים הבאים!</p>
+        <p className="font-bold text-4xl ">ברוכים הבאים!</p>
         <p className="font-bold text-2xl">באיזה בית ספר אתם לומדים?</p>
       </div>
       <div className="flex w-full justify-center gap-3">

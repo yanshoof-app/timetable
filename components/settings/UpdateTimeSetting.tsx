@@ -34,7 +34,7 @@ const UpdateTimeSetting: SettingsComponent<number, IUpdateTimeSettingProps> = ({
   }, [value, onIndexChange])
 
   return (
-    <div className="flex flex-col justify-center items-center gap-5">
+    <div className="flex flex-col justify-center items-center gap-5 dark:text-gray-300">
       <div className="flex flex-col gap-2 justify-center items-center">
         <p className="font-bold text-2xl w-8/12 text-center">
           מאיזו שעה תרצו שתוצג המערכת הבאה?

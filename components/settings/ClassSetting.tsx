@@ -44,7 +44,7 @@ const ClassSetting: SettingsComponent<IClassSetting, IClassSettingProps> = ({
     )
 
   return (
-    <div className="flex flex-col justify-center items-center gap-5">
+    <div className="flex flex-col justify-center items-center gap-5 dark:text-gray-300">
       <div className="flex flex-col gap-2 justify-center items-center">
         <div className="flex justify-center items-center gap-1">
           <p className="font-bold text-4xl">{schoolName}</p>
