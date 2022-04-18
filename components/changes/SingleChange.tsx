@@ -20,7 +20,7 @@ export default function SingleChange(change: ChangeInfo) {
         )}
 
         {/* Change data */}
-        {<p className="font-medium">{change.data}</p>}
+        {<p className="font-medium dark:text-white">{change.data}</p>}
       </div>
     </div>
   )

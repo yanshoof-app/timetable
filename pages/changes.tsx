@@ -63,7 +63,7 @@ const ChangesPage = () => {
                     >
                       {`יום ${HEBREW_DAYS[dayIndex]}`},
                     </p>
-                    <p className="font-medium text-lg">
+                    <p className="font-medium text-lg dark:text-gray-300">
                       {useHebrewDateNoMonth(
                         useDate(dayIndex as DayOfWeek, date.current)
                       )}
