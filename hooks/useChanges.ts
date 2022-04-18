@@ -72,6 +72,14 @@ export const modToChange = (
         studyGroup: studyGroup,
         typeOfChange: modification.modification,
       }
+    default:
+      return {
+        day: day,
+        hour: hour,
+        studyGroup: studyGroup,
+        typeOfChange: modification.modification,
+        change: modification.modData as string,
+      }
   }
 }
 
