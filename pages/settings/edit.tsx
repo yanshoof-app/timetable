@@ -16,7 +16,7 @@ export default function AdvancedEditingPage() {
   const [day, setDay] = useState(0 as DayOfWeek)
   const { isLoading, timetable } = useFullTimetable()
   return (
-    <Layout title={TITLE}>
+    <Layout title={TITLE} className="overflow-hidden flex flex-col">
       <PageTitle
         title={TITLE}
         orientation="justify-start"
@@ -35,7 +35,7 @@ export default function AdvancedEditingPage() {
         <TimetableSkeleton className="p-5" />
       ) : (
         <Timetable
-          className="p-5 mb-10 overflow-y-scroll"
+          className="p-5 overflow-y-scroll"
           day={day}
           timetable={timetable}
           isEditing
