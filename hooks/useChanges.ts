@@ -6,7 +6,7 @@ import {
   IModification,
   LessonModification,
 } from '../interfaces'
-import { initArray, initMatrix } from '../utils/data/arrays'
+import { initArray } from '../utils/data/arrays'
 
 export interface ChangeInfo {
   typeOfChange: LessonModification
