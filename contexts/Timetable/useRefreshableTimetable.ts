@@ -57,6 +57,8 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
     setLastUserUpdate,
     lessons,
     setLessonMatrix,
+    setStudyGroups,
+    setStudyGroupMap,
   } = useStorage()
   const [problems, setProblems] = useState<[DayOfWeek, HourOfDay][]>([])
 
@@ -82,13 +84,22 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
   ])
 
   const handleUpdates = useCallback(
-    ({ overrideTimetable, problems }) => {
+    ({
+      overrideTimetable,
+      problems,
+      overrideStudyGroupMap,
+      overrideStudyGroups,
+    }: ITimetableUpdates) => {
       setProblems(problems)
       if (overrideTimetable) setLessonMatrix(overrideTimetable)
       if (problems && problems.length > 0) needsRefresh.current = true
       setLastUserUpdate(new Date())
+      if (overrideStudyGroups && overrideStudyGroupMap) {
+        setStudyGroups(overrideStudyGroups)
+        setStudyGroupMap(new Map(overrideStudyGroupMap))
+      }
     },
-    [setLessonMatrix, setLastUserUpdate]
+    [setLessonMatrix, setLastUserUpdate, setStudyGroups, setStudyGroupMap]
   )
 
   // fetch updates when needed
