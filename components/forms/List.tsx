@@ -16,7 +16,7 @@ export default function List({
   const { teacherSearchHistory, setTeacherSearchHistory } = useStorage()
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg font-semibold px-4 py-3 w-full h-full overflow-y-scroll bg-white">
+    <div className="flex flex-col gap-2 rounded-lg font-semibold px-4 py-3 w-full h-full overflow-y-scroll bg-white dark:bg-slate-900">
       {showHistory &&
         [...teacherSearchHistory].map((element, index) => (
           <div className="flex justify-between text-primary-500" key={index}>
@@ -48,6 +48,7 @@ export default function List({
                 if (query !== '')
                   setTeacherSearchHistory((prev) => new Set(prev).add(element))
               }}
+              className="dark:text-gray-300"
             >
               {element}
             </a>

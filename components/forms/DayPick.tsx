@@ -34,7 +34,7 @@ export default function DayPick({
       {filteredDays.map((day, index) => (
         <Button
           className={`${
-            value !== index && 'text-black bg-transparent'
+            value !== index && 'text-black dark:text-gray-300 bg-transparent'
           } font-semibold`}
           onClick={() => {
             setValue(index as DayOfWeek)

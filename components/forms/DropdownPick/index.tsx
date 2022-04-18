@@ -51,9 +51,9 @@ export default function DropdownPick({
 
   return (
     <div
-      className={`${className} flex relative bg-uiPrimary-200 ${
+      className={`${className} flex relative bg-uiPrimary-200 dark:bg-slate-900 ${
         isOpen ? 'rounded-t-lg' : 'rounded-lg'
-      }  flex-col justify-start items-center font-semibold text-uiPrimary-400 fill-uiPrimary-400`}
+      }  flex-col justify-start items-center font-semibold text-uiPrimary-400 dark:text-gray-300 fill-uiPrimary-400 dark:fill-uiPrimary-300`}
       role="menu"
       ref={ref}
     >

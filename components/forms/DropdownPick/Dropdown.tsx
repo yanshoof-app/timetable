@@ -22,7 +22,7 @@ export default function Dropdown<T>({
 }: DropdownProps<T>) {
   return (
     <div
-      className={`overflow-hidden flex flex-col absolute w-full top-[3rem] bg-uiPrimary-200 text-uiPrimary-400 rounded-b-[5px] z-10`}
+      className={`overflow-hidden flex flex-col absolute w-full top-[3rem] bg-uiPrimary-200 dark:bg-slate-900 text-uiPrimary-400 dark:text-gray-300 rounded-b-[5px] z-10`}
       role="menu"
     >
       {options.map(
@@ -35,7 +35,7 @@ export default function Dropdown<T>({
                 onClick(index)
                 setOpen(false)
               }}
-              className="h-8 flex items-center focus:bg-uiPrimary-300 hover:bg-uiPrimary-300 justify-start w-full cursor-pointer pr-[1rem] pl-[1rem]"
+              className="h-8 flex items-center focus:bg-uiPrimary-300 hover:bg-uiPrimary-300 dark:hover:bg-primary-500 dark:focus:bg-primary-500 dark:bg-slate-900 justify-start w-full cursor-pointer pr-[1rem] pl-[1rem]"
               role="menuitem"
               tabIndex={0}
             >
