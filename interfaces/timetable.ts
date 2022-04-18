@@ -17,8 +17,10 @@ export interface ITimetable<TLesson> {
 /** The object returned from the updates route */
 export interface ITimetableUpdates {
   overrideTimetable?: ILesson[][]
-  newChanges: IChange[]
-  newOtherChanges: IChange[]
-  newEvents: IChange[]
-  problems: [DayOfWeek, HourOfDay][]
+  newChanges?: IChange[]
+  newOtherChanges?: IChange[]
+  newEvents?: IChange[]
+  problems?: [DayOfWeek, HourOfDay][]
+  overrideStudyGroups?: [string, string][]
+  overrideStudyGroupMap?: [string, number][]
 }

@@ -8,7 +8,7 @@ import { fetchDataSource, Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../interfaces/errors'
 import { isNewWeek } from '../../../utils/data/updates'
-import clearUnusedStudyGroups from '../../../utils/settings/ClearUnusedStudyGroups'
+import withFixedSettings from '../../../utils/settings/withFixedSettings'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -31,8 +31,6 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       classId
     )
 
-    const overrideStudyGroups = clearUnusedStudyGroups(settings)
-
     // if new week or no study groups, create a new timetable and apply changes
     if (isNewWeek(lastUserUpdate) || query.studyGroups === '') {
       const timetable = new Timetable(settings)
@@ -43,20 +41,22 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       )
       timetable.fromIscool(Schedule)
       timetable.applyChanges(Changes)
-      res.status(200).json({
-        overrideTimetable: timetable.lessons,
-        overrideStudyGroups: overrideStudyGroups,
-        problems: timetable.problems,
-      })
+      res.status(200).json(
+        withFixedSettings(settings, {
+          overrideTimetable: timetable.lessons,
+          problems: timetable.problems,
+        })
+      )
     }
 
     // otherwise, return new changes
     else {
       const { newChanges } = Timetable.newChanges(lastUserUpdate, Changes)
-      res.status(200).json({
-        newChanges: newChanges,
-        overrideStudyGroups: overrideStudyGroups,
-      })
+      res.status(200).json(
+        withFixedSettings(settings, {
+          newChanges: newChanges,
+        })
+      )
     }
   } catch (err: any) {
     res.status(500).json({
