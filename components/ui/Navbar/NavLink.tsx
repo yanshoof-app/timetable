@@ -24,7 +24,7 @@ export default function NavLink({
     <Link href={to} passHref>
       <div
         className={`flex flex-col items-center justify-center cursor-pointer ${
-          active ? 'text-primary-500' : 'text-gray-600'
+          active ? 'text-primary-500' : 'text-gray-600 dark:text-gray-300'
         }`}
       >
         <Icon width={ICON_SIZE} height={ICON_SIZE} />

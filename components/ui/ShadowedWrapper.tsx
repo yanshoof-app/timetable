@@ -7,7 +7,7 @@ const colorOptions: ColorMapper = (color: ThemeColor) =>
     change: 'shadow-change-500/70',
     celebration: 'shadow-celebration-500/70',
     primary: 'shadow-primary-500',
-    gray: 'shadow-gray-500/30',
+    gray: 'shadow-gray-500/30 dark:shadow-gray-400/80',
   }[color])
 
 export interface ShadowedWrapperProps {

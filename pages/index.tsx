@@ -24,7 +24,7 @@ const IndexPage = () => {
     <Layout className="overflow-hidden flex flex-col pt-2">
       <div className="w-full flex flex-col items-center justify-center gap-2 ">
         <DayDateView
-          className="text-lg font-semibold"
+          className="text-lg font-semibold dark:text-gray-300"
           ofDate={dateOfSelected}
         />
         <DayPick
