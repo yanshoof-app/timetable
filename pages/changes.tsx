@@ -31,8 +31,8 @@ const ChangesPage = () => {
   return (
     <Layout className="overflow-hidden flex flex-col text-center">
       <PageTitle title="שינויים" />
-      <div className="flex flex-col gap-4  px-5">
-        <div className="flex justify-evenly gap-4">
+      <div className="flex flex-col gap-4 px-5 mb-14 overflow-hidden pt-1">
+        <div className="flex justify-evenly gap-4 overflow-visible">
           <RadioButton
             selected={showAllChanges}
             label="כל השינויים"
@@ -46,7 +46,7 @@ const ChangesPage = () => {
             onClick={() => setshowAllChanges(false)}
           ></RadioButton>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 overflow-y-scroll">
           {changes.map(
             (day, dayIndex) =>
               day.length > 0 && (
