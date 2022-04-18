@@ -24,9 +24,17 @@ function asPage<T, AdditionalProps>(
       value: initialValue,
       save,
       navigateBack,
+      applyImmedietly = false,
       ...additionalProps
     } = useMemo(() => propProvider(storage, router), [storage, router])
     const [selectedValue, setSelectedValue] = useState(initialValue)
+    const changeCallback = useCallback(
+      (value: T) => {
+        setSelectedValue(value)
+        if (applyImmedietly) save(value)
+      },
+      [applyImmedietly, save]
+    )
     const saveCallback = useCallback(
       (ob?: T) => {
         if (ob) save(ob)
@@ -45,7 +53,7 @@ function asPage<T, AdditionalProps>(
         <Component
           {...(additionalProps as unknown as AdditionalProps)}
           value={selectedValue}
-          onChange={setSelectedValue}
+          onChange={changeCallback}
           save={saveCallback}
           navigateBack={navigateBack}
         />
