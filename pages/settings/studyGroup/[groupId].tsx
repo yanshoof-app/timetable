@@ -39,7 +39,9 @@ const StudyGroup = () => {
       />
       <div className="px-4">
         <div className="flex justify-between px-4 items-center">
-          <h2 className=" font-bold text-xl">{LESSONS_IN_SCHEDULE}</h2>
+          <h2 className="font-bold text-xl dark:text-gray-300">
+            {LESSONS_IN_SCHEDULE}
+          </h2>
           <AdvancedEditingLink />
         </div>
         {days.map(
