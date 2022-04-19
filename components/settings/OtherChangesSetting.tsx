@@ -9,6 +9,8 @@ import otherChangesExample from '../../public/otherChangesLight.png'
 //dark mode examples
 import darkLightModeExample from '../../public/darkLightMode.png'
 import darkOtherChangesExample from '../../public/darkOtherChanges.png'
+import useDarkMode from '../../hooks/useDarkMode'
+import useExamples from '../../hooks/useExamples'
 
 const OtherChangesSetting: SettingsComponent<boolean> = ({
   value,
@@ -16,11 +18,13 @@ const OtherChangesSetting: SettingsComponent<boolean> = ({
   save,
   navigateBack,
 }) => {
-  const { theme } = useStorage() //TODO: Method that support system preference || useExample hook
+  const isDarkMode = useDarkMode()
 
-  const example1 = theme === 'light' ? lightModeExample : darkLightModeExample
-  const example2 =
-    theme === 'light' ? otherChangesExample : darkOtherChangesExample
+  const { ex1, ex2 } = useExamples(
+    { light: lightModeExample, dark: darkLightModeExample },
+    { light: otherChangesExample, dark: darkOtherChangesExample },
+    isDarkMode
+  )
 
   return OptionsLayout({
     options: [
@@ -30,8 +34,8 @@ const OtherChangesSetting: SettingsComponent<boolean> = ({
     ],
     value: value,
     images: [
-      { image: example2, value: true },
-      { image: example1, value: false },
+      { image: ex2, value: true },
+      { image: ex1, value: false },
     ],
     onChange: onChange,
   })

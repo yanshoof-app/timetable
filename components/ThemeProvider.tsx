@@ -1,17 +1,13 @@
 import { useLayoutEffect } from 'react'
 import { useStorage } from '../contexts/Storage'
+import useDarkMode from '../hooks/useDarkMode'
 import { Wrapper } from './types'
 
 export default function ThemeProvider({ children }: Wrapper) {
-  const { theme } = useStorage()
+  const isDarkMode = useDarkMode()
   useLayoutEffect(() => {
-    if (
-      theme === 'dark' ||
-      (theme === 'system' &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
-    )
-      document.documentElement.classList.add('dark')
+    if (isDarkMode) document.documentElement.classList.add('dark')
     else document.documentElement.classList.remove('dark')
-  }, [theme])
+  }, [isDarkMode])
   return <>{children}</>
 }

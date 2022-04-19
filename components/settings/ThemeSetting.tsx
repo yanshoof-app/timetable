@@ -10,6 +10,8 @@ import darkModeExample from '../../public/darkMode.png'
 //dark mode examples
 import darkLightModeExample from '../../public/darkLightMode.png'
 import darkDarkModeExample from '../../public/darkDarkMode.png'
+import useExamples from '../../hooks/useExamples'
+import useDarkMode from '../../hooks/useDarkMode'
 
 const ThemeSetting: SettingsComponent<ThemePreference> = ({
   value: selectedTheme,
@@ -17,10 +19,13 @@ const ThemeSetting: SettingsComponent<ThemePreference> = ({
   save,
   navigateBack,
 }) => {
-  const { theme } = useStorage() //TODO: Method that support system preference || useExample hook
+  const isDarkMode = useDarkMode()
 
-  const example1 = theme === 'light' ? lightModeExample : darkLightModeExample
-  const example2 = theme === 'light' ? darkModeExample : darkDarkModeExample
+  const { ex1, ex2 } = useExamples(
+    { light: lightModeExample, dark: darkLightModeExample },
+    { light: lightModeExample, dark: darkLightModeExample },
+    isDarkMode
+  )
 
   return OptionsLayout({
     options: [
@@ -30,8 +35,8 @@ const ThemeSetting: SettingsComponent<ThemePreference> = ({
     ],
     value: selectedTheme,
     images: [
-      { image: example1, value: 'light' },
-      { image: example2, value: 'dark' },
+      { image: ex1, value: 'light' },
+      { image: ex2, value: 'dark' },
     ],
     onChange: setSelectedTheme,
   })
