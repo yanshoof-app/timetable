@@ -10,6 +10,8 @@ import { useDayFilterer } from '../hooks/useDayFilterer'
 import { useStorage } from '../contexts/Storage'
 import { GetStaticProps } from 'next'
 import { buildTitleGetStaticProps } from '../components/DocumentHead'
+import useConfetti from '../hooks/useConfetti'
+import { LessonModification } from '../interfaces'
 
 const MY_SCHEDULE = 'המערכת שלי'
 
@@ -19,6 +21,7 @@ const IndexPage = () => {
   const { currentDay, date } = useCurrentDay(dayFilterer)
   const [day, updateDay] = useState(currentDay)
   const dateOfSelected = useDate(day, date.current)
+  const celebrate = useConfetti(LessonModification.Canceled, day)
 
   return (
     <Layout className="overflow-hidden flex flex-col pt-2">
