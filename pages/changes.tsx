@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import ChangesOfHour from '../components/changes'
+import ChangesOfDay from '../components/changes/ChnagesOfDay'
 import RadioButton from '../components/forms/RadioButton'
 import Layout from '../components/Layout'
 import Navbar from '../components/ui/Navbar'
@@ -48,35 +49,15 @@ const ChangesPage = () => {
         </div>
         <div className="flex flex-col gap-2 overflow-y-scroll">
           {changes.map(
-            (day, dayIndex) =>
-              day.length > 0 && (
-                <div
-                  className="flex flex-col border-b-2 pb-2 border-gray-200 last:border-b-0"
-                  key={dayIndex}
-                >
-                  {/* Date */}
-                  <div className="flex gap-1">
-                    <p
-                      className={`font-semibold text-lg ${
-                        dayIndex == currentDay && 'text-primary-500'
-                      }`}
-                    >
-                      {`יום ${HEBREW_DAYS[dayIndex]}`},
-                    </p>
-                    <p className="font-medium text-lg dark:text-gray-300">
-                      {daylessHebrewDate(
-                        dateOfDay(dayIndex as DayOfWeek, date.current)
-                      )}
-                    </p>
-                  </div>
-
-                  {/* Changes */}
-                  <div className="flex flex-col gap-2 pr-2">
-                    {day.map((hour, index) => (
-                      <ChangesOfHour {...hour} key={index} />
-                    ))}
-                  </div>
-                </div>
+            (changesOfDay, dayIndex) =>
+              changesOfDay.length > 0 &&
+              (dayIndex === currentDay || showAllChanges) && (
+                <ChangesOfDay
+                  dayOfWeek={dayIndex as DayOfWeek}
+                  currentDay={currentDay}
+                  changesOfDay={changesOfDay}
+                  date={date.current}
+                />
               )
           )}
         </div>
