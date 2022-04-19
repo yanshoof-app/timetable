@@ -15,7 +15,6 @@ const Navbar = () => {
   const { numOfChanges } = useChanges(lessons)
 
   return (
-    //TODO: Find a better icon for changes page
     <nav className="grid grid-cols-4 items-center w-full h-14 bg-white dark:bg-slate-900 fixed bottom-0 inset-x-0 z-10 border-gray-200 dark:border-slate-700 border-t-[1px]">
       <NavLink to="/" label={MY_SCHEDULE} icon={Calendar} />
       <NavLink

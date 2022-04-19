@@ -91,29 +91,6 @@ export default function LessonPick({
     ]
   )
 
-  /*useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
-      console.log(e.target)
-      if (
-        isOpen &&
-        ref.current &&
-        !(ref.current as HTMLElement).contains(e.target)
-      ) {
-        setOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', checkIfClickedOutside)
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener('mousedown', checkIfClickedOutside)
-    }
-  }, [isOpen])*/
-  //TODO: Close options container if a click is detected outside of it
-
   return (
     <ShadowedWrapper
       color={problemInHour ? 'primary' : 'gray'}
