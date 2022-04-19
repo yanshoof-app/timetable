@@ -13,5 +13,5 @@ export default function useConfetti(
         return true
     }
     return false
-  }, [lessons])
+  }, [modType, day, lessons])
 }
