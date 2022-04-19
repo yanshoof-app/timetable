@@ -7,11 +7,13 @@ export default function useConfetti(
   day: DayOfWeek
 ) {
   const { lessons } = useStorage()
-  return useMemo(() => {
-    for (let lesson of lessons[day]) {
-      if (lesson.changes.some((change) => change.modData == modType))
-        return true
-    }
-    return false
-  }, [modType, day, lessons])
+  return useMemo(
+    () =>
+      lessons[day].some(
+        (lesson) =>
+          lesson.changes &&
+          lesson.changes.some((change) => change.modification == modType)
+      ),
+    [lessons, day, modType]
+  )
 }

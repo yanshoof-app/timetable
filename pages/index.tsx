@@ -12,6 +12,7 @@ import { GetStaticProps } from 'next'
 import { buildTitleGetStaticProps } from '../components/DocumentHead'
 import useConfetti from '../hooks/useConfetti'
 import { LessonModification } from '../interfaces'
+import CancellationConfetti from '../components/ui/CancellationConfetti'
 
 const MY_SCHEDULE = 'המערכת שלי'
 
@@ -42,6 +43,7 @@ const IndexPage = () => {
         day={day}
         timetable={lessons}
       />
+      {celebrate && <CancellationConfetti />}
       <Navbar />
     </Layout>
   )
