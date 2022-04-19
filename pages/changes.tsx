@@ -7,11 +7,11 @@ import PageTitle from '../components/ui/PageTitle'
 import { useStorage } from '../contexts/Storage'
 import useChanges from '../hooks/useChanges'
 import useCurrentDay from '../hooks/useCurrentDay'
-import useDate from '../hooks/useDate'
+import useDate, { dateOfDay } from '../hooks/useDate'
 import { useDayFilterer } from '../hooks/useDayFilterer'
 import useHebrewDate, {
   HEBREW_DAYS,
-  useHebrewDateNoMonth,
+  daylessHebrewDate,
 } from '../hooks/useHebrewDate'
 import { DayOfWeek, ILesson } from '../interfaces'
 import { timetable_example } from '../timetable_sample'
@@ -64,8 +64,8 @@ const ChangesPage = () => {
                       {`יום ${HEBREW_DAYS[dayIndex]}`},
                     </p>
                     <p className="font-medium text-lg dark:text-gray-300">
-                      {useHebrewDateNoMonth(
-                        useDate(dayIndex as DayOfWeek, date.current)
+                      {daylessHebrewDate(
+                        dateOfDay(dayIndex as DayOfWeek, date.current)
                       )}
                     </p>
                   </div>

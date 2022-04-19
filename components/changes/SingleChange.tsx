@@ -4,16 +4,15 @@ import { DayOfWeek, HourOfDay, LessonModification } from '../../interfaces'
 import { changeTextColor } from '../timetable/Lesson'
 
 export default function SingleChange(change: ChangeInfo) {
-  const [color, typeOfChange] =
-    change.typeOfChange != LessonModification.Other
-      ? useModification({ modification: change.typeOfChange })
-      : [null, null]
+  const [color, typeOfChange] = useModification({
+    modification: change.typeOfChange,
+  })
 
   return (
     <div className="flex gap-1">
       <div className="flex gap-[7px]">
         {/* Type of change*/}
-        {typeOfChange && (
+        {change.typeOfChange != LessonModification.Other && (
           <p className={`${changeTextColor(color)} font-bold`}>
             {typeOfChange}
           </p>
