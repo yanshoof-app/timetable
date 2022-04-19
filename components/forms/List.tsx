@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ReactNode } from 'react'
 import { useStorage } from '../../contexts/Storage'
 import { Clear } from '../icons'
 
@@ -7,11 +8,13 @@ export default function List({
   showHistory,
   query,
   PATH,
+  onListEnd: ListEnd,
 }: {
   list: string[]
   showHistory: boolean
   query: string
   PATH: string
+  onListEnd: ReactNode
 }) {
   const { teacherSearchHistory, setTeacherSearchHistory } = useStorage()
 
@@ -54,6 +57,7 @@ export default function List({
             </a>
           </Link>
         ))}
+      {ListEnd}
     </div>
   )
 }

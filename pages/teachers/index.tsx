@@ -4,19 +4,18 @@ import { buildTitleGetStaticProps } from '../../components/DocumentHead'
 import Input from '../../components/forms/Input'
 import List from '../../components/forms/List'
 import Layout from '../../components/Layout'
+import TeacherListLoading from '../../components/ui/LoadingScreens/TeacherListLoading'
 import Navbar from '../../components/ui/Navbar'
 import PageTitle from '../../components/ui/PageTitle'
 import { useStorage } from '../../contexts/Storage'
+import { useTeacherList } from '../../hooks/useTeacherList'
 import { TeacherList } from '../../utils/teacherList/TeacherList'
 
 const TEACHER_SEARCH = 'חיפוש מורה'
 
 const TeacherLookup = () => {
-  const { lessons } = useStorage()
   const [searchQuery, setSearchQuery] = useState('')
-
-  const teachers = useMemo(() => TeacherList.fromSchedule(lessons), [lessons])
-
+  const { teachers, showMore, ...status } = useTeacherList()
   const showHistory = useMemo(() => searchQuery === '', [searchQuery])
 
   return (
@@ -33,6 +32,13 @@ const TeacherLookup = () => {
           showHistory={showHistory}
           query={searchQuery}
           PATH={'/teachers'}
+          onListEnd={
+            <TeacherListLoading
+              showMore={showMore}
+              searchQuery={searchQuery}
+              {...status}
+            />
+          }
         />
       </div>
       <Navbar />
