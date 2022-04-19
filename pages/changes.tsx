@@ -1,5 +1,4 @@
-import { useMemo, useState } from 'react'
-import ChangesOfHour from '../components/changes'
+import { useState } from 'react'
 import ChangesOfDay from '../components/changes/ChnagesOfDay'
 import RadioButton from '../components/forms/RadioButton'
 import Layout from '../components/Layout'
@@ -8,14 +7,8 @@ import PageTitle from '../components/ui/PageTitle'
 import { useStorage } from '../contexts/Storage'
 import useChanges from '../hooks/useChanges'
 import useCurrentDay from '../hooks/useCurrentDay'
-import useDate, { dateOfDay } from '../hooks/useDate'
 import { useDayFilterer } from '../hooks/useDayFilterer'
-import useHebrewDate, {
-  HEBREW_DAYS,
-  daylessHebrewDate,
-} from '../hooks/useHebrewDate'
-import { DayOfWeek, ILesson } from '../interfaces'
-import { timetable_example } from '../timetable_sample'
+import { DayOfWeek } from '../interfaces'
 
 const NO_CHANGES = 'אין שינויים להצגה'
 
@@ -28,7 +21,6 @@ const ChangesPage = () => {
 
   const [showAllChanges, setshowAllChanges] = useState(true)
 
-  //TODO: Make filter work
   return (
     <Layout className="overflow-hidden flex flex-col text-center">
       <PageTitle title="שינויים" />
