@@ -1,7 +1,12 @@
 export const timetable_example = [
   [
     {},
-    { subject: 'חנג בנים', teacher: 'חניה אריה', class: '' },
+    {
+      subject: 'חנג בנים',
+      teacher: 'חניה אריה',
+      class: '',
+      changes: [{ modification: 1 }],
+    },
     { subject: 'תנ"ך', teacher: 'קוסיאק עינת', class: 'חדר יא 2' },
     {
       subject: 'מדעי המחשב יח"ל 4-5',

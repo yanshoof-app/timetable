@@ -23,7 +23,7 @@ export default function ChangesOfDay({
       <div className="flex gap-1">
         <p
           className={`font-semibold text-lg ${
-            dayOfWeek == currentDay && 'text-primary-500'
+            dayOfWeek == currentDay ? 'text-primary-500' : 'dark:text-gray-300'
           }`}
         >
           {`יום ${HEBREW_DAYS[dayOfWeek]}`},
