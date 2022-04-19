@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
   DayOfWeek,
   HourOfDay,
@@ -38,6 +39,7 @@ export interface TimetableProps {
   isEditing?: boolean
   timetable: SupportedLesson[][]
   className?: string
+  windowSkeleton?: () => JSX.Element
 }
 
 export default function Timetable({
@@ -45,6 +47,7 @@ export default function Timetable({
   isEditing = false,
   timetable,
   className = '',
+  windowSkeleton: WindowSkeleton,
 }: TimetableProps) {
   const lastLesson = FindLastLesson(timetable[day])
 
@@ -59,7 +62,8 @@ export default function Timetable({
       {timetable[day] &&
         timetable[day].map(
           (lesson, hour) =>
-            ShowLesson(lesson, hour as HourOfDay, lastLesson) &&
+            (ShowLesson(lesson, hour as HourOfDay, lastLesson) ||
+              WindowSkeleton) &&
             (Array.isArray(lesson) ? (
               <LessonPick
                 day={day}
@@ -67,12 +71,14 @@ export default function Timetable({
                 key={`${day}${hour}`}
                 isEditing={isEditing}
               />
-            ) : (
+            ) : isAnyLessonObj(lesson) || !WindowSkeleton ? (
               <Lesson
                 lesson={lesson}
                 hour={hour as HourOfDay}
                 key={`${day}${hour}`}
               />
+            ) : (
+              <WindowSkeleton />
             ))
         )}
     </div>

@@ -11,22 +11,21 @@ import PageTitle from '../../components/ui/PageTitle'
 import { BackRTL } from '../../components/icons'
 import useCurrentDay from '../../hooks/useCurrentDay'
 import { useDayFilterer } from '../../hooks/useDayFilterer'
+import { SkeletonLesson } from '../../components/timetable/Lesson/Skeleton'
+import SearchingLessons from '../../components/ui/LoadingScreens/SearchingLessons'
 
 const SCHEDULEOF = 'המערכת של'
 
 const TeacherSchedule = () => {
   const router = useRouter()
-  const { teacherName } = useMemo(() => router.query, [router.query])
-  const { school } = useStorage()
-  //omitted to prevent page from crash the whole browser
-  /*
-  const { teacherSchedule } = { teacherSchedule: [] } //useTeacherSchedule(school, teacherName as string)
-  const dayFilterer = useDayFilterer(teacherSchedule)
-  const { currentDay } = useCurrentDay(dayFilterer)
+  const { teacherName } = router.query
+  const { lessons, isLoading, ...status } = useTeacherSchedule(
+    teacherName as string
+  )
+  // const dayFilterer = useDayFilterer(lessons)
+  const { currentDay } = useCurrentDay()
   const [day, updateDay] = useState(currentDay)
 
-  console.log('Rerender')
-  */
   return (
     <Layout title={`${SCHEDULEOF} ${teacherName}`}>
       <PageTitle
@@ -35,13 +34,14 @@ const TeacherSchedule = () => {
         startIcon={BackRTL}
         onStartIconClick={() => router.back()}
       />
-      <div className="px-4">
-        {/*<DayPick day={day} onChange={updateDay} dayFilterer={dayFilterer} />
-        {teacherSchedule[0] ? (
-          <Timetable className="py-4" day={day} timetable={teacherSchedule} />
-        ) : (
-          <TimetableSkeleton className={'py-4'} />
-        )}*/}
+      <div className="px-4 space-y-4">
+        <DayPick day={day} onChange={updateDay} />
+        <SearchingLessons {...status} isLoading={isLoading} />
+        <Timetable
+          timetable={lessons}
+          day={currentDay}
+          windowSkeleton={isLoading ? SkeletonLesson : null}
+        />
       </div>
     </Layout>
   )
