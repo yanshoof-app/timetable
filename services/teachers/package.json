@@ -1,0 +1,28 @@
+{
+  "name": "teachers",
+  "version": "1.0.0",
+  "description": "Websocket microservice for teacher",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "jest --watch",
+    "build": "npx tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon -w src -x ts-node src/server.ts"
+  },
+  "keywords": [],
+  "author": "Itay Schechner, Itay Oshri",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.25",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0"
+  }
+}

@@ -46,3 +46,9 @@ __tests__/.env.test
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 **/public/fallback-*.js
+
+# services
+/**/node_modules
+/**/dist
+/**/.env
+/**/.env.*
