@@ -1,5 +1,7 @@
+import { GetStaticProps } from 'next'
 import { useState } from 'react'
 import ChangesOfDay from '../components/changes/ChnagesOfDay'
+import { buildTitleGetStaticProps } from '../components/DocumentHead'
 import RadioButton from '../components/forms/RadioButton'
 import Layout from '../components/Layout'
 import Navbar from '../components/ui/Navbar'
@@ -11,6 +13,7 @@ import { useDayFilterer } from '../hooks/useDayFilterer'
 import { DayOfWeek } from '../interfaces'
 
 const NO_CHANGES = 'אין שינויים להצגה'
+const CHANGES = 'שינויים'
 
 const ChangesPage = () => {
   const { lessons } = useStorage()
@@ -62,5 +65,7 @@ const ChangesPage = () => {
     </Layout>
   )
 }
+
+export const getStaticProps: GetStaticProps = buildTitleGetStaticProps(CHANGES)
 
 export default ChangesPage
