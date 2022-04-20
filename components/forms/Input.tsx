@@ -28,7 +28,7 @@ export default function Input({
   const [selected, setSelected] = useState(false)
   return (
     <div
-      className={`flex relative bg-uiPrimary-200 dark:bg-slate-900 rounded-lg flex-col justify-start items-center text-uiPrimary-300 dark:text-gray-300 fill-uiPrimary-400  ${className}`}
+      className={`flex relative bg-uiPrimary-200 dark:bg-slate-900 rounded-lg flex-col justify-start items-center text-uiPrimary-400 dark:text-gray-300 fill-uiPrimary-400  ${className}`}
     >
       <input
         className="bg-transparent h-12 w-full px-4 font-semibold appearance-none focus:outline-none dark:placeholder:text-gray-500"
