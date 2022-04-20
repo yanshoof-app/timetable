@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import { useState } from 'react'
-import ChangesOfDay from '../components/changes/ChnagesOfDay'
+import ChangesOfDay from '../components/changes/ChangesOfDay'
 import { buildTitleGetStaticProps } from '../components/DocumentHead'
 import RadioButton from '../components/forms/RadioButton'
 import Layout from '../components/Layout'

@@ -1,9 +1,9 @@
-import { ChangeInfo } from '../../hooks/useChanges'
+import { IChangeInfo } from '../../hooks/useChanges'
 import useModification from '../../hooks/useModification'
-import { DayOfWeek, HourOfDay, LessonModification } from '../../interfaces'
+import { LessonModification } from '../../interfaces'
 import { changeTextColor } from '../timetable/Lesson'
 
-export default function SingleChange(change: ChangeInfo) {
+export default function SingleChange(change: IChangeInfo) {
   const [color, typeOfChange] = useModification({
     modification: change.typeOfChange,
   })

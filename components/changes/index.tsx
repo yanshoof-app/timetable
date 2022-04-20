@@ -1,7 +1,7 @@
-import { HourlyChanges } from '../../hooks/useChanges'
+import { IHourlyChanges } from '../../hooks/useChanges'
 import GroupOfChanges from './GroupOfChanges'
 
-export default function ChangesOfHour(hour: HourlyChanges) {
+export default function ChangesOfHour(hour: IHourlyChanges) {
   return (
     <div className="flex flex-col gap-2">
       {hour.changes.length > 0 && (

@@ -1,5 +1,13 @@
 import { useMemo } from 'react'
 import {
+  FROM,
+  IN,
+  REPLACES,
+  TO,
+  WITH,
+} from '../components/timetable/ChangeList/Change'
+import { useStorage } from '../contexts/Storage'
+import {
   DayOfWeek,
   HourOfDay,
   ILesson,
@@ -8,51 +16,51 @@ import {
 } from '../interfaces'
 import { initArray } from '../utils/data/arrays'
 
-export interface ChangeInfo {
+export interface IChangeInfo {
   typeOfChange: LessonModification
   data?: string
 }
 
-export interface HourlyChanges {
+export interface IHourlyChanges {
   hour: HourOfDay
   studyGroup: string
-  changes: ChangeInfo[]
-  otherChanges: ChangeInfo[]
-  events: ChangeInfo[]
+  changes: IChangeInfo[]
+  otherChanges: IChangeInfo[]
+  events: IChangeInfo[]
 }
 
 const infoToStudyGroup = (lesson: ILesson) => {
   const { subject, teacher } = lesson
-  return teacher ? `${subject} עם ${teacher}` : subject
+  return teacher ? `${subject} ${WITH} ${teacher}` : subject
 }
 
 export const modToChange = (
   modification: IModification,
   lesson: ILesson
-): ChangeInfo => {
+): IChangeInfo => {
   switch (modification.modification) {
     case LessonModification.NewHour:
       return {
         typeOfChange: modification.modification,
-        data: `${lesson.subject} ל${modification.modData}`,
+        data: `${lesson.subject} ${TO}${modification.modData}`,
       }
 
     case LessonModification.NewRoom:
       return {
         typeOfChange: modification.modification,
-        data: `${lesson.class}מ ${modification.modData}ל`,
+        data: `${lesson.class}${FROM} ${modification.modData}${TO}`,
       }
 
     case LessonModification.NewTeacher:
       return {
         typeOfChange: modification.modification,
-        data: `${modification.modData} מחליף את ${lesson.teacher}`,
+        data: `${modification.modData} ${REPLACES} ${lesson.teacher}`,
       }
 
     case LessonModification.Exam:
       return {
         typeOfChange: modification.modification,
-        data: `${modification.modData}ב`,
+        data: `${modification.modData}${IN}`,
       }
 
     case LessonModification.Canceled:
@@ -67,7 +75,7 @@ export const modToChange = (
   }
 }
 
-export const eventToChange = (event: string): ChangeInfo => {
+export const eventToChange = (event: string): IChangeInfo => {
   return {
     typeOfChange: LessonModification.Other,
     data: event,
@@ -75,11 +83,16 @@ export const eventToChange = (event: string): ChangeInfo => {
 }
 
 /**
- * Returns array of all changes from given lessons matrix
+ *
+ * @returns an array of days with arrays of changes from user's schedule (IHourlyChanges), and the number of changes found
  */
-export default function useChanges(lessons: ILesson[][]) {
+export default function useChanges(): {
+  changes: IHourlyChanges[][]
+  numOfChanges: number
+} {
+  const { lessons } = useStorage()
   return useMemo(() => {
-    const changes = initArray<HourlyChanges>(7)
+    const changes = initArray<IHourlyChanges>(7)
     let numOfChanges = 0
 
     for (let day in lessons) {

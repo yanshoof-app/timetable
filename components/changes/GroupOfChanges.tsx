@@ -1,13 +1,11 @@
-import { ChangeInfo } from '../../hooks/useChanges'
-import useModification from '../../hooks/useModification'
-import { DayOfWeek, HourOfDay, LessonModification } from '../../interfaces'
-import { changeTextColor } from '../timetable/Lesson'
+import { IChangeInfo } from '../../hooks/useChanges'
+import { HourOfDay } from '../../interfaces'
 import SingleChange from './SingleChange'
 
 interface ChangesGroupProps {
   hour: HourOfDay
   studyGroup?: string
-  changes: ChangeInfo[]
+  changes: IChangeInfo[]
 }
 
 export default function GroupOfChanges({

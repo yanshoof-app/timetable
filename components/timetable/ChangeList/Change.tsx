@@ -1,11 +1,13 @@
 import { useMemo } from 'react'
-import useLessonInfo from '../../../hooks/useLessonInfo'
 import useModification from '../../../hooks/useModification'
 import { IStudyGroupWithModification } from '../../../interfaces'
 import { changeTextColor } from '../Lesson'
 
-const TO = 'ל'
-const WITH = 'עם'
+export const FROM = 'מ'
+export const TO = 'ל'
+export const IN = 'ב'
+export const WITH = 'עם'
+export const REPLACES = 'מחליף/ה את'
 
 export default function Change(studyGroup: IStudyGroupWithModification) {
   const [color, modificationMessage] = useModification(studyGroup)

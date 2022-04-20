@@ -1,5 +1,5 @@
 import ChangesOfHour from '.'
-import { HourlyChanges } from '../../hooks/useChanges'
+import { IHourlyChanges } from '../../hooks/useChanges'
 import { dateOfDay } from '../../hooks/useDate'
 import { daylessHebrewDate, HEBREW_DAYS } from '../../hooks/useHebrewDate'
 import { DayOfWeek } from '../../interfaces'
@@ -8,7 +8,7 @@ export interface IChangesOfDayProps {
   dayOfWeek: DayOfWeek
   date: Date
   currentDay: DayOfWeek
-  changesOfDay: HourlyChanges[]
+  changesOfDay: IHourlyChanges[]
 }
 
 export default function ChangesOfDay({
