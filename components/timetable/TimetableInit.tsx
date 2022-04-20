@@ -29,10 +29,14 @@ export default function TimetableInit() {
 
   return (
     <Layout className="p-[18px] h-screen flex flex-col justify-between items-center gap-2 ">
-      <p className="font-bold text-2xl">הוסיפו שיעורים במקומות הריקים</p>
-      <p className="font-semibold text-xl">{HEBREW_DAYS[currentDay]}</p>
+      <p className="font-bold text-2xl dark:text-gray-300">
+        הוסיפו שיעורים במקומות הריקים
+      </p>
+      <p className="font-semibold text-xl dark:text-gray-300">
+        {HEBREW_DAYS[currentDay]}
+      </p>
       <div
-        className={`bg-stone-200 p-[18px] rounded-[30px] w-full h-full ${
+        className={`bg-stone-200 dark:bg-slate-800 p-[18px] rounded-[30px] w-full h-full ${
           timetable.length ? 'overflow-scroll' : 'overflow-hidden'
         }`}
       >
