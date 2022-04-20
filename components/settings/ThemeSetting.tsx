@@ -23,7 +23,7 @@ const ThemeSetting: SettingsComponent<ThemePreference> = ({
 
   const { ex1, ex2 } = useExamples(
     { light: lightModeExample, dark: darkLightModeExample },
-    { light: lightModeExample, dark: darkLightModeExample },
+    { light: darkModeExample, dark: darkDarkModeExample },
     isDarkMode
   )
 
