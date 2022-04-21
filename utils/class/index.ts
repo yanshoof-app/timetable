@@ -9,6 +9,7 @@ import { IClassLookup } from '../../interfaces'
  * @implements IClassLookup, that sets the method of the object.
  */
 export class ClassLookup implements IClassLookup {
+  static readonly CLASS_NOT_FOUND = IscoolClassLookup.CLASS_NOT_FOUND
   classIds: number[][]
   grades: number[]
 
