@@ -21,7 +21,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       schoolSymbol,
       classId
     )
-    timetable.fromIscool(Schedule)
+    timetable.fromSchedule(Schedule)
 
     const { Changes } = await fetchDataSource<IChangesResponse>(
       'changes',

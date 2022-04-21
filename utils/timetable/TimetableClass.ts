@@ -2,29 +2,33 @@ import {
   DayOfWeek,
   HourOfDay,
   IChange,
-  IChangeIscool,
   ILesson,
-  ILessonArrMemberIscool,
   IModification,
   IScheduleSettings,
   isILessonObj,
   isSettingsObj,
   isStudyGroup,
   IStudyGroup,
-  IStudyGroupIscool,
   ITimetable,
 } from '../../interfaces'
-import { ISCOOL, QueryParamsSettings } from '..'
 import { initMatrix } from '..'
 import { isMatrix } from '../data/arrays'
 import { isPickableHour } from './pickableHour'
+import {
+  IChangeIscool,
+  ILessonArrMemberIscool,
+  ISCOOL,
+  IStudyGroupIscool,
+} from '@yanshoof/iscool'
 
 /**
  * A Timetable class capable of reading settings and changes
  * @author Itay Schechner
  * @version 2022.0.0
  */
-export class Timetable implements ITimetable<ILesson> {
+export class Timetable
+  implements ITimetable<ILesson, ILessonArrMemberIscool[]>
+{
   static readonly DAYS_IN_WEEK = 7
   static readonly HOURS_OF_SCHEDULE = 13 // change if needed
   readonly lessons: ILesson[][]
@@ -73,10 +77,10 @@ export class Timetable implements ITimetable<ILesson> {
     } else throw new Error('Invalid values in constructor')
   }
 
-  public fromIscool(schedule: ILessonArrMemberIscool[]) {
+  public fromSchedule(schedule: ILessonArrMemberIscool[]) {
     if (!isSettingsObj(this.settings))
       throw new Error(
-        'Cannot call method "fromIscool()" method without proper settings'
+        'Cannot call method "fromSchedule()" method without proper settings'
       )
 
     const { studyGroups, studyGroupMap } = this.settings

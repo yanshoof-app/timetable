@@ -23,7 +23,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
           schoolSymbol,
           classId
         )
-        teacherTimetable.fromIscool(scheduleResponse.Schedule)
+        teacherTimetable.fromSchedule(scheduleResponse.Schedule)
       }
     }
     let changesResponse: IChangesResponse

@@ -39,7 +39,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         schoolSymbol,
         classId
       )
-      timetable.fromIscool(Schedule)
+      timetable.fromSchedule(Schedule)
       timetable.applyChanges(Changes)
       res.status(200).json(
         withFixedSettings(settings, {

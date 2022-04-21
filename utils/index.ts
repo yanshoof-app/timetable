@@ -1,6 +1,5 @@
 export { initMatrix } from './data/arrays'
 export * from './data/strings'
-export * from './data/iScool'
 
 // class exports
 export { ClassLookup } from './class'

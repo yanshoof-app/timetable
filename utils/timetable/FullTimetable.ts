@@ -1,12 +1,7 @@
-import {
-  ILesson,
-  ILessonArrMemberIscool,
-  ITimetable,
-  LessonOrMultiple,
-} from '../../interfaces'
-import { ISCOOL } from '..'
+import { ITimetable, LessonOrMultiple } from '../../interfaces'
 import { initMatrix } from '..'
 import { Timetable } from './TimetableClass'
+import { ILessonArrMemberIscool, ISCOOL } from '@yanshoof/iscool'
 
 /**
  * A class that implements timetable but stays loyal to the original Iscool API
@@ -14,7 +9,9 @@ import { Timetable } from './TimetableClass'
  * @version 2022.0.0
  * @implements ITimeTable<LessonOrMultiple>
  */
-export class FullTimeable implements ITimetable<LessonOrMultiple> {
+export class FullTimeable
+  implements ITimetable<LessonOrMultiple, ILessonArrMemberIscool[]>
+{
   readonly lessons: LessonOrMultiple[][]
 
   /**
@@ -27,7 +24,7 @@ export class FullTimeable implements ITimetable<LessonOrMultiple> {
     )
   }
 
-  public fromIscool(schedule: ILessonArrMemberIscool[]) {
+  public fromSchedule(schedule: ILessonArrMemberIscool[]) {
     schedule.forEach((lesson) => {
       const day = lesson.Day
       const hourIndex = lesson.Hour

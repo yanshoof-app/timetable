@@ -15,7 +15,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       schoolSymbol,
       classId
     )
-    timetable.fromIscool(Schedule)
+    timetable.fromSchedule(Schedule)
     res.status(200).json(JSON.stringify(timetable.lessons, null, 2))
   } catch (err: any) {
     res.status(500).json({
