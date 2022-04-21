@@ -1,17 +1,19 @@
-import { IScheduleResponse, IChangesResponse } from '../interfaces'
 import {
-  initMatrix,
+  IScheduleResponse,
+  IChangesResponse,
   fetchDataSource,
-  FullTimeable,
-  Timetable,
   ISCOOL,
-} from '../utils'
+} from '@yanshoof/iscool'
+import { initMatrix, FullTimeable, Timetable } from '../utils'
 import {
   AMI_ASSAF_SYMBOL,
   YUD_7_ID,
   SETTINGS,
   OSHRI_SETTINGS,
 } from '../utils/sample-constants'
+import axios from 'axios'
+
+axios.defaults.adapter = require('axios/lib/adapters/http')
 
 describe('Test build schedule routine', () => {
   let scheduleResponse: IScheduleResponse
@@ -33,10 +35,10 @@ describe('Test build schedule routine', () => {
   })
 
   it('Creates a weekly schedule from it', () => {
-    const schedule = new FullTimeable().fromIscool(scheduleResponse.Schedule)
+    const schedule = new FullTimeable().fromSchedule(scheduleResponse.Schedule)
     expect(schedule.lessons.length).toEqual(7)
-    expect(schedule.lessons[0][0][0].teacher).toBeDefined()
-    expect(schedule.lessons[0][0][0].subject).toBeDefined()
+    expect(schedule.lessons[0][1][0].teacher).toBeDefined()
+    expect(schedule.lessons[0][1][0].subject).toBeDefined()
   })
 
   it('Fetches changes from the server', async () => {
@@ -49,7 +51,7 @@ describe('Test build schedule routine', () => {
   })
 
   it('Creates an individual weekly schedule from it', () => {
-    const schedule = new Timetable(SETTINGS).fromIscool(
+    const schedule = new Timetable(SETTINGS).fromSchedule(
       scheduleResponse.Schedule
     )
     expect(schedule.lessons[5][3]).toStrictEqual({})
@@ -68,7 +70,7 @@ describe('Test build schedule routine', () => {
   })
 
   it('Creates a different individual weekly schedule from it', () => {
-    const schedule = new Timetable(OSHRI_SETTINGS).fromIscool(
+    const schedule = new Timetable(OSHRI_SETTINGS).fromSchedule(
       scheduleResponse.Schedule
     )
     expect(schedule.lessons[5][3]).toStrictEqual({})

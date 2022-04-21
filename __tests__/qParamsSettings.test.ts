@@ -1,7 +1,10 @@
 import { IScheduleSettings } from '../interfaces'
 import { InputError } from '../utils/errors'
-import { QueryParams, QueryParamsSettings } from '../utils'
+import { QueryParamsSettings } from '../utils'
 import { SETTINGS } from '../utils/sample-constants'
+import axios from 'axios'
+
+axios.defaults.adapter = require('axios/lib/adapters/http')
 
 describe('Tests the QueryParamsSettings class', () => {
   let input = QueryParamsSettings.toQueryParams(SETTINGS)
