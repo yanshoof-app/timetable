@@ -1,6 +1,6 @@
 import { Timetable } from '..'
 import { IScheduleSettings } from '../../interfaces'
-import { InputError } from '../../interfaces/errors'
+import { InputError } from '../errors'
 import { toTuple } from '../data/arrays'
 
 export type QueryParams = {

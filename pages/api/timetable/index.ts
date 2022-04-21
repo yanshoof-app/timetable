@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { IChangesResponse, IScheduleResponse } from '../../../interfaces'
 import { fetchDataSource, Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
-import { InputError } from '../../../interfaces/errors'
+import { InputError } from '../../../utils/errors'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {

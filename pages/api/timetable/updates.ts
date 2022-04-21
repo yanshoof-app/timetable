@@ -6,7 +6,7 @@ import {
 } from '../../../interfaces'
 import { fetchDataSource, Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
-import { InputError } from '../../../interfaces/errors'
+import { InputError } from '../../../utils/errors'
 import { isNewWeek } from '../../../utils/data/updates'
 import withFixedSettings from '../../../utils/settings/withFixedSettings'
 

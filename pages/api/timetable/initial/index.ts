@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { IScheduleResponse } from '../../../../interfaces'
 import { fetchDataSource, FullTimeable } from '../../../../utils'
-import { InputError } from '../../../../interfaces/errors'
+import { InputError } from '../../../../utils/errors'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
