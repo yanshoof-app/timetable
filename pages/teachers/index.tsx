@@ -7,9 +7,7 @@ import Layout from '../../components/Layout'
 import TeacherListLoading from '../../components/ui/LoadingScreens/TeacherListLoading'
 import Navbar from '../../components/ui/Navbar'
 import PageTitle from '../../components/ui/PageTitle'
-import { useStorage } from '../../contexts/Storage'
 import { useTeacherList } from '../../hooks/useTeacherList'
-import { TeacherList } from '../../utils/teacherList/TeacherList'
 
 const TEACHER_SEARCH = 'חיפוש מורה'
 
