@@ -11,7 +11,7 @@ describe('Tests the school lookup class', () => {
     expect(amiAssafResult.symbol).toEqual(Number(AMI_ASSAF_SYMBOL))
   })
 
-  it('Searches an school not existing', async () => {
+  it('Searches a school not existing', async () => {
     const invalidLookup = await SchoolLookup.buildFromQuery(
       '123456789012345678901234567890'
     )

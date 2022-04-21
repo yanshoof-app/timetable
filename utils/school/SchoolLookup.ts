@@ -27,7 +27,7 @@ export class SchoolLookup implements ISchoolLookup {
    */
   static async buildFromQuery(query: string | number) {
     const { Schools } = await fetchSchoolsWithQuery(query)
-    if (Schools)
+    if (!Schools)
       // if the field is null (search failed)
       return new SchoolLookup([])
     return new SchoolLookup(Schools)
