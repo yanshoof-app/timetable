@@ -8,7 +8,6 @@ export { ClassLookup } from './class'
 
 export { Timetable } from './timetable/TimetableClass'
 export { FullTimeable } from './timetable/FullTimetable'
-export { TeacherTimetable } from './timetable/TeacherTimetableClass'
 
 // settings export
 export { QueryParamsSettings } from './settings/QueryParamsSettings'
