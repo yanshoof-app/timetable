@@ -1,6 +1,9 @@
-import { IScheduleResponse, IscoolClassLookup } from '@yanshoof/iscool'
+import {
+  IScheduleResponse,
+  IscoolClassLookup,
+  fetchDataSource,
+} from '@yanshoof/iscool'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchDataSource } from '../../../../utils'
 import {} from '../../../../utils/sample-constants'
 import { TeacherList } from '../../../../utils/teacherList/TeacherList'
 

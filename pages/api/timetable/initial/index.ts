@@ -1,6 +1,6 @@
+import { fetchDataSource, IScheduleResponse } from '@yanshoof/iscool'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { IScheduleResponse } from '../../../../interfaces'
-import { fetchDataSource, FullTimeable } from '../../../../utils'
+import { FullTimeable } from '../../../../utils'
 import { InputError } from '../../../../utils/errors'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {

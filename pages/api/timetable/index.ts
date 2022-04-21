@@ -1,6 +1,10 @@
+import {
+  fetchDataSource,
+  IChangesResponse,
+  IScheduleResponse,
+} from '@yanshoof/iscool'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { IChangesResponse, IScheduleResponse } from '../../../interfaces'
-import { fetchDataSource, Timetable } from '../../../utils'
+import { Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../utils/errors'
 

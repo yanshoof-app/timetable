@@ -1,15 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
   IChangesResponse,
-  IClassesResponse,
   IScheduleResponse,
   IscoolClassLookup,
-} from '@yanshoof/iscool'
-import {
-  ClassLookup,
   fetchDataSource,
-  TeacherTimetable,
-} from '../../../../utils'
+} from '@yanshoof/iscool'
+import { TeacherTimetable } from '../../../../utils'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   const query = _req.query
