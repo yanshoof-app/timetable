@@ -1,6 +1,5 @@
+import { IscoolClassLookup } from '@yanshoof/iscool'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { IClassesResponse } from '../../../interfaces'
-import { ClassLookup, fetchDataSource } from '../../../utils'
 
 export type ClassesRequest = { classes: number[][]; grades: number[] }
 
@@ -8,12 +7,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const query = _req.query
     const schoolSymbol = query.school as string
-    const { Classes } = await fetchDataSource<IClassesResponse>(
-      'classes',
-      schoolSymbol,
-      0
-    )
-    const classLookup = new ClassLookup(Classes)
+    const classLookup = await IscoolClassLookup.fromSchool(schoolSymbol)
 
     res.status(200).json(<ClassesRequest>{
       classes: classLookup.classIds,

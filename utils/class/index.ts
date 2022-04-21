@@ -1,3 +1,4 @@
+import { IscoolClassLookup } from '@yanshoof/iscool'
 import { HEBREW_GRADES } from '..'
 import { IClassLookup } from '../../interfaces'
 
@@ -35,6 +36,7 @@ export class ClassLookup implements IClassLookup {
       classNum < this.classIds[gradeIndex].length
     )
       return this.classIds[gradeIndex][classNum - 1]
+    return IscoolClassLookup.CLASS_NOT_FOUND
   }
 
   /**

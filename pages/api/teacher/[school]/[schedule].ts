@@ -3,7 +3,8 @@ import {
   IChangesResponse,
   IClassesResponse,
   IScheduleResponse,
-} from '../../../../interfaces'
+  IscoolClassLookup,
+} from '@yanshoof/iscool'
 import {
   ClassLookup,
   fetchDataSource,
@@ -15,17 +16,12 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   const schoolSymbol = query.school.toString()
   const commonTeacher = query.schedule
   try {
-    const classResponse = await fetchDataSource<IClassesResponse>(
-      'classes',
-      schoolSymbol,
-      0
-    )
-    const classLookup = new ClassLookup(classResponse.Classes)
+    const classLookup = await IscoolClassLookup.fromSchool(schoolSymbol)
     let teacherTimetable = new TeacherTimetable(commonTeacher.toString())
     let scheduleResponse: IScheduleResponse
     for (let grade of classLookup.classIds) {
       for (let classId of grade) {
-        if (classId == ClassLookup.CLASS_NOT_FOUND) continue
+        if (classId == IscoolClassLookup.CLASS_NOT_FOUND) continue
         scheduleResponse = await fetchDataSource<IScheduleResponse>(
           'schedule',
           schoolSymbol,
@@ -37,7 +33,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     let changesResponse: IChangesResponse
     for (let grade of classLookup.classIds) {
       for (let classId of grade) {
-        if (classId == ClassLookup.CLASS_NOT_FOUND) continue
+        if (classId == IscoolClassLookup.CLASS_NOT_FOUND) continue
         changesResponse = await fetchDataSource<IChangesResponse>(
           'changes',
           schoolSymbol,

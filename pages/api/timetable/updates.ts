@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import {
-  IChange,
-  IChangesResponse,
-  IScheduleResponse,
-} from '../../../interfaces'
-import { fetchDataSource, Timetable } from '../../../utils'
+import { Timetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../utils/errors'
 import { isNewWeek } from '../../../utils/data/updates'
 import withFixedSettings from '../../../utils/settings/withFixedSettings'
+import {
+  fetchDataSource,
+  IChangesResponse,
+  IScheduleResponse,
+} from '@yanshoof/iscool'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
