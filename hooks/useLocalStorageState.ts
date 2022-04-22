@@ -9,18 +9,20 @@ import {
 const EXPIRES = 'expires'
 const COOKIE_LIFE = 60
 
+//Returns the value of cookie
 const valueFromCookie = (field: string, cookie: string) => {
   return cookie.substring(field.length + 2)
 }
 
-const setCookie = (field, value) => {
+const setCookie = (field: string, value: string) => {
   const exprsDate = new Date()
   exprsDate.setDate(exprsDate.getDate() + COOKIE_LIFE)
-  document.cookie = `${field}=${value};${EXPIRES}=${exprsDate}`
+  document.cookie = `${field}=${value};${EXPIRES}=${exprsDate}` // showOtherChanges=true;expires=Fri Jun 22 2022 01:28:48 GMT+0300
 }
 
-const getCookie = (field) => {
+const getCookie = (field: string): string | undefined => {
   const cookies = document.cookie.split(';')
+
   for (let cookie of cookies) {
     if (cookie.substring(1, field.length + 1) === field)
       return valueFromCookie(field, cookie)

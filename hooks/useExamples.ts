@@ -11,5 +11,5 @@ export default function useExamples(
     } else {
       return { ex1: ex1.light, ex2: ex2.light }
     }
-  }, [ex1.dark, ex1.light, ex2.dark, ex2.light, isDarkMode])
+  }, [ex1, ex2, isDarkMode])
 }
