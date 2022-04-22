@@ -6,6 +6,28 @@ import {
   useState,
 } from 'react'
 
+const EXPIRES = 'expires'
+const COOKIE_LIFE = 60
+
+const valueFromCookie = (field: string, cookie: string) => {
+  return cookie.substring(field.length + 2)
+}
+
+const setCookie = (field, value) => {
+  const exprsDate = new Date()
+  exprsDate.setDate(exprsDate.getDate() + COOKIE_LIFE)
+  document.cookie = `${field}=${value};${EXPIRES}=${exprsDate}`
+}
+
+const getCookie = (field) => {
+  const cookies = document.cookie.split(';')
+  for (let cookie of cookies) {
+    if (cookie.substring(1, field.length + 1) === field)
+      return valueFromCookie(field, cookie)
+  }
+  return undefined
+}
+
 export interface ILocalStorageHandler<T> {
   decode(str?: string): T
   toStorable(value: T): string
@@ -18,17 +40,17 @@ export function createLocalStorageState<T>(
   { decode, toStorable }: ILocalStorageHandler<T>
 ) {
   return function useLocalStorageState(): [T, Dispatch<SetStateAction<T>>] {
-    const [isClientSide] = useState(typeof localStorage != 'undefined') // loads quicker than the useClientSide() to prevent lugs
+    const [isClientSide] = useState(typeof document != 'undefined') // loads quicker than the useClientSide() to prevent lugs
     const [value, setValue] = useState(
-      isClientSide ? decode(localStorage.getItem(field)) : undefined
+      isClientSide ? decode(getCookie(field)) : undefined
     )
 
     useEffect(() => {
-      if (isClientSide) setValue(decode(localStorage.getItem(field)))
+      if (isClientSide) setValue(decode(getCookie(field)))
     }, [isClientSide])
 
     const save = useCallback(() => {
-      isClientSide && localStorage.setItem(field, toStorable(value))
+      isClientSide && setCookie(field, toStorable(value))
     }, [value, isClientSide])
 
     useEffect(() => {
