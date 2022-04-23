@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@yanshoof/iscool": "^1.2.0",
+    "@yanshoof/iscool": "^1.2.1",
+    "@yanshoof/settings": "^1.0.1",
     "@yanshoof/types": "^1.1.1",
     "axios": "^0.25.0",
     "cookies-next": "^2.0.4",

@@ -2,6 +2,7 @@ import { Timetable } from '..'
 import { IScheduleSettings } from '../../interfaces'
 import { InputError } from '../errors'
 import { toTuple } from '../data/arrays'
+import { IscoolSettings } from './IscoolSettings'
 
 export type QueryParams = {
   showOthersChanges: string
@@ -12,10 +13,9 @@ export type QueryParams = {
 /**
  * Represents settings that came from an HTTP request
  * @author Itay Schechner
- * @version 2022.0.0
- * @implements IScheduleSettings
+ * @version 1.0.0
  */
-export class QueryParamsSettings implements IScheduleSettings {
+export class QueryParamsSettings extends IscoolSettings {
   private static DAY_HOUR_QPARAMS_DELIMITER = '/'
   private static STUDY_GROUP_QPARAMS_DELIMITER = ':'
   private static DELIMITER = ','
@@ -93,11 +93,11 @@ export class QueryParamsSettings implements IScheduleSettings {
     studyGroups = '',
     studyGroupMap = '',
   }: Partial<QueryParams>) {
-    this.showOthersChanges = QueryParamsSettings.toBoolean(showOthersChanges)
-
-    // build study group array
-    this.studyGroups = []
-    this.studyGroupMap = new Map()
+    super({
+      showOthersChanges: QueryParamsSettings.toBoolean(showOthersChanges),
+      studyGroups: [],
+      studyGroupMap: new Map(),
+    })
 
     if (studyGroups !== '') {
       for (let studyGroup of studyGroups.split(QueryParamsSettings.DELIMITER)) {
