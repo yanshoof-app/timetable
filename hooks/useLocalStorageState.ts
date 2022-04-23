@@ -1,3 +1,4 @@
+import { getCookie, setCookies } from 'cookies-next'
 import {
   Dispatch,
   SetStateAction,
@@ -11,24 +12,27 @@ const COOKIE_LIFE = 60
 
 //Returns the value of cookie
 const valueFromCookie = (field: string, cookie: string) => {
-  return cookie.substring(field.length + 2)
+  console.log(cookie)
+  return cookie.substring(field.length + 1)
 }
 
 const setCookie = (field: string, value: string) => {
   const exprsDate = new Date()
   exprsDate.setDate(exprsDate.getDate() + COOKIE_LIFE)
-  document.cookie = `${field}=${value};${EXPIRES}=${exprsDate}` // showOtherChanges=true;expires=Fri Jun 22 2022 01:28:48 GMT+0300
+  setCookies(field, value, { expires: exprsDate })
+  //document.cookie = `${field}=${value};${EXPIRES}=${exprsDate}` // showOtherChanges=true;expires=Fri Jun 22 2022 01:28:48 GMT+0300
 }
 
+/*
 const getCookie = (field: string): string | undefined => {
-  const cookies = document.cookie.split(';')
+  const cookies = document.cookie.split('; ')
 
   for (let cookie of cookies) {
-    if (cookie.substring(1, field.length + 1) === field)
+    if (cookie.substring(0, field.length) === field)
       return valueFromCookie(field, cookie)
   }
-  return undefined
-}
+  return null
+*/
 
 export interface ILocalStorageHandler<T> {
   decode(str?: string): T
