@@ -15,18 +15,20 @@ export default function GroupOfChanges({
 }: ChangesGroupProps) {
   return (
     <div className="flex flex-col">
-      <div className="flex gap-[7px]">
+      <p className="flex gap-[7px] truncate">
         {/* Hour */}
-        <p className="font-bold dark:text-white">
+        <span className="font-bold dark:text-white">
           שעה {hour}
           {!studyGroup && ':'}
-        </p>
+        </span>
 
         {/* Study group*/}
         {studyGroup && (
-          <p className="font-semibold dark:text-gray-200">{studyGroup}:</p>
+          <span className="font-semibold dark:text-gray-200 truncate">
+            {studyGroup}:
+          </span>
         )}
-      </div>
+      </p>
 
       {/* Changes*/}
       <div className="flex flex-col pr-2">
