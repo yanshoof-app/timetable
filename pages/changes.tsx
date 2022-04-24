@@ -17,7 +17,7 @@ const CHANGES = 'שינויים'
 
 const ChangesPage = () => {
   const { lessons } = useStorage()
-  const { changes, numOfChanges } = useChanges(lessons)
+  const { changes, numOfChanges } = useChanges()
 
   const dayFilterer = useDayFilterer(lessons)
   const { currentDay, date } = useCurrentDay(dayFilterer)
@@ -52,6 +52,7 @@ const ChangesPage = () => {
                   currentDay={currentDay}
                   changesOfDay={changesOfDay}
                   date={date.current}
+                  key={dayIndex}
                 />
               )
           )}
