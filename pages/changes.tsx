@@ -27,8 +27,8 @@ const ChangesPage = () => {
   return (
     <Layout className="overflow-hidden flex flex-col text-center">
       <PageTitle title="שינויים" />
-      <div className="flex flex-col gap-4 px-5 mb-14 overflow-hidden pt-1">
-        <div className="flex justify-evenly gap-4 overflow-visible">
+      <div className="flex flex-col gap-4 mb-14 overflow-hidden pt-1">
+        <div className="flex justify-evenly gap-4 overflow-visible px-5">
           <RadioButton
             selected={showAllChanges}
             label="כל השינויים"
@@ -43,19 +43,21 @@ const ChangesPage = () => {
           ></RadioButton>
         </div>
         <div className="flex flex-col gap-2 overflow-y-scroll">
-          {changes.map(
-            (changesOfDay, dayIndex) =>
-              changesOfDay.length > 0 &&
-              (dayIndex === currentDay || showAllChanges) && (
-                <ChangesOfDay
-                  dayOfWeek={dayIndex as DayOfWeek}
-                  currentDay={currentDay}
-                  changesOfDay={changesOfDay}
-                  date={date.current}
-                  key={dayIndex}
-                />
-              )
-          )}
+          <div className="px-5">
+            {changes.map(
+              (changesOfDay, dayIndex) =>
+                changesOfDay.length > 0 &&
+                (dayIndex === currentDay || showAllChanges) && (
+                  <ChangesOfDay
+                    dayOfWeek={dayIndex as DayOfWeek}
+                    currentDay={currentDay}
+                    changesOfDay={changesOfDay}
+                    date={date.current}
+                    key={dayIndex}
+                  />
+                )
+            )}
+          </div>
         </div>
       </div>
       {numOfChanges == 0 && (
