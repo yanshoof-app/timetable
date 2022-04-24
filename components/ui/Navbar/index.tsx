@@ -11,8 +11,7 @@ const BY_TEACHER = 'לפי מורה'
 const SETTINGS = 'הגדרות'
 
 const Navbar = () => {
-  const { lessons } = useStorage()
-  const { numOfChanges } = useChanges(lessons)
+  const { numOfChanges } = useChanges()
 
   return (
     <nav className="grid grid-cols-4 items-center w-full h-14 bg-white dark:bg-slate-900 fixed bottom-0 inset-x-0 z-10 border-gray-200 dark:border-slate-700 border-t-[1px]">
