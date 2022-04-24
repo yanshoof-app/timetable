@@ -17,7 +17,7 @@ export default function Change(studyGroup: IStudyGroupWithModification) {
   )
 
   return (
-    <p className=" truncate">
+    <p className="truncate dark:text-gray-300">
       <span className={`${changeTextColor(color)} font-bold`}>
         {modificationMessage}
       </span>
