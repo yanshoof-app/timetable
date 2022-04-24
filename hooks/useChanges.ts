@@ -19,6 +19,7 @@ import { initArray } from '../utils/data/arrays'
 export interface IChangeInfo {
   typeOfChange: LessonModification
   data?: string
+  studyGroup?: string
 }
 
 export interface IHourlyChanges {
@@ -29,7 +30,7 @@ export interface IHourlyChanges {
   events: IChangeInfo[]
 }
 
-const infoToStudyGroup = (lesson: ILesson) => {
+const infoToStudyGroup = (lesson: Partial<ILesson>) => {
   const { subject, teacher } = lesson
   return teacher ? `${subject} ${WITH} ${teacher}` : subject
 }
@@ -119,9 +120,14 @@ export default function useChanges(): {
 
         if (lesson.otherChanges) {
           for (let change of lesson.otherChanges) {
-            changes[dayOfWeek][hour].otherChanges.push(
-              modToChange(change, lesson)
-            )
+            const changeData = modToChange(change, lesson)
+            changes[dayOfWeek][hour].otherChanges.push({
+              ...changeData,
+              studyGroup: infoToStudyGroup({
+                subject: change.subject,
+                teacher: change.teacher,
+              }),
+            })
             numOfChanges++
           }
         }
