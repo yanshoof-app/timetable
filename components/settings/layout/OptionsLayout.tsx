@@ -16,6 +16,7 @@ export interface OptionsLayoutProps {
   options: option[]
   images: image[]
   onChange
+  onSave?: unknown
   value
 }
 
@@ -23,6 +24,7 @@ export default function OptionsLayout({
   options,
   images,
   onChange,
+  onSave,
   value,
 }: OptionsLayoutProps) {
   return (
@@ -33,7 +35,10 @@ export default function OptionsLayout({
             <div className="w-5/12" key={index}>
               <Image
                 src={image.image}
-                onClick={() => onChange(image.value)}
+                onClick={() => {
+                  onChange(image.value)
+                  onSave
+                }}
                 alt=""
               />
             </div>
@@ -48,7 +53,10 @@ export default function OptionsLayout({
             <RadioButton
               selected={value === option.value}
               label={option.label}
-              onClick={() => onChange(option.value)}
+              onClick={() => {
+                onChange(option.value)
+                onSave
+              }}
               orientation="horizontal"
               key={index}
             />

@@ -20,6 +20,7 @@ const OtherChangesSetting: SettingsComponent<boolean> = ({
   navigateBack,
 }) => {
   const isDarkMode = useDarkMode()
+  const { setLastUserUpdate } = useStorage()
 
   const { ex1, ex2 } = useExamples(
     { light: lightModeExample, dark: darkDarkModeExample },
@@ -39,6 +40,7 @@ const OtherChangesSetting: SettingsComponent<boolean> = ({
       { image: ex1, value: false },
     ],
     onChange: onChange,
+    onSave: setLastUserUpdate,
   })
 }
 
