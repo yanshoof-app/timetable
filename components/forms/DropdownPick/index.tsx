@@ -44,7 +44,7 @@ export default function DropdownPick({
 
   const changeSelectedIndex = useCallback(
     (newIndex: number) => {
-      if (newIndex !== indexOfValue) onIndexChange(newIndex)
+      if (newIndex != indexOfValue) onIndexChange(newIndex)
     },
     [indexOfValue, onIndexChange]
   )
