@@ -20,15 +20,15 @@ export default function ChangesOfDay({
   return (
     <div className="flex flex-col border-b-2 pb-2 border-gray-200 last:border-b-0">
       {/* Date */}
-      <div className="flex gap-1">
-        <p
-          className={`font-semibold text-lg ${
-            dayOfWeek == currentDay ? 'text-primary-500' : 'dark:text-gray-300'
-          }`}
-        >
+      <div
+        className={`flex gap-1 ${
+          dayOfWeek == currentDay ? 'text-primary-500' : 'dark:text-gray-300'
+        }`}
+      >
+        <p className="font-semibold text-lg">
           {`יום ${HEBREW_DAYS[dayOfWeek]}`},
         </p>
-        <p className="font-medium text-lg dark:text-gray-300">
+        <p className="font-medium text-lg">
           {daylessHebrewDate(dateOfDay(dayOfWeek, date))}
         </p>
       </div>
