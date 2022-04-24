@@ -10,6 +10,7 @@ import darkModeExample from '../../public/darkMode.png'
 //dark mode examples
 import darkLightModeExample from '../../public/darkLightMode.png'
 import darkDarkModeExample from '../../public/darkDarkMode.png'
+
 import useExamples from '../../hooks/useExamples'
 import useDarkMode from '../../hooks/useDarkMode'
 

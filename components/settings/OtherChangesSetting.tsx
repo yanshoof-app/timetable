@@ -7,8 +7,9 @@ import lightModeExample from '../../public/lightMode.png'
 import otherChangesExample from '../../public/otherChangesLight.png'
 
 //dark mode examples
-import darkLightModeExample from '../../public/darkLightMode.png'
+import darkDarkModeExample from '../../public/darkDarkMode.png'
 import darkOtherChangesExample from '../../public/darkOtherChanges.png'
+
 import useDarkMode from '../../hooks/useDarkMode'
 import useExamples from '../../hooks/useExamples'
 
@@ -21,7 +22,7 @@ const OtherChangesSetting: SettingsComponent<boolean> = ({
   const isDarkMode = useDarkMode()
 
   const { ex1, ex2 } = useExamples(
-    { light: lightModeExample, dark: darkLightModeExample },
+    { light: lightModeExample, dark: darkDarkModeExample },
     { light: otherChangesExample, dark: darkOtherChangesExample },
     isDarkMode
   )
