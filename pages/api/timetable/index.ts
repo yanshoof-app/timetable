@@ -28,7 +28,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       schoolSymbol,
       classId
     )
-    timetable.applyChanges(Changes)
+    timetable.applyIscoolChanges(Changes)
     res
       .status(200)
       .json(

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@yanshoof/iscool": "^1.2.1",
-    "@yanshoof/settings": "^1.0.1",
+    "@yanshoof/settings": "^2.0.0",
     "@yanshoof/types": "^1.1.1",
     "axios": "^0.25.0",
     "cookies-next": "^2.0.4",

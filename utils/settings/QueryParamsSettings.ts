@@ -1,5 +1,5 @@
 import { Timetable } from '..'
-import { IScheduleSettings } from '../../interfaces'
+import { DAYS_IN_WEEK, HOURS_OF_DAY, IScheduleSettings } from '../../interfaces'
 import { InputError } from '../errors'
 import { toTuple } from '../data/arrays'
 import { IscoolSettings } from './IscoolSettings'
@@ -19,9 +19,6 @@ export class QueryParamsSettings extends IscoolSettings {
   private static DAY_HOUR_QPARAMS_DELIMITER = '/'
   private static STUDY_GROUP_QPARAMS_DELIMITER = ':'
   private static DELIMITER = ','
-  readonly showOthersChanges: boolean
-  readonly studyGroups: [string, string][]
-  readonly studyGroupMap: Map<string, number>
 
   /**
    * Converts a settings object to query parameters
@@ -126,16 +123,10 @@ export class QueryParamsSettings extends IscoolSettings {
 
         // validate values
         const [day, hour, index] = [dayStr, hourStr, indexStr].map(Number)
-        if (!QueryParamsSettings.checkInRange(day, 0, Timetable.DAYS_IN_WEEK))
+        if (!QueryParamsSettings.checkInRange(day, 0, DAYS_IN_WEEK))
           throw new InputError(`Invalid day "${day}" in study group map`)
 
-        if (
-          !QueryParamsSettings.checkInRange(
-            hour,
-            0,
-            Timetable.HOURS_OF_SCHEDULE
-          )
-        )
+        if (!QueryParamsSettings.checkInRange(hour, 0, HOURS_OF_DAY))
           throw new InputError(`Invalid hour "${hour}" in study group map`)
 
         if (

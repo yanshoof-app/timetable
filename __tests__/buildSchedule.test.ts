@@ -12,6 +12,7 @@ import {
   OSHRI_SETTINGS,
 } from '../utils/sample-constants'
 import axios from 'axios'
+import { IscoolSettings } from '../utils/settings/IscoolSettings'
 
 axios.defaults.adapter = require('axios/lib/adapters/http')
 
@@ -51,26 +52,27 @@ describe('Test build schedule routine', () => {
   })
 
   it('Creates an individual weekly schedule from it', () => {
-    const schedule = new Timetable(SETTINGS).fromSchedule(
-      scheduleResponse.Schedule
-    )
-    expect(schedule.lessons[5][3]).toStrictEqual({})
-    expect(schedule.lessons[0][1].subject).toEqual(SETTINGS.studyGroups[0][0])
-    expect(schedule.lessons[1][4].subject).toEqual(SETTINGS.studyGroups[3][0])
-    schedule.applyChanges(changesResponse.Changes)
+    const settings = new IscoolSettings(SETTINGS)
+    const timetable = new Timetable(settings)
+    timetable.fromSchedule(scheduleResponse.Schedule)
+    expect(timetable.lessons[5][3]).toStrictEqual({})
+    expect(timetable.lessons[0][1].subject).toEqual(SETTINGS.studyGroups[0][0])
+    expect(timetable.lessons[1][4].subject).toEqual(SETTINGS.studyGroups[3][0])
+    timetable.applyIscoolChanges(changesResponse.Changes)
     if (changesResponse.Changes.length) {
       const { Date, Hour } = changesResponse.Changes[0]
       const day = ISCOOL.toDate(Date).getDay()
       expect(
-        schedule.lessons[day][Hour].changes ||
-          schedule.lessons[day][Hour].otherChanges
+        timetable.lessons[day][Hour].changes ||
+          timetable.lessons[day][Hour].otherChanges
       ).toBeDefined()
     }
-    console.log(JSON.stringify(schedule, null, 2))
+    console.log(JSON.stringify(timetable, null, 2))
   })
 
   it('Creates a different individual weekly schedule from it', () => {
-    const schedule = new Timetable(OSHRI_SETTINGS).fromSchedule(
+    const settings = new IscoolSettings(OSHRI_SETTINGS)
+    const schedule = new Timetable(settings).fromSchedule(
       scheduleResponse.Schedule
     )
     expect(schedule.lessons[5][3]).toStrictEqual({})

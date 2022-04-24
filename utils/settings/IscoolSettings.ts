@@ -7,14 +7,8 @@ import { IStudyGroup } from '@yanshoof/types'
  * @author Itay Schechner
  * @version 1.0.0
  */
-export class IscoolSettings extends StudyGroupMapSettings<
-  ILessonIscool,
-  IChangeIscool
-> {
+export class IscoolSettings extends StudyGroupMapSettings<ILessonIscool> {
   protected mapLessonToStudyGroup(lesson: ILessonIscool): IStudyGroup {
     return ISCOOL.toStudyGroup(lesson)
-  }
-  protected mapChangeToStudyGroup(change: IChangeIscool): IStudyGroup {
-    return ISCOOL.toStudyGroup(change.StudyGroup)
   }
 }

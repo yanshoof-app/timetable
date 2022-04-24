@@ -1,6 +1,10 @@
-import { ITimetable, LessonOrMultiple } from '../../interfaces'
+import {
+  DAYS_IN_WEEK,
+  HOURS_OF_DAY,
+  ITimetable,
+  LessonOrMultiple,
+} from '../../interfaces'
 import { initMatrix } from '..'
-import { Timetable } from './TimetableClass'
 import { ILessonArrMemberIscool, ISCOOL } from '@yanshoof/iscool'
 
 /**
@@ -18,10 +22,7 @@ export class FullTimeable
    * Creates an empty timetable object
    */
   constructor() {
-    this.lessons = initMatrix(
-      Timetable.DAYS_IN_WEEK,
-      Timetable.HOURS_OF_SCHEDULE
-    )
+    this.lessons = initMatrix(DAYS_IN_WEEK, HOURS_OF_DAY)
   }
 
   public fromSchedule(schedule: ILessonArrMemberIscool[]) {

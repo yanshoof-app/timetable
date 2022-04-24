@@ -9,7 +9,12 @@ import {
 } from 'react'
 import { useHTTP } from '../../hooks/useHTTP'
 import { DayOfWeek, HourOfDay, ITimetableUpdates } from '../../interfaces'
-import { QueryParams, QueryParamsSettings, Timetable } from '../../utils'
+import {
+  ChangeableTimetable,
+  QueryParams,
+  QueryParamsSettings,
+  Timetable,
+} from '../../utils'
 import { useStorage } from '../Storage'
 
 const UPDATES_ROUTE = '/api/timetable/updates'
@@ -121,24 +126,12 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
     const { newChanges } = data
     if (lessons.length && !isFetchLoading) {
       setLessonMatrix((prev) => {
-        const timetable = new Timetable(prev, {
-          studyGroups: studyGroups,
-          studyGroupMap: studyGroupMap,
-          showOthersChanges: showOthersChanges,
-        })
-        if (newChanges) timetable.applyExistingChanges([...newChanges])
+        const timetable = new ChangeableTimetable(prev)
+        if (newChanges) timetable.applyChanges(newChanges)
         return timetable.lessons
       })
     }
-  }, [
-    data,
-    lessons.length,
-    isFetchLoading,
-    setLessonMatrix,
-    studyGroups,
-    studyGroupMap,
-    showOthersChanges,
-  ])
+  }, [data, lessons.length, isFetchLoading, setLessonMatrix])
 
   const refetchUpdatesOnError = useCallback(() => {
     if (error) fetchUpdates().then(handleUpdates)
