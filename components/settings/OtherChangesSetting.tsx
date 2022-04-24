@@ -4,7 +4,7 @@ import { useStorage } from '../../contexts/Storage'
 
 //light mode examples
 import lightModeExample from '../../public/lightMode.png'
-import otherChangesExample from '../../public/otherChangesLight.png'
+import otherChangesExample from '../../public/otherChanges.png'
 
 //dark mode examples
 import darkDarkModeExample from '../../public/darkDarkMode.png'
