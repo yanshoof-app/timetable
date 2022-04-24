@@ -37,7 +37,7 @@ export default function useClassPick({
     [grades]
   )
   const gradeIndex = useMemo(
-    () => (grades[0] && grade ? grade - grades[0] : 0),
+    () => (grades[0] && grade ? grades.findIndex((elem) => elem == grade) : 0),
     [grade, grades]
   )
   const classNumOptions = useMemo(
