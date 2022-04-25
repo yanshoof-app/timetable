@@ -44,9 +44,13 @@ export class ServerTimetable
       const hour = lesson.Hour // 0 hours are possible as well.
       const hourlyLessons = lesson.Lessons
 
-      this.lessons[day][hour] = ISCOOL.toLesson(
-        this.settings.selectLesson(day, hour, hourlyLessons)
+      const selectedLesson = this.settings.selectLesson(
+        day,
+        hour,
+        hourlyLessons
       )
+      if (selectedLesson)
+        this.lessons[day][hour] = ISCOOL.toLesson(selectedLesson)
     } // end of for
     return this
   }
