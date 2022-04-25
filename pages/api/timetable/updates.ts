@@ -40,7 +40,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         classId
       )
       timetable.fromSchedule(Schedule)
-      timetable.applyIscoolChanges(Changes)
+      timetable.applyChanges(Changes)
       res.status(200).json(
         withFixedSettings(settings, {
           overrideTimetable: timetable.lessons,
