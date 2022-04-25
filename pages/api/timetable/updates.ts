@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Timetable } from '../../../utils'
+import { ServerTimetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../utils/errors'
 import { isNewWeek } from '../../../utils/data/updates'
@@ -33,7 +33,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     // if new week or no study groups, create a new timetable and apply changes
     if (isNewWeek(lastUserUpdate) || query.studyGroups === '') {
-      const timetable = new Timetable(settings)
+      const timetable = new ServerTimetable(settings)
       const { Schedule } = await fetchDataSource<IScheduleResponse>(
         'schedule',
         schoolSymbol,
@@ -51,7 +51,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     // otherwise, return new changes
     else {
-      const { newChanges } = Timetable.newChanges(lastUserUpdate, Changes)
+      const { newChanges } = ServerTimetable.newChanges(lastUserUpdate, Changes)
       res.status(200).json(
         withFixedSettings(settings, {
           newChanges: newChanges,

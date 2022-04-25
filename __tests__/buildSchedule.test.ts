@@ -4,7 +4,7 @@ import {
   fetchDataSource,
   ISCOOL,
 } from '@yanshoof/iscool'
-import { initMatrix, FullTimeable, Timetable } from '../utils'
+import { initMatrix, FullTimeable, ServerTimetable } from '../utils'
 import {
   AMI_ASSAF_SYMBOL,
   YUD_7_ID,
@@ -53,7 +53,7 @@ describe('Test build schedule routine', () => {
 
   it('Creates an individual weekly schedule from it', () => {
     const settings = new IscoolSettings(SETTINGS)
-    const timetable = new Timetable(settings)
+    const timetable = new ServerTimetable(settings)
     timetable.fromSchedule(scheduleResponse.Schedule)
     expect(timetable.lessons[5][3]).toStrictEqual({})
     expect(timetable.lessons[0][1].subject).toEqual(SETTINGS.studyGroups[0][0])
@@ -72,7 +72,7 @@ describe('Test build schedule routine', () => {
 
   it('Creates a different individual weekly schedule from it', () => {
     const settings = new IscoolSettings(OSHRI_SETTINGS)
-    const schedule = new Timetable(settings).fromSchedule(
+    const schedule = new ServerTimetable(settings).fromSchedule(
       scheduleResponse.Schedule
     )
     expect(schedule.lessons[5][3]).toStrictEqual({})

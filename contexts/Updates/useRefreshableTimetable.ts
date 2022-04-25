@@ -13,7 +13,6 @@ import {
   ChangeableTimetable,
   QueryParams,
   QueryParamsSettings,
-  Timetable,
 } from '../../utils'
 import { useStorage } from '../Storage'
 
@@ -126,8 +125,7 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
     const { newChanges } = data
     if (lessons.length && !isFetchLoading) {
       setLessonMatrix((prev) => {
-        const timetable = new ChangeableTimetable(prev)
-        if (newChanges) timetable.applyChanges(newChanges)
+        const timetable = new ChangeableTimetable(prev, newChanges)
         return timetable.lessons
       })
     }

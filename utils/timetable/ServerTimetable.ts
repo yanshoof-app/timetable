@@ -3,13 +3,16 @@ import {
   ILessonArrMemberIscool,
   ILessonIscool,
   ISCOOL,
+  IscoolDate,
 } from '@yanshoof/iscool'
 import { Settings } from '@yanshoof/settings'
 import {
+  DayOfWeek,
+  HourOfDay,
   IChange,
   ILesson,
+  IStudyGroup,
   ITimetable,
-  LessonModification,
 } from '@yanshoof/types'
 import { ChangeableTimetable } from './ChangeableTimetable'
 
@@ -18,7 +21,7 @@ import { ChangeableTimetable } from './ChangeableTimetable'
  * @author Itay Schechner
  * @version 2022.0.0
  */
-export class Timetable
+export class ServerTimetable
   extends ChangeableTimetable
   implements ITimetable<ILesson, ILessonArrMemberIscool[]>
 {
@@ -52,8 +55,23 @@ export class Timetable
    * Apply changes from iscool
    * @param changes the changes as sent by iscool
    */
-  public applyIscoolChanges(changes: IChangeIscool[]) {
-    super.applyChanges(changes.map(ISCOOL.toChange))
+  public applyChanges(changes: IChangeIscool[]) {
+    for (let change of changes) {
+      const day = new IscoolDate(change.Date).day
+      const hour = change.Hour
+      const studyGroup = ISCOOL.toStudyGroup(change.StudyGroup)
+      const modification = ISCOOL.toModification(change)
+      this.applyChange(day, hour, studyGroup, modification)
+    }
+  }
+
+  protected shouldShowOthersChanges(
+    day: DayOfWeek,
+    hour: HourOfDay,
+    studyGroup: IStudyGroup
+  ) {
+    /** Omitted: do not allow  */
+    return this.settings.showOthersChanges
   }
 
   /**

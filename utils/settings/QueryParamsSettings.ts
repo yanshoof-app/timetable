@@ -1,4 +1,4 @@
-import { Timetable } from '..'
+import { ServerTimetable } from '..'
 import { DAYS_IN_WEEK, HOURS_OF_DAY, IScheduleSettings } from '../../interfaces'
 import { InputError } from '../errors'
 import { toTuple } from '../data/arrays'

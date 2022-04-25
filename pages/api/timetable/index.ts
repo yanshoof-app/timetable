@@ -4,7 +4,7 @@ import {
   IScheduleResponse,
 } from '@yanshoof/iscool'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Timetable } from '../../../utils'
+import { ServerTimetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../utils/errors'
 
@@ -14,7 +14,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const settings = new QueryParamsSettings(query)
     const schoolSymbol = query.school.toString()
     const classId = query.classId.toString()
-    const timetable = new Timetable(settings)
+    const timetable = new ServerTimetable(settings)
 
     const { Schedule } = await fetchDataSource<IScheduleResponse>(
       'schedule',

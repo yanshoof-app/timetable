@@ -7,7 +7,7 @@ export { ClassLookup } from './class'
 // timetable exports
 
 export { ChangeableTimetable } from './timetable/ChangeableTimetable'
-export { Timetable } from './timetable/Timetable'
+export { ServerTimetable as ServerTimetable } from './timetable/ServerTimetable'
 export { FullTimeable } from './timetable/FullTimetable'
 
 // settings export
