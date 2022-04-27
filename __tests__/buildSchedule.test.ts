@@ -96,15 +96,4 @@ describe('Test build schedule routine', () => {
       OSHRI_SETTINGS.studyGroups[3][0]
     )
   })
-
-  it('Handles events', () => {
-    const settings = new IscoolSettings(SETTINGS)
-    const schedule = new ServerTimetable(settings).fromSchedule(
-      scheduleResponse.Schedule
-    )
-    const events = schedule.lessons[SAMPLE_EVENT.day][SAMPLE_EVENT.hour].events
-    expect(events).toBeDefined()
-    expect(events.length).toBe(1)
-    expect(events[0]).toBe(SAMPLE_EVENT.modData)
-  })
 })
