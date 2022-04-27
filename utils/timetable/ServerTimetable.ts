@@ -6,15 +6,7 @@ import {
   IscoolDate,
 } from '@yanshoof/iscool'
 import { Settings } from '@yanshoof/settings'
-import {
-  DayOfWeek,
-  HourOfDay,
-  IChange,
-  ILesson,
-  IModification,
-  IStudyGroup,
-  ITimetable,
-} from '@yanshoof/types'
+import { IChange, ILesson, ITimetable } from '@yanshoof/types'
 import { endOfWeek, startOfWeek } from '../data/updates'
 import { ChangeableTimetable } from './ChangeableTimetable'
 
@@ -87,7 +79,7 @@ export class ServerTimetable
       newOthersChanges: IChange[] = [],
       newEvents: IChange[] = []
     IscoolDate.relevantDatesOnly(changes, lastUserUpdate, endOfWeek())
-      .map((change) => ISCOOL.toChange(change as IChangeIscool))
+      .map((change) => ISCOOL.toChange(change))
       .forEach((change) => {
         if (!change.subject || !change.teacher)
           // event detected
@@ -95,7 +87,6 @@ export class ServerTimetable
         else {
           // change detected - check if own study group
           if (
-            // @ts-ignore
             !this.settings.hasSetting(change.day, change.hour) ||
             this.settings.isOwnStudyGroup(change.day, change.hour, change)
           )
