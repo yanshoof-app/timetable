@@ -14,6 +14,7 @@ import {
   IStudyGroup,
   ITimetable,
 } from '@yanshoof/types'
+import { endOfWeek } from '../data/updates'
 import { ChangeableTimetable } from './ChangeableTimetable'
 
 /**
@@ -86,30 +87,34 @@ export class ServerTimetable
   }
 
   /**
-   *
+   * Select changes updates since the last user update
    * @param lastUserUpdate the last time the user updated it's schedule
    * @param changes the changes as given from ISCOOL
    * @returns new changes
    */
-  public static newChanges(lastUserUpdate: Date, changes: IChangeIscool[]) {
-    let newChanges: IChange[] = []
-
-    //collect changes
-    for (let change of changes) {
-      const changeDate = ISCOOL.toDate(change.Date)
-
-      // check whether there are no more new changes
-      if (changeDate < lastUserUpdate) break
-
-      // event detected
-      if (change.StudyGroup == null) {
-        newChanges.push(ISCOOL.toEvent(change))
-        continue
-      }
-
-      newChanges.push(ISCOOL.toChange(change))
-    }
-
-    return { newChanges }
+  public selectNewChanges(lastUserUpdate: Date, changes: IChangeIscool[]) {
+    const newChanges: IChange[] = [],
+      newOthersChanges: IChange[] = [],
+      newEvents: IChange[] = []
+    IscoolDate.relevantDatesOnly(changes, lastUserUpdate, endOfWeek())
+      .map((change) => ISCOOL.toChange(change as IChangeIscool))
+      .forEach((change) => {
+        if (!change.subject || !change.teacher)
+          // event detected
+          newEvents.push(change)
+        else {
+          // change detected - check if own study group
+          if (
+            // @ts-ignore
+            !this.settings.hasSetting(change.day, change.hour) ||
+            this.settings.isOwnStudyGroup(change.day, change.hour, change)
+          )
+            // own change
+            newChanges.push(change)
+          else if (this.settings.showOthersChanges)
+            newOthersChanges.push(change)
+        }
+      })
+    return { newChanges, newEvents, newOthersChanges }
   }
 }

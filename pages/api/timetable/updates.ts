@@ -2,13 +2,13 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { ServerTimetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
 import { InputError } from '../../../utils/errors'
-import { isNewWeek } from '../../../utils/data/updates'
 import withFixedSettings from '../../../utils/settings/withFixedSettings'
 import {
   fetchDataSource,
   IChangesResponse,
   IScheduleResponse,
 } from '@yanshoof/iscool'
+import { startOfWeek } from '../../../utils/data/updates'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -25,6 +25,8 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         'School and classId must be provided via query params'
       )
 
+    const timetable = new ServerTimetable(settings)
+
     const { Changes } = await fetchDataSource<IChangesResponse>(
       'changes',
       schoolSymbol,
@@ -32,8 +34,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     )
 
     // if new week or no study groups, create a new timetable and apply changes
-    if (isNewWeek(lastUserUpdate) || query.studyGroups === '') {
-      const timetable = new ServerTimetable(settings)
+    if (lastUserUpdate < startOfWeek() || query.studyGroups === '') {
       const { Schedule } = await fetchDataSource<IScheduleResponse>(
         'schedule',
         schoolSymbol,
@@ -51,7 +52,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     // otherwise, return new changes
     else {
-      const { newChanges } = ServerTimetable.newChanges(lastUserUpdate, Changes)
+      const { newChanges } = timetable.selectNewChanges(lastUserUpdate, Changes)
       res.status(200).json(
         withFixedSettings(settings, {
           newChanges: newChanges,
