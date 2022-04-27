@@ -39,7 +39,7 @@ const IndexPage = () => {
         />
       </div>
       <Timetable
-        className="p-5 overflow-y-scroll mb-14"
+        className="p-5 overflow-y-scroll mb-12"
         day={day}
         timetable={lessons}
       />
