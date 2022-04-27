@@ -11,10 +11,11 @@ import {
   HourOfDay,
   IChange,
   ILesson,
+  IModification,
   IStudyGroup,
   ITimetable,
 } from '@yanshoof/types'
-import { endOfWeek } from '../data/updates'
+import { endOfWeek, startOfWeek } from '../data/updates'
 import { ChangeableTimetable } from './ChangeableTimetable'
 
 /**
@@ -57,33 +58,22 @@ export class ServerTimetable
   }
 
   /**
-   * Apply changes from iscool
-   * @param changes the changes as sent by iscool
-   */
-  public applyChanges(changes: IChangeIscool[]) {
-    for (let change of changes) {
-      const day = new IscoolDate(change.Date).day
-      const hour = change.Hour
-      const studyGroup = ISCOOL.toStudyGroup(change.StudyGroup)
-      const modification = ISCOOL.toModification(change)
-      this.applyChange(day, hour, studyGroup, modification)
-    }
-  }
-
-  protected shouldShowOthersChanges(
-    day: DayOfWeek,
-    hour: HourOfDay,
-    studyGroup: IStudyGroup
-  ) {
-    /** Omitted: do not allow  */
-    return this.settings.showOthersChanges
-  }
-
-  /**
    * The problems in the settings of the timetable
    */
   get problems() {
     return this.settings.problems
+  }
+
+  /**
+   * Apply changes from iscool
+   * @param changes the changes as sent by iscool
+   */
+  public applyChanges(changes: IChangeIscool[]) {
+    const { newChanges, newOthersChanges, newEvents } = this.selectNewChanges(
+      startOfWeek(),
+      changes
+    )
+    this.handleChanges(newChanges, newOthersChanges, newEvents)
   }
 
   /**

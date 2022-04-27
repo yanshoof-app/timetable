@@ -14,6 +14,7 @@ import {
   QueryParams,
   QueryParamsSettings,
 } from '../../utils'
+import { ClientTimetable } from '../../utils/timetable/ClientTimetable'
 import { useStorage } from '../Storage'
 
 const UPDATES_ROUTE = '/api/timetable/updates'
@@ -125,7 +126,7 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
     const { newChanges } = data
     if (lessons.length && !isFetchLoading) {
       setLessonMatrix((prev) => {
-        const timetable = new ChangeableTimetable(prev, newChanges)
+        const timetable = new ClientTimetable(prev, newChanges, [], []) // TODO: Handle events and changes of others
         return timetable.lessons
       })
     }

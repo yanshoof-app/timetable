@@ -21,65 +21,51 @@ export class ChangeableTimetable {
   readonly lessons: ILesson[][]
 
   /**
+   * Converts a change/event to addable into a timetable
+   * @param change the change to convert
+   * @returns a tuple of study group and modification
+   */
+  protected static toAddable(
+    change: IChange
+  ): [DayOfWeek, HourOfDay, IStudyGroup, IModification] {
+    return [
+      change.day,
+      change.hour,
+      { subject: change.subject, teacher: change.teacher },
+      { modData: change.modData, modification: change.modification },
+    ]
+  }
+
+  /**
    * Constructs a new changeable timetable
    * @param lessons the lessons to use, if existing
-   * @param changes the changes to apply, if existing
    */
-  constructor(lessons?: ILesson[][], changes?: IChange[]) {
+  constructor(lessons?: ILesson[][]) {
     // initialize lesson matrix
     this.lessons = lessons
       ? lessons
       : initMatrix<ILesson>(DAYS_IN_WEEK, HOURS_OF_DAY)
-    if (changes)
-      changes.forEach(
-        ({ subject, teacher, modData, modification, day, hour }) =>
-          this.applyChange(
-            day,
-            hour,
-            { subject, teacher },
-            { modification, modData }
-          )
-      )
   }
-
   /**
-   * Determines whether or not changes should be shown. Can be overriden
-   * @param _day the day of the change
-   * @param _hour the hour of the change
-   * @param _studyGroup the study group of the change
-   * @returns true if should show it, false otherwise
+   * Add changes to their places.
+   * @param changes the changes of own user to add
+   * @param othersChanges the changes of others to add
+   * @param events the events to add
    */
-  protected shouldShowOthersChanges(
-    _day: DayOfWeek,
-    _hour: HourOfDay,
-    _studyGroup: IStudyGroup
-  ): boolean {
-    return true
-  }
-
-  /**
-   * Applies a change
-   * @param day the day of the change as given
-   * @param hour the hour of the change as given
-   * @param studyGroup the study group of the change, if given
-   * @param modification the modification data
-   */
-  protected applyChange(
-    day: DayOfWeek,
-    hour: HourOfDay,
-    studyGroup: IStudyGroup,
-    modification: IModification
+  protected handleChanges(
+    changes: IChange[],
+    othersChanges: IChange[],
+    events: IChange[]
   ) {
-    // check events
-    if (!studyGroup || !studyGroup.subject || !studyGroup.teacher)
-      this.addEvent(day, hour, modification.modData)
-
-    const { teacher, subject } = this.lessons[day][hour]
-    if (teacher == studyGroup.teacher && subject == studyGroup.subject)
-      // change belongs to this study group
-      this.addChange(day, hour, studyGroup, modification)
-    else if (this.shouldShowOthersChanges(day, hour, studyGroup))
-      this.addOthersChange(day, hour, studyGroup, modification)
+    changes.forEach((change) =>
+      this.addChange(...ChangeableTimetable.toAddable(change))
+    )
+    othersChanges.forEach((change) =>
+      this.addOthersChange(...ChangeableTimetable.toAddable(change))
+    )
+    events.forEach((event) =>
+      this.addEvent(event.day, event.hour, event.modData)
+    )
   }
 
   /**
@@ -88,7 +74,7 @@ export class ChangeableTimetable {
    * @param hour the hour of the event
    * @param modData the data of the event
    */
-  private addEvent(
+  protected addEvent(
     day: DayOfWeek,
     hour: HourOfDay,
     modData: IModification['modData']
@@ -104,7 +90,7 @@ export class ChangeableTimetable {
    * @param studyGroup the studyGroup whose change apply to
    * @param modification the change
    */
-  private addChange(
+  protected addChange(
     day: DayOfWeek,
     hour: HourOfDay,
     studyGroup: IStudyGroup,
@@ -121,7 +107,7 @@ export class ChangeableTimetable {
    * @param studyGroup the studyGroup whose change apply to
    * @param modification the change
    */
-  private addOthersChange(
+  protected addOthersChange(
     day: DayOfWeek,
     hour: HourOfDay,
     studyGroup: IStudyGroup,

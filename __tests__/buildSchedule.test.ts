@@ -23,6 +23,7 @@ import {
 import axios from 'axios'
 import { IscoolSettings } from '../utils/settings/IscoolSettings'
 import { IChange, ILesson, LessonModification } from '@yanshoof/types'
+import { startOfWeek } from '../utils/data/updates'
 
 axios.defaults.adapter = require('axios/lib/adapters/http')
 
@@ -97,32 +98,13 @@ describe('Test build schedule routine', () => {
   })
 
   it('Handles events', () => {
-    const schedule = new ChangeableTimetable(lessons, [SAMPLE_EVENT])
+    const settings = new IscoolSettings(SETTINGS)
+    const schedule = new ServerTimetable(settings).fromSchedule(
+      scheduleResponse.Schedule
+    )
     const events = schedule.lessons[SAMPLE_EVENT.day][SAMPLE_EVENT.hour].events
     expect(events).toBeDefined()
     expect(events.length).toBe(1)
     expect(events[0]).toBe(SAMPLE_EVENT.modData)
-  })
-
-  it('Handles changes of study groups not in the current hour with others changes shown', () => {
-    const schedule = new ChangeableTimetable(lessons, [SAMPLE_ADDITION])
-    const othersChanges =
-      schedule.lessons[SAMPLE_ADDITION.day][SAMPLE_ADDITION.hour].otherChanges
-    expect(othersChanges).toBeDefined()
-    expect(othersChanges.length).toBe(1)
-    expect(othersChanges[0].subject).toBe(SAMPLE_ADDITION.subject)
-    expect(othersChanges[0].modData).toBe(SAMPLE_ADDITION.modData)
-  })
-
-  it('Handles changes of study groups not in the current hour with others changes hidden', () => {
-    const settings = new IscoolSettings(PROBLEMATIC_SETTINGS)
-    const { lessons } = new ServerTimetable(settings).fromSchedule(
-      scheduleResponse.Schedule
-    )
-    const schedule = new ChangeableTimetable(lessons, [PROBLEMATIC_CHANGE])
-    const othersChanges =
-      schedule.lessons[PROBLEMATIC_CHANGE.day][PROBLEMATIC_CHANGE.hour]
-        .otherChanges
-    expect(othersChanges).toBeUndefined()
   })
 })
