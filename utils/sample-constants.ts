@@ -1,7 +1,7 @@
-import { IScheduleSettings } from '../interfaces';
+import { IChange, IScheduleSettings, LessonModification } from '../interfaces'
 
-export const AMI_ASSAF_SYMBOL = '460030';
-export const YUD_7_ID = 28;
+export const AMI_ASSAF_SYMBOL = '460030'
+export const YUD_7_ID = 28
 
 export const SETTINGS: IScheduleSettings = {
   showOthersChanges: true,
@@ -50,7 +50,7 @@ export const SETTINGS: IScheduleSettings = {
     ['5,2', -1],
     ['5,3', -1],
   ]),
-};
+}
 
 export const OSHRI_SETTINGS: IScheduleSettings = {
   showOthersChanges: true,
@@ -98,6 +98,79 @@ export const OSHRI_SETTINGS: IScheduleSettings = {
     ['5,2', -1],
     ['5,3', -1],
   ]),
-};
+}
 
-export const SAMPLE_TEACHER = 'רוזנבלום כרמית';
+export const SAMPLE_TEACHER = 'רוזנבלום כרמית'
+
+export const SAMPLE_EVENT = {
+  modification: LessonModification.Other,
+  modData: 'הצגה',
+  day: 0,
+  hour: 1,
+} as IChange
+
+export const SAMPLE_ADDITION: IChange = {
+  modification: LessonModification.Other,
+  modData: 'תגבור',
+  subject: 'מתמטיה 5',
+  teacher: 'חוה טיראן',
+  day: 0,
+  hour: 3,
+}
+
+export const PROBLEMATIC_SETTINGS: IScheduleSettings = {
+  showOthersChanges: false,
+  studyGroups: [
+    ['ביולוגיה', 'גבע קורנגרין אורנה'],
+    ['מתמטיקה 5', 'טיראן חוה'],
+    ['חנג בנים', 'פריזה אמיר'],
+    ['אנגלית 5', 'ורגוליס ארתור'],
+    ['מדעי המחשב יחל 1', 'זבלינסקי קונסטנטין'],
+  ],
+  studyGroupMap: new Map([
+    ['0,1', 0],
+    ['0,2', 0],
+    ['0,5', 1],
+    ['0,6', 1],
+    ['0,7', 2],
+    ['0,8', -1],
+    ['0,9', -1],
+    ['1,4', 3],
+    ['1,5', 3],
+    ['1,6', 0],
+    ['1,7', -1],
+    ['1,8', -1],
+    ['1,9', -1],
+    ['2,1', 1],
+    ['2,2', 1],
+    ['2,5', 4],
+    ['2,6', 4],
+    ['2,8', -1],
+    ['2,9', -1],
+    ['2,10', 1],
+    ['3,0', 1],
+    ['3,3', -1],
+    ['3,4', 4],
+    ['3,6', 3],
+    ['3,7', -1],
+    ['3,8', 0],
+    ['3,9', -1],
+    ['4,3', 3],
+    ['4,4', 3],
+    ['4,6', 2],
+    ['4,7', -1],
+    ['4,8', -1],
+    ['4,9', -1],
+    ['5,1', -1],
+    ['5,2', -1],
+    ['5,3', -1],
+  ]),
+}
+
+export const PROBLEMATIC_CHANGE: IChange = {
+  day: 1,
+  hour: 7,
+  modification: LessonModification.Canceled,
+  subject: 'ביולוגיה',
+  teacher: 'גבע קורנגרין אורנה',
+}
