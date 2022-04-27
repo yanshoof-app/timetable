@@ -18,7 +18,7 @@ export class ClientTimetable extends ChangeableTimetable {
     othersChanges: IChange[],
     events: IChange[]
   ) {
-    super(lessons)
+    super([...lessons]) // force rerender
     this.handleChanges(changes, othersChanges, events)
   }
 }
