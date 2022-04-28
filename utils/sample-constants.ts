@@ -1,3 +1,4 @@
+import { IChangeIscool } from '@yanshoof/iscool'
 import { IChange, IScheduleSettings, LessonModification } from '../interfaces'
 
 export const AMI_ASSAF_SYMBOL = '460030'
@@ -118,6 +119,7 @@ export const SAMPLE_ADDITION: IChange = {
   hour: 3,
 }
 
+// @ts-ignore
 export const ANKORI_CHANGES = [
   {
     Date: '/Date(1650754800000)/',
@@ -1344,7 +1346,10 @@ export const ANKORI_CHANGES = [
     NewRoom: null,
     NewHour: 0,
   },
-]
+] as IChangeIscool[]
+
+export const WEEK_CHANGES_START = new Date(2022, 3, 24, 0, 0, 0, 0)
+export const WEEK_CHANGES_END = new Date(2022, 4, 1, 0, 0, 0, 0)
 
 export const ANKORI_CLASS_ID = 4
 
@@ -1363,3 +1368,31 @@ export const ANKORI_SETTINGS: IScheduleSettings = {
     ['3,4', 0],
   ]),
 }
+
+export const CHANGE_NOT_IN_HOUR = {
+  Date: `Date(${WEEK_CHANGES_START.getTime()})`,
+  Hour: 2,
+  ChangeType: 'FreeLesson',
+  FixType: null,
+  StudyGroup: {
+    Teacher: 'קרן רעות',
+    Subject: 'אומנות',
+    Classes: null,
+    ClassIds: [4],
+  },
+  NewTeacher: null,
+  NewRoom: null,
+  NewHour: 0,
+} as IChangeIscool
+
+// @ts-ignore
+export const ANKORI_EVENT = {
+  Date: `Date(${WEEK_CHANGES_START.getTime()})`,
+  Hour: 3,
+  ChangeType: '@האקתון 3',
+  FixType: 'לכיתות ז\u00271, ז\u00272, ח\u0027, ט\u0027, י\u0027',
+  StudyGroup: null,
+  NewTeacher: null,
+  NewRoom: null,
+  NewHour: 0,
+} as IChangeIscool

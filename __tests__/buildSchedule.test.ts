@@ -4,26 +4,16 @@ import {
   fetchDataSource,
   IscoolDate,
 } from '@yanshoof/iscool'
-import {
-  initMatrix,
-  FullTimeable,
-  ServerTimetable,
-  ChangeableTimetable,
-} from '../utils'
+import { initMatrix, FullTimeable, ServerTimetable } from '../utils'
 import {
   AMI_ASSAF_SYMBOL,
   YUD_7_ID,
   SETTINGS,
   OSHRI_SETTINGS,
-  SAMPLE_EVENT,
-  SAMPLE_ADDITION,
-  PROBLEMATIC_SETTINGS,
-  PROBLEMATIC_CHANGE,
 } from '../utils/sample-constants'
 import axios from 'axios'
 import { IscoolSettings } from '../utils/settings/IscoolSettings'
-import { IChange, ILesson, LessonModification } from '@yanshoof/types'
-import { startOfWeek } from '../utils/data/updates'
+import { ILesson } from '@yanshoof/types'
 
 axios.defaults.adapter = require('axios/lib/adapters/http')
 

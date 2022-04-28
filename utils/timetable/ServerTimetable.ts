@@ -81,10 +81,10 @@ export class ServerTimetable
     IscoolDate.relevantDatesOnly(changes, lastUserUpdate, endOfWeek())
       .map((change) => ISCOOL.toChange(change))
       .forEach((change) => {
-        if (!change.subject || !change.teacher)
+        if (!change.subject || !change.teacher) {
           // event detected
           newEvents.push(change)
-        else {
+        } else {
           // change detected - check if own study group
           if (
             !this.settings.hasSetting(change.day, change.hour) ||
