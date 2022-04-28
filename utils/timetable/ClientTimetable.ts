@@ -14,11 +14,14 @@ export class ClientTimetable extends ChangeableTimetable {
    */
   constructor(
     lessons: ILesson[][],
-    changes: IChange[],
-    othersChanges: IChange[],
-    events: IChange[]
+    changes: IChange[] | undefined,
+    othersChanges: IChange[] | undefined,
+    events: IChange[] | undefined
   ) {
     super([...lessons]) // force rerender
+    changes ||= []
+    othersChanges ||= []
+    events ||= []
     this.handleChanges(changes, othersChanges, events)
   }
 }

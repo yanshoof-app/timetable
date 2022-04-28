@@ -30,6 +30,7 @@ export interface IRefreshableTimetable {
   errorInFetch: boolean
   loadingUpdates: boolean
   changesPending: boolean
+  otherChangesPending: boolean
   problems: [DayOfWeek, HourOfDay][]
   setProblems: Dispatch<SetStateAction<[DayOfWeek, HourOfDay][]>>
   refetchUpdatesOnError(): unknown
@@ -123,10 +124,15 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
   }, [problems, fetchUpdates, handleUpdates])
 
   const applyUpdates = useCallback(() => {
-    const { newChanges } = data
+    const { newChanges, newEvents, newOthersChanges } = data
     if (lessons.length && !isFetchLoading) {
       setLessonMatrix((prev) => {
-        const timetable = new ClientTimetable(prev, newChanges, [], []) // TODO: Handle events and changes of others
+        const timetable = new ClientTimetable(
+          prev,
+          newChanges,
+          newEvents,
+          newOthersChanges
+        )
         return timetable.lessons
       })
     }
@@ -141,6 +147,19 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
     [data.newChanges, isFetchLoading]
   )
 
+  const otherChangesPending = useMemo(
+    () =>
+      ((data.newOthersChanges && !!data.newChanges.length) ||
+        (data.newEvents && !!data.newEvents.length)) &&
+      !isFetchLoading,
+    [
+      data.newChanges.length,
+      data.newEvents,
+      data.newOthersChanges,
+      isFetchLoading,
+    ]
+  )
+
   const isLoading = useMemo(() => !lessons.length, [lessons.length])
 
   return {
@@ -149,6 +168,7 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
     applyUpdates,
     refetchUpdatesOnError,
     changesPending,
+    otherChangesPending,
     loadingUpdates: isLoading,
     errorInFetch: error,
   }
