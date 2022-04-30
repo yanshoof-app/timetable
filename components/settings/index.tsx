@@ -1,11 +1,8 @@
-import OtherChangesSetting from './OtherChangesSetting'
 import ClassSetting from './ClassSetting'
 import SchoolSetting from './SchoolSetting'
-import ThemeSetting from './ThemeSetting'
 import UpdateTimeSetting from './UpdateTimeSetting'
 import asPage from './layout/asPage'
 
-const WELCOME_TITLE = 'ברוכים הבאים'
 const INIT_PAGE_PROPS = {
   hidePageTitle: true,
   centerContent: true,
