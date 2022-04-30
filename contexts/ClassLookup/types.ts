@@ -1,7 +1,6 @@
 import { IClassLookup } from '../../interfaces'
 
-export interface IClassLookupContext {
-  getId: (grade: number, classNum: number) => number
+export interface IClassLookupContext extends Pick<IClassLookup, 'getId'> {
   isLoadingClasses: boolean
   revalidate(): unknown
 }

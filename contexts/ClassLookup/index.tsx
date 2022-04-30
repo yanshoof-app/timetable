@@ -49,7 +49,7 @@ export default function ClassLookupProvider({ children }: Wrapper) {
   })
 
   const classLookup = useMemo(
-    () => new ClassLookup(grades, classIds),
+    () => new ClassLookup(classIds, grades),
     [classIds, grades]
   )
 
@@ -84,7 +84,7 @@ export default function ClassLookupProvider({ children }: Wrapper) {
       value={{
         isLoadingClasses,
         revalidate,
-        getId: (grade: number, num: number) => classLookup.getId(grade, num),
+        getId: (grade, num) => classLookup.getId(grade, num),
       }}
     >
       {children}

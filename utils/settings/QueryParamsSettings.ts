@@ -1,8 +1,7 @@
-import { ServerTimetable } from '..'
-import { DAYS_IN_WEEK, HOURS_OF_DAY, IScheduleSettings } from '../../interfaces'
-import { InputError } from '../errors'
+import { Timetable } from '..'
+import { IScheduleSettings } from '../../interfaces'
+import { InputError } from '../../interfaces/errors'
 import { toTuple } from '../data/arrays'
-import { IscoolSettings } from './IscoolSettings'
 
 export type QueryParams = {
   showOthersChanges: string
@@ -13,12 +12,16 @@ export type QueryParams = {
 /**
  * Represents settings that came from an HTTP request
  * @author Itay Schechner
- * @version 1.0.0
+ * @version 2022.0.0
+ * @implements IScheduleSettings
  */
-export class QueryParamsSettings extends IscoolSettings {
+export class QueryParamsSettings implements IScheduleSettings {
   private static DAY_HOUR_QPARAMS_DELIMITER = '/'
   private static STUDY_GROUP_QPARAMS_DELIMITER = ':'
   private static DELIMITER = ','
+  readonly showOthersChanges: boolean
+  readonly studyGroups: [string, string][]
+  readonly studyGroupMap: Map<string, number>
 
   /**
    * Converts a settings object to query parameters
@@ -90,11 +93,11 @@ export class QueryParamsSettings extends IscoolSettings {
     studyGroups = '',
     studyGroupMap = '',
   }: Partial<QueryParams>) {
-    super({
-      showOthersChanges: QueryParamsSettings.toBoolean(showOthersChanges),
-      studyGroups: [],
-      studyGroupMap: new Map(),
-    })
+    this.showOthersChanges = QueryParamsSettings.toBoolean(showOthersChanges)
+
+    // build study group array
+    this.studyGroups = []
+    this.studyGroupMap = new Map()
 
     if (studyGroups !== '') {
       for (let studyGroup of studyGroups.split(QueryParamsSettings.DELIMITER)) {
@@ -123,10 +126,16 @@ export class QueryParamsSettings extends IscoolSettings {
 
         // validate values
         const [day, hour, index] = [dayStr, hourStr, indexStr].map(Number)
-        if (!QueryParamsSettings.checkInRange(day, 0, DAYS_IN_WEEK))
+        if (!QueryParamsSettings.checkInRange(day, 0, Timetable.DAYS_IN_WEEK))
           throw new InputError(`Invalid day "${day}" in study group map`)
 
-        if (!QueryParamsSettings.checkInRange(hour, 0, HOURS_OF_DAY))
+        if (
+          !QueryParamsSettings.checkInRange(
+            hour,
+            0,
+            Timetable.HOURS_OF_SCHEDULE
+          )
+        )
           throw new InputError(`Invalid hour "${hour}" in study group map`)
 
         if (

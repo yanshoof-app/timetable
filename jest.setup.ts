@@ -1,9 +1,6 @@
 // jest.setup.ts
-import { loadEnvConfig } from '@next/env'
+import '@testing-library/jest-dom';
+import dotenv from 'dotenv';
+import { join } from 'path';
 
-const setup = async () => {
-  const projectDir = process.cwd()
-  loadEnvConfig(projectDir)
-}
-
-export default setup
+dotenv.config({ path: join(__dirname, '__tests__/.env.test') });
