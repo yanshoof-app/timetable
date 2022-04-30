@@ -32,7 +32,7 @@ export class ClassLookup implements IClassLookup {
   getId(grade: number, classNum: number): number {
     const gradeIndex = this.grades.indexOf(grade)
     if (
-      gradeIndex > 0 &&
+      gradeIndex >= 0 &&
       classNum > 0 &&
       classNum < this.classIds[gradeIndex].length
     )

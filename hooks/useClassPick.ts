@@ -45,7 +45,7 @@ export default function useClassPick({
       classIds && classIds[gradeIndex]
         ? classIds[gradeIndex]
             .filter((grade) => grade != -1)
-            .map((classId, index) => (index + 1).toString())
+            .map((_classId, index) => (index + 1).toString())
         : [],
     [classIds, gradeIndex]
   )
