@@ -149,15 +149,10 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
 
   const otherChangesPending = useMemo(
     () =>
-      ((data.newOthersChanges && !!data.newChanges.length) ||
+      ((data.newOthersChanges && !!data.newOthersChanges.length) ||
         (data.newEvents && !!data.newEvents.length)) &&
       !isFetchLoading,
-    [
-      data.newChanges.length,
-      data.newEvents,
-      data.newOthersChanges,
-      isFetchLoading,
-    ]
+    [data.newEvents, data.newOthersChanges, isFetchLoading]
   )
 
   const isLoading = useMemo(() => !lessons.length, [lessons.length])
