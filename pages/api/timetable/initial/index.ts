@@ -1,7 +1,7 @@
+import { fetchDataSource, IScheduleResponse } from '@yanshoof/iscool'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { IScheduleResponse } from '../../../../interfaces'
-import { fetchDataSource, FullTimeable } from '../../../../utils'
-import { InputError } from '../../../../interfaces/errors'
+import { FullTimeable } from '../../../../utils'
+import { InputError } from '../../../../utils/errors'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -15,7 +15,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       schoolSymbol,
       classId
     )
-    timetable.fromIscool(Schedule)
+    timetable.fromSchedule(Schedule)
     res.status(200).json(JSON.stringify(timetable.lessons, null, 2))
   } catch (err: any) {
     res.status(500).json({

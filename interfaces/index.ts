@@ -1,6 +1,6 @@
-export * from './lesson';
-export * from './settings';
-export * from './class';
-export * from './iscool';
-export * from './timetable';
-export * from './school';
+export * from '@yanshoof/types'
+export type { IScheduleSettings } from '@yanshoof/settings'
+
+export * from './settings'
+export * from './timetable'
+export * from './school'

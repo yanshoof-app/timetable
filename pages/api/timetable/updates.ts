@@ -1,19 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { ServerTimetable } from '../../../utils'
+import { QueryParamsSettings } from '../../../utils'
+import { InputError } from '../../../utils/errors'
+import withFixedSettings from '../../../utils/settings/withFixedSettings'
 import {
-  IChange,
+  fetchDataSource,
   IChangesResponse,
   IScheduleResponse,
-} from '../../../interfaces'
-import { fetchDataSource, Timetable } from '../../../utils'
-import { QueryParamsSettings } from '../../../utils'
-import { InputError } from '../../../interfaces/errors'
-import { isNewWeek } from '../../../utils/data/updates'
-import withFixedSettings from '../../../utils/settings/withFixedSettings'
+} from '@yanshoof/iscool'
+import { startOfWeek } from '../../../utils/data/updates'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const query = _req.query
-    const settings = new QueryParamsSettings(query)
     const schoolSymbol = query.school as string
     const classId = query.classId as string
     const lastUserUpdate = query.lastUserUpdate
@@ -25,6 +24,9 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         'School and classId must be provided via query params'
       )
 
+    const settings = new QueryParamsSettings(query)
+    const timetable = new ServerTimetable(settings)
+
     const { Changes } = await fetchDataSource<IChangesResponse>(
       'changes',
       schoolSymbol,
@@ -32,14 +34,13 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     )
 
     // if new week or no study groups, create a new timetable and apply changes
-    if (isNewWeek(lastUserUpdate) || query.studyGroups === '') {
-      const timetable = new Timetable(settings)
+    if (lastUserUpdate < startOfWeek() || query.studyGroups === '') {
       const { Schedule } = await fetchDataSource<IScheduleResponse>(
         'schedule',
         schoolSymbol,
         classId
       )
-      timetable.fromIscool(Schedule)
+      timetable.fromSchedule(Schedule)
       timetable.applyChanges(Changes)
       res.status(200).json(
         withFixedSettings(settings, {
@@ -51,16 +52,20 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     // otherwise, return new changes
     else {
-      const { newChanges } = Timetable.newChanges(lastUserUpdate, Changes)
+      const { newChanges, newEvents, newOthersChanges } =
+        timetable.selectNewChanges(lastUserUpdate, Changes)
       res.status(200).json(
         withFixedSettings(settings, {
-          newChanges: newChanges,
+          newChanges,
+          newEvents,
+          newOthersChanges,
         })
       )
     }
   } catch (err: any) {
-    res.status(500).json({
-      statusCode: err.name == InputError.errorName ? 422 : 500,
+    const statusCode = err.name == InputError.errorName ? 422 : 500
+    res.status(statusCode).json({
+      statusCode,
       message: err.message,
     })
   }

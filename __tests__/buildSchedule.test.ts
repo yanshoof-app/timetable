@@ -1,21 +1,26 @@
-import { IScheduleResponse, IChangesResponse } from '../interfaces'
 import {
-  initMatrix,
+  IScheduleResponse,
+  IChangesResponse,
   fetchDataSource,
-  FullTimeable,
-  Timetable,
-  ISCOOL,
-} from '../utils'
+  IscoolDate,
+} from '@yanshoof/iscool'
+import { initMatrix, FullTimeable, ServerTimetable } from '../utils'
 import {
   AMI_ASSAF_SYMBOL,
   YUD_7_ID,
   SETTINGS,
   OSHRI_SETTINGS,
 } from '../utils/sample-constants'
+import axios from 'axios'
+import { IscoolSettings } from '../utils/settings/IscoolSettings'
+import { ILesson } from '@yanshoof/types'
+
+axios.defaults.adapter = require('axios/lib/adapters/http')
 
 describe('Test build schedule routine', () => {
   let scheduleResponse: IScheduleResponse
   let changesResponse: IChangesResponse
+  let lessons: ILesson[][]
 
   it('Initializes a matrix', () => {
     const result = initMatrix(5, 8)
@@ -33,10 +38,10 @@ describe('Test build schedule routine', () => {
   })
 
   it('Creates a weekly schedule from it', () => {
-    const schedule = new FullTimeable().fromIscool(scheduleResponse.Schedule)
+    const schedule = new FullTimeable().fromSchedule(scheduleResponse.Schedule)
     expect(schedule.lessons.length).toEqual(7)
-    expect(schedule.lessons[0][0][0].teacher).toBeDefined()
-    expect(schedule.lessons[0][0][0].subject).toBeDefined()
+    expect(schedule.lessons[0][1][0].teacher).toBeDefined()
+    expect(schedule.lessons[0][1][0].subject).toBeDefined()
   })
 
   it('Fetches changes from the server', async () => {
@@ -49,26 +54,28 @@ describe('Test build schedule routine', () => {
   })
 
   it('Creates an individual weekly schedule from it', () => {
-    const schedule = new Timetable(SETTINGS).fromIscool(
-      scheduleResponse.Schedule
-    )
-    expect(schedule.lessons[5][3]).toStrictEqual({})
-    expect(schedule.lessons[0][1].subject).toEqual(SETTINGS.studyGroups[0][0])
-    expect(schedule.lessons[1][4].subject).toEqual(SETTINGS.studyGroups[3][0])
-    schedule.applyChanges(changesResponse.Changes)
+    const settings = new IscoolSettings(SETTINGS)
+    const timetable = new ServerTimetable(settings)
+    timetable.fromSchedule(scheduleResponse.Schedule)
+    lessons = timetable.lessons
+    expect(timetable.lessons[5][3]).toStrictEqual({})
+    expect(timetable.lessons[0][1].subject).toEqual(SETTINGS.studyGroups[0][0])
+    expect(timetable.lessons[1][4].subject).toEqual(SETTINGS.studyGroups[3][0])
+    timetable.applyChanges(changesResponse.Changes)
     if (changesResponse.Changes.length) {
       const { Date, Hour } = changesResponse.Changes[0]
-      const day = ISCOOL.toDate(Date).getDay()
+      const day = new IscoolDate(Date).day
       expect(
-        schedule.lessons[day][Hour].changes ||
-          schedule.lessons[day][Hour].otherChanges
+        timetable.lessons[day][Hour].changes ||
+          timetable.lessons[day][Hour].otherChanges
       ).toBeDefined()
     }
-    console.log(JSON.stringify(schedule, null, 2))
+    console.log(JSON.stringify(timetable, null, 2))
   })
 
   it('Creates a different individual weekly schedule from it', () => {
-    const schedule = new Timetable(OSHRI_SETTINGS).fromIscool(
+    const settings = new IscoolSettings(OSHRI_SETTINGS)
+    const schedule = new ServerTimetable(settings).fromSchedule(
       scheduleResponse.Schedule
     )
     expect(schedule.lessons[5][3]).toStrictEqual({})

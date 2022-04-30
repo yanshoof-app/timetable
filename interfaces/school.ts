@@ -1,14 +1,8 @@
-/**
- * Represents a single search result
- */
-export interface ISchoolLookupResult {
-  name: string;
-  symbol: number;
-}
+import { ISchoolLookupResult } from '@yanshoof/types'
 
 /**
  * Represents a search result
  */
 export interface ISchoolLookup {
-  results: ISchoolLookupResult[];
+  results: ISchoolLookupResult[]
 }

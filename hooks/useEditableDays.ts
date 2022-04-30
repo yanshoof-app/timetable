@@ -6,7 +6,7 @@ import {
   IStudyGroup,
   LessonOrMultiple,
 } from '../interfaces'
-import { isPickableHour } from '../utils/timetable/pickableHour'
+import { isPickableHour } from '../utils/pickableHour'
 
 export type PickableLesson = {
   day: DayOfWeek

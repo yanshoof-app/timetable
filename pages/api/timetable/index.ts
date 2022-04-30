@@ -1,8 +1,12 @@
+import {
+  fetchDataSource,
+  IChangesResponse,
+  IScheduleResponse,
+} from '@yanshoof/iscool'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { IChangesResponse, IScheduleResponse } from '../../../interfaces'
-import { fetchDataSource, Timetable } from '../../../utils'
+import { ServerTimetable } from '../../../utils'
 import { QueryParamsSettings } from '../../../utils'
-import { InputError } from '../../../interfaces/errors'
+import { InputError } from '../../../utils/errors'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -10,21 +14,21 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const settings = new QueryParamsSettings(query)
     const schoolSymbol = query.school.toString()
     const classId = query.classId.toString()
-    const timetable = new Timetable(settings)
+    const timetable = new ServerTimetable(settings)
 
     const { Schedule } = await fetchDataSource<IScheduleResponse>(
       'schedule',
       schoolSymbol,
       classId
     )
-    timetable.fromIscool(Schedule)
+    timetable.fromSchedule(Schedule)
 
     const { Changes } = await fetchDataSource<IChangesResponse>(
       'changes',
       schoolSymbol,
       classId
     )
-    timetable.applyChanges(Changes)
+    timetable.applyIscoolChanges(Changes)
     res
       .status(200)
       .json(

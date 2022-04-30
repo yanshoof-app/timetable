@@ -36,7 +36,7 @@ export default function ChangesOfDay({
       {/* Changes */}
       <div className="flex flex-col gap-2 pr-2">
         {changesOfDay.map((hour, index) => (
-          <ChangesOfHour {...hour} key={index} />
+          <ChangesOfHour {...hour} key={`${dayOfWeek}:${index}`} />
         ))}
       </div>
     </div>
