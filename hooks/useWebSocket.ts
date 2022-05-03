@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 export type SessionConnectHandler = (ev: Event) => any
 export type SessionMessageHnalder = (ev: MessageEvent<any>) => any
@@ -7,7 +7,7 @@ export type SessionDisconnectHandler = (ev: Event) => any
 export type ConnectFN = (uri: string) => void
 export type SendMessageFN = <T extends object>(args: T) => void
 
-export type SessionHook = [ConnectFN, SendMessageFN, Function]
+export type SessionHook = [boolean, ConnectFN, SendMessageFN, Function]
 
 const useSocketEventHandler = (
   ws: WebSocket,
@@ -47,5 +47,10 @@ export default function useWebSocket(
     if (session.readyState === session.OPEN) session.close(1001)
   }, [session])
 
-  return [connect, sendMessage, close]
+  const isConnected = useMemo(
+    () => session && session.readyState === session.OPEN,
+    [session]
+  )
+
+  return [isConnected, connect, sendMessage, close]
 }
