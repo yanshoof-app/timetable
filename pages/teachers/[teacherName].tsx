@@ -34,12 +34,12 @@ const TeacherSchedule = () => {
         startIcon={BackRTL}
         onStartIconClick={() => router.back()}
       />
-      <div className="px-4 space-y-4">
+      <div className="px-4 space-y-4 pb-4">
         <DayPick day={day} onChange={updateDay} />
         <SearchingLessons {...status} isLoading={isLoading} />
         <Timetable
           timetable={lessons}
-          day={currentDay}
+          day={day}
           windowSkeleton={isLoading ? SkeletonLesson : null}
         />
       </div>
