@@ -22,8 +22,8 @@ const TeacherSchedule = () => {
   const { lessons, isLoading, ...status } = useTeacherSchedule(
     teacherName as string
   )
-  // const dayFilterer = useDayFilterer(lessons)
-  const { currentDay } = useCurrentDay()
+  const dayFilterer = useDayFilterer(lessons)
+  const { currentDay } = useCurrentDay(dayFilterer)
   const [day, updateDay] = useState(currentDay)
 
   return (
@@ -35,7 +35,7 @@ const TeacherSchedule = () => {
         onStartIconClick={() => router.back()}
       />
       <div className="px-4 space-y-4 pb-4">
-        <DayPick day={day} onChange={updateDay} />
+        <DayPick day={day} onChange={updateDay} dayFilterer={dayFilterer} />
         <SearchingLessons {...status} isLoading={isLoading} />
         <Timetable
           timetable={lessons}
