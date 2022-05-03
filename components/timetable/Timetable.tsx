@@ -78,7 +78,7 @@ export default function Timetable({
                 key={`${day}${hour}`}
               />
             ) : (
-              <WindowSkeleton />
+              <WindowSkeleton key={`${day}${hour}`} />
             ))
         )}
     </div>
