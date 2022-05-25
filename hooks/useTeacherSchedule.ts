@@ -50,7 +50,7 @@ export default function useTeacherSchedule(
       nextClass: () => {
         setClassesSearched((c) => ++c)
       },
-      done: () => {
+      success: () => {
         setLoading(false)
       },
       error: () => {
@@ -61,6 +61,7 @@ export default function useTeacherSchedule(
         setDelaying(true)
       },
       newLesson: ({ day, hour, lesson }: LessonEvent) => {
+        console.log(day, hour)
         setLessonsFound((c) => ++c)
         setLessons((prev) => {
           const updatedTimetable = [...prev]
