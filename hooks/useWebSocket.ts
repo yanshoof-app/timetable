@@ -44,13 +44,20 @@ export default function useWebSocket(
   }
 
   const close = useCallback(() => {
-    if (session.readyState === session.OPEN) session.close(1001)
+    if (session.readyState === session.OPEN) session.close(1000)
   }, [session])
 
   const isConnected = useMemo(
     () => session && session.readyState === session.OPEN,
     [session]
   )
+
+  useEffect(() => {
+    if (session)
+      return () => {
+        close()
+      }
+  }, [session, close])
 
   return [isConnected, connect, sendMessage, close]
 }
