@@ -1,5 +1,5 @@
 import RadioButton from '../../forms/RadioButton'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { ThemePreference } from '../../../contexts/Storage/types'
 
 interface option {
