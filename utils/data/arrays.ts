@@ -17,7 +17,7 @@ export function initMatrix<T>(
   for (let i = 0; i < dim1; i++) {
     result[i] = new Array<T>(dim2)
     for (let j = 0; j < dim2; j++) {
-      result[i][j] = defaultValue as T
+      result[i][j] = {...defaultValue} as T
     }
   }
   return result
