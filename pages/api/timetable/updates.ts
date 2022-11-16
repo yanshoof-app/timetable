@@ -34,7 +34,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     )
 
     // if new week or no study groups, create a new timetable and apply changes
-    if (lastUserUpdate < startOfWeek() || query.studyGroups === '' || true) {
+    if (lastUserUpdate < startOfWeek() || query.studyGroups === '') {
       const { Schedule } = await fetchDataSource<IScheduleResponse>(
         'schedule',
         schoolSymbol,
