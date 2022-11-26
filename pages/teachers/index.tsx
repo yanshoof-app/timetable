@@ -30,13 +30,7 @@ const TeacherLookup = () => {
           showHistory={showHistory}
           query={searchQuery}
           PATH={'/teachers'}
-          onListEnd={
-            <TeacherListLoading
-              showMore={showMore}
-              searchQuery={searchQuery}
-              {...status}
-            />
-          }
+          onListEnd={<></>}
         />
       </div>
       <Navbar />

@@ -24,26 +24,25 @@ export default function DayPick({
     onChange(value)
   }, [value, onChange])
 
-  const filteredDays = useMemo(
-    () => HEBREW_SHORT_DAYS.filter(dayFilterer),
-    [dayFilterer]
-  )
-
   return (
     <div className={`flex w-[full] justify-between items-center ${className}`}>
-      {filteredDays.map((day, index) => (
-        <Button
-          className={`${
-            value !== index && 'text-black dark:text-gray-300 bg-transparent'
-          } font-semibold`}
-          onClick={() => {
-            setValue(index as DayOfWeek)
-          }}
-          key={index}
-        >
-          {day}
-        </Button>
-      ))}
+      {HEBREW_SHORT_DAYS.map(
+        (day, index) =>
+          dayFilterer(day, index) && (
+            <Button
+              className={`${
+                value !== index &&
+                'text-black dark:text-gray-300 bg-transparent'
+              } font-semibold`}
+              onClick={() => {
+                setValue(index as DayOfWeek)
+              }}
+              key={index}
+            >
+              {day}
+            </Button>
+          )
+      )}
     </div>
   )
 }
