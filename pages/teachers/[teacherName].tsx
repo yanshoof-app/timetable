@@ -1,11 +1,8 @@
 import Layout from '../../components/Layout'
 import { useRouter } from 'next/router'
 import useTeacherSchedule from '../../hooks/useTeacherSchedule'
-import { useStorage } from '../../contexts/Storage'
 import Timetable from '../../components/timetable/Timetable'
-import TimetableSkeleton from '../../components/timetable/TimetableSkeleton'
-import { DayOfWeek, isAnyLessonObj, ITeacherLesson } from '../../interfaces'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import DayPick from '../../components/forms/DayPick'
 import PageTitle from '../../components/ui/PageTitle'
 import { BackRTL } from '../../components/icons'
@@ -22,8 +19,8 @@ const TeacherSchedule = () => {
   const { lessons, isLoading, ...status } = useTeacherSchedule(
     teacherName as string
   )
-  // const dayFilterer = useDayFilterer(lessons)
-  const { currentDay } = useCurrentDay()
+  const dayFilterer = useDayFilterer(lessons)
+  const { currentDay } = useCurrentDay(dayFilterer)
   const [day, updateDay] = useState(currentDay)
 
   return (
@@ -34,12 +31,12 @@ const TeacherSchedule = () => {
         startIcon={BackRTL}
         onStartIconClick={() => router.back()}
       />
-      <div className="px-4 space-y-4">
-        <DayPick day={day} onChange={updateDay} />
+      <div className="px-4 space-y-4 pb-4">
+        <DayPick day={day} onChange={updateDay} dayFilterer={dayFilterer} />
         <SearchingLessons {...status} isLoading={isLoading} />
         <Timetable
           timetable={lessons}
-          day={currentDay}
+          day={day}
           windowSkeleton={isLoading ? SkeletonLesson : null}
         />
       </div>
