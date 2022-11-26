@@ -45,7 +45,7 @@ export default function List({
             !(showHistory && [...teacherSearchHistory].includes(teacher))
         )
         .map((element, index) => (
-          <Link legacyBehavior href={`${PATH}/${element}`} key={index}>
+          <Link href={`${PATH}/${element}`} key={index}>
             <a
               onClick={() => {
                 if (query !== '')
