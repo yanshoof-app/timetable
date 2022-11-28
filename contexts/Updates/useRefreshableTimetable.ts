@@ -130,8 +130,8 @@ export function useRefreshableTimetable(): IRefreshableTimetable {
         const timetable = new ClientTimetable(
           prev,
           newChanges,
-          newEvents,
-          newOthersChanges
+          newOthersChanges,
+          newEvents
         )
         return timetable.lessons
       })
