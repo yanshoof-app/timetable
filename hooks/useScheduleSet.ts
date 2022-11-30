@@ -46,7 +46,7 @@ export default function useScheduleSet(): IScheduleSet {
         for (let h of hours) lessons[day][h] = lesson
         return lessons
       })
-      setLastUserUpdate(undefined)
+      setLastUserUpdate(new Date(0))
     },
     [setStudyGroupMap, setLessonMatrix, setLastUserUpdate, setProblems]
   )
