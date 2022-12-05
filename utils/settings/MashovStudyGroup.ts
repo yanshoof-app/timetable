@@ -34,12 +34,12 @@ export class MashovStudyGroupImporter {
   }
 
   public fromSchedule(schedule: ILessonArrMemberIscool[]) {
-    const studyGroups: [string, string][] = [] //[subject, teacher]
-    const studyGroupMap: Map<string, number> = new Map<string, number>() //['day,hour', sgIndex]
+    const studyGroups: [string, string][] = []
+    const studyGroupMap: Map<string, number> = new Map<string, number>()
 
     for (let lesson of schedule) {
       const day = lesson.Day
-      const hour = lesson.Hour // 0 hours are possible as well.
+      const hour = lesson.Hour
       const hourlyLessons = lesson.Lessons
 
       const selectedLesson = this.selectLesson(day, hour)
@@ -58,6 +58,10 @@ export class MashovStudyGroupImporter {
           }
         }
     }
-    return [studyGroups, studyGroupMap]
+
+    return {
+      overrideStudyGroups: studyGroups,
+      overrideStudyGroupMap: studyGroupMap,
+    }
   }
 }
