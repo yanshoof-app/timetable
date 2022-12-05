@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@yanshoof/iscool": "^1.3.2",
-    "@yanshoof/mashov": "^1.0.3",
+    "@yanshoof/mashov": "^1.0.9",
     "@yanshoof/settings": "^2.0.3",
     "@yanshoof/types": "^1.2.1",
     "axios": "^0.25.0",
