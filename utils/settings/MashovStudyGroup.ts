@@ -9,10 +9,10 @@ export class MashovStudyGroupImporter {
   constructor(timetable: IMashovLesson[], studyGroups: IMashovStudyGroup[]) {
     this.studyGroups = []
     this.studyGroupMap = new Map<string, number>()
+
     for (let sg of studyGroups) {
       this.studyGroups.push([sg.subjectName, sg.groupTeachers[0].teacherName])
     }
-
     for (let lesson of timetable) {
       const subject = lesson.groupDetails.subjectName
       const teacher = lesson.groupDetails.groupTeachers[0].teacherName
