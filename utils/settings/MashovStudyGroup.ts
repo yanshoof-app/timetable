@@ -61,7 +61,7 @@ export class MashovStudyGroupImporter {
 
     return {
       overrideStudyGroups: studyGroups,
-      overrideStudyGroupMap: studyGroupMap,
+      overrideStudyGroupMap: Array.from(studyGroupMap),
     }
   }
 }
