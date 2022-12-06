@@ -6,9 +6,12 @@ import {
   MashovLogin,
 } from '@yanshoof/mashov'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { FullTimeable } from '../../../../utils'
+import { ServerTimetable } from '../../../../utils'
 import { InputError } from '../../../../utils/errors'
-import { MashovStudyGroupImporter } from '../../../../utils/settings/MashovStudyGroup'
+import {
+  MashovSettings,
+  MashovStudyGroupImporter,
+} from '../../../../utils/settings/MashovStudyGroup'
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -27,22 +30,28 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     })
     const auth = { authCookie, studentId, xCsrfToken }
 
-    const timetable = await MashovFetchDataSource<IMashovLesson[]>(
+    const mashov_timetable = await MashovFetchDataSource<IMashovLesson[]>(
       'timetable',
       auth
     )
 
-    const studyGroups = await MashovFetchDataSource<IMashovStudyGroup[]>(
+    const groups = await MashovFetchDataSource<IMashovStudyGroup[]>(
       'groups',
       auth
     )
 
     const studyGroupImporter = new MashovStudyGroupImporter(
-      timetable,
-      studyGroups
+      mashov_timetable,
+      groups
     )
 
-    res.status(200).json(studyGroupImporter.fromSchedule(Schedule))
+    const { studyGroups, studyGroupMap } =
+      studyGroupImporter.fromSchedule(Schedule)
+    const settings = new MashovSettings(studyGroups, studyGroupMap, false)
+    const timetable = new ServerTimetable(settings)
+
+    timetable.fromSchedule(Schedule)
+    res.status(200).json(timetable.lessons)
   } catch (err: any) {
     res.status(500).json({
       statusCode: err.name == InputError.errorName ? 422 : 500,

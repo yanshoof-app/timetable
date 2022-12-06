@@ -1,5 +1,12 @@
-import { ILessonArrMemberIscool } from '@yanshoof/iscool'
+import {
+  fetchDataSource,
+  ILessonArrMemberIscool,
+  ILessonIscool,
+} from '@yanshoof/iscool'
 import { IMashovLesson, IMashovStudyGroup } from '@yanshoof/mashov'
+import { ProblemArray, Settings } from '@yanshoof/settings'
+import { DayOfWeek, HourOfDay, IStudyGroup } from '@yanshoof/types'
+import { ServerTimetable } from '..'
 import StudyGroup from '../../pages/settings/studyGroup/[groupId]'
 
 export class MashovStudyGroupImporter {
@@ -60,8 +67,47 @@ export class MashovStudyGroupImporter {
     }
 
     return {
-      overrideStudyGroups: studyGroups,
-      overrideStudyGroupMap: Array.from(studyGroupMap),
+      studyGroups,
+      studyGroupMap,
     }
+  }
+}
+
+export class MashovSettings extends Settings<ILessonIscool> {
+  private studyGroups: [string, string][]
+  private studyGroupMap: Map<string, number>
+  public problems: ProblemArray = []
+  public showOthersChanges: boolean = false
+  constructor(
+    studyGroups: [string, string][],
+    studyGroupMap: Map<string, number>,
+    showOtherChanges: boolean
+  ) {
+    super(showOtherChanges)
+    this.studyGroups = studyGroups
+    this.studyGroupMap = studyGroupMap
+  }
+
+  public hasSetting(
+    day: 0 | 1 | 2 | 3 | 4 | 5 | 6,
+    hour: 0 | 7 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 9 | 10 | 11 | 12
+  ): boolean {
+    return Boolean(this.studyGroups[this.studyGroupMap.get(`${day},${hour}`)])
+  }
+
+  protected getSetting(
+    day: 0 | 1 | 2 | 3 | 4 | 5 | 6,
+    hour: 0 | 7 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 9 | 10 | 11 | 12
+  ): IStudyGroup {
+    const [s, t] = this.studyGroups[this.studyGroupMap.get(`${day},${hour}`)]
+    return { subject: s, teacher: t }
+  }
+
+  protected mapLessonToStudyGroup(lesson: ILessonIscool): IStudyGroup {
+    return { subject: lesson.Subject, teacher: lesson.Teacher }
+  }
+
+  repair(): boolean {
+    return false //TODO: Fix
   }
 }
