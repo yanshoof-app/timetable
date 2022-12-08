@@ -9,7 +9,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
     const schoolSymbol = query.school as string
     const classLookup = await IscoolClassLookup.fromSchool(schoolSymbol)
 
-    res.status(200).json(<ClassesRequest>{
+    res.status(200).json({
       classes: classLookup.classIds,
       grades: classLookup.grades,
     })
