@@ -23,7 +23,7 @@ export default function List({
       {showHistory &&
         [...teacherSearchHistory].map((element, index) => (
           <div className="flex justify-between text-primary-500" key={index}>
-            <Link href={`${PATH}/${element}`}>{element}</Link>
+            <Link href={`${PATH}/${element}`} legacyBehavior>{element}</Link>
             <button
               className="font-semibold "
               onClick={() =>
@@ -45,19 +45,20 @@ export default function List({
             !(showHistory && [...teacherSearchHistory].includes(teacher))
         )
         .map((element, index) => (
-          <Link href={`${PATH}/${element}`} key={index}>
-            <a
-              onClick={() => {
-                if (query !== '')
-                  setTeacherSearchHistory((prev) => new Set(prev).add(element))
-              }}
-              className="dark:text-gray-300"
-            >
-              {element}
-            </a>
-          </Link>
+          (<Link
+            href={`${PATH}/${element}`}
+            key={index}
+            onClick={() => {
+              if (query !== '')
+                setTeacherSearchHistory((prev) => new Set(prev).add(element))
+            }}
+            className="dark:text-gray-300">
+
+            {element}
+
+          </Link>)
         ))}
       {ListEnd}
     </div>
-  )
+  );
 }

@@ -21,7 +21,7 @@ export default function NavLink({
   const router = useRouter()
   const active = useMemo(() => router.pathname == to, [router.pathname, to])
   return (
-    <Link href={to} passHref>
+    <Link href={to} passHref legacyBehavior>
       <div
         className={`flex flex-col items-center justify-center cursor-pointer ${
           active ? 'text-primary-500' : 'text-gray-600 dark:text-gray-300'
@@ -36,5 +36,5 @@ export default function NavLink({
         <span className="text-sm font-semibold">{label}</span>
       </div>
     </Link>
-  )
+  );
 }
