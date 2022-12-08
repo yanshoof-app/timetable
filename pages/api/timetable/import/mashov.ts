@@ -8,8 +8,8 @@ import {
 import { NextApiRequest, NextApiResponse } from 'next'
 import { ServerTimetable } from '../../../../utils'
 import { InputError } from '../../../../utils/errors'
+import { IscoolSettings } from '../../../../utils/settings/IscoolSettings'
 import {
-  MashovSettings,
   MashovStudyGroupImporter,
 } from '../../../../utils/settings/MashovStudyGroup'
 
@@ -47,7 +47,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     const { studyGroups, studyGroupMap } =
       studyGroupImporter.fromSchedule(Schedule)
-    const settings = new MashovSettings(studyGroups, studyGroupMap, false)
+    const settings = new IscoolSettings({ studyGroups, studyGroupMap, showOthersChanges: true });
     const timetable = new ServerTimetable(settings)
 
     timetable.fromSchedule(Schedule)
