@@ -31,4 +31,18 @@ export const setClass = (classId: string, grade: number, classNum: number) => {
     }
 }
 
+export const setTheme = (theme: 'dark' | 'system' | 'light') => {
+    state.prefrences.theme = theme;
+}
+
+export const setShowOtherChanges = (setting: boolean) => {
+    state.prefrences.showOtherChanges = setting;
+}
+
+export const setSettings = (studyGroups: string[], sgMap: [string, number][]) => {
+    state.settings.studyGroups = studyGroups;
+    state.settings.studyGroupMap = sgMap;
+    resetTimetableState();
+}
+
 
