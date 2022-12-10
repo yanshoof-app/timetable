@@ -1,10 +1,10 @@
 import proxyWithPersist, { PersistStrategy } from "valtio-persist";
 import { localStoragePersist } from "./presist";
-import { classStateProxy } from "./state/class";
-import { prefrenceStateProxy } from "./state/prefrences";
-import { schoolStateProxy } from "./state/school";
-import { settingsStateProxy } from "./state/settings";
-import { timetableStateProxy } from "./state/timetable";
+import { classStateProxy } from "./persisted/class";
+import { prefrenceStateProxy } from "./persisted/prefrences";
+import { schoolStateProxy } from "./persisted/school";
+import { settingsStateProxy } from "./persisted/settings";
+import { timetableStateProxy } from "./persisted/timetable";
 
 export const state = proxyWithPersist({
     name: "appState",
