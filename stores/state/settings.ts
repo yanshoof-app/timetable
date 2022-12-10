@@ -10,3 +10,8 @@ export const settingsStateProxy = proxy({
     studyGroups: [],
     studyGroupMap: proxyMap([])
 } as ISettingsState)
+
+export function resetSettings() {
+    settingsStateProxy.studyGroupMap.clear();
+    settingsStateProxy.studyGroups = []
+}

@@ -1,6 +1,6 @@
 import proxyWithPersist, { PersistStrategy } from "valtio-persist";
 import { localStoragePersist } from "./presist";
-import { gradeStateProxy } from "./state/grade";
+import { classStateProxy } from "./state/class";
 import { prefrenceStateProxy } from "./state/prefrences";
 import { schoolStateProxy } from "./state/school";
 import { settingsStateProxy } from "./state/settings";
@@ -10,11 +10,11 @@ export const state = proxyWithPersist({
     name: "appState",
   
     initialState: {
-      schoolStateProxy,
-      gradeStateProxy,
-      prefrenceStateProxy,
-      settingsStateProxy,
-      timetableStateProxy
+      school: schoolStateProxy,
+      class: classStateProxy,
+      prefrences: prefrenceStateProxy,
+      settings: settingsStateProxy,
+      timetable: timetableStateProxy
     },
   
     persistStrategies: PersistStrategy.MultiFile, // each Thing is it's own file on disk.

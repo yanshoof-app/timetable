@@ -1,10 +1,15 @@
-/*
+import { state } from ".";
+import { resetClassState } from "./state/class";
+import { resetSettings } from "./state/settings";
+import { resetTimetableState } from "./state/timetable";
 
-const setSchool = (symbol: string | number, name: string) => {
-    schoolStateProxy.schoolName = name;
-    schoolStateProxy.schoolSymbol = symbol;
-    reset class settings
+export const setSchool = (symbol: string | number, name: string) => {
+    if (state.school.schoolSymbol != symbol) {
+        state.school.schoolSymbol = symbol;
+        state.school.schoolName = name;
+        resetClassState();
+        resetSettings();
+        resetTimetableState();
+    }
 }
-*/
 
-export const actions = {  };
