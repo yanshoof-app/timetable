@@ -1,7 +1,7 @@
 import { state } from ".";
-import { resetClassState } from "./persisted/class";
-import { resetSettings } from "./persisted/settings";
-import { resetTimetableState } from "./persisted/timetable";
+import { resetClassState } from "./state/class";
+import { resetSettings } from "./state/settings";
+import { resetTimetableState } from "./state/timetable";
 
 export const setSchool = (symbol: string | number, name: string) => {
     if (state.school.schoolSymbol !== symbol) {
