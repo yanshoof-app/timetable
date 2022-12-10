@@ -1,17 +1,16 @@
 import { proxy } from "valtio"
-import { proxyMap } from "valtio/utils"
 
 export interface ISettingsState {
     studyGroups: string[],
-    studyGroupMap: Map<string, number>
+    studyGroupMap: [string, number][]
 }
 
 export const settingsStateProxy = proxy({
     studyGroups: [],
-    studyGroupMap: proxyMap([])
+    studyGroupMap: [],
 } as ISettingsState)
 
 export function resetSettings() {
-    settingsStateProxy.studyGroupMap.clear();
+    settingsStateProxy.studyGroupMap = [];
     settingsStateProxy.studyGroups = []
 }
