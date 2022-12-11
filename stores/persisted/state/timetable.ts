@@ -4,7 +4,7 @@ import { initMatrix } from "../../../utils"
 
 export interface ITimetableState {
     lessons: ILesson[][],
-    lastUpdateTime?: Date
+    lastUpdateTime?: Date,
 }
 
 const initialState: ITimetableState = {
