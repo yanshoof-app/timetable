@@ -1,5 +1,6 @@
 import { state } from ".";
 import { ILesson, IScheduleSettings, ITimetableUpdates } from "../../interfaces";
+import { resetUpdaterState } from "../updater";
 import { resetClassState } from "./state/class";
 import { resetSettings } from "./state/settings";
 import { resetTimetableState } from "./state/timetable";
@@ -11,6 +12,7 @@ export const setSchool = (symbol: string | number, name: string) => {
         resetClassState();
         resetSettings();
         resetTimetableState();
+        resetUpdaterState();
     }
 }
 
@@ -29,6 +31,7 @@ export const setClass = (classId: string, grade: number, classNum: number) => {
         state.class.classNum = classNum;
         resetSettings();
         resetTimetableState();
+        resetUpdaterState();
     }
 }
 
@@ -44,6 +47,7 @@ export const setSettings = (studyGroups: [string, string][], sgMap: [string, num
     state.settings.studyGroups = studyGroups;
     state.settings.studyGroupMap = sgMap;
     resetTimetableState();
+    resetUpdaterState();
 }
 
 export const setTimetable = (timetable: ILesson[][]) => {
