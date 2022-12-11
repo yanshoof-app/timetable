@@ -1,4 +1,5 @@
 import { state } from ".";
+import { ILesson, IScheduleSettings, ITimetableUpdates } from "../../interfaces";
 import { resetClassState } from "./state/class";
 import { resetSettings } from "./state/settings";
 import { resetTimetableState } from "./state/timetable";
@@ -39,10 +40,13 @@ export const setShowOtherChanges = (setting: boolean) => {
     state.prefrences.showOtherChanges = setting;
 }
 
-export const setSettings = (studyGroups: string[], sgMap: [string, number][]) => {
+export const setSettings = (studyGroups: [string, string][], sgMap: [string, number][]) => {
     state.settings.studyGroups = studyGroups;
     state.settings.studyGroupMap = sgMap;
     resetTimetableState();
 }
 
-
+export const setTimetable = (timetable: ILesson[][]) => {
+    state.timetable.lastUpdateTime = new Date();
+    state.timetable.lessons = timetable;
+}
