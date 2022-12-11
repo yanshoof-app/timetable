@@ -16,16 +16,7 @@ export const timetableStateProxy = proxy({
     ...initialState
 })
 
-type InitialStateType = Partial<ITimetableState>
 export const resetTimetableState = () => {
-    const objToReset = timetableStateProxy as InitialStateType;
-    let key: keyof InitialStateType;
-  
-    for (key in objToReset) {
-      delete objToReset[key];
-    }
-  
-    for (key in initialState) {
-      objToReset[key] = initialState[key] as never;
-    }
+    timetableStateProxy.lastUpdateTime = undefined;
+    timetableStateProxy.lessons = initMatrix(DAYS_IN_WEEK, HOURS_OF_DAY);
   };
