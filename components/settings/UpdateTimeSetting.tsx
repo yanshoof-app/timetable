@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react'
-import { HOURS } from '../../pages/settings'
+import { HOURS } from '../../temp/settings'
 import Button from '../forms/Button'
 import DropdownPick from '../forms/DropdownPick'
 import { SettingsComponent } from './types'

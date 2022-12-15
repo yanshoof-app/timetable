@@ -8,7 +8,7 @@ import { IMashovLesson, IMashovStudyGroup } from '@yanshoof/mashov'
 import { ProblemArray, Settings } from '@yanshoof/settings'
 import { DayOfWeek, HourOfDay, IStudyGroup } from '@yanshoof/types'
 import { ServerTimetable } from '..'
-import StudyGroup from '../../pages/settings/studyGroup/[groupId]'
+import StudyGroup from '../../temp/settings/studyGroup/[groupId]'
 import { IscoolSettings } from './IscoolSettings'
 
 export class MashovStudyGroupImporter {
